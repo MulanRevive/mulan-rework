@@ -37,6 +37,8 @@ from rply.token import BaseBox
     ]
 )
 
+# ast 参考: https://docs.python.org/3/library/ast.html#abstract-grammar
+
 @分析器母机.production('表达式 : 数')
 def 数表达式(片段):
     # 匹配规则右部的片段列表
