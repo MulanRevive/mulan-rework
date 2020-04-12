@@ -1,4 +1,5 @@
 import ast
+import python
 from rply import ParserGenerator
 
 ### 分词器部分
@@ -86,6 +87,9 @@ with open(源码文件, 'r') as f:
     源码 = f.read()
 
 节点 = 分析器.parse(分词器.lex(源码))
+
+print(python.dump(节点))
+
 code = compile(节点, 源码文件, 'exec')
 
 exec(code, {}) # 'print': print
