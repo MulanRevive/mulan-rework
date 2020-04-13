@@ -11,6 +11,7 @@ with open(源码文件, 'r') as f:
 
 print(python.dump(节点))
 
-code = compile(节点, 源码文件, 'exec')
+# 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
+可执行码 = compile(节点, 源码文件, 'exec')
 
-exec(code, {})
+exec(可执行码, {})
