@@ -10,10 +10,6 @@ from rply import LexerGenerator
 
 分词器 = 分词器母机.build()
 
-### 语法树部分
-
-from rply.token import BaseBox
-
 ### 语法分析器部分
 
 分析器母机 = ParserGenerator(
