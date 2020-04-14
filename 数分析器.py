@@ -6,7 +6,8 @@ from rply import LexerGenerator
 
 分词器母机 = LexerGenerator()
 
-分词器母机.add('数', r'\d+')
+分词器母机.add('整数', r'\d+')
+分词器母机.add('加', '\\+')
 
 分词器 = 分词器母机.build()
 
@@ -14,17 +15,40 @@ from rply import LexerGenerator
 
 分析器母机 = ParserGenerator(
     # 所有词名
-    ['数']
+    [
+        '整数',
+        '加'
+    ]
 )
 
 # ast 参考: https://docs.python.org/3.7/library/ast.html#abstract-grammar
 
-@分析器母机.production('表达式 : 数')
-def 数表达式(片段):
-    数值 = int(片段[0].getstr(), 0)
-    数 = 语法树.数(数值, 行号=0, 列号=0)
-    表达式 = 语法树.表达式(值 = 数, 行号=0, 列号=0)
+@分析器母机.production('模块 : 表达式')
+def 模块(片段):
+    表达式 = 语法树.表达式(值 = 片段[0], 行号=0, 列号=0)
     return 语法树.模块(主体=[表达式], 忽略类型=[])
+
+@分析器母机.production('表达式 : 二元表达式')
+@分析器母机.production('表达式 : 数')
+def 表达式(片段):
+    return 片段[0]
+
+@分析器母机.production('数 : 整数')
+def 数(片段):
+    数值 = int(片段[0].getstr(), 0)
+    return 语法树.数(数值, 行号=0, 列号=0)
+
+@分析器母机.production('二元表达式 : 表达式 加 表达式')
+def 二元表达式(片段):
+    左 = 片段[0]
+    右 = 片段[2]
+    运算符 = 片段[1].getstr()
+    python运算 = 运算符
+    if 运算符 == '+':
+        python运算 = ast.Add()
+    else:
+        breakpoint()
+    return 语法树.二元运算(左, python运算, 右, 行号=0, 列号=0)
 
 分析器 = 分析器母机.build()
 
@@ -40,3 +64,7 @@ class 语法树:
     @staticmethod
     def 数(值, 行号, 列号):
         return ast.Num(value = 值, lineno = 行号, col_offset = 列号)
+
+    @staticmethod
+    def 二元运算(左, 运算符, 右, 行号, 列号):
+        return ast.BinOp(左, 运算符, 右, lineno = 行号, col_offset = 列号)
