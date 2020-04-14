@@ -18,6 +18,9 @@ from rply import LexerGenerator
     [
         '整数',
         '加'
+    ],
+    precedence=[
+        ('left', ['加']),
     ]
 )
 
