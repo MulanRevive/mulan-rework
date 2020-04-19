@@ -1,19 +1,19 @@
 import sys
 
-def create_globals():
+def 创建全局变量():
 
-    def local_str(x):
+    def 转字符串(x):
         return str(x)
 
-    def local_print(*objs, sep=' ', end='', file=sys.stdout, flush=False):
-        """Prints thy values to a stream, or to stdout by default."""
-        for obj in objs:
-            file.write(local_str(obj))
-            if obj != objs[(-1)]:
-                file.write(sep)
+    def 自定义输出(*各物件, 分隔符=' ', 终止符='', 文件=sys.stdout, flush=False):
+        """打印内容到流, 默认到标准输出."""
+        for 物件 in 各物件:
+            文件.write(转字符串(物件))
+            if 物件 != 各物件[(-1)]:
+                文件.write(分隔符)
 
-        file.write(end)
+        文件.write(终止符)
         if flush:
-            file.flush()
+            文件.flush()
 
-    return {'print':local_print}
+    return {'print': 自定义输出}

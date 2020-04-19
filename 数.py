@@ -1,6 +1,6 @@
 import ast, python
 from 数分析器 import 分析器, 分词器
-from 环境 import create_globals
+from 环境 import 创建全局变量
 
 源码文件 = '数.mulan'
 with open(源码文件, 'r') as f:
@@ -16,6 +16,6 @@ with open(源码文件, 'r') as f:
 # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
 可执行码 = compile(节点, 源码文件, 'exec')
 
-环境变量 = create_globals()
+环境变量 = 创建全局变量()
 
 exec(可执行码, 环境变量)
