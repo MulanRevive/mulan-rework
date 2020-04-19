@@ -8,6 +8,9 @@ from rply import LexerGenerator
 
 分词器母机.add('整数', r'\d+')
 分词器母机.add('加', '\\+')
+分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
+分词器母机.add('(', '\\(')
+分词器母机.add(')', '\\)')
 
 分词器 = 分词器母机.build()
 
@@ -17,7 +20,10 @@ from rply import LexerGenerator
     # 所有词名
     [
         '整数',
-        '加'
+        '加',
+        '标识符',
+        '(',
+        ')'
     ],
     precedence=[
         ('left', ['加']),
@@ -33,6 +39,7 @@ def 模块(片段):
 
 @分析器母机.production('表达式 : 二元表达式')
 @分析器母机.production('表达式 : 数')
+@分析器母机.production('表达式 : 调用')
 def 表达式(片段):
     return 片段[0]
 
@@ -52,6 +59,47 @@ def 二元表达式(片段):
     else:
         breakpoint()
     return 语法树.二元运算(左, python运算, 右, 行号=0, 列号=0)
+
+@分析器母机.production('调用 : 变量 参数部分')
+def 调用(片段):
+    各参数 = []
+    for 值, 键 in 片段[1]:
+        if 键 is None:
+            各参数.append(值)
+
+    return ast.Call(func=(片段[0]),
+          args=各参数,
+          keywords=[],
+          starargs=None,
+          kwargs=None,
+          lineno=0,
+          col_offset=0)
+
+@分析器母机.production('参数部分 : ( 各参数 )')
+def 参数部分(片段):
+    if len(片段) != 3:
+        return []
+    return 片段[1]
+
+@分析器母机.production('各参数 : 参数')
+def 各参数(片段):
+    return [片段[0]]
+
+@分析器母机.production('变量 : 名称')
+def 变量(片段):
+    return 片段[0]
+
+@分析器母机.production('名称 : 标识符')
+def 标识符(片段):
+    标识 = 片段[0].getstr()
+    return ast.Name(id=标识,
+        ctx=(ast.Load()),
+        lineno=0,
+        col_offset=0)
+
+@分析器母机.production('参数 : 表达式')
+def 参数(片段):
+    return (片段[0], None)
 
 分析器 = 分析器母机.build()
 
