@@ -1,9 +1,17 @@
+#!/usr/bin/env python3
+
 import subprocess
 
 路径 = '测试/'
 # 不确定为何输出是bytes：https://stackoverflow.com/questions/6269765/what-does-the-b-character-do-in-front-of-a-string-literal
 期望值 = {
-    "加.mulan": b'6'
+    "加.ul": b'5',
+    "减.ul": b"1",
+    #"乘.ul": b"6",
+    #"除整.ul": b"2",
+    #"除留整.ul": b"10",
+    #"加小数.ul": b"5.0",
+    #"除小数.ul": b"2.0",
 }
 
 # 多进程参考：https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/
