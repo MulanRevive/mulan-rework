@@ -1,4 +1,10 @@
-import sys
+import math, sys
+
+def __builtin_div(a, b):
+    if isinstance(a, int):
+        if isinstance(b, int):
+            return math.floor(a / b)
+    return a / b
 
 def 创建全局变量():
 
@@ -16,4 +22,7 @@ def 创建全局变量():
         if flush:
             文件.flush()
 
-    return {'print': 自定义输出}
+    return {
+        'print': 自定义输出,
+        '__div__': __builtin_div
+    }

@@ -10,6 +10,7 @@ from rply import LexerGenerator
 分词器母机.add('加', '\\+')
 分词器母机.add('減', '-')
 分词器母机.add('乘', '\\*')
+分词器母机.add('除', '/')
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
@@ -25,13 +26,14 @@ from rply import LexerGenerator
         '加',
         '減',
         '乘',
+        '除',
         '标识符',
         '(',
         ')'
     ],
     precedence=[
         ('left', ['加', '減']),
-        ('left', ['乘']),
+        ('left', ['乘', '除']),
     ]
 )
 
@@ -70,6 +72,20 @@ def 二元表达式(片段):
     else:
         breakpoint()
     return 语法树.二元运算(左, python运算, 右, 行号=0, 列号=0)
+
+@分析器母机.production('二元表达式 : 表达式 除 表达式')
+def 除法(片段):
+    return ast.Call(
+        func=ast.Name(id='__div__',
+            ctx=(ast.Load()),
+            starargs=None,
+            kwargs=None,
+            lineno=0,
+            col_offset=0),
+        args=[片段[0], 片段[2]],
+        keywords=[],
+        lineno=0,
+        col_offset=0)
 
 @分析器母机.production('调用 : 变量 参数部分')
 def 调用(片段):
