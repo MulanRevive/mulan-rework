@@ -9,6 +9,7 @@ from rply import LexerGenerator
 分词器母机.add('整数', r'\d+')
 分词器母机.add('加', '\\+')
 分词器母机.add('減', '-')
+分词器母机.add('乘', '\\*')
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
@@ -23,12 +24,14 @@ from rply import LexerGenerator
         '整数',
         '加',
         '減',
+        '乘',
         '标识符',
         '(',
         ')'
     ],
     precedence=[
         ('left', ['加', '減']),
+        ('left', ['乘']),
     ]
 )
 
@@ -52,6 +55,7 @@ def 数(片段):
 
 @分析器母机.production('二元表达式 : 表达式 加 表达式')
 @分析器母机.production('二元表达式 : 表达式 減 表达式')
+@分析器母机.production('二元表达式 : 表达式 乘 表达式')
 def 二元表达式(片段):
     左 = 片段[0]
     右 = 片段[2]
@@ -61,6 +65,8 @@ def 二元表达式(片段):
         python运算 = ast.Add()
     elif 运算符 == '-':
         python运算 = ast.Sub()
+    elif 运算符 == '*':
+        python运算 = ast.Mult()
     else:
         breakpoint()
     return 语法树.二元运算(左, python运算, 右, 行号=0, 列号=0)
