@@ -1,8 +1,11 @@
+#!/usr/bin/env python3
+
+import sys
 import ast, python
 from 数分析器 import 分析器, 分词器
 from 环境 import 创建全局变量
 
-源码文件 = '数.mulan'
+源码文件 = sys.argv[1]
 with open(源码文件, 'r') as f:
     源码 = f.read()
 
