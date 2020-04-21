@@ -75,16 +75,15 @@ def 二元表达式(片段):
 
 @分析器母机.production('二元表达式 : 表达式 除 表达式')
 def 除法(片段):
-    return ast.Call(
-        func=语法树.名称(
-            标识='__div__',
+    return 语法树.调用(
+        函数=语法树.名称(
+            标识='__除__',
             上下文=(ast.Load()),
             行号=0,
             列号=0),
-        args=[片段[0], 片段[2]],
-        keywords=[],
-        lineno=0,
-        col_offset=0)
+        参数=[片段[0], 片段[2]],
+        行号=0,
+        列号=0)
 
 @分析器母机.production('调用 : 变量 参数部分')
 def 调用(片段):
@@ -93,13 +92,11 @@ def 调用(片段):
         if 键 is None:
             各参数.append(值)
 
-    return ast.Call(func=(片段[0]),
-          args=各参数,
-          keywords=[],
-          starargs=None,
-          kwargs=None,
-          lineno=0,
-          col_offset=0)
+    return 语法树.调用(
+            片段[0],
+            参数=各参数,
+            行号=0,
+            列号=0)
 
 @分析器母机.production('参数部分 : ( 各参数 )')
 def 参数部分(片段):
@@ -150,3 +147,7 @@ class 语法树:
     @staticmethod
     def 名称(标识, 上下文, 行号, 列号):
         return ast.Name(id=标识, ctx=上下文, lineno=行号, col_offset=列号)
+
+    @staticmethod
+    def 调用(函数, 参数, 行号, 列号):
+        return ast.Call(func=函数, args=参数, keywords=[], lineno=行号, col_offset=列号)

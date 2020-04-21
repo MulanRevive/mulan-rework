@@ -1,6 +1,6 @@
 import math, sys
 
-def __builtin_div(a, b):
+def __内置_除(a, b):
     if isinstance(a, int):
         if isinstance(b, int):
             return math.floor(a / b)
@@ -24,5 +24,5 @@ def 创建全局变量():
 
     return {
         'print': 自定义输出,
-        '__div__': __builtin_div
+        '__除__': __内置_除
     }
