@@ -150,4 +150,4 @@ class 语法树:
 
     @staticmethod
     def 调用(函数, 参数, 行号, 列号):
-        return ast.Call(func=函数, args=参数, keywords=[], lineno=行号, col_offset=列号)
+        return ast.Call(func=函数, args=参数, keywords=[], starargs=None, kwargs=None, lineno=行号, col_offset=列号)
