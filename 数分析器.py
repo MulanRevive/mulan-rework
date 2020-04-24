@@ -138,7 +138,7 @@ class 语法树:
 
     @staticmethod
     def 数(值, 行号, 列号):
-        return ast.Num(value = 值, lineno = 行号, col_offset = 列号)
+        return ast.Num(值, lineno = 行号, col_offset = 列号)
 
     @staticmethod
     def 二元运算(左, 运算符, 右, 行号, 列号):
