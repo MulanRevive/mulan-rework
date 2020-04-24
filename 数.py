@@ -2,7 +2,7 @@
 
 import sys
 import ast, python
-from 数分析器 import 分析器, 分词器
+from 数分析器 import 语法分析器, 分词器
 from 环境 import 创建全局变量
 
 源码文件 = sys.argv[1]
@@ -11,6 +11,7 @@ with open(源码文件, 'r') as f:
 
 各词 = 分词器.lex(源码)
 
+分析器 = 语法分析器().创建()
 节点 = 分析器.parse(各词)
 
 #print(python.dump(节点))
