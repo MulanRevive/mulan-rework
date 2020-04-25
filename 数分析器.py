@@ -1,4 +1,5 @@
 import ast
+from rply import Token
 from rply import ParserGenerator
 
 ### 分词器部分
@@ -20,6 +21,16 @@ from rply import LexerGenerator
 
 ### 语法分析器部分
 class 语法分析器:
+
+    def 取源码位置(片段):
+        if isinstance(片段, Token):
+            return 片段.getsourcepos()
+
+    def 取行号(片段):
+        try:
+            return 语法分析器.取源码位置(片段).lineno
+        except:
+            return 0
 
     分析器母机 = ParserGenerator(
         # 所有词名
@@ -68,7 +79,7 @@ class 语法分析器:
     @分析器母机.production('数 : 整数')
     def 数(片段):
         数值 = int(片段[0].getstr(), 0)
-        return 语法树.数(数值, 行号=0, 列号=0)
+        return 语法树.数(数值, 行号=语法分析器.取行号(片段[0]), 列号=0)
 
     @分析器母机.production('二元表达式 : 表达式 加 表达式')
     @分析器母机.production('二元表达式 : 表达式 減 表达式')
