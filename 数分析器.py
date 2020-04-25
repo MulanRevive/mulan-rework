@@ -14,6 +14,7 @@ from rply import LexerGenerator
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
+分词器母机.add('换行', '\n')
 
 分词器 = 分词器母机.build()
 
@@ -30,7 +31,8 @@ class 语法分析器:
             '除',
             '标识符',
             '(',
-            ')'
+            ')',
+            '换行',
         ],
         precedence=[
             ('left', ['加', '減']),
@@ -40,10 +42,22 @@ class 语法分析器:
 
     # ast 参考: https://docs.python.org/3.7/library/ast.html#abstract-grammar
 
-    @分析器母机.production('模块 : 表达式')
+    @分析器母机.production('模块 : 声明列表')
     def 模块(片段):
-        表达式 = 语法树.表达式(值 = 片段[0], 行号=0, 列号=0)
-        return 语法树.模块(主体=[表达式], 忽略类型=[])
+        return 语法树.模块(主体=片段[0], 忽略类型=[])
+
+    @分析器母机.production('声明列表 : 表达式声明')
+    @分析器母机.production('声明列表 : 声明列表 换行 表达式声明')
+    def 声明列表(片段):
+        #print('声明列表')
+        if len(片段) == 1:
+            return [片段[0]]
+        片段[0].append(片段[(-1)])
+        return 片段[0]
+
+    @分析器母机.production('表达式声明 : 表达式')
+    def 表达式声明(片段):
+        return 语法树.表达式(值 = 片段[0], 行号=0, 列号=0)
 
     @分析器母机.production('表达式 : 二元表达式')
     @分析器母机.production('表达式 : 数')
