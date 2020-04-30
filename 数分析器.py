@@ -32,6 +32,12 @@ class 语法分析器:
         except:
             return 0
 
+    def 取列号(片段):
+        try:
+            return 语法分析器.取源码位置(片段).colno
+        except:
+            return 0
+
     分析器母机 = ParserGenerator(
         # 所有词名
         [
@@ -79,7 +85,7 @@ class 语法分析器:
     @分析器母机.production('数 : 整数')
     def 数(片段):
         数值 = int(片段[0].getstr(), 0)
-        return 语法树.数(数值, 行号=语法分析器.取行号(片段[0]), 列号=0)
+        return 语法树.数(数值, 片段[0])
 
     @分析器母机.production('二元表达式 : 表达式 加 表达式')
     @分析器母机.production('二元表达式 : 表达式 減 表达式')
@@ -105,8 +111,7 @@ class 语法分析器:
             函数=语法树.名称(
                 标识='__除__',
                 上下文=(ast.Load()),
-                行号=0,
-                列号=0),
+                词=片段[1]),
             参数=[片段[0], 片段[2]],
             行号=0,
             列号=0)
@@ -144,8 +149,7 @@ class 语法分析器:
         return 语法树.名称(
             标识=标识,
             上下文=(ast.Load()),
-            行号=0,
-            列号=0)
+            词=片段[0])
 
     @分析器母机.production('参数 : 表达式')
     def 参数(片段):
@@ -166,16 +170,16 @@ class 语法树:
         return ast.Expr(value = 值, lineno = 行号, col_offset = 列号)
 
     @staticmethod
-    def 数(值, 行号, 列号):
-        return ast.Num(值, lineno = 行号, col_offset = 列号)
+    def 数(值, 词):
+        return ast.Num(值, lineno = 语法分析器.取行号(词), col_offset = 语法分析器.取列号(词))
 
     @staticmethod
     def 二元运算(左, 运算符, 右, 行号, 列号):
         return ast.BinOp(左, 运算符, 右, lineno = 行号, col_offset = 列号)
 
     @staticmethod
-    def 名称(标识, 上下文, 行号, 列号):
-        return ast.Name(id=标识, ctx=上下文, lineno=行号, col_offset=列号)
+    def 名称(标识, 上下文, 词):
+        return ast.Name(id=标识, ctx=上下文, lineno=语法分析器.取行号(词), col_offset = 语法分析器.取列号(词))
 
     @staticmethod
     def 调用(函数, 参数, 行号, 列号):
