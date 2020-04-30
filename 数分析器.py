@@ -1,4 +1,5 @@
 import ast
+from rply.token import SourcePosition
 from rply import Token
 from rply import ParserGenerator
 
@@ -22,9 +23,21 @@ from rply import LexerGenerator
 ### 语法分析器部分
 class 语法分析器:
 
+    '''
+    不同于 python3 的语法树中, col_offset 是从 0 开始:
+    >>> ast.dump(ast.parse("2+3"), True, True)
+    'Module(body=[Expr(value=BinOp(left=Num(n=2, lineno=1, col_offset=0), op=Add(), right=Num(n=3, lineno=1, col_offset=2), lineno=1, col_offset=0), lineno=1, col_offset=0)])'
+    '''
     def 取源码位置(片段):
+        if isinstance(片段, list):
+            if len(片段) > 0:
+                片段 = 片段[0]
         if isinstance(片段, Token):
             return 片段.getsourcepos()
+        # Constant 也是 ast.expr
+        if isinstance(片段, ast.stmt) or isinstance(片段, ast.expr):
+            return SourcePosition(0, 片段.lineno, 片段.col_offset)
+        return SourcePosition(0, 0, 0)
 
     def 取行号(片段):
         try:
@@ -85,7 +98,7 @@ class 语法分析器:
     @分析器母机.production('数 : 整数')
     def 数(片段):
         数值 = int(片段[0].getstr(), 0)
-        return 语法树.数(数值, 片段[0])
+        return 语法树.数(数值, 片段)
 
     @分析器母机.production('二元表达式 : 表达式 加 表达式')
     @分析器母机.production('二元表达式 : 表达式 減 表达式')
@@ -103,7 +116,7 @@ class 语法分析器:
             python运算 = ast.Mult()
         else:
             breakpoint()
-        return 语法树.二元运算(左, python运算, 右, 行号=0, 列号=0)
+        return 语法树.二元运算(左, python运算, 右, 片段)
 
     @分析器母机.production('二元表达式 : 表达式 除 表达式')
     def 除法(片段):
@@ -174,8 +187,8 @@ class 语法树:
         return ast.Num(值, lineno = 语法分析器.取行号(词), col_offset = 语法分析器.取列号(词))
 
     @staticmethod
-    def 二元运算(左, 运算符, 右, 行号, 列号):
-        return ast.BinOp(左, 运算符, 右, lineno = 行号, col_offset = 列号)
+    def 二元运算(左, 运算符, 右, 片段):
+        return ast.BinOp(左, 运算符, 右, lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
 
     @staticmethod
     def 名称(标识, 上下文, 词):
