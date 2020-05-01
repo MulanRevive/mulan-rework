@@ -7,6 +7,9 @@ class test语法树(unittest.TestCase):
     def test_行列号(self):
         节点 = self.生成语法树("2")
         expr节点 = self.取子节点(节点, "body", 0)  # module 节点下可有多个节点
+        self.assertEqual(expr节点.lineno, 1)
+        self.assertEqual(expr节点.col_offset, 1)
+
         constant子节点 = self.取子节点(expr节点, "value")
         self.assertEqual(constant子节点.lineno, 1)
         self.assertEqual(constant子节点.col_offset, 1)

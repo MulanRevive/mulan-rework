@@ -36,6 +36,7 @@ class 语法分析器:
             return 片段.getsourcepos()
         # Constant 也是 ast.expr
         if isinstance(片段, ast.stmt) or isinstance(片段, ast.expr):
+            # TODO: 之前没 import SourcePosition 时, 编译/运行未报错! 需解决
             return SourcePosition(0, 片段.lineno, 片段.col_offset)
         return SourcePosition(0, 0, 0)
 
@@ -87,7 +88,7 @@ class 语法分析器:
 
     @分析器母机.production('表达式声明 : 表达式')
     def 表达式声明(片段):
-        return 语法树.表达式(值 = 片段[0], 行号=0, 列号=0)
+        return 语法树.表达式(值 = 片段[0], 片段 = 片段)
 
     @分析器母机.production('表达式 : 二元表达式')
     @分析器母机.production('表达式 : 数')
@@ -179,8 +180,8 @@ class 语法树:
         return ast.Module(body = 主体, type_ignores = 忽略类型)
 
     @staticmethod
-    def 表达式(值, 行号, 列号):
-        return ast.Expr(value = 值, lineno = 行号, col_offset = 列号)
+    def 表达式(值, 片段):
+        return ast.Expr(value = 值, lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
 
     @staticmethod
     def 数(值, 片段):
