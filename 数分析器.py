@@ -124,7 +124,7 @@ class 语法分析器:
             函数=语法树.名称(
                 标识='__除__',
                 上下文=(ast.Load()),
-                词=片段),
+                片段=片段),
             参数=[片段[0], 片段[2]],
             行号=0,
             列号=0)
@@ -162,7 +162,7 @@ class 语法分析器:
         return 语法树.名称(
             标识=标识,
             上下文=(ast.Load()),
-            词=片段)
+            片段=片段)
 
     @分析器母机.production('参数 : 表达式')
     def 参数(片段):
@@ -183,16 +183,16 @@ class 语法树:
         return ast.Expr(value = 值, lineno = 行号, col_offset = 列号)
 
     @staticmethod
-    def 数(值, 词):
-        return ast.Num(值, lineno = 语法分析器.取行号(词), col_offset = 语法分析器.取列号(词))
+    def 数(值, 片段):
+        return ast.Num(值, lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
 
     @staticmethod
     def 二元运算(左, 运算符, 右, 片段):
         return ast.BinOp(左, 运算符, 右, lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
 
     @staticmethod
-    def 名称(标识, 上下文, 词):
-        return ast.Name(id=标识, ctx=上下文, lineno=语法分析器.取行号(词), col_offset = 语法分析器.取列号(词))
+    def 名称(标识, 上下文, 片段):
+        return ast.Name(id=标识, ctx=上下文, lineno=语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
 
     @staticmethod
     def 调用(函数, 参数, 行号, 列号):
