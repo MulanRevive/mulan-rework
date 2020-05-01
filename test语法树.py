@@ -64,28 +64,30 @@ class test语法树(unittest.TestCase):
 
     def 格式化节点(self, 节点, 层次):
         缩进 = "  "
-        输出 = type(节点).__name__ + "("
-        属性个数 = 0
-        for 属性 in ast.iter_fields(节点):
-            属性个数 += 1
-            输出 += "\n" + 缩进 * 层次 + 属性[0] + "="
-            if isinstance(属性[1], list):
-                输出 += "["
-                for 子节点 in 属性[1]:
-                    输出 += self.格式化节点(子节点, 层次 + 1)
-                输出 += "]"
-            elif isinstance(属性[1], int):
-                输出 += str(属性[1])
-            elif isinstance(属性[1], str):
-                输出 += 属性[1]
-            else:
+        输出 = ""
+        if isinstance(节点, list):
+            输出 += "["
+            for 子节点 in 节点:
+                输出 += self.格式化节点(子节点, 层次 + 1)
+            输出 += "]"
+        elif isinstance(节点, int):
+            输出 += str(节点)
+        elif isinstance(节点, str):
+            输出 += 节点
+        else:
+            输出 += type(节点).__name__ + "("
+            属性个数 = 0
+            for 属性 in ast.iter_fields(节点):
+                属性个数 += 1
+                输出 += "\n" + 缩进 * 层次 + 属性[0] + "="
                 输出 += self.格式化节点(属性[1], 层次 + 1)
-        if isinstance(节点, ast.stmt) or isinstance(节点, ast.expr):
-            输出 += "\n" + 缩进 * 层次 + "lineno=" + str(节点.lineno)
-            输出 += "\n" + 缩进 * 层次 + "col_offset=" + str(节点.col_offset)
-        if 属性个数 == 0:
-            return 输出 + ")"
-        return 输出 + "\n" + 缩进 * (层次 - 1) + ")"
+            if isinstance(节点, ast.stmt) or isinstance(节点, ast.expr):
+                输出 += "\n" + 缩进 * 层次 + "lineno=" + str(节点.lineno)
+                输出 += "\n" + 缩进 * 层次 + "col_offset=" + str(节点.col_offset)
+            if 属性个数 == 0:
+                return 输出 + ")"
+            return 输出 + "\n" + 缩进 * (层次 - 1) + ")"
+        return 输出
 
 if __name__ == '__main__':
     unittest.main()
