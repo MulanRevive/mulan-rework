@@ -15,19 +15,24 @@ class test语法树(unittest.TestCase):
         #print(ast.dump(节点, True, True))
         expr节点 = self.取子节点(节点, "body", 0)
         call节点 = self.取子节点(expr节点, "value")
-        name节点 = self.取子节点(call节点, "func")
-        self.assertEqual(name节点.lineno, 1)
-        self.assertEqual(name节点.col_offset, 2)
+        除法节点 = self.取子节点(call节点, "func")
+        self.assertEqual(除法节点.lineno, 1)
+        self.assertEqual(除法节点.col_offset, 2)
 
         # 运算位置
         节点 = self.生成语法树("1+0")
-        #print(ast.dump(节点, True, True))
         expr节点 = self.取子节点(节点, "body", 0)
         binop节点 = self.取子节点(expr节点, "value")
         self.assertEqual(binop节点.lineno, 1)
         self.assertEqual(binop节点.col_offset, 1)
 
-        # TODO: 第二行
+        # 第二行
+        节点 = self.生成语法树("1+2\n3/4")
+        第二行expr节点 = self.取子节点(节点, "body", 1)
+        call节点 = self.取子节点(第二行expr节点, "value")
+        除法节点 = self.取子节点(call节点, "func")
+        self.assertEqual(除法节点.lineno, 2)
+        self.assertEqual(除法节点.col_offset, 2)
 
     def 生成语法树(self, 源码):
         各词 = 分词器.lex(源码)
