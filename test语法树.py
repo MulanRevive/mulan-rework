@@ -37,6 +37,13 @@ class test语法树(unittest.TestCase):
         self.assertEqual(除法节点.lineno, 2)
         self.assertEqual(除法节点.col_offset, 1)
 
+        # 调用
+        节点 = self.生成语法树("print(2)")
+        expr节点 = self.取子节点(节点, "body", 0)
+        call节点 = self.取子节点(expr节点, "value")
+        self.assertEqual(call节点.lineno, 1)
+        self.assertEqual(call节点.col_offset, 1)
+
     def 生成语法树(self, 源码):
         各词 = 分词器.lex(源码)
         分析器 = 语法分析器().创建()
