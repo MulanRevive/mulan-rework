@@ -1,9 +1,19 @@
-## 测试
 
-需要 Python 3.7. 如使用其他版本如 3.8, 语法树测试将失败.
+## 开发环境
+
+Python 3.7.4. 如使用 3.8, 语法树测试将失败.
+
+## 运行
 
 ```
-$ chmod +x 数.py
-$ python3 测试.py
-$ python3 test*
+$ python 中.py 测试/四则运算.ul 
+4
+```
+
+## 测试
+
+```
+$ chmod +x 中.py
+$ python 测试.py
+$ python test*
 ```

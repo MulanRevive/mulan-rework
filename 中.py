@@ -2,7 +2,7 @@
 
 import sys
 import ast, python
-from 数分析器 import 语法分析器, 分词器
+from 分析器 import 语法分析器, 分词器
 from 环境 import 创建全局变量
 
 源码文件 = sys.argv[1]

@@ -21,7 +21,7 @@ import subprocess
 
 # 参考：https://stackoverflow.com/questions/748028/how-to-get-output-of-exe-in-python-script
 for 文件 in 期望值:
-    进程表[文件] = subprocess.Popen(["./数.py", 路径 + 文件], stdout=subprocess.PIPE)
+    进程表[文件] = subprocess.Popen(["./中.py", 路径 + 文件], stdout=subprocess.PIPE)
 
 失败表 = {}
 

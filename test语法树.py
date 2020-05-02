@@ -1,6 +1,6 @@
 import unittest
 import ast
-from 数分析器 import 语法分析器, 分词器
+from 分析器 import 语法分析器, 分词器
 from 功用 import 语法树相关
 
 class test语法树(unittest.TestCase):
