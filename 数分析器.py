@@ -8,7 +8,7 @@ from rply import LexerGenerator
 
 分词器母机 = LexerGenerator()
 
-分词器母机.add('整数', r'\d+')
+分词器母机.add('整数', '\\d+')
 分词器母机.add('加', '\\+')
 分词器母机.add('減', '-')
 分词器母机.add('乘', '\\*')
@@ -123,7 +123,7 @@ class 语法分析器:
     def 除法(片段):
         return 语法树.调用(
             函数=语法树.名称(
-                标识='__除__',
+                标识='__div__',
                 上下文=(ast.Load()),
                 片段=片段),
             参数=[片段[0], 片段[2]],
@@ -147,6 +147,7 @@ class 语法分析器:
             return []
         return 片段[1]
 
+    # TODO: 暂仅支持单参数
     @分析器母机.production('各参数 : 参数')
     def 各参数(片段):
         return [片段[0]]

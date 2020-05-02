@@ -13,7 +13,7 @@ class 语法树相关:
         elif isinstance(节点, int):
             输出 += str(节点)
         elif isinstance(节点, str):
-            输出 += 节点
+            输出 += "'" + 节点 + "'"
         else:
             输出 += type(节点).__name__ + "("
             属性个数 = 0
