@@ -17,6 +17,7 @@ from rply import LexerGenerator
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
 分词器母机.add('换行', '\n')
+分词器母机.add('=', '=')
 
 分词器 = 分词器母机.build()
 
@@ -64,6 +65,7 @@ class 语法分析器:
             '(',
             ')',
             '换行',
+            '=',
         ],
         precedence=[
             ('left', ['加', '減']),
@@ -77,8 +79,8 @@ class 语法分析器:
     def 模块(片段):
         return 语法树.模块(主体=片段[0], 忽略类型=[])
 
-    @分析器母机.production('声明列表 : 表达式声明')
-    @分析器母机.production('声明列表 : 声明列表 换行 表达式声明')
+    @分析器母机.production('声明列表 : 声明')
+    @分析器母机.production('声明列表 : 声明列表 换行 声明')
     def 声明列表(片段):
         #print('声明列表')
         if len(片段) == 1:
@@ -86,13 +88,35 @@ class 语法分析器:
         片段[0].append(片段[(-1)])
         return 片段[0]
 
+    @分析器母机.production('声明 : 表达式声明')
+    @分析器母机.production('声明 : 赋值')
+    def 声明(片段):
+        return 片段[0]
+
     @分析器母机.production('表达式声明 : 表达式')
     def 表达式声明(片段):
+        #print("表达式声明")
         return 语法树.表达式(值 = 片段[0], 片段 = 片段)
 
+    @分析器母机.production('赋值 : 表达式前缀 = 表达式')
+    def 赋值(p):
+        #print("赋值")
+        p[0].ctx = ast.Store()
+        p[2] = 语法分析器.convert_to_tuple(p[2])
+        return ast.Assign([
+         p[0]],
+          (p[2]), lineno=0,
+          col_offset=0)
+
+    @分析器母机.production('表达式前缀 : 名称')
+    @分析器母机.production('表达式前缀 : 调用')
+    def 表达式前缀(片段):
+        #print("表达式前缀")
+        return 片段[0]
+
     @分析器母机.production('表达式 : 二元表达式')
+    @分析器母机.production('表达式 : 表达式前缀')
     @分析器母机.production('表达式 : 数')
-    @分析器母机.production('表达式 : 调用')
     def 表达式(片段):
         return 片段[0]
 
@@ -167,6 +191,14 @@ class 语法分析器:
     @分析器母机.production('参数 : 表达式')
     def 参数(片段):
         return (片段[0], None)
+
+    def convert_to_tuple(args):
+        if not isinstance(args, ast.arguments):
+            return args
+        return ast.Tuple(ctx=(ast.Load()),
+          elts=[ast.Name((arg.arg), (ast.Load()), lineno=(arg.lineno), col_offset=(arg.col_offset)) for arg in args.args],
+          lineno=0,
+          col_offset=0)
 
     分析器 = 分析器母机.build()
 

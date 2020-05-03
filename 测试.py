@@ -12,6 +12,7 @@ import subprocess
     "除留整.ul": b"1", # TODO: 多行代码
     "四则运算.ul": b"4",
     "多行.ul": b"23", # TODO: 如果末尾加空行, 报错 rply.errors.ParsingError: (None, None)
+    "赋值.ul": b"2",
     #"加小数.ul": b"5.0",
     #"除小数.ul": b"2.0",
 }
