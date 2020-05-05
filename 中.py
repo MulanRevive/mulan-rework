@@ -4,6 +4,7 @@ import sys
 import ast, python
 from 分析器 import 语法分析器, 分词器
 from 环境 import 创建全局变量
+from 功用 import 语法树相关
 
 源码文件 = sys.argv[1]
 with open(源码文件, 'r') as f:
@@ -16,6 +17,7 @@ with open(源码文件, 'r') as f:
 
 #print(python.dump(节点))
 #print(ast.dump(节点, True, True))
+#print(语法树相关.格式化节点(节点, 1))
 
 # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
 可执行码 = compile(节点, 源码文件, 'exec')

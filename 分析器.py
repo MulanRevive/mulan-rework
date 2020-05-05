@@ -99,14 +99,13 @@ class 语法分析器:
         return 语法树.表达式(值 = 片段[0], 片段 = 片段)
 
     @分析器母机.production('赋值 : 表达式前缀 = 表达式')
-    def 赋值(p):
+    def 赋值(片段):
         #print("赋值")
-        p[0].ctx = ast.Store()
-        p[2] = 语法分析器.convert_to_tuple(p[2])
-        return ast.Assign([
-         p[0]],
-          (p[2]), lineno=0,
-          col_offset=0)
+        片段[0].ctx = ast.Store()
+        return 语法树.赋值(
+            变量 = 片段[0],
+            值 = 片段[2],
+            片段 = 片段)
 
     @分析器母机.production('表达式前缀 : 名称')
     @分析器母机.production('表达式前缀 : 调用')
@@ -192,14 +191,6 @@ class 语法分析器:
     def 参数(片段):
         return (片段[0], None)
 
-    def convert_to_tuple(args):
-        if not isinstance(args, ast.arguments):
-            return args
-        return ast.Tuple(ctx=(ast.Load()),
-          elts=[ast.Name((arg.arg), (ast.Load()), lineno=(arg.lineno), col_offset=(arg.col_offset)) for arg in args.args],
-          lineno=0,
-          col_offset=0)
-
     分析器 = 分析器母机.build()
 
     def 创建(self):
@@ -230,3 +221,7 @@ class 语法树:
     def 调用(函数, 参数, 片段):
         return ast.Call(func=函数, args=参数, keywords=[], starargs=None, kwargs=None,
             lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
+
+    @staticmethod
+    def 赋值(变量, 值, 片段):
+        return ast.Assign([变量], 值, lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
