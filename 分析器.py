@@ -1,4 +1,4 @@
-import ast
+import ast, re
 from rply.token import SourcePosition
 from rply import Token
 from rply import ParserGenerator
@@ -18,6 +18,8 @@ from rply import LexerGenerator
 分词器母机.add(')', '\\)')
 分词器母机.add('换行', '\n')
 分词器母机.add('=', '=')
+分词器母机.add('前括号', '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
+分词器母机.add('后括号', '\\r*\\n*}') # , flags=(re.DOTALL)
 
 分词器 = 分词器母机.build()
 
@@ -66,6 +68,8 @@ class 语法分析器:
             ')',
             '换行',
             '=',
+            '前括号',
+            '后括号',
         ],
         precedence=[
             ('left', ['加', '減']),
@@ -78,6 +82,11 @@ class 语法分析器:
     @分析器母机.production('模块 : 声明列表')
     def 模块(片段):
         return 语法树.模块(主体=片段[0], 忽略类型=[])
+
+    @分析器母机.production('块 : 前括号 声明列表 后括号')
+    def 块(片段):
+        #print('块')
+        return 片段[1]
 
     @分析器母机.production('声明列表 : 声明')
     @分析器母机.production('声明列表 : 声明列表 换行 声明')
@@ -92,6 +101,14 @@ class 语法分析器:
     @分析器母机.production('声明 : 赋值')
     def 声明(片段):
         return 片段[0]
+
+    @分析器母机.production('声明 : 块')
+    def 单块(片段):
+        return 语法树.如果(
+            条件=语法树.常数(True, 片段),
+            主体=片段[0],
+            否则=[],
+            片段=片段)
 
     @分析器母机.production('表达式声明 : 表达式')
     def 表达式声明(片段):
@@ -225,3 +242,11 @@ class 语法树:
     @staticmethod
     def 赋值(变量, 值, 片段):
         return ast.Assign([变量], 值, lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
+
+    @staticmethod
+    def 常数(值, 片段):
+        return ast.NameConstant(value=值, lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))
+
+    @staticmethod
+    def 如果(条件, 主体, 否则, 片段):
+        return ast.If(test=条件, body=主体, orelse=否则, lineno = 语法分析器.取行号(片段), col_offset = 语法分析器.取列号(片段))

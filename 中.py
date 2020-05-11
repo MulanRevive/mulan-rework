@@ -6,11 +6,16 @@ from 分析器 import 语法分析器, 分词器
 from 环境 import 创建全局变量
 from 功用 import 语法树相关
 
+def 查看(各词):
+    for 词 in 各词:
+        print(词)
+
 源码文件 = sys.argv[1]
 with open(源码文件, 'r') as f:
     源码 = f.read()
 
 各词 = 分词器.lex(源码)
+#查看(各词)
 
 分析器 = 语法分析器().创建()
 节点 = 分析器.parse(各词)
