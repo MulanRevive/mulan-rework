@@ -16,10 +16,10 @@ from rply import LexerGenerator
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
-分词器母机.add('换行', '\n')
 分词器母机.add('=', '=')
 分词器母机.add('前括号', '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('后括号', '\\r*\\n*}') # , flags=(re.DOTALL)
+分词器母机.add('换行', '\n')
 
 分词器 = 分词器母机.build()
 
