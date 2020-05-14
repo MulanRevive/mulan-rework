@@ -48,10 +48,12 @@
 | 中 | 原逆向英文 |
 | ------------- | ------------- |
 声明 | stmt
+表达式 | expr
 表达式前缀 | prefix_expr
 名称 | name
 赋值 | assign
 块 | block
+混合 | compound
 
 ## 开发环境
 

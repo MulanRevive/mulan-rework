@@ -1,3 +1,4 @@
+import re
 from rply import ParserGenerator
 from 语法树 import *
 
@@ -7,17 +8,22 @@ from rply import LexerGenerator
 分词器母机 = LexerGenerator()
 
 分词器母机.add('整数', '\\d+')
-分词器母机.add('加', '\\+')
-分词器母机.add('減', '-')
-分词器母机.add('乘', '\\*')
-分词器母机.add('除', '/')
+分词器母机.add('前括号', '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
+分词器母机.add('后括号', '\\r*\\n*}') # , flags=(re.DOTALL)
+分词器母机.add('如果', '\\bif\\b')
+#分词器母机.add('否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
+#分词器母机.add('否则', '\\r*\\n*\\s*else\\s*\\r*\\n*') # , flags=(re.DOTALL)
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
 分词器母机.add('=', '=')
-分词器母机.add('前括号', '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
-分词器母机.add('后括号', '\\r*\\n*}') # , flags=(re.DOTALL)
+分词器母机.add('加', '\\+')
+分词器母机.add('減', '-')
+分词器母机.add('乘', '\\*')
+分词器母机.add('除', '/')
 分词器母机.add('换行', '\n')
+# TODO: 为何需要?
+分词器母机.ignore('[ ]+')
 
 分词器 = 分词器母机.build()
 
@@ -39,8 +45,12 @@ class 语法分析器:
             '=',
             '前括号',
             '后括号',
+            '如果',
+            #'否则如果',
+            #'否则',
         ],
         precedence=[
+            #('nonassoc', ['IDENTIFIER']),
             ('left', ['加', '減']),
             ('left', ['乘', '除']),
         ]
@@ -64,6 +74,10 @@ class 语法分析器:
         if len(片段) == 1:
             return [片段[0]]
         片段[0].append(片段[(-1)])
+        return 片段[0]
+
+    @分析器母机.production('声明 : 条件声明')
+    def 混合声明(片段):
         return 片段[0]
 
     @分析器母机.production('声明 : 表达式声明')
@@ -176,6 +190,21 @@ class 语法分析器:
     @分析器母机.production('参数 : 表达式')
     def 参数(片段):
         return (片段[0], None)
+
+    @分析器母机.production('条件声明 : 如果 表达式 块 否则如果声明')
+    #@分析器母机.production('条件声明 : 如果 表达式 块 否则 块')
+    @分析器母机.production('否则如果声明 : ')
+    #@分析器母机.production('否则如果声明 : 否则如果 表达式 块 否则如果声明')
+    #@分析器母机.production('否则如果声明 : 否则如果 表达式 块 否则 块')
+    def 条件声明(片段):
+        if len(片段) == 0:
+            return []
+        否则部分 = 片段[-1]
+        return 语法树.如果(
+            条件=片段[1],
+            主体=片段[2],
+            否则=否则部分 if isinstance(否则部分, list) else [否则部分],
+            片段=片段)
 
     分析器 = 分析器母机.build()
 
