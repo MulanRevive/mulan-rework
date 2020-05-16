@@ -22,7 +22,7 @@ from rply import LexerGenerator
 分词器母机.add('乘', '\\*')
 分词器母机.add('除', '/')
 分词器母机.add('换行', '\n')
-分词器母机.ignore('[ \t]+')
+分词器母机.ignore('[ \t]+') # TODO: \r 何用?
 
 分词器 = 分词器母机.build()
 
