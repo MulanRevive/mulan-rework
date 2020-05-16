@@ -11,7 +11,7 @@ from rply import LexerGenerator
 分词器母机.add('前括号', '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('后括号', '\\r*\\n*}') # , flags=(re.DOTALL)
 分词器母机.add('如果', '\\bif\\b')
-#分词器母机.add('否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
+分词器母机.add('否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 #分词器母机.add('否则', '\\r*\\n*\\s*else\\s*\\r*\\n*') # , flags=(re.DOTALL)
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
@@ -45,7 +45,7 @@ class 语法分析器:
             '前括号',
             '后括号',
             '如果',
-            #'否则如果',
+            '否则如果',
             #'否则',
         ],
         precedence=[
@@ -193,7 +193,7 @@ class 语法分析器:
     @分析器母机.production('条件声明 : 如果 表达式 块 否则如果声明')
     #@分析器母机.production('条件声明 : 如果 表达式 块 否则 块')
     @分析器母机.production('否则如果声明 : ')
-    #@分析器母机.production('否则如果声明 : 否则如果 表达式 块 否则如果声明')
+    @分析器母机.production('否则如果声明 : 否则如果 表达式 块 否则如果声明')
     #@分析器母机.production('否则如果声明 : 否则如果 表达式 块 否则 块')
     def 条件声明(片段):
         if len(片段) == 0:
