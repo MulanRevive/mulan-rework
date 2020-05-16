@@ -1,0 +1,7 @@
+if 0 {
+print(3)
+} elif 0 {
+print(2)
+} else {
+print(5)
+}
