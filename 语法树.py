@@ -49,6 +49,11 @@ class 语法树:
     @staticmethod
     def 布尔操作(前项, 操作符, 后项, 片段):
         return ast.BoolOp(op=操作符, values=[前项, 后项], lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+
+    @staticmethod
+    def 每当(条件, 主体, 片段):
+        return ast.While(test=条件, body=主体, orelse=[], lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+
     '''
     不同于 python3 的语法树中, col_offset 是从 0 开始:
     >>> ast.dump(ast.parse("2+3"), True, True)

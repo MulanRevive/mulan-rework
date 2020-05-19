@@ -15,6 +15,7 @@ from rply import LexerGenerator
 分词器母机.add('如果', '\\bif\\b')
 分词器母机.add('否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('否则', '\\r*\\n*\\s*else\\s*\\r*\\n*') # , flags=(re.DOTALL)
+分词器母机.add('每当', '\\bwhile\\b')
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
@@ -67,6 +68,7 @@ class 语法分析器:
             '否则',
             '或',
             '且',
+            '每当',
         ],
         precedence=[
             ('left', ['或']),
@@ -101,6 +103,7 @@ class 语法分析器:
         return 片段[0]
 
     @分析器母机.production('声明 : 条件声明')
+    @分析器母机.production('声明 : 每当声明')
     def 混合声明(片段):
         return 片段[0]
 
@@ -270,6 +273,13 @@ class 语法分析器:
             条件=片段[-1],
             主体=[片段[0]],
             否则=[],
+            片段=片段)
+
+    @分析器母机.production('每当声明 : 每当 表达式 块')
+    def 每当(片段):
+        return 语法树.每当(
+            条件=片段[1],
+            主体=片段[2],
             片段=片段)
 
     分析器 = 分析器母机.build()
