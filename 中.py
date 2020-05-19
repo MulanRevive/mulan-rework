@@ -2,7 +2,8 @@
 
 import sys
 import ast, python
-from 分析器 import 语法分析器, 分词器
+from 词法分析器 import 分词器
+from 分析器 import 语法分析器
 from 环境 import 创建全局变量
 from 功用 import 语法树相关
 
