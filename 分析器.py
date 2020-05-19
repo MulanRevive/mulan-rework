@@ -10,6 +10,8 @@ from rply import LexerGenerator
 分词器母机.add('整数', '\\d+')
 分词器母机.add('前括号', '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('后括号', '\\r*\\n*}') # , flags=(re.DOTALL)
+分词器母机.add('且', '\\band\\b')
+分词器母机.add('或', '\\bor\\b')
 分词器母机.add('如果', '\\bif\\b')
 分词器母机.add('否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('否则', '\\r*\\n*\\s*else\\s*\\r*\\n*') # , flags=(re.DOTALL)
@@ -63,8 +65,12 @@ class 语法分析器:
             '如果',
             '否则如果',
             '否则',
+            '或',
+            '且',
         ],
         precedence=[
+            ('left', ['或']),
+            ('left', ['且']),
             # nonassoc 参考: http://www.dabeaz.com/ply/ply.html
             # non-associativity in the precedence table. This would be used when you don't want operations to chain together
             ('nonassoc', ['>', '<', '>=', '<=', '!==', '===']),
@@ -192,6 +198,15 @@ class 语法分析器:
         return 语法树.比较(
             前项 = 片段[0],
             操作符 = 对照表[片段[1].getstr()],
+            后项 = 片段[2],
+            片段=片段)
+
+    @分析器母机.production('二元表达式 : 表达式 且 表达式')
+    @分析器母机.production('二元表达式 : 表达式 或 表达式')
+    def 布尔表达式(片段):
+        return 语法树.布尔操作(
+            操作符=(ast.And() if 片段[1].getstr() == 'and' else ast.Or()),
+            前项 = 片段[0],
             后项 = 片段[2],
             片段=片段)
 
