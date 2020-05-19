@@ -16,6 +16,14 @@ from rply import LexerGenerator
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
+分词器母机.add('===', '===')
+分词器母机.add('!==', '!==')
+分词器母机.add('==', '==')
+分词器母机.add('!=', '!=')
+分词器母机.add('>=', '>=')
+分词器母机.add('<=', '<=')
+分词器母机.add('>', '>')
+分词器母机.add('<', '<')
 分词器母机.add('=', '=')
 分词器母机.add('加', '\\+')
 分词器母机.add('減', '-')
@@ -40,6 +48,14 @@ class 语法分析器:
             '标识符',
             '(',
             ')',
+            '===',
+            '!==',
+            '==',
+            '!=',
+            '>',
+            '<',
+            '>=',
+            '<=',
             '换行',
             '=',
             '前括号',
@@ -49,7 +65,10 @@ class 语法分析器:
             '否则',
         ],
         precedence=[
-            #('nonassoc', ['IDENTIFIER']),
+            # nonassoc 参考: http://www.dabeaz.com/ply/ply.html
+            # non-associativity in the precedence table. This would be used when you don't want operations to chain together
+            ('nonassoc', ['>', '<', '>=', '<=', '!==', '===']),
+            ('left', ['!=', '==']),
             ('left', ['加', '減']),
             ('left', ['乘', '除']),
         ]
@@ -149,6 +168,31 @@ class 语法分析器:
                 上下文=(ast.Load()),
                 片段=片段),
             参数=[片段[0], 片段[2]],
+            片段=片段)
+
+    @分析器母机.production('二元表达式 : 表达式 > 表达式')
+    @分析器母机.production('二元表达式 : 表达式 >= 表达式')
+    @分析器母机.production('二元表达式 : 表达式 < 表达式')
+    @分析器母机.production('二元表达式 : 表达式 <= 表达式')
+    @分析器母机.production('二元表达式 : 表达式 == 表达式')
+    @分析器母机.production('二元表达式 : 表达式 != 表达式')
+    @分析器母机.production('二元表达式 : 表达式 === 表达式')
+    @分析器母机.production('二元表达式 : 表达式 !== 表达式')
+    def 比较(片段):
+        对照表 = {
+            '>': ast.Gt(),
+            '>=': ast.GtE(),
+            '<': ast.Lt(),
+            '<=': ast.LtE(),
+            '==': ast.Eq(),
+            '!=': ast.NotEq(),
+            '===': ast.Is(),
+            '!==': ast.IsNot()
+            }
+        return 语法树.比较(
+            前项 = 片段[0],
+            操作符 = 对照表[片段[1].getstr()],
+            后项 = 片段[2],
             片段=片段)
 
     @分析器母机.production('调用 : 变量 参数部分')

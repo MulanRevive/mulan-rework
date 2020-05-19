@@ -41,6 +41,11 @@ class 语法树:
     def 如果(条件, 主体, 否则, 片段):
         return ast.If(test=条件, body=主体, orelse=否则, lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
 
+    # TODO: 为何比较符和后项在数组中?
+    @staticmethod
+    def 比较(前项, 操作符, 后项, 片段):
+        return ast.Compare(前项, [操作符], [后项], lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+
     '''
     不同于 python3 的语法树中, col_offset 是从 0 开始:
     >>> ast.dump(ast.parse("2+3"), True, True)
