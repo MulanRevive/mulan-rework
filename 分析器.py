@@ -51,14 +51,7 @@ class 语法分析器:
     def 声明(片段):
         return 片段[0]
 
-    @分析器母机.production('声明 : 块')
-    def 单块(片段):
-        return 语法树.如果(
-            条件=语法树.常数(True, 片段),
-            主体=片段[0],
-            否则=[],
-            片段=片段)
-
+    # TODO: 确认 表达式-prefix_expr
     @分析器母机.production('表达式声明 : 表达式')
     def 表达式声明(片段):
         #print("表达式声明")
@@ -72,23 +65,6 @@ class 语法分析器:
             变量 = 片段[0],
             值 = 片段[2],
             片段 = 片段)
-
-    @分析器母机.production('表达式前缀 : 名称')
-    @分析器母机.production('表达式前缀 : 调用')
-    def 表达式前缀(片段):
-        #print("表达式前缀")
-        return 片段[0]
-
-    @分析器母机.production('表达式 : 二元表达式')
-    @分析器母机.production('表达式 : 表达式前缀')
-    @分析器母机.production('表达式 : 数')
-    def 表达式(片段):
-        return 片段[0]
-
-    @分析器母机.production('数 : 整数')
-    def 数(片段):
-        数值 = int(片段[0].getstr(), 0)
-        return 语法树.数(数值, 片段)
 
     @分析器母机.production('二元表达式 : 表达式 加 表达式')
     @分析器母机.production('二元表达式 : 表达式 減 表达式')
@@ -152,6 +128,23 @@ class 语法分析器:
             后项 = 片段[2],
             片段=片段)
 
+    # TODO: 确认, 名称-var
+    @分析器母机.production('表达式前缀 : 名称')
+    @分析器母机.production('表达式前缀 : 调用')
+    def 表达式前缀(片段):
+        #print("表达式前缀")
+        return 片段[0]
+
+    @分析器母机.production('变量 : 名称')
+    def 变量(片段):
+        return 片段[0]
+
+    @分析器母机.production('参数部分 : ( 各参数 )')
+    def 参数部分(片段):
+        if len(片段) != 3:
+            return []
+        return 片段[1]
+
     @分析器母机.production('调用 : 变量 参数部分')
     def 调用(片段):
         各参数 = []
@@ -164,28 +157,21 @@ class 语法分析器:
                 参数=各参数,
                 片段=片段)
 
-    @分析器母机.production('参数部分 : ( 各参数 )')
-    def 参数部分(片段):
-        if len(片段) != 3:
-            return []
-        return 片段[1]
+    @分析器母机.production('数 : 整数')
+    def 数(片段):
+        数值 = int(片段[0].getstr(), 0)
+        return 语法树.数(数值, 片段)
+
+    @分析器母机.production('表达式 : 二元表达式')
+    @分析器母机.production('表达式 : 表达式前缀')
+    @分析器母机.production('表达式 : 数')
+    def 表达式(片段):
+        return 片段[0]
 
     # TODO: 暂仅支持单参数
     @分析器母机.production('各参数 : 参数')
     def 各参数(片段):
         return [片段[0]]
-
-    @分析器母机.production('变量 : 名称')
-    def 变量(片段):
-        return 片段[0]
-
-    @分析器母机.production('名称 : 标识符')
-    def 标识符(片段):
-        标识 = 片段[0].getstr()
-        return 语法树.名称(
-            标识=标识,
-            上下文=(ast.Load()),
-            片段=片段)
 
     @分析器母机.production('参数 : 表达式')
     def 参数(片段):
@@ -214,11 +200,27 @@ class 语法分析器:
             否则=[],
             片段=片段)
 
+    @分析器母机.production('声明 : 块')
+    def 单块(片段):
+        return 语法树.如果(
+            条件=语法树.常数(True, 片段),
+            主体=片段[0],
+            否则=[],
+            片段=片段)
+
     @分析器母机.production('每当声明 : 每当 表达式 块')
     def 每当(片段):
         return 语法树.每当(
             条件=片段[1],
             主体=片段[2],
+            片段=片段)
+
+    @分析器母机.production('名称 : 标识符')
+    def 标识符(片段):
+        标识 = 片段[0].getstr()
+        return 语法树.名称(
+            标识=标识,
+            上下文=(ast.Load()),
             片段=片段)
 
     分析器 = 分析器母机.build()

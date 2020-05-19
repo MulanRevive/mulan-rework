@@ -24,7 +24,7 @@
       | 数
 
 表达式前缀 : 名称
-            | 调用
+         | 调用
 
 数 : 整数
 
@@ -73,6 +73,10 @@
 表达式 | expr
 二元表达式 | bin_expr
 表达式前缀 | prefix_expr
+参数部分 | arguments
+各参数 | args
+参数 | arg
+变量 | var
 名称 | name
 赋值 | assign
 块 | block
