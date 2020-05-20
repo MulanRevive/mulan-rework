@@ -54,6 +54,14 @@ class 语法树:
     def 每当(条件, 主体, 片段):
         return ast.While(test=条件, body=主体, orelse=[], lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
 
+    @staticmethod
+    def 终止(片段):
+        return ast.Break(lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+
+    @staticmethod
+    def 跳过(片段):
+        return ast.Continue(lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+
     '''
     不同于 python3 的语法树中, col_offset 是从 0 开始:
     >>> ast.dump(ast.parse("2+3"), True, True)

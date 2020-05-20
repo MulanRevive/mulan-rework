@@ -28,6 +28,8 @@ import rply, re
 '或',
 '且',
 '每当',
+'终止',
+'跳过',
 ]
 
 分词器母机 = LexerGenerator()
@@ -41,6 +43,8 @@ import rply, re
 分词器母机.add('否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('否则', '\\r*\\n*\\s*else\\s*\\r*\\n*') # , flags=(re.DOTALL)
 分词器母机.add('每当', '\\bwhile\\b')
+分词器母机.add('终止', '\\bbreak\\b')
+分词器母机.add('跳过', '\\bcontinue\\b')
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')
