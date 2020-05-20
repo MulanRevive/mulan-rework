@@ -51,8 +51,7 @@ class 语法分析器:
     def 声明(片段):
         return 片段[0]
 
-    # TODO: 确认 表达式-prefix_expr
-    @分析器母机.production('表达式声明 : 表达式')
+    @分析器母机.production('表达式声明 : 表达式前缀')
     def 表达式声明(片段):
         #print("表达式声明")
         return 语法树.表达式(值 = 片段[0], 片段 = 片段)
