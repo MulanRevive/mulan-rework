@@ -79,9 +79,10 @@
 表达式 | expr
 二元表达式 | bin_expr
 表达式前缀 | prefix_expr
-参数部分 | arguments
-各参数 | args
-参数 | arg
+形参列表 | param_list
+实参部分 | arguments
+各实参 | args
+实参 | arg
 变量 | var
 名称 | name
 赋值 | assign

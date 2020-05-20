@@ -147,13 +147,13 @@ class 语法分析器:
     def 变量(片段):
         return 片段[0]
 
-    @分析器母机.production('参数部分 : ( 各参数 )')
-    def 参数部分(片段):
+    @分析器母机.production('实参部分 : ( 各实参 )')
+    def 实参部分(片段):
         if len(片段) != 3:
             return []
         return 片段[1]
 
-    @分析器母机.production('调用 : 变量 参数部分')
+    @分析器母机.production('调用 : 变量 实参部分')
     def 调用(片段):
         各参数 = []
         for 值, 键 in 片段[1]:
@@ -176,13 +176,13 @@ class 语法分析器:
     def 表达式(片段):
         return 片段[0]
 
-    # TODO: 暂仅支持单参数
-    @分析器母机.production('各参数 : 参数')
-    def 各参数(片段):
+    # TODO: 暂仅支持单实参
+    @分析器母机.production('各实参 : 实参')
+    def 各实参(片段):
         return [片段[0]]
 
-    @分析器母机.production('参数 : 表达式')
-    def 参数(片段):
+    @分析器母机.production('实参 : 表达式')
+    def 实参(片段):
         return (片段[0], None)
 
     @分析器母机.production('条件声明 : 如果 表达式 块 否则如果声明')
