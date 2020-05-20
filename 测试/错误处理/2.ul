@@ -1,1 +1,2 @@
 2
+// parse 报错 SyntaxError: File "<STDIN>", line 1:1, unexpected token "INTEGER_LITERAL"
