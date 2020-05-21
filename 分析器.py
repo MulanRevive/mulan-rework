@@ -4,7 +4,6 @@ from 语法树 import *
 
 from 词法分析器 import 规则
 
-### 语法分析器部分
 class 语法分析器:
 
     分析器母机 = ParserGenerator(
@@ -60,6 +59,7 @@ class 语法分析器:
         #print("表达式声明")
         return 语法树.表达式(值 = 片段[0], 片段 = 片段)
 
+    # TODO: 支持多元赋值, 如: a, b, c = 1, 2, 3
     @分析器母机.production('赋值 : 表达式前缀 = 表达式')
     def 赋值(片段):
         #print("赋值")
@@ -69,7 +69,7 @@ class 语法分析器:
             值 = 片段[2],
             片段 = 片段)
 
-    # TODO: 返回值
+    # TODO: 返回(多个)值
     @分析器母机.production('返回声明 : 动词_返回')
     def ret_stmt(片段):
         值 = None
@@ -92,13 +92,13 @@ class 语法分析器:
         左 = 片段[0]
         右 = 片段[2]
         运算符 = 片段[1].getstr()
-        python运算 = 运算符
-        if 运算符 == '+':
-            python运算 = ast.Add()
-        elif 运算符 == '-':
-            python运算 = ast.Sub()
-        elif 运算符 == '*':
-            python运算 = ast.Mult()
+        对照表 = {
+            '+': ast.Add(),
+            '-': ast.Sub(),
+            '*': ast.Mult()
+        }
+        if 运算符 in 对照表:
+            python运算 = 对照表[运算符]
         else:
             breakpoint()
         return 语法树.二元运算(左, python运算, 右, 片段)
@@ -183,7 +183,7 @@ class 语法分析器:
 
     @分析器母机.production('表达式 : 二元表达式')
     @分析器母机.production('表达式 : 表达式前缀')
-    @分析器母机.production('表达式 : 数')
+    @分析器母机.production('表达式 : 数') # TODO: 为何要, precedence='==' ?
     def 表达式(片段):
         return 片段[0]
 
