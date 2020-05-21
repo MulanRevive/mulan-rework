@@ -69,7 +69,7 @@ class 语法分析器:
             值 = 片段[2],
             片段 = 片段)
 
-    # TODO: 返回(多个)值
+    # TODO: 0 返回(多个)值
     @分析器母机.production('返回声明 : 动词_返回')
     def ret_stmt(片段):
         值 = None
@@ -77,11 +77,11 @@ class 语法分析器:
             值=值,
             片段=片段)
 
-    @分析器母机.production('终止声明 : 终止')
+    @分析器母机.production('终止声明 : 动词_终止')
     def 终止声明(片段):
         return 语法树.终止(片段 = 片段)
 
-    @分析器母机.production('跳过声明 : 跳过')
+    @分析器母机.production('跳过声明 : 动词_跳过')
     def 跳过声明(片段):
         return 语法树.跳过(片段 = 片段)
 
@@ -164,6 +164,7 @@ class 语法分析器:
             return []
         return 片段[1]
 
+    # TODO: 变量->prefix_expr, 允许多层调用, 测试需要返回值
     @分析器母机.production('调用 : 变量 实参部分')
     def 调用(片段):
         各参数 = []
@@ -175,6 +176,8 @@ class 语法分析器:
                 片段[0],
                 参数=各参数,
                 片段=片段)
+
+    # TODO: SUPER
 
     @分析器母机.production('数 : 整数')
     @分析器母机.production('数 : 小数')
