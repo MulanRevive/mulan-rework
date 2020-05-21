@@ -32,6 +32,7 @@ import rply, re
 '终止',
 '跳过',
 '名词_函数',
+'动词_返回',
 ]
 
 分词器母机 = LexerGenerator()
@@ -45,6 +46,7 @@ import rply, re
 分词器母机.add('连词_否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('连词_否则', '\\r*\\n*\\s*else\\s*\\r*\\n*') # , flags=(re.DOTALL)
 分词器母机.add('连词_每当', '\\bwhile\\b')
+分词器母机.add('动词_返回', '\\breturn\\b')
 分词器母机.add('终止', '\\bbreak\\b')
 分词器母机.add('跳过', '\\bcontinue\\b')
 分词器母机.add('名词_函数', '\\bfunc\\b')

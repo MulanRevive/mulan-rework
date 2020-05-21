@@ -51,6 +51,7 @@ class 语法分析器:
     @分析器母机.production('声明 : 赋值')
     @分析器母机.production('声明 : 终止声明')
     @分析器母机.production('声明 : 跳过声明')
+    @分析器母机.production('声明 : 返回声明')
     def 声明(片段):
         return 片段[0]
 
@@ -67,6 +68,14 @@ class 语法分析器:
             变量 = 片段[0],
             值 = 片段[2],
             片段 = 片段)
+
+    # TODO: 返回值
+    @分析器母机.production('返回声明 : 动词_返回')
+    def ret_stmt(片段):
+        值 = None
+        return 语法树.返回(
+            值=值,
+            片段=片段)
 
     @分析器母机.production('终止声明 : 终止')
     def 终止声明(片段):
