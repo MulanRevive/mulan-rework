@@ -10,8 +10,8 @@ class 语法分析器:
     分析器母机 = ParserGenerator(
         规则,
         precedence=[
-            ('left', ['或']),
-            ('left', ['且']),
+            ('left', ['连词_或']),
+            ('left', ['连词_且']),
             # nonassoc 参考: http://www.dabeaz.com/ply/ply.html
             # non-associativity in the precedence table. This would be used when you don't want operations to chain together
             ('nonassoc', ['>', '<', '>=', '<=', '!==', '===']),

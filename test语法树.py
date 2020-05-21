@@ -4,6 +4,7 @@ from 分析器 import 语法分析器
 from 词法分析器 import 分词器
 from 功用 import 语法树相关
 
+# TODO：需确保无此类 Warning：ParserGeneratorWarning: 28 shift/reduce conflicts
 class test语法树(unittest.TestCase):
 
     def test_行列号(self):
