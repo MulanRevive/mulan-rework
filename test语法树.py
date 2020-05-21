@@ -32,6 +32,10 @@ class test语法树(unittest.TestCase):
         节点 = self.生成语法树("a=2\nprint(a)")
         self.assertEqual(ast.dump(节点, True, True), 木兰)
 
+        木兰 = "Module(body=[FunctionDef(name='echo', args=arguments(args=[arg(arg='number', annotation=None, lineno=1, col_offset=11)], vararg=None, kwonlyargs=[], kw_defaults=[], kwarg=None, defaults=[]), body=[Expr(value=Call(func=Name(id='print', ctx=Load(), lineno=2, col_offset=1), args=[Name(id='number', ctx=Load(), lineno=2, col_offset=7)], keywords=[], lineno=2, col_offset=1), lineno=2, col_offset=1)], decorator_list=[], lineno=1, col_offset=1), Expr(value=Call(func=Name(id='echo', ctx=Load(), lineno=4, col_offset=1), args=[Num(n=2, lineno=4, col_offset=6)], keywords=[], lineno=4, col_offset=1), lineno=4, col_offset=1)])"
+        节点 = self.生成语法树("func echo(number) {\nprint(number)\n}\necho(2)")
+        self.assertEqual(ast.dump(节点, True, True), 木兰)
+
     def 生成语法树(self, 源码):
         各词 = 分词器.lex(源码)
         分析器 = 语法分析器().创建()
