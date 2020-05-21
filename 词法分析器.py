@@ -25,8 +25,8 @@ import rply, re
 '连词_如果',
 '连词_否则如果',
 '连词_否则',
-'或',
-'且',
+'连词_或',
+'连词_且',
 '连词_每当',
 '终止',
 '跳过',
@@ -37,8 +37,8 @@ import rply, re
 分词器母机.add('整数', '\\d+')
 分词器母机.add('前括号', '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('后括号', '\\r*\\n*}') # , flags=(re.DOTALL)
-分词器母机.add('且', '\\band\\b')
-分词器母机.add('或', '\\bor\\b')
+分词器母机.add('连词_且', '\\band\\b')
+分词器母机.add('连词_或', '\\bor\\b')
 分词器母机.add('连词_如果', '\\bif\\b')
 分词器母机.add('连词_否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('连词_否则', '\\r*\\n*\\s*else\\s*\\r*\\n*') # , flags=(re.DOTALL)
