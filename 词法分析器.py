@@ -30,6 +30,7 @@ import rply, re
 '连词_每当',
 '终止',
 '跳过',
+'名词_函数',
 ]
 
 分词器母机 = LexerGenerator()
@@ -45,6 +46,7 @@ import rply, re
 分词器母机.add('连词_每当', '\\bwhile\\b')
 分词器母机.add('终止', '\\bbreak\\b')
 分词器母机.add('跳过', '\\bcontinue\\b')
+分词器母机.add('名词_函数', '\\bfunc\\b')
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
 分词器母机.add('(', '\\(')
 分词器母机.add(')', '\\)')

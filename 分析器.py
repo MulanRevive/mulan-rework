@@ -1,4 +1,4 @@
-import re
+import ast
 from rply import ParserGenerator
 from 语法树 import *
 
@@ -41,6 +41,7 @@ class 语法分析器:
         片段[0].append(片段[(-1)])
         return 片段[0]
 
+    @分析器母机.production('声明 : 函数')
     @分析器母机.production('声明 : 条件声明')
     @分析器母机.production('声明 : 每当声明')
     def 混合声明(片段):
@@ -148,6 +149,7 @@ class 语法分析器:
         return 片段[0]
 
     @分析器母机.production('实参部分 : ( 各实参 )')
+    @分析器母机.production('实参部分 : ( )')
     def 实参部分(片段):
         if len(片段) != 3:
             return []
@@ -184,6 +186,19 @@ class 语法分析器:
     @分析器母机.production('实参 : 表达式')
     def 实参(片段):
         return (片段[0], None)
+
+    def 形参列表():
+        return ast.arguments(args=[], kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+
+    @分析器母机.production('函数 : 名词_函数 标识符 块')
+    def 函数(片段):
+        return ast.FunctionDef(
+            name=(片段[1].getstr()),
+            args=语法分析器.形参列表(),
+            body=片段[-1],
+            decorator_list=[],
+            lineno=0,
+            col_offset=0)
 
     @分析器母机.production('条件声明 : 连词_如果 表达式 块 否则如果声明')
     @分析器母机.production('条件声明 : 连词_如果 表达式 块 连词_否则 块')
