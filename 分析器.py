@@ -187,14 +187,34 @@ class 语法分析器:
     def 实参(片段):
         return (片段[0], None)
 
-    def 形参列表():
-        return ast.arguments(args=[], kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+    @分析器母机.production('形参列表 : ')
+    @分析器母机.production('形参列表 : 非空形参列表')
+    def 形参列表(片段=[]):
+        if not 片段:
+            return ast.arguments(args=[], kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+        return 语法分析器.legalize_arguments(片段[0])
 
+    # TODO: 暂只支持单形参
+    @分析器母机.production('非空形参列表 : 形参')
+    def 非空形参列表(片段):
+        if len(片段) == 1:
+            各形参 = 语法分析器.形参列表()
+        各形参.args.append(片段[-1])
+        return 各形参
+
+    @分析器母机.production('形参 : 名称')
+    def param(片段):
+        return 语法树.形参(
+            名称=片段[0].id,
+            标注=(None if len(片段) == 1 else 片段[-1]),
+            片段=片段)
+
+    @分析器母机.production('函数 : 名词_函数 标识符 ( 形参列表 ) 块')
     @分析器母机.production('函数 : 名词_函数 标识符 块')
     def 函数(片段):
         return ast.FunctionDef(
             name=(片段[1].getstr()),
-            args=语法分析器.形参列表(),
+            args=(片段[3] if len(片段) == 6 else 语法分析器.形参列表()),
             body=片段[-1],
             decorator_list=[],
             lineno=0,
@@ -245,6 +265,21 @@ class 语法分析器:
             标识=标识,
             上下文=(ast.Load()),
             片段=片段)
+
+    def legalize_arguments(arguments):
+        hasDefaults = False
+        for arg in arguments.args:
+            if hasattr(arg, 'default') and arg.default:
+                hasDefaults = True
+                arguments.defaults.append(arg.default)
+            elif hasDefaults:
+                raise SyntaxError(message='no default expr is provided here',
+                  filename=(self.filename_),
+                  lineno=(arg.lineno),
+                  colno=(arg.col_offset),
+                  source=(self.source_))
+
+        return arguments
 
     分析器 = 分析器母机.build()
 
