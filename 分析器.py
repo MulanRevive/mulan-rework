@@ -177,9 +177,12 @@ class 语法分析器:
                 片段=片段)
 
     @分析器母机.production('数 : 整数')
+    @分析器母机.production('数 : 小数')
     def 数(片段):
-        数值 = int(片段[0].getstr(), 0)
-        return 语法树.数(数值, 片段)
+        try:
+            return 语法树.数(int(片段[0].getstr(), 0), 片段)
+        except ValueError:
+            return 语法树.数(float(片段[0].getstr()), 片段)
 
     @分析器母机.production('表达式 : 二元表达式')
     @分析器母机.production('表达式 : 表达式前缀')

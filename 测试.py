@@ -31,8 +31,8 @@ import subprocess
     "函数_单参数.ul": b"2",
     "函数_多参数.ul": b"123",
     "返回空.ul": b"2",
-    #"加小数.ul": b"5.0",
-    #"除小数.ul": b"2.0",
+    "加小数.ul": b"5.0",
+    "除小数.ul": b"2.0",
 }
 
 # 多进程参考：https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/
