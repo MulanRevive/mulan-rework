@@ -1,0 +1,6 @@
+func echo(a, b, c) {
+print(a)
+print(b)
+print(c)
+}
+echo(1, 2, 3)

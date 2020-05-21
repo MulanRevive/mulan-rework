@@ -178,9 +178,12 @@ class 语法分析器:
     def 表达式(片段):
         return 片段[0]
 
-    # TODO: 暂仅支持单实参
     @分析器母机.production('各实参 : 实参')
+    @分析器母机.production('各实参 : 各实参 , 实参')
     def 各实参(片段):
+        if len(片段) == 3:
+            片段[0].append(片段[2])
+            return 片段[0]
         return [片段[0]]
 
     @分析器母机.production('实参 : 表达式')
@@ -195,11 +198,13 @@ class 语法分析器:
         # TODO: 如支持形参默认值, 需要 legalize_arguments
         return 片段[0]
 
-    # TODO: 暂只支持单形参
     @分析器母机.production('非空形参列表 : 形参')
+    @分析器母机.production('非空形参列表 : 非空形参列表 , 形参')
     def 非空形参列表(片段):
         if len(片段) == 1:
             各形参 = 语法分析器.形参列表()
+        else:
+            各形参 = 片段[0]
         各形参.args.append(片段[-1])
         return 各形参
 
