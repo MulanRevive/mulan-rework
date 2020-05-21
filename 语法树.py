@@ -66,6 +66,18 @@ class 语法树:
     def 形参(名称, 标注, 片段):
         return ast.arg(arg=名称, annotation=标注, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 各形参(各参数):
+        return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+
+    @staticmethod
+    def 函数定义(名称, 形参列表, 主体, 片段):
+        return ast.FunctionDef(
+            name=名称,
+            args=形参列表,
+            body=主体,
+            decorator_list=[],
+            lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
     '''
     不同于 python3 的语法树中, col_offset 是从 0 开始:
     >>> ast.dump(ast.parse("2+3"), True, True)

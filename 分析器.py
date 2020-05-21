@@ -191,8 +191,9 @@ class 语法分析器:
     @分析器母机.production('形参列表 : 非空形参列表')
     def 形参列表(片段=[]):
         if not 片段:
-            return ast.arguments(args=[], kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
-        return 语法分析器.legalize_arguments(片段[0])
+            return 语法树.各形参([])
+        # TODO: 如支持形参默认值, 需要 legalize_arguments
+        return 片段[0]
 
     # TODO: 暂只支持单形参
     @分析器母机.production('非空形参列表 : 形参')
@@ -212,13 +213,11 @@ class 语法分析器:
     @分析器母机.production('函数 : 名词_函数 标识符 ( 形参列表 ) 块')
     @分析器母机.production('函数 : 名词_函数 标识符 块')
     def 函数(片段):
-        return ast.FunctionDef(
-            name=(片段[1].getstr()),
-            args=(片段[3] if len(片段) == 6 else 语法分析器.形参列表()),
-            body=片段[-1],
-            decorator_list=[],
-            lineno=0,
-            col_offset=0)
+        return 语法树.函数定义(
+            名称=(片段[1].getstr()),
+            形参列表=(片段[3] if len(片段) == 6 else 语法分析器.形参列表()),
+            主体=片段[-1],
+            片段=片段)
 
     @分析器母机.production('条件声明 : 连词_如果 表达式 块 否则如果声明')
     @分析器母机.production('条件声明 : 连词_如果 表达式 块 连词_否则 块')
@@ -265,21 +264,6 @@ class 语法分析器:
             标识=标识,
             上下文=(ast.Load()),
             片段=片段)
-
-    def legalize_arguments(arguments):
-        hasDefaults = False
-        for arg in arguments.args:
-            if hasattr(arg, 'default') and arg.default:
-                hasDefaults = True
-                arguments.defaults.append(arg.default)
-            elif hasDefaults:
-                raise SyntaxError(message='no default expr is provided here',
-                  filename=(self.filename_),
-                  lineno=(arg.lineno),
-                  colno=(arg.col_offset),
-                  source=(self.source_))
-
-        return arguments
 
     分析器 = 分析器母机.build()
 
