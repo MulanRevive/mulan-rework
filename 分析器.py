@@ -167,12 +167,15 @@ class 语法分析器:
             return []
         return 片段[1]
 
-    # TODO: 变量->prefix_expr, 但已允许多层调用 -- 有何用?
+    # TODO: 变量->prefix_expr, 但已允许多层调用: 调用-实参部分-各实参-实参-表达式-表达式前缀-调用 -- 有何用?
+    # TODO: 可视化 parse 过程(各个语法规则的顺序), 方便调试
     @分析器母机.production('调用 : 变量 实参部分')
     def 调用(片段):
+        #print("调用")
         各参数 = []
         for 值, 键 in 片段[1]:
             if 键 is None:
+                #print(值)
                 各参数.append(值)
 
         return 语法树.调用(
