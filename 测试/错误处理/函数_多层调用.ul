@@ -1,0 +1,12 @@
+func add(number) {
+return number+1
+}
+func output(number) {
+print(number)
+}
+output(number(2))
+/*
+  File "测试/函数_多层调用.ul", line 7, in <module>
+    output(number(2))
+NameError: name 'number' is not defined
+*/

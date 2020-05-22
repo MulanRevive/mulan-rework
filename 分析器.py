@@ -167,7 +167,7 @@ class 语法分析器:
             return []
         return 片段[1]
 
-    # TODO: 变量->prefix_expr, 允许多层调用, 测试需要返回值
+    # TODO: 变量->prefix_expr, 但已允许多层调用 -- 有何用?
     @分析器母机.production('调用 : 变量 实参部分')
     def 调用(片段):
         各参数 = []

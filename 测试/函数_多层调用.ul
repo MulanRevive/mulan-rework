@@ -1,0 +1,7 @@
+func add(number) {
+return number+1
+}
+func output(number) {
+print(number)
+}
+output(add(2))
