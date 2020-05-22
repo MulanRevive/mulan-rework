@@ -36,6 +36,7 @@ import subprocess
     "函数_多层调用.ul": b"3",
     "返回空.ul": b"2",
     "返回单值.ul": b"2",
+    "二阶函数.ul": b"11",
 }
 
 # 多进程参考：https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/

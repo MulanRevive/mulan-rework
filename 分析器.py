@@ -6,6 +6,9 @@ from 词法分析器 import 规则
 
 class 语法分析器:
 
+    # TODO: 改进可视化 parse 过程(各个语法规则的顺序), 方便调试
+    调试 = False
+
     分析器母机 = ParserGenerator(
         规则,
         precedence=[
@@ -28,13 +31,15 @@ class 语法分析器:
 
     @分析器母机.production('块 : 前括号 声明列表 后括号')
     def 块(片段):
-        #print('块')
+        if 语法分析器.调试:
+            print('块')
         return 片段[1]
 
     @分析器母机.production('声明列表 : 声明')
     @分析器母机.production('声明列表 : 声明列表 换行 声明')
     def 声明列表(片段):
-        #print('声明列表')
+        if 语法分析器.调试:
+            print('声明列表')
         if len(片段) == 1:
             return [片段[0]]
         片段[0].append(片段[(-1)])
@@ -56,13 +61,15 @@ class 语法分析器:
 
     @分析器母机.production('表达式声明 : 表达式前缀')
     def 表达式声明(片段):
-        #print("表达式声明")
+        if 语法分析器.调试:
+            print("表达式声明")
         return 语法树.表达式(值 = 片段[0], 片段 = 片段)
 
     # TODO: 支持多元赋值, 如: a, b, c = 1, 2, 3
     @分析器母机.production('赋值 : 表达式前缀 = 表达式')
     def 赋值(片段):
-        #print("赋值")
+        if 语法分析器.调试:
+            print("赋值")
         片段[0].ctx = ast.Store()
         return 语法树.赋值(
             变量 = 片段[0],
@@ -153,7 +160,8 @@ class 语法分析器:
     @分析器母机.production('表达式前缀 : 变量')
     @分析器母机.production('表达式前缀 : 调用')
     def 表达式前缀(片段):
-        #print("表达式前缀")
+        if 语法分析器.调试:
+            print("表达式前缀")
         return 片段[0]
 
     @分析器母机.production('变量 : 名称')
@@ -163,15 +171,17 @@ class 语法分析器:
     @分析器母机.production('实参部分 : ( 各实参 )')
     @分析器母机.production('实参部分 : ( )')
     def 实参部分(片段):
+        if 语法分析器.调试:
+            print("实参部分")
         if len(片段) != 3:
             return []
         return 片段[1]
 
-    # TODO: 变量->prefix_expr, 但已允许多层调用: 调用-实参部分-各实参-实参-表达式-表达式前缀-调用 -- 有何用?
-    # TODO: 可视化 parse 过程(各个语法规则的顺序), 方便调试
-    @分析器母机.production('调用 : 变量 实参部分')
+    # 变量->表达式前缀, 以支持高阶函数调用, 如 f(1)(2)
+    @分析器母机.production('调用 : 表达式前缀 实参部分')
     def 调用(片段):
-        #print("调用")
+        if 语法分析器.调试:
+            print("调用")
         各参数 = []
         for 值, 键 in 片段[1]:
             if 键 is None:
@@ -197,11 +207,15 @@ class 语法分析器:
     @分析器母机.production('表达式 : 表达式前缀')
     @分析器母机.production('表达式 : 数') # TODO: 为何要, precedence='==' ?
     def 表达式(片段):
+        if 语法分析器.调试:
+            print("表达式")
         return 片段[0]
 
     @分析器母机.production('各实参 : 实参')
     @分析器母机.production('各实参 : 各实参 , 实参')
     def 各实参(片段):
+        if 语法分析器.调试:
+            print("各实参")
         if len(片段) == 3:
             片段[0].append(片段[2])
             return 片段[0]
@@ -209,6 +223,8 @@ class 语法分析器:
 
     @分析器母机.production('实参 : 表达式')
     def 实参(片段):
+        if 语法分析器.调试:
+            print("实参")
         return (片段[0], None)
 
     @分析器母机.production('形参列表 : ')
@@ -230,7 +246,7 @@ class 语法分析器:
         return 各形参
 
     @分析器母机.production('形参 : 名称')
-    def param(片段):
+    def 形参(片段):
         return 语法树.形参(
             名称=片段[0].id,
             标注=(None if len(片段) == 1 else 片段[-1]),
