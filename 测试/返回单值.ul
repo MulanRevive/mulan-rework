@@ -1,0 +1,4 @@
+func echo() {
+return 2
+}
+print(echo())

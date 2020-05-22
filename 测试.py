@@ -5,12 +5,15 @@ import subprocess
 路径 = '测试/'
 # 不确定为何输出是bytes：https://stackoverflow.com/questions/6269765/what-does-the-b-character-do-in-front-of-a-string-literal
 期望值 = {
+    # TODO: 整理到不同文件夹, 比如函数相关的一起
     "加.ul": b'5',
     "减.ul": b"1",
     "乘.ul": b"6",
     "除整.ul": b"2",
     "除留整.ul": b"1", # TODO: 多行代码
     "四则运算.ul": b"4",
+    "加小数.ul": b"5.0",
+    "除小数.ul": b"2.0",
     "多行.ul": b"23", # TODO: 如果末尾加空行, 报错 rply.errors.ParsingError: (None, None)
     "赋值.ul": b"2",
     "赋值两次.ul": b"6",
@@ -31,8 +34,7 @@ import subprocess
     "函数_单参数.ul": b"2",
     "函数_多参数.ul": b"123",
     "返回空.ul": b"2",
-    "加小数.ul": b"5.0",
-    "除小数.ul": b"2.0",
+    "返回单值.ul": b"2",
 }
 
 # 多进程参考：https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/
