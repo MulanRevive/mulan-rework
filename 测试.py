@@ -38,6 +38,7 @@ import subprocess
     "返回单值.ul": b"2",
     "二阶函数.ul": b"11",
     "缩进.ul": b"2",
+    "复杂.ul": b"10",
 }
 
 # 多进程参考：https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/
