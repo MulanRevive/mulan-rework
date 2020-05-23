@@ -36,6 +36,7 @@ class 语法分析器:
         return 片段[1]
 
     # TODO: 空行， 分号
+    #@分析器母机.production('注水声明列表 : ')
     @分析器母机.production('注水声明列表 : 声明列表')
     @分析器母机.production('注水声明列表 : 声明列表 换行')
     def 注水声明列表(片段):
