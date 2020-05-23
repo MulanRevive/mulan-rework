@@ -25,16 +25,25 @@ class 语法分析器:
 
     # ast 参考: https://docs.python.org/3.7/library/ast.html#abstract-grammar
 
-    @分析器母机.production('模块 : 声明列表')
+    @分析器母机.production('模块 : 注水声明列表')
     def 模块(片段):
         return 语法树.模块(主体=片段[0], 忽略类型=[])
 
-    @分析器母机.production('块 : 前括号 声明列表 后括号')
+    @分析器母机.production('块 : 前括号 注水声明列表 后括号')
     def 块(片段):
         if 语法分析器.调试:
             print('块')
         return 片段[1]
 
+    # TODO: 空行， 分号
+    @分析器母机.production('注水声明列表 : 声明列表')
+    @分析器母机.production('注水声明列表 : 声明列表 换行')
+    def 注水声明列表(片段):
+        if len(片段) > 0:
+            return 片段[0]
+        return []
+
+    # TODO： 分号
     @分析器母机.production('声明列表 : 声明')
     @分析器母机.production('声明列表 : 声明列表 换行 声明')
     def 声明列表(片段):
