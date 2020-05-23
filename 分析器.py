@@ -1,6 +1,7 @@
 import ast
 from rply import ParserGenerator
 from 语法树 import *
+from 错误 import 语法错误
 
 from 词法分析器 import 规则
 
@@ -36,7 +37,6 @@ class 语法分析器:
         return 片段[1]
 
     # TODO: 空行， 分号
-    #@分析器母机.production('注水声明列表 : ')
     @分析器母机.production('注水声明列表 : 声明列表')
     @分析器母机.production('注水声明列表 : 声明列表 换行')
     def 注水声明列表(片段):
@@ -321,7 +321,19 @@ class 语法分析器:
             上下文=(ast.Load()),
             片段=片段)
 
+    @分析器母机.error
+    def error_handler(词):
+        # TODO: 最好取到语法信息(上下文)
+        raise 语法错误(
+            信息=('没认出这个词 "%s"' % 词.gettokentype()),
+            文件名=语法分析器.文件名,
+            行号=语法树.取行号(词),
+            列号=语法树.取列号(词),
+            源码=语法分析器.源码)
+
     分析器 = 分析器母机.build()
 
-    def 创建(self):
+    def 创建(self, 源码, 源码文件):
+        语法分析器.源码 = 源码.split("\n")
+        语法分析器.文件名 = 源码文件
         return self.分析器
