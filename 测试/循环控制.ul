@@ -1,12 +1,12 @@
 a = 1
 while 1==1 {
-if a == 1 {
-a = 2
-print(2)
-continue
-} else {
-print(3)
-break
-}
-print(4)
+    if a == 1 {
+        a = 2
+        print(2)
+        continue
+    } else {
+        print(3)
+        break
+    }
+    print(4)
 }

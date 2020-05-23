@@ -1,4 +1,4 @@
 func echo(number) {
-print(number)
+    print(number)
 }
 echo(2)
