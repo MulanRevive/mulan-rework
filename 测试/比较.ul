@@ -1,26 +1,53 @@
 if 2===2 {
-print(2)
+    print(2)
+}
+if 2===3 {
+    print(3)
 }
 if 2!==1 {
-print(2)
+    print(2)
+}
+if 2!==2 {
+    print(3)
 }
 if 2==2 {
-print(2)
+    print(2)
+}
+if 2==1 {
+    print(3)
 }
 if 2!=1 {
-print(2)
+    print(2)
+}
+if 2!=2 {
+    print(3)
 }
 if 2>1 {
-print(2)
+    print(2)
+}
+if 1>2 {
+    print(3)
+}
+if 2<1 {
+    print(3)
 }
 if 2>=1 {
-print(2)
+    print(2)
+}
+if 1>=2 {
+    print(3)
 }
 if 1<2 {
-print(2)
+    print(2)
+}
+if 2<1 {
+    print(3)
 }
 if 1<=2 {
     print(2)
+}
+if 2<=1 {
+    print(3)
 }
 if 2!=1==1 {
     print(2)
