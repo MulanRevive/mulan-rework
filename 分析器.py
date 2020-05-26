@@ -13,6 +13,7 @@ class 语法分析器:
     分析器母机 = ParserGenerator(
         规则,
         precedence=[
+            ('right', ['?', ':']),
             ('left', ['连词_或']),
             ('left', ['连词_且']),
             # nonassoc 参考: http://www.dabeaz.com/ply/ply.html
@@ -171,6 +172,16 @@ class 语法分析器:
             后项 = 片段[2],
             片段=片段)
 
+    # TODO: ! ~ -
+
+    @分析器母机.production('三元表达式 : 表达式 ? 表达式 : 表达式')
+    def 三元表达式(片段):
+        return 语法树.如果表达式(
+            条件=片段[0],
+            主体=片段[2],
+            否则=片段[-1],
+            片段=片段)
+
     @分析器母机.production('表达式前缀 : 变量')
     @分析器母机.production('表达式前缀 : 调用')
     def 表达式前缀(片段):
@@ -219,6 +230,7 @@ class 语法分析器:
 
     @分析器母机.production('表达式 : 二元表达式')
     @分析器母机.production('表达式 : 表达式前缀')
+    @分析器母机.production('表达式 : 三元表达式')
     @分析器母机.production('表达式 : 数') # TODO: 为何要, precedence='==' ?
     def 表达式(片段):
         if 语法分析器.调试:

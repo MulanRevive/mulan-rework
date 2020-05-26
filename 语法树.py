@@ -82,6 +82,13 @@ class 语法树:
     @staticmethod
     def 返回(值, 片段):
         return ast.Return(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    # 表达式部分
+
+    @staticmethod
+    def 如果表达式(条件, 主体, 否则, 片段):
+        return ast.IfExp(test=条件, body=主体, orelse=否则, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
     '''
     不同于 python3 的语法树中, col_offset 是从 0 开始:
     >>> ast.dump(ast.parse("2+3"), True, True)
