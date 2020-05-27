@@ -2,6 +2,8 @@
 
 import subprocess
 
+from sys import platform
+
 路径 = '测试/'
 # 不确定为何输出是bytes：https://stackoverflow.com/questions/6269765/what-does-the-b-character-do-in-front-of-a-string-literal
 期望值 = {
@@ -39,7 +41,9 @@ import subprocess
     "特殊字符/制表符.ul": b"2",
     "特殊字符/缩进.ul": b"2",
     "特殊字符/注释块.ul": b"2",
-    "引用/引用py.ul": b"2\n",
+    "引用/引用本地py.ul": b"2\r\n" if platform == "win32" else b"2\n",
+    # TODO: 引用 python 标准库, 第三方库
+    # "引用/引用木兰.ul": b"2", TODO: 需要对.ul 文件特别处理, 见逆向 env
     "综合.ul": b"10",
     #"错误处理/死递归.ul": b"test",
     # "空行.ul": b"1", TODO: 暂报语法错误
