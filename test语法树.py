@@ -38,7 +38,7 @@ class test语法树(unittest.TestCase):
 
     def 生成语法树(self, 源码):
         各词 = 分词器.lex(源码)
-        分析器 = 语法分析器().创建()
+        分析器 = 语法分析器().创建(源码, '')
         return 分析器.parse(各词)
 
     def 取子节点(self, 节点, 子节点名, 索引 = -1):
