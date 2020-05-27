@@ -62,6 +62,7 @@ class 语法分析器:
     def 混合声明(片段):
         return 片段[0]
 
+    @分析器母机.production('声明 : 引用声明')
     @分析器母机.production('声明 : 表达式声明')
     @分析器母机.production('声明 : 赋值')
     @分析器母机.production('声明 : 终止声明')
@@ -72,7 +73,24 @@ class 语法分析器:
 
     # TODO: try-catch-throw
 
-    # TODO: using_stmt
+    # TODO: 更多引用方式
+    @分析器母机.production('引用声明 : 动词_引用 各模块名')
+    def 引用声明(片段):
+        return 语法树.导入(
+            名称=片段[1],
+            片段=片段)
+
+    @分析器母机.production('各模块名 : 模块名')
+    def 各模块名(片段):
+        return [语法树.别名(
+            名称=片段[-1],
+            别名=None,
+            片段=片段[-1]
+        )]
+
+    @分析器母机.production('模块名 : 名称')
+    def 模块名(片段):
+        return 片段[0].id
 
     @分析器母机.production('表达式声明 : 表达式前缀')
     def 表达式声明(片段):
@@ -188,6 +206,14 @@ class 语法分析器:
         if 语法分析器.调试:
             print("表达式前缀")
         return 片段[0]
+
+    # TODO: 添加测试: 调用().名称, 还有 类.属性
+    @分析器母机.production('变量 : 表达式前缀 点 名称')
+    def 属性表达式(片段):
+        return 语法树.属性(
+            值=片段[0],
+            属性=片段[2].id,
+            片段=片段)
 
     @分析器母机.production('变量 : 名称')
     def 变量(片段):

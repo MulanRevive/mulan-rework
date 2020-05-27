@@ -1,0 +1,2 @@
+using module_py
+module_py.talk()

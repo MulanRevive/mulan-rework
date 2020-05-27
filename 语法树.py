@@ -83,6 +83,18 @@ class 语法树:
     def 返回(值, 片段):
         return ast.Return(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 导入(名称, 片段):
+        return ast.Import(names=名称, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 别名(名称, 别名, 片段):
+        return ast.alias(name=名称, asname=别名, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 属性(值, 属性, 片段):
+        return ast.Attribute(value=值, attr=属性, ctx=(ast.Load()), lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod
