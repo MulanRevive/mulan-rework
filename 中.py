@@ -12,7 +12,7 @@ def 查看(各词):
         print(词)
 
 源码文件 = sys.argv[1]
-with open(源码文件, 'r') as f:
+with open(源码文件, 'r', encoding='utf-8') as f:
     源码 = f.read()
 
 各词 = 分词器.lex(源码)
