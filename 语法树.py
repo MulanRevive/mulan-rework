@@ -95,6 +95,10 @@ class 语法树:
     def 属性(值, 属性, 片段):
         return ast.Attribute(value=值, attr=属性, ctx=(ast.Load()), lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 从模块导入(模块, 各名称, 位置, 片段):
+        return ast.ImportFrom(module=模块, names=各名称, level=位置, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod
