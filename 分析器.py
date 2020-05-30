@@ -88,9 +88,12 @@ class 语法分析器:
             片段=片段[-1]
         )]
 
+    @分析器母机.production('模块名 : 模块名 点 名称')
     @分析器母机.production('模块名 : 名称')
     def 模块名(片段):
-        return 片段[0].id
+        if len(片段) == 1:
+            return 片段[0].id
+        return '%s.%s' % (片段[0], 片段[2].id)
 
     @分析器母机.production('表达式声明 : 表达式前缀')
     def 表达式声明(片段):
