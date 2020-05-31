@@ -1,4 +1,4 @@
-using module_py
-using module1_py
-module_py.talk()
-module1_py.talk()
+using test_module_py
+using test_module1_py
+test_module_py.talk()
+test_module1_py.talk()

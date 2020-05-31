@@ -41,10 +41,13 @@ from sys import platform
     "特殊字符/制表符.ul": b"2",
     "特殊字符/缩进.ul": b"2",
     "特殊字符/注释块.ul": b"2",
-    "引用/引用本地py.ul": b"2\r\n" if platform == "win32" else b"2\n",
-    "引用/引用本地包内py.ul": b"2\r\n" if platform == "win32" else b"2\n",
-    "引用/引用本地多py.ul": b"2\r\n3\r\n" if platform == "win32" else b"2\n3\n",
-    "引用/引用本地py全部内容.ul": b"3\r\n2\r\n" if platform == "win32" else b"3\n2\n",
+    "引用/引用本地py.ul": b"2",
+    "引用/引用本地包内py.ul": b"2",
+    "引用/引用本地多py.ul": b"23",
+    "引用/引用本地py全部内容.ul": b"32",
+    # TODO： 深究 python 中 'from . import *'的含义。参考：
+    # https://stackoverflow.com/questions/57774193/what-does-from-dot-import-asterisk-do-in-python-3
+    # "引用/引用本地py点.ul": b"2",
     # TODO: 引用 python 标准库, 第三方库
     # "引用/引用木兰.ul": b"2", TODO: 需要对.ul 文件特别处理, 见逆向 env
     "综合.ul": b"10",

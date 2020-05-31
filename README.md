@@ -154,7 +154,7 @@ $ python 中.py 测试/四则运算.ul
 ```
 $ chmod +x 中.py
 $ python 测试.py
-$ python test*
+$ python test语法树.py
 ```
 
 ## 最高优先问题
