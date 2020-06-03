@@ -1,0 +1,5 @@
+type Person {
+{}
+}
+mulan = Person()
+print(mulan!=nil)

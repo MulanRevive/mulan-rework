@@ -99,6 +99,14 @@ class 语法树:
     def 从模块导入(模块, 各名称, 位置, 片段):
         return ast.ImportFrom(module=模块, names=各名称, level=位置, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 一元操作(操作符, 值, 片段):
+        return ast.UnaryOp(操作符, 值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 常量(值, 片段):
+        return ast.NameConstant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod

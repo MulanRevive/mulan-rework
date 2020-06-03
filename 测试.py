@@ -48,12 +48,20 @@ from sys import platform
 
     # TODO： 深究 python 中 'from . import *'的含义。参考：
     # https://stackoverflow.com/questions/57774193/what-does-from-dot-import-asterisk-do-in-python-3
+    # https://blog.csdn.net/nigelyq/article/details/78930330
     # "引用/引用本地py点.ul": b"2",
 
     # TODO: 引用 python 标准库, 第三方库
 
     "引用/引用本地py某内容.ul": b"2",
     # "引用/引用木兰.ul": b"2", TODO: 需要对.ul 文件特别处理, 见逆向 env
+
+    "运算/一元操作.ul": b"2",
+
+    # TODO: 加上 `(2<1)!=nil and`
+    "运算/空.ul": b"True",
+
+    # "类型/定义.ul": b"true",
     "综合.ul": b"10",
     #"错误处理/死递归.ul": b"test",
     # "空行.ul": b"1", TODO: 暂报语法错误
@@ -71,15 +79,17 @@ for 文件 in 期望值:
 for 文件 in 进程表:
     反馈 = 进程表[文件].communicate()
     输出 = 反馈[0]
-    # TODO: 确认报错信息
+    # TODO: 确认报错信息, 现在对语法错误无效
     报错 = 反馈[1]
 
-    if 输出 == 期望值[文件]:
+    if 报错:
+        失败表[文件] = 报错
+    elif 输出 == 期望值[文件]:
         print("通过： " + 文件)
     # elif 报错 == 期望值[文件]:
     #    print("错误一致: " + 文件)
     else:
-        失败表[文件] = 输出 or 报错
+        失败表[文件] = 输出
 
 print("===================")
 if len(失败表) > 0:

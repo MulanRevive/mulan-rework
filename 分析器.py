@@ -22,6 +22,7 @@ class 语法分析器:
             ('left', ['!=', '==']),
             ('left', ['加', '減']),
             ('left', ['星号', '除']),
+            ('left', ['非']),
         ]
     )
 
@@ -225,7 +226,13 @@ class 语法分析器:
             后项 = 片段[2],
             片段=片段)
 
-    # TODO: ! ~ -
+    # TODO: ~ -
+    @分析器母机.production('一元表达式 : 非 表达式')
+    def 一元表达式(片段):
+        操作符 = 片段[0].getstr()
+        if 操作符 == '!':
+            操作符 = ast.Not()
+        return 语法树.一元操作(操作符, 片段[1], 片段=片段)
 
     @分析器母机.production('三元表达式 : 表达式 ? 表达式 : 表达式')
     def 三元表达式(片段):
@@ -289,10 +296,16 @@ class 语法分析器:
         except ValueError:
             return 语法树.数(float(片段[0].getstr()), 片段)
 
+    @分析器母机.production('常量 : 名词_空')
+    def 常量_空(片段):
+        return 语法树.常量(None, 片段=片段)
+
     @分析器母机.production('表达式 : 二元表达式')
+    @分析器母机.production('表达式 : 一元表达式')
     @分析器母机.production('表达式 : 表达式前缀')
     @分析器母机.production('表达式 : 三元表达式')
     @分析器母机.production('表达式 : 数') # TODO: 为何要, precedence='==' ?
+    @分析器母机.production('表达式 : 常量')
     def 表达式(片段):
         if 语法分析器.调试:
             print("表达式")
