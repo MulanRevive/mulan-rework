@@ -36,12 +36,18 @@ class 语法分析器:
     def 块(片段):
         if 语法分析器.调试:
             print('块')
-        return 片段[1]
+        if len(片段) == 3:
+            if 片段[1]:
+                return 片段[1]
+        return [语法树.空转(片段)]
 
-    # TODO: 空行， 分号
+    # TODO: 分号
+    @分析器母机.production('注水声明列表 : ')
     @分析器母机.production('注水声明列表 : 声明列表')
     @分析器母机.production('注水声明列表 : 声明列表 换行')
     def 注水声明列表(片段):
+        if 语法分析器.调试:
+            print('注水声明列表')
         if len(片段) > 0:
             return 片段[0]
         return []
@@ -57,10 +63,54 @@ class 语法分析器:
         片段[0].append(片段[(-1)])
         return 片段[0]
 
+    @分析器母机.production('声明 : 类型定义')
     @分析器母机.production('声明 : 函数')
     @分析器母机.production('声明 : 条件声明')
     @分析器母机.production('声明 : 每当声明')
     def 混合声明(片段):
+        if 语法分析器.调试:
+            print('混合声明')
+        return 片段[0]
+
+    @分析器母机.production('类型定义 : 名词_类型 名称 各基准类 类型主体')
+    def 类型定义(片段):
+        return 语法树.类定义(
+            名称=片段[1].id,
+            各基准类=片段[2],
+            主体=片段[-1],
+            片段=片段)
+
+    @分析器母机.production('各基准类 :')
+    def 各基准类(片段):
+        if 语法分析器.调试:
+            print('各基准类')
+        if len(片段) == 0:
+            return []
+
+    @分析器母机.production('类型主体 : 前括号 各类型内声明 后括号')
+    def 类型主体(片段):
+        if 语法分析器.调试:
+            print('类型主体')
+        return 片段[1]
+
+    @分析器母机.production('各类型内声明 : ')
+    @分析器母机.production('各类型内声明 : 各类型内声明 类型内声明')
+    def 各类型内声明(片段):
+        if 语法分析器.调试:
+            print('各类型内声明')
+        if len(片段) == 0:
+            # TODO: 应该报语法错误?
+            return []
+        if isinstance(片段[1], list): # TODO: 有这种情况吗?
+            片段[0] += 片段[1]
+        else:
+            片段[0].append(片段[1])
+        return 片段[0]
+
+    @分析器母机.production('类型内声明 : 块')
+    def 类型内声明(片段):
+        if 语法分析器.调试:
+            print('类型内声明')
         return 片段[0]
 
     @分析器母机.production('声明 : 引用声明')

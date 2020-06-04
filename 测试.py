@@ -61,7 +61,7 @@ from sys import platform
     # TODO: 加上 `(2<1)!=nil and`
     "运算/空.ul": b"True",
 
-    # "类型/定义.ul": b"true",
+    "类型/定义.ul": b"True",
     "综合.ul": b"10",
     #"错误处理/死递归.ul": b"test",
     # "空行.ul": b"1", TODO: 暂报语法错误

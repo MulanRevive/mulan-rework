@@ -41,6 +41,7 @@ import rply, re
     '连词_于',
     '名词_空',
     '非',
+    '名词_类型',
 ]
 
 分词器母机 = LexerGenerator()
@@ -60,6 +61,7 @@ import rply, re
 分词器母机.add('动词_终止', '\\bbreak\\b')
 分词器母机.add('动词_跳过', '\\bcontinue\\b')
 分词器母机.add('名词_函数', '\\bfunc\\b')
+分词器母机.add('名词_类型', '\\btype\\b')
 分词器母机.add('动词_引用', '\\busing\\b')
 分词器母机.add('连词_于', '\\bin\\b')
 分词器母机.add('标识符', '\\$?[_a-zA-Z][_a-zA-Z0-9]*')
@@ -84,7 +86,7 @@ import rply, re
 分词器母机.add('?', '\\?')
 分词器母机.add(':', ':')
 分词器母机.add('换行', '\n')
-分词器母机.ignore('[ \t]+') # TODO: \r 何用?
+分词器母机.ignore('[ \t]+') # TODO: \r 何用? 也许和 windows 换行有关
 分词器母机.ignore('/\\*.*?\\*/', flags=(re.DOTALL))
 
 分词器 = 分词器母机.build()

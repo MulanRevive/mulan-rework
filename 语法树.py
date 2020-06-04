@@ -107,6 +107,21 @@ class 语法树:
     def 常量(值, 片段):
         return ast.NameConstant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 类定义(名称, 各基准类, 主体, 片段):
+        return ast.ClassDef(name=名称,
+          bases=各基准类,
+          keywords=[],
+          body=主体,
+          decorator_list=[],
+          starargs=None,
+          kwargs=None,
+          lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 空转(片段):
+        return ast.Pass(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod
