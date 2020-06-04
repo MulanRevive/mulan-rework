@@ -108,6 +108,7 @@ class 语法分析器:
         return 片段[0]
 
     @分析器母机.production('类型内声明 : 块')
+    @分析器母机.production('类型内声明 : 函数')
     def 类型内声明(片段):
         if 语法分析器.调试:
             print('类型内声明')

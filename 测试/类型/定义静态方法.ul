@@ -1,0 +1,6 @@
+type Person {
+    func getId() {
+        return 1
+    }
+}
+print(Person.getId())

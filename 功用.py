@@ -28,3 +28,28 @@ class 语法树相关:
                 return 输出 + ")"
             return 输出 + "\n" + 缩进 * (层次 - 1) + ")"
         return 输出
+
+'''
+TODO:
+如果class的decorator_list为空(无NameFixPass), 则报错:
+Traceback (most recent call last):
+  File "./中.py", line 26, in <module>
+    print(语法树相关.格式化节点(节点, 1))
+  File "/Users/xuanwu/work/木兰/prototype/功用.py", line 23, in 格式化节点
+    输出 += 语法树相关.格式化节点(属性[1], 层次 + 1)
+  File "/Users/xuanwu/work/木兰/prototype/功用.py", line 11, in 格式化节点
+    输出 += 语法树相关.格式化节点(子节点, 层次 + 1)
+  File "/Users/xuanwu/work/木兰/prototype/功用.py", line 23, in 格式化节点
+    输出 += 语法树相关.格式化节点(属性[1], 层次 + 1)
+  File "/Users/xuanwu/work/木兰/prototype/功用.py", line 11, in 格式化节点
+    输出 += 语法树相关.格式化节点(子节点, 层次 + 1)
+  File "/Users/xuanwu/work/木兰/prototype/功用.py", line 23, in 格式化节点
+    输出 += 语法树相关.格式化节点(属性[1], 层次 + 1)
+  File "/Users/xuanwu/work/木兰/prototype/功用.py", line 23, in 格式化节点
+    输出 += 语法树相关.格式化节点(属性[1], 层次 + 1)
+  File "/Users/xuanwu/work/木兰/prototype/功用.py", line 20, in 格式化节点
+    for 属性 in ast.iter_fields(节点):
+  File "/opt/miniconda3/lib/python3.7/ast.py", line 177, in iter_fields
+    for field in node._fields:
+AttributeError: 'NoneType' object has no attribute '_fields'
+'''

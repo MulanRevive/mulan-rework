@@ -6,6 +6,7 @@ from 词法分析器 import 分词器
 from 分析器 import 语法分析器
 from 环境 import 创建全局变量
 from 功用 import 语法树相关
+from 语法树处理 import NameFixPass
 
 def 查看(各词):
     for 词 in 各词:
@@ -20,6 +21,8 @@ with open(源码文件, 'r', encoding='utf-8') as f:
 
 分析器 = 语法分析器().创建(源码, 源码文件)
 节点 = 分析器.parse(各词)
+
+节点 = NameFixPass(源码文件).visit(节点)
 
 #print(python.dump(节点))
 #print(ast.dump(节点, True, True))
