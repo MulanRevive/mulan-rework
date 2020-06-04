@@ -9,6 +9,8 @@ def __内置_除(a, b):
 def 创建全局变量():
 
     def 转字符串(x):
+        if isinstance(x, bool):
+            return 'true' if x else 'false'
         return str(x)
 
     def 自定义输出(*各物件, 分隔符=' ', 终止符='', 文件=sys.stdout, flush=False):
