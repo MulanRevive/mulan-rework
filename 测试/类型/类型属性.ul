@@ -1,0 +1,6 @@
+type Person {
+    {
+        name = 2
+    }
+}
+print(Person.name)
