@@ -1,0 +1,6 @@
+type Person {
+    func $Person() {
+        print(1)
+    }
+}
+mulan=Person()

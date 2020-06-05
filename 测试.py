@@ -64,6 +64,7 @@ from sys import platform
     "类型/定义.ul": b"true",
     "类型/定义静态方法.ul": b"1",
     "类型/定义方法.ul": b"1",
+    "类型/定义构造方法.ul": b"1",
 
     "综合.ul": b"10",
     #"错误处理/死递归.ul": b"test",

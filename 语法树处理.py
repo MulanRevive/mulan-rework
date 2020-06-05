@@ -17,6 +17,8 @@ class NameFixPass(ast.NodeTransformer):
     def visit_FunctionDef(self, 函数):
         if 函数.name.startswith('$'):
             函数.name = 函数.name.replace('$', '')
+            if 函数.name == self.类[(-1)]:
+                函数.name = '__init__'
             函数.args.args.insert(0, ast.arg(arg='self',
                                              annotation=None,
                                              lineno=(函数.lineno),
