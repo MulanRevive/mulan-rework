@@ -3,64 +3,65 @@ import ast
 from rply.token import SourcePosition
 from rply import Token
 
+
 class 语法树:
     @staticmethod
     def 模块(主体, 忽略类型):
-        return ast.Module(body = 主体, type_ignores = 忽略类型)
+        return ast.Module(body=主体, type_ignores=忽略类型)
 
     @staticmethod
     def 表达式(值, 片段):
-        return ast.Expr(value = 值, lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.Expr(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 数(值, 片段):
-        return ast.Num(值, lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.Num(值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 二元运算(左, 运算符, 右, 片段):
-        return ast.BinOp(左, 运算符, 右, lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.BinOp(左, 运算符, 右, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 名称(标识, 上下文, 片段):
-        return ast.Name(id=标识, ctx=上下文, lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.Name(id=标识, ctx=上下文, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 调用(函数, 参数, 片段):
         return ast.Call(func=函数, args=参数, keywords=[], starargs=None, kwargs=None,
-            lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+                        lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 赋值(变量, 值, 片段):
-        return ast.Assign([变量], 值, lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.Assign([变量], 值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 常数(值, 片段):
-        return ast.NameConstant(value=值, lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.NameConstant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 如果(条件, 主体, 否则, 片段):
-        return ast.If(test=条件, body=主体, orelse=否则, lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.If(test=条件, body=主体, orelse=否则, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     # TODO: 为何比较符和后项在数组中?
     @staticmethod
     def 比较(前项, 操作符, 后项, 片段):
-        return ast.Compare(前项, [操作符], [后项], lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.Compare(前项, [操作符], [后项], lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 布尔操作(前项, 操作符, 后项, 片段):
-        return ast.BoolOp(op=操作符, values=[前项, 后项], lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.BoolOp(op=操作符, values=[前项, 后项], lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 每当(条件, 主体, 片段):
-        return ast.While(test=条件, body=主体, orelse=[], lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.While(test=条件, body=主体, orelse=[], lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 终止(片段):
-        return ast.Break(lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.Break(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 跳过(片段):
-        return ast.Continue(lineno = 语法树.取行号(片段), col_offset = 语法树.取列号(片段))
+        return ast.Continue(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 形参(名称, 标注, 片段):
@@ -110,13 +111,13 @@ class 语法树:
     @staticmethod
     def 类定义(名称, 各基准类, 主体, 片段):
         return ast.ClassDef(name=名称,
-          bases=各基准类,
-          keywords=[],
-          body=主体,
-          decorator_list=[],
-          starargs=None,
-          kwargs=None,
-          lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+                            bases=各基准类,
+                            keywords=[],
+                            body=主体,
+                            decorator_list=[],
+                            starargs=None,
+                            kwargs=None,
+                            lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 空转(片段):
@@ -133,6 +134,7 @@ class 语法树:
     >>> ast.dump(ast.parse("2+3"), True, True)
     'Module(body=[Expr(value=BinOp(left=Num(n=2, lineno=1, col_offset=0), op=Add(), right=Num(n=3, lineno=1, col_offset=2), lineno=1, col_offset=0), lineno=1, col_offset=0)])'
     '''
+
     def 取源码位置(片段):
         if isinstance(片段, list):
             if len(片段) > 0:
