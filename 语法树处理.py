@@ -12,25 +12,29 @@ class NameFixPass(ast.NodeTransformer):
 
     def __init__(self, filename):
         self.filename = filename
-        self.cls = ['']
+        self.类 = ['']
 
-    def visit_FunctionDef(self, func):
-        if func.name.startswith('$'):
-            pass
-        elif self.cls[(-1)]:
-            if not func.args.args or func.args.args[0].arg != 'self':
+    def visit_FunctionDef(self, 函数):
+        if 函数.name.startswith('$'):
+            函数.name = 函数.name.replace('$', '')
+            函数.args.args.insert(0, ast.arg(arg='self',
+                                             annotation=None,
+                                             lineno=(函数.lineno),
+                                             col_offset=(函数.col_offset)))
+        elif self.类[(-1)]:
+            if not 函数.args.args or 函数.args.args[0].arg != 'self':
                 decorator = ast.Name(id='staticmethod',
-                  ctx=(ast.Load()),
-                  lineno=(func.lineno),
-                  col_offset=(func.col_offset))
-                func.decorator_list.append(decorator)
-        self.cls.append(None)
-        func = self.generic_visit(func)
-        self.cls.pop(-1)
-        return func
+                                     ctx=(ast.Load()),
+                                     lineno=(函数.lineno),
+                                     col_offset=(函数.col_offset))
+                函数.decorator_list.append(decorator)
+        self.类.append(None)
+        函数 = self.generic_visit(函数)
+        self.类.pop(-1)
+        return 函数
 
-    def visit_ClassDef(self, cls):
-        self.cls.append(cls.name)
-        cls = self.generic_visit(cls)
-        self.cls.pop(-1)
-        return cls
+    def visit_ClassDef(self, 类):
+        self.类.append(类.name)
+        类 = self.generic_visit(类)
+        self.类.pop(-1)
+        return 类
