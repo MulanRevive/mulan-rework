@@ -1,0 +1,12 @@
+type Animal {
+    func getName() {
+        return 1
+    }
+}
+type Person : Animal {
+{}
+}
+print(Person.getName())
+/*
+必须先定义 Animal
+*/

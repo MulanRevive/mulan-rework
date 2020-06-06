@@ -81,11 +81,13 @@ class 语法分析器:
             片段=片段)
 
     @分析器母机.production('各基准类 :')
+    @分析器母机.production('各基准类 : : 名称')
     def 各基准类(片段):
         if 语法分析器.调试:
             print('各基准类')
         if len(片段) == 0:
             return []
+        return [片段[1]]
 
     @分析器母机.production('类型主体 : 前括号 各类型内声明 后括号')
     def 类型主体(片段):
