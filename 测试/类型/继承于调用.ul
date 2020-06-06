@@ -1,0 +1,12 @@
+type Animal {
+    func getName() {
+        return 1
+    }
+}
+func getClass() {
+    return Animal
+}
+type Person : getClass() {
+{}
+}
+print(Person.getName())
