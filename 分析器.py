@@ -110,11 +110,32 @@ class 语法分析器:
         return 片段[0]
 
     @分析器母机.production('类型内声明 : 块')
+    @分析器母机.production('类型内声明 : 操作符')
     @分析器母机.production('类型内声明 : 函数')
     def 类型内声明(片段):
         if 语法分析器.调试:
             print('类型内声明')
         return 片段[0]
+
+    @分析器母机.production('操作符 : 名词_操作符 二元操作符 操作数 块')
+    def 操作符(片段):
+        return 语法树.函数定义(名称=片段[1],
+                        形参列表=片段[2],
+                        主体=片段[-1],
+                        片段=片段)
+
+    @分析器母机.production('操作数 : ( 形参 )')
+    def 操作数(片段):
+        各形参 = 语法分析器.形参列表()
+        各形参.args.append(语法树.形参(名称='self',
+                               标注=None,
+                               片段=片段))
+        [各形参.args.append(形参) for 形参 in 片段 if isinstance(形参, ast.arg)]
+        return 各形参
+
+    @分析器母机.production('二元操作符 : 加')
+    def 二元操作符_加(片段):
+        return '__add__'
 
     @分析器母机.production('声明 : 引用声明')
     @分析器母机.production('声明 : 表达式声明')

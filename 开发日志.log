@@ -1,0 +1,10 @@
+## 常见错误
+
+```
+  File "/Users/xuanwu/work/木兰/prototype/分析器.py", line 120, in 语法分析器
+    @分析器母机.production('操作符: 名词_操作符 二元操作符 操作数 块')
+  File "/opt/miniconda3/lib/python3.7/site-packages/rply/parsergenerator.py", line 77, in production
+    raise ParserGeneratorError("Expecting :")
+rply.errors.ParserGeneratorError: Expecting :
+```
+语法规则中, ":"必须前后带空格

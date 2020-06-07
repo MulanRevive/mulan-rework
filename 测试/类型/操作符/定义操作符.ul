@@ -1,0 +1,11 @@
+type Person {
+    operator + (a) {
+        return Person(self.name + a.name)
+    } func $Person(name) {
+        self.name = name
+    }
+}
+hua = Person(1)
+mulan = Person(2)
+huaMulan = hua + mulan
+print(huaMulan.name)
