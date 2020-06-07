@@ -1,6 +1,8 @@
 type Person {
     operator + (a) {
         return Person(self.name + a.name)
+    } operator - (a) {
+        return Person(self.name - a.name)
     } func $Person(name) {
         self.name = name
     }
@@ -8,4 +10,6 @@ type Person {
 hua = Person(1)
 mulan = Person(2)
 huaMulan = hua + mulan
+print(huaMulan.name)
+huaMulan = mulan - hua
 print(huaMulan.name)

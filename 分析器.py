@@ -134,8 +134,13 @@ class 语法分析器:
         return 各形参
 
     @分析器母机.production('二元操作符 : 加')
-    def 二元操作符_加(片段):
-        return '__add__'
+    @分析器母机.production('二元操作符 : 減')
+    def 二元操作符(片段):
+        对照表 = {
+            '+': '__add__',
+            '-': '__sub__',
+        }
+        return 对照表[片段[0].getstr()]
 
     @分析器母机.production('声明 : 引用声明')
     @分析器母机.production('声明 : 表达式声明')
