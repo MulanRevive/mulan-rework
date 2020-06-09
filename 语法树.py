@@ -123,6 +123,10 @@ class 语法树:
     def 空转(片段):
         return ast.Pass(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 全局(各名称, 片段):
+        return ast.Global(各名称, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod
