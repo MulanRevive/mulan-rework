@@ -1,13 +1,15 @@
 x = 1
-y = 2
+y = 1
 func double() {
     extern x
     x = x * 2
 }
-func shrink() {
+func double2() {
     extern x, y
-    x = x / y
+    x = x * 2
+    y = y * 2
 }
 double()
-shrink()
+double2()
 print(x)
+print(y)
