@@ -1,0 +1,2 @@
+using randrange in random
+print(randrange(100)<100)

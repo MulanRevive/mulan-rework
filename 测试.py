@@ -52,6 +52,8 @@ from sys import platform
     # "引用/引用本地py点.ul": b"2",
 
     # TODO: 引用 python 标准库, 第三方库
+    "引用/引用标准py_math.ul": b"5",
+    "引用/引用标准py_random.ul": b"true",
 
     "引用/引用本地py某内容.ul": b"2",
     # "引用/引用木兰.ul": b"2", TODO: 需要对.ul 文件特别处理, 见逆向 env

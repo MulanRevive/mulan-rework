@@ -1,0 +1,2 @@
+using ceil in math
+print(ceil(4.5))
