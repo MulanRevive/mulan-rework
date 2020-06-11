@@ -79,7 +79,7 @@ from sys import platform
     "类型/继承于调用.ul": b"1",
     "类型/操作符/定义操作符.ul": b"31",
 
-    "字符串/双引号.ul": b"ok",
+    "字符串/双引号.ul": b"oka",
 
     "综合.ul": b"10",
     #"错误处理/死递归.ul": b"test",

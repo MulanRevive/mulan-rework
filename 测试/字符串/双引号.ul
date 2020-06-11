@@ -1,1 +1,5 @@
 print("ok")
+func print2(a, b) {
+    print(a)
+}
+print2("a","b")
