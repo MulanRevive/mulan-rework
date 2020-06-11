@@ -127,6 +127,10 @@ class 语法树:
     def 全局(各名称, 片段):
         return ast.Global(各名称, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 字符串(值, 片段):
+        return ast.Str(值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod

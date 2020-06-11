@@ -328,6 +328,7 @@ class 语法分析器:
 
     @分析器母机.production('表达式前缀 : 变量')
     @分析器母机.production('表达式前缀 : 调用')
+    @分析器母机.production('表达式前缀 : 字符串')
     def 表达式前缀(片段):
         if 语法分析器.调试:
             print("表达式前缀")
@@ -379,6 +380,12 @@ class 语法分析器:
             return 语法树.数(int(片段[0].getstr(), 0), 片段)
         except ValueError:
             return 语法树.数(float(片段[0].getstr()), 片段)
+
+    @分析器母机.production('字符串 : 字符串字面量')
+    def 字符串(片段):
+        值 = 片段[0].getstr()
+        值 = 值[1:-1]
+        return 语法树.字符串(值, 片段)
 
     @分析器母机.production('常量 : 名词_真')
     def 常量_真(片段):
