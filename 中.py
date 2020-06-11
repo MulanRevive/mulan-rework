@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import re, sys, traceback
-import ast, python
+import sys
+import ast
 from 词法分析器 import 分词器
 from 分析器 import 语法分析器
 from 环境 import 创建全局变量
@@ -25,7 +25,6 @@ with open(源码文件, 'r', encoding='utf-8') as f:
 
 节点 = NameFixPass(源码文件).visit(节点)
 
-#print(python.dump(节点))
 #print(ast.dump(节点, True, True))
 #print(语法树相关.格式化节点(节点, 1))
 
