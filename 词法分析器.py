@@ -44,6 +44,8 @@ import rply, re
     '名词_类型',
     '名词_操作符',
     '形容词_外部',
+    '名词_真',
+    '名词_假',
 ]
 
 分词器母机 = LexerGenerator()
@@ -53,6 +55,8 @@ import rply, re
 分词器母机.add('前括号', '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('后括号', '\\r*\\n*}') # , flags=(re.DOTALL)
 分词器母机.add('名词_空', '\\bnil\\b')
+分词器母机.add('名词_真', '\\btrue\\b')
+分词器母机.add('名词_假', '\\bfalse\\b')
 分词器母机.add('连词_且', '\\band\\b')
 分词器母机.add('连词_或', '\\bor\\b')
 分词器母机.add('连词_如果', '\\bif\\b')

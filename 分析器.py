@@ -380,6 +380,14 @@ class 语法分析器:
         except ValueError:
             return 语法树.数(float(片段[0].getstr()), 片段)
 
+    @分析器母机.production('常量 : 名词_真')
+    def 常量_真(片段):
+        return 语法树.常量(True, 片段=片段)
+
+    @分析器母机.production('常量 : 名词_假')
+    def 常量_假(片段):
+        return 语法树.常量(False, 片段=片段)
+
     @分析器母机.production('常量 : 名词_空')
     def 常量_空(片段):
         return 语法树.常量(None, 片段=片段)
