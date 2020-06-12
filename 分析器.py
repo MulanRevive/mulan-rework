@@ -20,7 +20,7 @@ class 语法分析器:
             # non-associativity in the precedence table. This would be used when you don't want operations to chain together
             ('nonassoc', ['>', '<', '>=', '<=', '!==', '===']),
             ('left', ['!=', '==']),
-            ('nonassoc', ['点点']),
+            ('nonassoc', ['点点', '点点小于']),
             ('left', ['加', '減']),
             ('left', ['星号', '除']),
             ('left', ['非']),
@@ -313,6 +313,7 @@ class 语法分析器:
             片段=片段)
 
     @分析器母机.production('范围表达式 : 表达式 点点 表达式')
+    @分析器母机.production('范围表达式 : 表达式 点点小于 表达式')
     def 范围表达式(片段):
         连词 = 片段[1].getstr()
         if 连词 != 'by':
