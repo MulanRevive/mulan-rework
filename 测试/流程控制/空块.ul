@@ -1,0 +1,17 @@
+if false {
+    ;
+} elif true {
+    print(1)
+}
+if false {
+    ;
+} else {
+    print(2)
+}
+if false {
+    ;
+} elif false {
+    ;
+} else {
+    print(3)
+}
