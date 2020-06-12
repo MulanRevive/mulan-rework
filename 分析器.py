@@ -20,6 +20,7 @@ class 语法分析器:
             # non-associativity in the precedence table. This would be used when you don't want operations to chain together
             ('nonassoc', ['>', '<', '>=', '<=', '!==', '===']),
             ('left', ['!=', '==']),
+            ('nonassoc', ['点点']),
             ('left', ['加', '減']),
             ('left', ['星号', '除']),
             ('left', ['非']),
@@ -311,6 +312,25 @@ class 语法分析器:
             后项 = 片段[2],
             片段=片段)
 
+    @分析器母机.production('范围表达式 : 表达式 点点 表达式')
+    def 范围表达式(片段):
+        连词 = 片段[1].getstr()
+        if 连词 != 'by':
+            起 = 片段[0]
+            止 = 片段[2]
+            if 连词 == '..':
+                止 = 语法树.二元运算(止,
+                             ast.Add(),
+                             语法树.数(1, 片段=止),
+                             片段=止)
+                止.fixed = True
+            return 语法树.调用(
+                函数=语法树.名称(标识='range',
+                          上下文=ast.Load(),
+                          片段=片段),
+                参数=[起, 止],
+                片段=片段)
+
     # TODO: ~ -
     @分析器母机.production('一元表达式 : 非 表达式')
     def 一元表达式(片段):
@@ -406,6 +426,7 @@ class 语法分析器:
     @分析器母机.production('表达式 : 三元表达式')
     @分析器母机.production('表达式 : 数') # TODO: 为何要, precedence='==' ?
     @分析器母机.production('表达式 : 常量')
+    @分析器母机.production('表达式 : 范围表达式')  # TODO: precedence='==' ?
     def 表达式(片段):
         if 语法分析器.调试:
             print("表达式")

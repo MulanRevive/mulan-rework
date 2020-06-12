@@ -1,1 +1,2 @@
 print(range(3))
+print(0..2)

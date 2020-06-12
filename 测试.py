@@ -32,7 +32,7 @@ from sys import platform
     "流程控制/每当.ul": b"6",
     "流程控制/循环控制.ul": b"23",
     "流程控制/三元表达式.ul": b"213",
-    "流程控制/循环for.ul": b"012",
+    "流程控制/循环for.ul": b"012012",
 
     "函数/函数_无参数.ul": b"2",
     "函数/函数_单参数.ul": b"2",
@@ -82,7 +82,7 @@ from sys import platform
 
     "字符串/双引号.ul": b"oka",
 
-    "数据结构/范围.ul": b"range(0, 3)",
+    "数据结构/范围.ul": b"range(0, 3)range(0, 3)",
 
     "综合.ul": b"10",
     #"错误处理/死递归.ul": b"test",
