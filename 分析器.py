@@ -67,6 +67,7 @@ class 语法分析器:
     @分析器母机.production('声明 : 函数')
     @分析器母机.production('声明 : 条件声明')
     @分析器母机.production('声明 : 每当声明')
+    @分析器母机.production('声明 : 对于声明')
     @分析器母机.production('声明 : 外部声明')
     def 混合声明(片段):
         if 语法分析器.调试:
@@ -499,6 +500,25 @@ class 语法分析器:
             条件=片段[1],
             主体=片段[2],
             片段=片段)
+
+    @分析器母机.production('迭代器 : 表达式前缀')
+    def 迭代器(片段):
+        return 片段[0]
+
+    @分析器母机.production('遍历范围 : 表达式')
+    def 遍历范围(片段):
+        # TODO: 处理 ast.Starred
+        return 片段[0]
+
+    @分析器母机.production('对于声明 : 连词_对 迭代器 连词_于 遍历范围 块')
+    def 对于声明(片段):
+        目标 = 片段[1]
+        # TODO: 遍历 list
+        目标.ctx = ast.Store()
+        return 语法树.对于(目标=目标,
+                      遍历范围=片段[3],
+                      主体=片段[4],
+                      片段=片段)
 
     @分析器母机.production('名称 : 标识符')
     def 标识符(片段):
