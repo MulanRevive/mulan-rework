@@ -1,2 +1,2 @@
-using module
+using test_module
 module.talk()
