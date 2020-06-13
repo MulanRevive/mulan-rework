@@ -1,4 +1,4 @@
-**_注：本项目的开发管理今后将在 OSChina 继续_**
+**_注：本项目的开发管理今后将在 [OSChina](https://www.oschina.net/p/mulan-rework) 继续_**
 
 ## 项目目标
 

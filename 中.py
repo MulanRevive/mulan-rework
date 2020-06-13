@@ -3,7 +3,7 @@
 import sys
 import ast
 from 词法分析器 import 分词器
-from 分析器 import 语法分析器
+from 语法分析器 import 语法分析器
 from 环境 import 创建全局变量
 from 功用.语法树相关 import 语法树相关
 from 功用.反馈信息 import 反馈信息

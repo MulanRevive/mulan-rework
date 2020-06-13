@@ -1,6 +1,6 @@
 import unittest
 import ast
-from 分析器 import 语法分析器
+from 语法分析器 import 语法分析器
 from 词法分析器 import 分词器
 
 # TODO：需确保无此类 Warning：ParserGeneratorWarning: 28 shift/reduce conflicts
