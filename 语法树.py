@@ -35,6 +35,10 @@ class 语法树:
         return ast.Assign([变量], 值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
+    def 增量赋值(变量, 运算符, 值, 片段):
+        return ast.AugAssign(变量, 运算符, 值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
     def 常数(值, 片段):
         return ast.NameConstant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 

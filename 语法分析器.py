@@ -149,6 +149,7 @@ class 语法分析器:
     @分析器母机.production('声明 : 引用声明')
     @分析器母机.production('声明 : 表达式声明')
     @分析器母机.production('声明 : 赋值')
+    @分析器母机.production('声明 : 增量赋值')
     @分析器母机.production('声明 : 终止声明')
     @分析器母机.production('声明 : 跳过声明')
     @分析器母机.production('声明 : 返回声明')
@@ -227,6 +228,21 @@ class 语法分析器:
         return 语法树.返回(
             值=值,
             片段=片段)
+
+    @分析器母机.production('增量赋值 : 表达式前缀 += 表达式')
+    def 增量赋值(片段):
+        运算符 = 片段[1].getstr()
+        对照表 = {
+            '+=': ast.Add(),
+        }
+        if 运算符 in 对照表:
+            python运算 = 对照表[运算符]
+
+        # 否则报错：
+        # ValueError: expression must have Store context but has Load instead
+        片段[0].ctx = ast.Store()
+
+        return 语法树.增量赋值(片段[0], python运算, 片段[2], 片段=片段)
 
     # TODO: 支持多元赋值, 如: a, b, c = 1, 2, 3
     @分析器母机.production('赋值 : 表达式前缀 = 表达式')
