@@ -52,6 +52,7 @@ import rply, re
     '点点小于',
     '分号',
     '+=',
+    '动词_循环',
 ]
 
 分词器母机 = LexerGenerator()
@@ -70,6 +71,7 @@ import rply, re
 分词器母机.add('连词_否则如果', '\\r*\\n*\\s*elif\\s*\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 分词器母机.add('连词_否则', '\\r*\\n*\\s*else\\s*\\r*\\n*') # , flags=(re.DOTALL)
 分词器母机.add('连词_每当', '\\bwhile\\b')
+分词器母机.add('动词_循环', '\\bloop\\b')
 分词器母机.add('连词_对', '\\bfor\\b')
 分词器母机.add('动词_返回', '\\breturn\\b')
 分词器母机.add('动词_终止', '\\bbreak\\b')

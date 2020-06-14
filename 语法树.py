@@ -39,10 +39,6 @@ class 语法树:
         return ast.AugAssign(变量, 运算符, 值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
-    def 常数(值, 片段):
-        return ast.NameConstant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
     def 如果(条件, 主体, 否则, 片段):
         return ast.If(test=条件, body=主体, orelse=否则, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 

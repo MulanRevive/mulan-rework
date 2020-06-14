@@ -1,0 +1,8 @@
+i = 0
+loop {
+    i += 1
+    print(i)
+    if i == 3 {
+        break
+    }
+}
