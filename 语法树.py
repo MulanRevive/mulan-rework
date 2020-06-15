@@ -135,6 +135,11 @@ class 语法树:
     def 对于(目标, 遍历范围, 主体, 片段):
         return ast.For(target=目标, iter=遍历范围, body=主体, orelse=[],
                        lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 列表(元素, 片段):
+        return ast.List(elts=元素, ctx=ast.Load(), lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod
