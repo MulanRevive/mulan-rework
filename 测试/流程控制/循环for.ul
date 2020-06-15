@@ -4,3 +4,6 @@ for i in range(3) {
 for i in 0..2 {
     print(i)
 }
+for i in [0, 2] {
+    print(i)
+}
