@@ -366,6 +366,10 @@ class 语法分析器:
             否则=片段[-1],
             片段=片段)
 
+    @分析器母机.production('首要表达式 : ( 表达式 )')
+    def 首要表达式(片段):
+        return 片段[1]
+
     @分析器母机.production('表达式前缀 : 变量')
     @分析器母机.production('表达式前缀 : 调用')
     @分析器母机.production('表达式前缀 : 字符串')
@@ -442,6 +446,7 @@ class 语法分析器:
     @分析器母机.production('表达式 : 二元表达式')
     @分析器母机.production('表达式 : 一元表达式')
     @分析器母机.production('表达式 : 表达式前缀')
+    @分析器母机.production('表达式 : 首要表达式')
     @分析器母机.production('表达式 : 三元表达式')
     @分析器母机.production('表达式 : 数') # TODO: 为何要, precedence='==' ?
     @分析器母机.production('表达式 : 常量')

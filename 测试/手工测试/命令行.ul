@@ -1,6 +1,7 @@
 using Cmd in cmd
 using 随机范围数 in 随机数
 using exit in sys
+
 type 猜数字 : Cmd {
     {
         intro = "木兰想了个 100 之内的数，猜猜是几？"
@@ -14,8 +15,7 @@ type 猜数字 : Cmd {
             println("中了!")
             exit()
         } else {
-            大小 = 数 > self.想的 ? "大" : "小"
-            println("太" + 大小 + "了!")
+            println("太" + (数 > self.想的 ? "大" : "小") + "了!")
         }
     }
 }
