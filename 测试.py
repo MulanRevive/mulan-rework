@@ -54,6 +54,7 @@ from sys import platform
     "特殊字符/缩进.ul": b"2",
     "特殊字符/注释块.ul": b"2",
     "特殊字符/中文标识符.ul": b"2020",
+    "特殊字符/空行.ul": b"1",
 
     "引用/引用本地py.ul": b"2",
     "引用/引用本地包内py.ul": b"2",
@@ -90,7 +91,6 @@ from sys import platform
 
     "综合.ul": b"10",
     #"错误处理/死递归.ul": b"test",
-    # "空行.ul": b"1", TODO: 暂报语法错误
 }
 
 # 多进程参考：https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/

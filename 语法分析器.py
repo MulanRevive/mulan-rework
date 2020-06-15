@@ -1,5 +1,6 @@
 import ast
 from rply import ParserGenerator
+from rply_parser import LRParser
 from 语法树 import *
 from 错误 import 语法错误
 
@@ -576,6 +577,8 @@ class 语法分析器:
 
     @分析器母机.error
     def error_handler(词):
+        if 词.getstr() == '\n':
+            return
         # TODO: 最好取到语法信息(上下文)
         raise 语法错误(
             信息=('没认出这个词 "%s"' % 词.gettokentype()),
@@ -584,7 +587,7 @@ class 语法分析器:
             列号=语法树.取列号(词),
             源码=语法分析器.源码)
 
-    分析器 = 分析器母机.build()
+    分析器 = LRParser(分析器母机.build())
 
     def 创建(self, 源码, 源码文件):
         语法分析器.源码 = 源码.split("\n")
