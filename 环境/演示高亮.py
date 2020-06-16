@@ -3,6 +3,8 @@ from tkinter.font import Font
 
 root = Tk()
 
+# TODO: 已知问题: 输入中文符号"（"时，实际为退格，"）"时为空格
+
 # 行间距设置, 参考: https://www.javatpoint.com/python-tkinter-text
 文本 = Text(root, spacing1=3, spacing3=3)
 文本.insert(INSERT,
