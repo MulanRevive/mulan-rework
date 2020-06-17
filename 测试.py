@@ -90,6 +90,7 @@ from sys import platform
 
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)",
     "数据结构/列表.ul": b"[][2][2, 4, 6]",
+    "数据结构/列表取值.ul": b"24",
 
     "综合.ul": b"10",
     #"错误处理/死递归.ul": b"test",

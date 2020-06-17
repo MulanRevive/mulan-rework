@@ -140,6 +140,18 @@ class 语法树:
     def 列表(元素, 片段):
         return ast.List(elts=元素, ctx=ast.Load(), lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 索引(值, 片段):
+        return ast.Index(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 下标(全值, 片, 片段):
+        return ast.Subscript(value=全值,
+                             slice=片,
+                             ctx=(ast.Load()),
+                             lineno=语法树.取行号(片段),
+                             col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod
