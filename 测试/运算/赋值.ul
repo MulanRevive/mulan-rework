@@ -1,2 +1,5 @@
 a=2
 print(a)
+/*a, b = 1, 2
+print(a)
+print(b)*/
