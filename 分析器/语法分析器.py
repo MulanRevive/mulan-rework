@@ -1,10 +1,9 @@
-import ast
 from rply import ParserGenerator
 from rply_parser import LRParser
-from 语法树 import *
-from 错误 import 语法错误
+from 分析器.语法树 import *
+from 分析器.错误 import 语法错误
 
-from 词法分析器 import 规则
+from 分析器.词法分析器 import 规则
 
 class 语法分析器:
 
