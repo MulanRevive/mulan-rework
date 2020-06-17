@@ -20,8 +20,16 @@ with open(源码文件, 'r', encoding='utf-8') as f:
     "动词_引用": "紫红",
     "连词_于": "紫红",
     "连词_对": "紫红",
+    "连词_每当": "紫红",
+    "连词_如果": "紫红",
+    "点点小于": "紫红",
+    "点点": "紫红",
     "整数": "黄绿",
     "字符串字面量": "橙",
+    "名词_函数": "蓝",
+    "名词_真": "蓝",
+    "名词_假": "蓝",
+    "注释": "绿",
 }
 
 # 颜色表: https://www.w3schools.com/colors/colors_names.asp
@@ -29,15 +37,38 @@ with open(源码文件, 'r', encoding='utf-8') as f:
     "紫红": "VioletRed",
     "黄绿": "YellowGreen",
     "橙": "orange",
+    "蓝": "blue",
+    "绿": "green",
 }
 各词 = 词法分析器.分词器.lex(源码)
+
+跳过部分 = []
+每行位置 = {}
+
+# 基于 token 列表获取跳过的源码部分, 将 ignore 的注释部分也高亮
 for 词 in 各词:
     行号 = 词.getsourcepos().lineno
     列号 = 词.getsourcepos().colno - 1
     词长 = len(词.getstr())
+
+    if 行号 not in 每行位置:
+        if 列号 != 0:
+            跳过部分.append([f'{行号}.0', f'{行号}.{列号}'])
+        每行位置[行号] = 列号
     # print(词.name + " " + 词.getstr() + " " + str(行号) + "." + str(列号))
     if 词.name in 高亮风格:
         文本.tag_add(高亮风格[词.name], f'{行号}.{列号}', f'{行号}.{列号 + 词长}')
+
+# 遍历所有行, 看是否无 token
+所有行 = 源码.splitlines()
+for 索引 in range(len(所有行)):
+    行号 = 索引 + 1
+    if 行号 not in 每行位置:
+        print(str(行号))
+        跳过部分.append([f'{行号}.0', f'{行号}.{len(所有行[索引])}'])
+
+for i in 跳过部分:
+    文本.tag_add("绿", i[0], i[1])
 
 for 颜色 in 颜色表:
     文本.tag_config(颜色, foreground=颜色表[颜色])
