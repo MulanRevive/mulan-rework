@@ -7,6 +7,9 @@ for i in 0..2 {
 for i in [0, 2] {
     print(i)
 }
+for n : [1, 2, 3] {
+    print(n)
+}
 print(n) for n in 0..2
 sum = 0
 sum += n for n : [1, 4]
