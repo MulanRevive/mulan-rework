@@ -45,6 +45,7 @@ from sys import platform
     "函数/返回空.ul": b"2",
     "函数/返回单值.ul": b"2",
     "函数/全局.ul": b"42",
+    "函数/无返回.ul": b"2nil",
 
     "特殊字符/多行.ul": b"23", # TODO: 如果末尾加空行, 报错 rply.errors.ParsingError: (None, None)
     "特殊字符/块.ul": b"2",
