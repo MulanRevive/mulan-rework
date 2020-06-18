@@ -7,3 +7,4 @@ for i in 0..2 {
 for i in [0, 2] {
     print(i)
 }
+print(n) for n in 0..2
