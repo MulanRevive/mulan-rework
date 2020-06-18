@@ -6,6 +6,15 @@ from 分析器.词法分析器 import 分词器
 # TODO：需确保无此类 Warning：ParserGeneratorWarning: 28 shift/reduce conflicts
 class test语法树(unittest.TestCase):
 
+    def test_词法分析(self):
+        # 由于换行也包括在内，"后括号"一词的位置并非 2：1
+        各词 = self.分词("{print(2)\n}")
+        for 词 in 各词:
+            最末 = 词
+        self.assertEqual(最末.getstr(), "\n}")
+        self.assertEqual(最末.getsourcepos().lineno, 1)
+        self.assertEqual(最末.getsourcepos().colno, 10)
+
     def test_行列号(self):
         节点 = self.生成语法树("print(1/0)")
         expr节点 = self.取子节点(节点, "body", 0)
@@ -35,10 +44,12 @@ class test语法树(unittest.TestCase):
         节点 = self.生成语法树("func echo(number) {\nprint(number)\n}\necho(2)")
         self.assertEqual(ast.dump(节点, True, True), 木兰)
 
+    def 分词(self, 源码):
+        return 分词器.lex(源码)
+
     def 生成语法树(self, 源码):
-        各词 = 分词器.lex(源码)
         分析器 = 语法分析器().创建(源码, '')
-        return 分析器.parse(各词)
+        return 分析器.parse(self.分词(源码))
 
     def 取子节点(self, 节点, 子节点名, 索引 = -1):
         for 子节点 in ast.iter_fields(节点):

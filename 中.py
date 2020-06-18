@@ -5,6 +5,7 @@ from 分析器.词法分析器 import 分词器
 from 分析器.语法分析器 import 语法分析器
 from 环境 import 创建全局变量
 from 功用.反馈信息 import 反馈信息
+from 功用.调试辅助 import 语法树相关
 from rply.errors import LexingError
 from 分析器.语法树处理 import NameFixPass
 from 分析器.错误 import 语法错误
