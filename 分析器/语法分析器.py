@@ -436,6 +436,7 @@ class 语法分析器:
             return 语法树.数(float(片段[0].getstr()), 片段)
 
     @分析器母机.production('字符串 : 字符串字面量')
+    @分析器母机.production('字符串 : 字符串字面量单引号')
     def 字符串(片段):
         值 = 片段[0].getstr()
         值 = 值[1:-1]

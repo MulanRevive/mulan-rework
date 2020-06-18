@@ -88,6 +88,7 @@ from sys import platform
     "类型/操作符/定义操作符.ul": b"31",
 
     "字符串/双引号.ul": b"oka",
+    "字符串/单引号.ul": b"ok",
 
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)",
     "数据结构/列表.ul": b"[][2][2, 4, 6]",
