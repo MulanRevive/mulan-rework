@@ -8,3 +8,6 @@ for i in [0, 2] {
     print(i)
 }
 print(n) for n in 0..2
+sum = 0
+sum += n for n : [1, 4]
+print(sum)
