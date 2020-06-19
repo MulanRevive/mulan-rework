@@ -1,0 +1,6 @@
+a, b = 2, 1
+print(a)
+print(b)
+/*a, b = 2
+print(a)
+print(b)*/

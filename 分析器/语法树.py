@@ -152,6 +152,13 @@ class 语法树:
                              lineno=语法树.取行号(片段),
                              col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 多项(元素, 上下文, 片段):
+        return ast.Tuple(elts=元素,
+                         ctx=上下文,
+                         lineno=语法树.取行号(片段),
+                         col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod
