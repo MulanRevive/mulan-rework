@@ -1,9 +1,12 @@
 from rply import ParserGenerator
+from rply.errors import LexingError
 from rply_parser import LRParser
 from 分析器.语法树 import *
 from 分析器.错误 import 语法错误
 
+from 分析器.词法分析器 import 分词器
 from 分析器.词法分析器 import 规则
+from 分析器.语法树处理 import NameFixPass
 
 class 语法分析器:
 
@@ -646,7 +649,28 @@ class 语法分析器:
 
     分析器 = LRParser(分析器母机.build())
 
-    def 创建(self, 源码, 源码文件):
-        语法分析器.源码 = 源码.split("\n")
-        语法分析器.文件名 = 源码文件
-        return self.分析器
+    def __init__(self, 分词器=分词器):
+        self.分词器 = 分词器
+        self.文件名 = ''
+        self.源码 = None
+
+    def 分析(self, 源码, 源码文件):
+        self.源码 = 源码.split("\n")
+        self.文件名 = 源码文件
+        try:
+            各词 = self.分词器.lex(源码)
+            节点 = self.分析器.parse(各词)
+        except LexingError as e:
+            raise 语法错误(
+                信息=('分词时没认出这个词 "%s"' % 源码[e.getsourcepos().idx]),
+                文件名=源码文件,
+                行号=e.getsourcepos().lineno,
+                列号=e.getsourcepos().colno,
+                源码=源码.split("\n"))
+
+        节点 = NameFixPass(源码文件).visit(节点)
+        return 节点
+
+    def 查看(各词):
+        for 词 in 各词:
+            print(词)

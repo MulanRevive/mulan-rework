@@ -1,2 +1,2 @@
 using test_module
-module.talk()
+test_module.talk()
