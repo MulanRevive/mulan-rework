@@ -15,7 +15,7 @@ $ python 中.py 测试/运算/四则运算.ul
 4
 ```
 
-下面[例程](测试/引用/草蟒_海龟.ul)调用了[草蟒](https://www.oschina.net/p/grasspy)的中文 API：
+下面[例程](测试/手工测试/草蟒_海龟.ul)调用了[草蟒](https://www.oschina.net/p/grasspy)的中文 API：
 ```javascript
 using * in 海龟
 颜色("黄色", "红色")
@@ -32,7 +32,7 @@ for 拐数 in 0..4 {
 
 ## 开发环境
 
-个人使用 Mac 开发（其他环境待测试确认），需 Python 3.7。如使用 3.8，语法树测试将失败。
+个人使用 Mac 开发，需 Python 3.7。如使用 3.8，语法树测试将失败。
 
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 
