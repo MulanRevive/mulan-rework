@@ -1,0 +1,3 @@
+using test_module, 测试引用2
+test_module.talk()
+测试引用2.唱()
