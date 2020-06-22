@@ -1,0 +1,2 @@
+using testpackage.module
+testpackage.module.talk()

@@ -1,0 +1,2 @@
+using * in test_module
+talk()
