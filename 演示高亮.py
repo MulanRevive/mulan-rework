@@ -3,19 +3,35 @@ from tkinter.font import Font
 
 from 分析器 import 词法分析器
 
+# TODO: 已知问题: 输入中文符号"（"时，实际为退格，"）"时为空格。thonny 也有同样问题。
+
 root = Tk()
 root.title("木兰笔谈")
 
-# TODO: 已知问题: 输入中文符号"（"时，实际为退格，"）"时为空格。thonny 也有同样问题。
+文本字体 = "Courier"
 源码文件 = sys.argv[1]
 with open(源码文件, 'r', encoding='utf-8') as f:
     源码 = f.read()
 
 # 行间距设置, 参考: https://www.javatpoint.com/python-tkinter-text
-文本 = Text(root, spacing1=3, spacing3=3)
+文本 = Text(root, spacing1=3, spacing3=3, height=30, width=65)
 文本.insert(INSERT, 源码)
 
-文本.pack()
+文本.pack(side=LEFT)
+
+右边 = Frame(root, height=2, bd=1, relief=SUNKEN)
+右边.pack(fill=X, padx=5, pady=5)
+
+输入框 = Entry(右边,
+       background="#a0ffa0",foreground="#000000",
+       disabledbackground="#7f7f7f",disabledforeground="#000000",
+       font=Font(family=文本字体, size=24), width=40)
+输入框.pack(side=BOTTOM)
+
+输出文本 = Text(右边, spacing1=3, spacing3=3, height=28, width=65)
+输出文本.configure(font=Font(family=文本字体, size=16))
+输出文本.insert(INSERT, '输出咯：')
+输出文本.pack(side=TOP)
 
 高亮风格 = {
     "紫红": ["动词_引用", "动词_返回", "连词_于", "连词_对", "连词_每当", "连词_如果", "连词_否则", "点点小于", "点点"],
@@ -73,7 +89,7 @@ for i in 跳过部分:
 for 颜色 in 颜色表:
     文本.tag_config(颜色, foreground=颜色表[颜色])
 
-文本.configure(font=Font(family="Courier", size=16))
+文本.configure(font=Font(family=文本字体, size=16))
 
 # 参考: https://www.delftstack.com/howto/python-tkinter/how-to-set-tkinter-backgroud-color/
 #root.configure(background='black')
