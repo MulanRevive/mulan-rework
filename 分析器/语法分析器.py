@@ -60,7 +60,7 @@ class 语法分析器:
     # TODO： 分号
     @分析器母机.production('声明列表 : 声明')
     @分析器母机.production('声明列表 : 声明列表 换行 声明')
-    def 声明列表(片段):
+    def 声明列表(self, 片段):
         if 语法分析器.调试:
             print('声明列表')
         if len(片段) == 1:
@@ -156,7 +156,7 @@ class 语法分析器:
     @分析器母机.production('声明 : 终止声明')
     @分析器母机.production('声明 : 跳过声明')
     @分析器母机.production('声明 : 返回声明')
-    def 声明(片段):
+    def 声明(self, 片段):
         return 片段[0]
 
     # TODO: try-catch-throw
@@ -250,7 +250,7 @@ class 语法分析器:
         return 语法树.增量赋值(片段[0], python运算, 片段[2], 片段=片段)
 
     @分析器母机.production('赋值 : 表达式前缀 = 表达式')
-    def 赋值(片段):
+    def 赋值(self, 片段):
         if 语法分析器.调试:
             print("赋值")
         片段[0].ctx = ast.Store()
@@ -264,7 +264,7 @@ class 语法分析器:
         return 语法树.全局([名称.id for 名称 in 片段[1]], 片段=片段)
 
     @分析器母机.production('各表达式前缀 : 表达式前缀 , 表达式前缀')
-    def 各表达式前缀(片段):
+    def 各表达式前缀(self, 片段):
         return [片段[0], 片段[2]]
 
     @分析器母机.production('赋值 : 各表达式前缀 = 各表达式')
@@ -403,7 +403,7 @@ class 语法分析器:
     @分析器母机.production('表达式前缀 : 调用')
     @分析器母机.production('表达式前缀 : 字符串')
     @分析器母机.production('表达式前缀 : 列表表达式')
-    def 表达式前缀(片段):
+    def 表达式前缀(self, 片段):
         if 语法分析器.调试:
             print("表达式前缀")
         return 片段[0]
@@ -425,7 +425,7 @@ class 语法分析器:
             片段=片段)
 
     @分析器母机.production('变量 : 名称')
-    def 变量(片段):
+    def 变量(self, 片段):
         return 片段[0]
 
     @分析器母机.production('实参部分 : ( 各实参 )')
@@ -465,7 +465,7 @@ class 语法分析器:
 
     @分析器母机.production('字符串 : 字符串字面量')
     @分析器母机.production('字符串 : 字符串字面量单引号')
-    def 字符串(片段):
+    def 字符串(self, 片段):
         值 = 片段[0].getstr()
         值 = 值[1:-1]
         return 语法树.字符串(值, 片段)
@@ -490,14 +490,14 @@ class 语法分析器:
     @分析器母机.production('表达式 : 数') # TODO: 为何要, precedence='==' ?
     @分析器母机.production('表达式 : 常量')
     @分析器母机.production('表达式 : 范围表达式')  # TODO: precedence='==' ?
-    def 表达式(片段):
+    def 表达式(self, 片段):
         if 语法分析器.调试:
             print("表达式")
         return 片段[0]
 
     @分析器母机.production('列表表达式 : [ ]')
     @分析器母机.production('列表表达式 : [ 各表达式 ]')
-    def 列表表达式(片段):
+    def 列表表达式(self, 片段):
         元素 = 片段[1] if len(片段) == 3 else []
         return 语法树.列表(元素, 片段=片段)
 
@@ -507,7 +507,7 @@ class 语法分析器:
     @分析器母机.production('各实参 : 各实参 , 实参')
     @分析器母机.production('各表达式 : 表达式')
     @分析器母机.production('各表达式 : 各表达式 , 表达式')
-    def 各实参(片段):
+    def 各实参(self, 片段):
         if 语法分析器.调试:
             print("各实参")
         if len(片段) == 3:
@@ -628,7 +628,7 @@ class 语法分析器:
         return 语法分析器.对于声明(倒装)
 
     @分析器母机.production('名称 : 标识符')
-    def 标识符(片段):
+    def 标识符(self, 片段):
         标识 = 片段[0].getstr()
         return 语法树.名称(
             标识=标识,
@@ -636,16 +636,16 @@ class 语法分析器:
             片段=片段)
 
     @分析器母机.error
-    def error_handler(词):
+    def error_handler(self, 词):
         if 词.getstr() == '\n':
             return
         # TODO: 最好取到语法信息(上下文)
         raise 语法错误(
             信息=('没认出这个词 "%s"' % 词.gettokentype()),
-            文件名=语法分析器.文件名,
+            文件名=self.文件名,
             行号=语法树.取行号(词),
             列号=语法树.取列号(词),
-            源码=语法分析器.源码)
+            源码=self.源码)
 
     分析器 = LRParser(分析器母机.build())
 
@@ -659,7 +659,7 @@ class 语法分析器:
         self.文件名 = 源码文件
         try:
             各词 = self.分词器.lex(源码)
-            节点 = self.分析器.parse(各词)
+            节点 = self.分析器.parse(各词, state=self)
         except LexingError as e:
             raise 语法错误(
                 信息=('分词时没认出这个词 "%s"' % 源码[e.getsourcepos().idx]),
