@@ -26,11 +26,13 @@ with open(源码文件, 'r', encoding='utf-8') as f:
        background="#a0ffa0",foreground="#000000",
        disabledbackground="#7f7f7f",disabledforeground="#000000",
        font=Font(family=文本字体, size=24), width=40)
+输入框['fg'] = 'grey'
+输入框.insert(INSERT, '请见教')
 输入框.pack(side=BOTTOM)
 
 输出文本 = Text(右边, spacing1=3, spacing3=3, height=28, width=65)
 输出文本.configure(font=Font(family=文本字体, size=16))
-输出文本.insert(INSERT, '输出咯：')
+输出文本.insert(INSERT, '[建设中...]')
 输出文本.pack(side=TOP)
 
 高亮风格 = {
