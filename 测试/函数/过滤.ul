@@ -1,1 +1,7 @@
-print(list(filter(n->n>0, [1,-1])))
+func a() {
+    func 大数(n) {
+        return n>5
+    }
+    return 大数
+}
+print(list(filter(a(), [1,10])))

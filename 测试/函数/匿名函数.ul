@@ -1,0 +1,1 @@
+print(list(filter(func (n) { return n>0 }, [1,-1])))

@@ -74,6 +74,8 @@ def 创建全局变量(argv=[]):
         'println': lambda *各物件: 自定义输出(*各物件, **{'终止符': '\n'}),
         'len': len,
         'range': range,
+        'list': list,
+        'filter': filter,
         'staticmethod': staticmethod,
         'ARGV': argv,
         '__builtins__': 内置扩展({
