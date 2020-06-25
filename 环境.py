@@ -75,6 +75,7 @@ def 创建全局变量(argv=[]):
         'len': len,
         'range': range,
         'list': list,
+        'map': map,
         'filter': filter,
         'staticmethod': staticmethod,
         'ARGV': argv,

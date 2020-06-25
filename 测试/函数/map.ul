@@ -1,0 +1,4 @@
+func 平方(n) {
+    return n*n
+}
+print(list(map(平方, [1,2,3])))
