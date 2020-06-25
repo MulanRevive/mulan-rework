@@ -160,22 +160,19 @@ func 小兔子小节(开否) {
 三个和尚
 ]
 
+func 取歌名(歌) {
+    return 歌.题目
+}
+
 func 所有歌名() {
-    歌名 = []
-    for 歌 : 所有歌 {
-        歌名.append(歌.题目)
-    }
-    return 歌名
+    return list(map(取歌名, 所有歌))
 }
 
 func 按名搜歌(主题) {
-    歌名 = []
-    for 歌 : 所有歌 {
-        if 歌.题目.find(主题) >= 0 {
-            歌名.append(歌.题目)
-        }
+    func 匹配题目(歌) {
+        return 歌.题目.find(主题) >= 0
     }
-    return 歌名
+    return list(map(取歌名, filter(匹配题目, 所有歌)))
 }
 
 func 按名取词(歌名) {
