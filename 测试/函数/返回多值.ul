@@ -1,0 +1,6 @@
+func echo() {
+    return 1, 2
+}
+多值 = echo()
+print(多值[0])
+print(多值[1])
