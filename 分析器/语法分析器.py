@@ -16,6 +16,7 @@ class 语法分析器:
     分析器母机 = ParserGenerator(
         规则,
         precedence=[
+            #('nonassoc', ['标识符']),
             ('right', ['?', ':']),
             ('left', ['连词_或']),
             ('left', ['连词_且']),
@@ -23,7 +24,9 @@ class 语法分析器:
             # non-associativity in the precedence table. This would be used when you don't want operations to chain together
             ('nonassoc', ['>', '<', '>=', '<=', '!==', '===']),
             ('left', ['!=', '==']),
+            ('nonassoc', ['连词_每隔']),
             ('nonassoc', ['点点', '点点小于']),
+            #('nonassoc', ['(']),
             ('left', ['加', '減']),
             ('left', ['星号', '除']),
             ('left', ['非']),
@@ -366,6 +369,7 @@ class 语法分析器:
     # TODO: by
     @分析器母机.production('范围表达式 : 表达式 点点 表达式')
     @分析器母机.production('范围表达式 : 表达式 点点小于 表达式')
+    @分析器母机.production('范围表达式 : 范围表达式 连词_每隔 表达式')
     def 范围表达式(self, 片段):
         连词 = 片段[1].getstr()
         if 连词 != 'by':
@@ -383,6 +387,31 @@ class 语法分析器:
                           片段=片段),
                 参数=[起, 止],
                 片段=片段)
+        assert isinstance(片段[0], ast.Call)    # 第三个格式
+        参数 = 片段[0].args
+
+        # TODO: 不知为何要检查是否参数长度为 3
+        
+        参数.append(片段[2])
+        止 = 参数[1]
+        if hasattr(止, 'fixed'):
+            if isinstance(片段[2], ast.Num):
+                if 片段[2].n < 0:
+                    止.op = ast.Sub()
+            else:
+                增量 = 语法树.如果表达式(
+                    条件=语法树.比较(
+                        前项=片段[2],
+                        操作符=ast.Gt(),
+                        后项=语法树.数(0, 片段[2])
+                    ),
+                    主体=止.right,
+                    否则=语法树.数(-1, 片段[2]),
+                    片段=片段
+                )
+                止.right = 增量
+                delattr(止, 'fixed')
+            return 片段[0]
 
     # TODO: ~
     @分析器母机.production('一元表达式 : 減 表达式')

@@ -57,6 +57,7 @@ import rply, re
     '动词_循环',
     '[',
     ']',
+    '连词_每隔',
 ]
 
 分词器母机 = LexerGenerator()
@@ -86,6 +87,7 @@ import rply, re
 分词器母机.add('动词_引用', '\\busing\\b')
 分词器母机.add('连词_于', '\\bin\\b')
 分词器母机.add('名词_操作符', '\\boperator\\b')
+分词器母机.add('连词_每隔', '\\bby\\b')
 分词器母机.add('形容词_外部', '\\bextern\\b')
 分词器母机.add('标识符', '\\$?[_a-zA-Z\u4e00-\u9fa5][_a-zA-Z0-9\u4e00-\u9fa5]*')
 分词器母机.add('点点小于', '\\.\\.<')
