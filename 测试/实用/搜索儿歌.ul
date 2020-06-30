@@ -15,6 +15,16 @@ func 按名搜歌(主题) {
     return list(map(取歌名, filter(匹配题目, 所有歌)))
 }
 
+func 按长度搜歌(句数) {
+    短歌 = []
+    for 歌 : 所有歌 {
+        if len(歌.内容) <= 句数 {
+            短歌.append(歌)
+        }
+    }
+    return list(map(取歌名, 短歌))
+}
+
 func 按名取词(歌名) {
     for 歌 : 所有歌 {
         if 歌.题目 == 歌名 {
@@ -26,5 +36,6 @@ func 按名取词(歌名) {
 println(所有歌名())
 println(按名搜歌("花"))
 println(按名取词("四季童谣"))
+println(按长度搜歌(4))
 
 /* 运行： ./中.py 测试/实用/搜索儿歌.ul */
