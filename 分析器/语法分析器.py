@@ -366,7 +366,6 @@ class 语法分析器:
             后项 = 片段[2],
             片段=片段)
 
-    # TODO: by
     @分析器母机.production('范围表达式 : 表达式 点点 表达式')
     @分析器母机.production('范围表达式 : 表达式 点点小于 表达式')
     @分析器母机.production('范围表达式 : 范围表达式 连词_每隔 表达式')
@@ -390,8 +389,14 @@ class 语法分析器:
         assert isinstance(片段[0], ast.Call)    # 第三个格式
         参数 = 片段[0].args
 
-        # TODO: 不知为何要检查是否参数长度为 3
-        
+        # 不允许多个 by 串联
+        if len(参数) == 3:
+            raise 语法错误(
+                信息=('没认出这个词 "%s"' % 片段[1].getstr()),
+                文件名=self.文件名,
+                行号=语法树.取行号(片段[1]),
+                列号=语法树.取列号(片段[1]),
+                源码=self.源码)
         参数.append(片段[2])
         止 = 参数[1]
         if hasattr(止, 'fixed'):
@@ -399,16 +404,16 @@ class 语法分析器:
                 if 片段[2].n < 0:
                     止.op = ast.Sub()
             else:
-                增量 = 语法树.如果表达式(
-                    条件=语法树.比较(
+                为正 = 语法树.比较(
                         前项=片段[2],
                         操作符=ast.Gt(),
-                        后项=语法树.数(0, 片段[2])
-                    ),
+                        后项=语法树.数(0, 片段[2]),
+                        片段=片段[2])
+                增量 = 语法树.如果表达式(
+                    条件=为正,
                     主体=止.right,
                     否则=语法树.数(-1, 片段[2]),
-                    片段=片段
-                )
+                    片段=片段)
                 止.right = 增量
                 delattr(止, 'fixed')
             return 片段[0]
@@ -526,7 +531,9 @@ class 语法分析器:
     @分析器母机.production('表达式 : 三元表达式')
     @分析器母机.production('表达式 : 数') # TODO: 为何要, precedence='==' ?
     @分析器母机.production('表达式 : 常量')
-    @分析器母机.production('表达式 : 范围表达式')  # TODO: precedence='==' ?
+
+    # ? 如果没有 precedence 就 1 shift/reduce conflict
+    @分析器母机.production('表达式 : 范围表达式', precedence='==')
     def 表达式(self, 片段):
         if 语法分析器.调试:
             print("表达式")
