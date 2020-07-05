@@ -1,0 +1,4 @@
+using time
+
+毫秒 = time.time() * 1000
+print(毫秒)

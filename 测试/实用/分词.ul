@@ -1,0 +1,6 @@
+using jieba
+
+词表 = jieba.cut("谁也不用奇怪也别问为什么呀")
+for 词 in 词表 {
+    println(词)
+}

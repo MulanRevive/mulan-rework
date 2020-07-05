@@ -1,3 +1,4 @@
+using time
 using 所有歌 in 测试.实用.儿歌
 
 func 取歌名(歌) {
@@ -25,6 +26,19 @@ func 按长度搜歌(句数) {
     return list(map(取歌名, 短歌))
 }
 
+func 按内容搜歌(词) {
+    歌单 = []
+    for 歌 : 所有歌 {
+        for 句子 : 歌.内容 {
+            if 句子.find(词) >= 0 {
+                歌单.append(歌)
+                break
+            }
+        }
+    }
+    return list(map(取歌名, 歌单))
+}
+
 func 按名取词(歌名) {
     for 歌 : 所有歌 {
         if 歌.题目 == 歌名 {
@@ -33,9 +47,13 @@ func 按名取词(歌名) {
     }
 }
 
+开始 = time.time() * 1000
 println(所有歌名())
 println(按名搜歌("花"))
 println(按名取词("四季童谣"))
 println(按长度搜歌(4))
+println(按内容搜歌("小"))
+结束 = time.time() * 1000
+println(结束 - 开始)
 
 /* 运行： ./中.py 测试/实用/搜索儿歌.ul */
