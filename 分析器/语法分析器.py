@@ -487,8 +487,8 @@ class 语法分析器:
                     否则=语法树.数(-1, 片段[2]),
                     片段=片段)
                 止.right = 增量
-                delattr(止, 'fixed')
-            return 片段[0]
+            delattr(止, 'fixed')
+        return 片段[0]
 
     # TODO: ~
     @分析器母机.production(语法.一元表达式.成分(减, 语法.表达式))

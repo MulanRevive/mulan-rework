@@ -3,3 +3,6 @@ print(0..2)
 print(0..<2)
 print(-1..4 by 2)
 print(4..-1 by -2)
+for i in 0..<4 by 2 {
+  print(i)
+}
