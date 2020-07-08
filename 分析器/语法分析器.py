@@ -71,8 +71,8 @@ class 语法分析器:
         字符串 = 'string'
         列表表达式 = 'list_expr'
         字典表达式 = 'dict_expr'
-        各键值对 = 'kv_pair'
-        键值对 = 'kv_pairs'
+        各键值对 = 'kv_pairs'
+        键值对 = 'kv_pair'
         常量 = 'name_const'
         二元表达式 = 'bin_expr'
         一元表达式 = 'unary_expr'
@@ -524,6 +524,7 @@ class 语法分析器:
     @分析器母机.production(语法.表达式前缀.成分(语法.调用))
     @分析器母机.production(语法.表达式前缀.成分(语法.字符串))
     @分析器母机.production(语法.表达式前缀.成分(语法.列表表达式))
+    @分析器母机.production(语法.表达式前缀.成分(语法.字典表达式))
     def 表达式前缀(self, 片段):
         if 语法分析器.调试:
             print("表达式前缀")
@@ -617,6 +618,26 @@ class 语法分析器:
         if 语法分析器.调试:
             print("表达式")
         return 片段[0]
+
+    @分析器母机.production(语法.字典表达式.成分(前大括号, 语法.各键值对, 后大括号))
+    def 字典表达式(self, 片段):
+        各键 = []
+        各值 = []
+        if isinstance(片段[1], list):
+            各键 = [对[0] for 对 in 片段[1]]
+            各值 = [对[1] for 对 in 片段[1]]
+        return 语法树.字典(各键=各键,
+            各值=各值,
+            片段=片段)
+
+    # TODO: 多对
+    @分析器母机.production(语法.各键值对.成分(语法.键值对))
+    def 各键值对(self, 片段):
+        return [片段[0]]
+
+    @分析器母机.production(语法.键值对.成分(语法.表达式, 冒号, 语法.表达式))
+    def 键值对(self, 片段):
+        return (片段[-3], 片段[-1])
 
     @分析器母机.production(语法.列表表达式.成分(前中括号, 后中括号))
     @分析器母机.production(语法.列表表达式.成分(前中括号, 语法.各表达式, 后中括号))

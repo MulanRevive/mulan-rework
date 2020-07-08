@@ -159,6 +159,13 @@ class 语法树:
                          lineno=语法树.取行号(片段),
                          col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 字典(各键, 各值, 片段):
+        return ast.Dict(keys=各键,
+            values=各值,
+            lineno=语法树.取行号(片段),
+            col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod
