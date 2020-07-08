@@ -15,6 +15,8 @@ class 语法树相关:
         elif isinstance(节点, str):
             输出 += "'" + 节点 + "'"
         else:
+            if 节点 == None:
+              return 输出 + "None"
             输出 += type(节点).__name__ + "("
             属性个数 = 0
             for 属性 in ast.iter_fields(节点):
