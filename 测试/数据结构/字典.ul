@@ -1,2 +1,6 @@
 d = {1 : 'a'}
 print(d[1])
+d[2] = 'b'
+print(d[2])
+d = {1 : 'a', 3 : 'c'}
+print(d[3])
