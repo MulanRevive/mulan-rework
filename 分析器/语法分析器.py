@@ -294,6 +294,13 @@ class 语法分析器:
     def 表达式声明(self, 片段):
         if 语法分析器.调试:
             print("表达式声明")
+        if not isinstance(片段[0], ast.Call):
+            # TODO：下面两个似乎不需要
+            # if not isinstance(片段[0], ast.Yield):
+                #if not isinstance(片段[0], ast.Str):
+                    片段[0] = 语法树.调用(函数=片段[0],
+                      参数=[],
+                      片段=片段)
         return 语法树.表达式(值 = 片段[0], 片段 = 片段)
 
     @分析器母机.production(语法.返回声明.成分(动词_返回))

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import ast
 from 分析器.词法分析器 import 分词器
 from 分析器.语法分析器 import 语法分析器
 from 环境 import 创建全局变量

@@ -2,3 +2,4 @@ func echo {
     print(2)
 }
 echo()
+echo
