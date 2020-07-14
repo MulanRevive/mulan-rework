@@ -72,12 +72,13 @@ class 语法树:
         return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
 
     @staticmethod
-    def 函数定义(名称, 形参列表, 主体, 片段):
+    def 函数定义(名称, 形参列表, 主体, 返回, 片段):
         return ast.FunctionDef(
             name=名称,
             args=形参列表,
             body=主体,
             decorator_list=[],
+            returns=返回,
             lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod

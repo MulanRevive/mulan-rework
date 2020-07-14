@@ -7,7 +7,9 @@ from 分析器.错误 import 语法错误
 
 from 分析器.词法分析器 import 分词器
 from 分析器.词法分析器 import *
-from 分析器.语法树处理 import NameFixPass
+from 分析器.语法树处理 import *
+
+from 功用.常用 import *
 
 class 语法分析器:
 
@@ -80,6 +82,7 @@ class 语法分析器:
         首要表达式 = 'primary_expr'
         范围表达式 = 'range_expr'
         调用 = 'call'
+        匿名函数 = 'lambda_func'
         实参部分 = 'arguments'
         各名称 = 'names'
         各实参 = 'args'
@@ -204,6 +207,7 @@ class 语法分析器:
         return 语法树.函数定义(名称=片段[1],
                         形参列表=片段[2],
                         主体=片段[-1],
+                        返回=None,
                         片段=片段)
 
     @分析器母机.production(语法.操作数.成分(前小括号, 语法.形参, 后小括号))
@@ -522,6 +526,7 @@ class 语法分析器:
 
     @分析器母机.production(语法.表达式前缀.成分(语法.变量))
     @分析器母机.production(语法.表达式前缀.成分(语法.调用))
+    @分析器母机.production(语法.表达式前缀.成分(语法.匿名函数))
     @分析器母机.production(语法.表达式前缀.成分(语法.字符串))
     @分析器母机.production(语法.表达式前缀.成分(语法.列表表达式))
     @分析器母机.production(语法.表达式前缀.成分(语法.字典表达式))
@@ -576,6 +581,23 @@ class 语法分析器:
                 片段=片段)
 
     # TODO: SUPER
+
+    @分析器母机.production(语法.匿名函数.成分(名词_函数, 前小括号, 语法.形参列表, 后小括号, 语法.块))
+    def lambda_func(self, 片段):
+        形参 = 片段[2]
+        return self.创建匿名函数(片段, 形参, 片段[-1])
+
+    def 创建匿名函数(self, 片段, 形参, 主体, 返回=None):
+        函数名 = 语法树.名称(标识=随机文本(),
+            上下文=ast.Load(),
+            片段=片段)
+        函数 = 语法树.函数定义(名称=函数名.id,
+                        形参列表=形参,
+                        主体=主体,
+                        返回=返回,
+                        片段=片段)
+        self.匿名函数[函数名] = 函数
+        return 函数名
 
     @分析器母机.production(语法.数.成分(整数))
     @分析器母机.production(语法.数.成分(小数))
@@ -701,6 +723,7 @@ class 语法分析器:
             名称=(片段[1].getstr()),
             形参列表=(片段[3] if len(片段) == 6 else self.形参列表()),
             主体=片段[-1],
+            返回=None,
             片段=片段)
 
     @分析器母机.production(语法.条件声明.成分(连词_如果, 语法.表达式, 语法.块, 语法.否则如果声明))
@@ -800,6 +823,7 @@ class 语法分析器:
     def __init__(self, 分词器=分词器):
         self.分词器 = 分词器
         self.文件名 = ''
+        self.匿名函数 = {}
         self.源码 = None
 
     def 分析(self, 源码, 源码文件):
@@ -816,6 +840,7 @@ class 语法分析器:
                 列号=e.getsourcepos().colno,
                 源码=源码.split("\n"))
 
+        节点 = AnnoFuncInsertPass(self.匿名函数).visit(节点)
         节点 = NameFixPass(源码文件).visit(节点)
         return 节点
 

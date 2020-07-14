@@ -40,3 +40,52 @@ class NameFixPass(ast.NodeTransformer):
         类 = self.generic_visit(类)
         self.类.pop(-1)
         return 类
+
+class AnnoFuncInsertPass(ast.NodeTransformer):
+    """
+    Visit all ast to insert each anonymous function
+    just before where it has been referenced.
+    """
+
+    def __init__(self, 匿名函数):
+        self.匿名函数 = 匿名函数
+
+    def generic_visit(self, 节点):
+        for 域, 旧值 in ast.iter_fields(节点):
+            if isinstance(旧值, list) and len(旧值) > 0:
+                if isinstance(旧值[0], ast.stmt):
+                    旧值[:] = self.visit_stmts(旧值)
+                    continue
+                各新值 = []
+                for 值 in 旧值:
+                    if isinstance(值, ast.AST):
+                        值 = self.visit(值)
+                        if 值 is None:
+                            continue
+                        elif not isinstance(值, ast.AST):
+                            各新值.extend(值)
+                            continue
+                    各新值.append(值)
+
+                旧值[:] = 各新值
+            elif isinstance(旧值, ast.AST):
+                新值 = self.visit(旧值)
+                if 新值 is None:
+                    delattr(节点, 域)
+                else:
+                    setattr(节点, 域, 新值)
+
+        return 节点
+
+    def visit_stmts(self, 声明列表):
+        新声明列表 = []
+        for 声明 in 声明列表:
+            声明 = self.visit(声明)
+            for 节点 in ast.walk(声明):
+                if isinstance(节点, ast.Name) and 节点 in self.匿名函数:
+                    新声明列表.append(self.匿名函数[节点])
+                    del self.匿名函数[节点]
+
+            新声明列表.append(声明)
+
+        return 新声明列表
