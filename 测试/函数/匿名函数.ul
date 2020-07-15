@@ -1,4 +1,5 @@
 print(list(filter(func (n) { return n>0 }, [1,-1])))
+print(list(filter(n -> n>0, [1,-1])))
 print(list(map(func (n) {
   平方 = n*n
   return 平方

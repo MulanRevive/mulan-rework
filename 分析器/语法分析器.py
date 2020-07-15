@@ -20,6 +20,7 @@ class 语法分析器:
         规则,
         precedence=[
             #('nonassoc', ['标识符']),
+            ('right', [箭头]),
             ('right', [问号, 冒号]),
             ('left', [连词_或]),
             ('left', [连词_且]),
@@ -82,6 +83,9 @@ class 语法分析器:
         首要表达式 = 'primary_expr'
         范围表达式 = 'range_expr'
         调用 = 'call'
+        lambda形参 = 'lambda_param',
+        lambda主体 = 'lambda_body',
+        lambda表达式 = 'lambda_expr',
         匿名函数 = 'lambda_func'
         实参部分 = 'arguments'
         各名称 = 'names'
@@ -582,6 +586,36 @@ class 语法分析器:
 
     # TODO: SUPER
 
+    @分析器母机.production(语法.lambda形参.成分(语法.名称))
+    def lambda形参(self, 片段):
+        if isinstance(片段[0], ast.Name):
+            args = 语法树.各形参(各参数=[],
+                片段=片段)
+            arg = 语法树.形参(名称=片段[0].id,
+                标注=None,
+                片段=片段)
+            args.args = [arg]
+            return args
+        raise SyntaxError(message='expect an identifier here',
+          filename=(self.filename_),
+          lineno=(self.getlineno(p)),
+          colno=(self.getcolno(p)),
+          source=(self.source_))
+
+    @分析器母机.production(语法.lambda主体.成分(箭头, 语法.表达式))
+    def lambda主体(self, 片段):
+        return 片段[1]
+
+    @分析器母机.production(语法.lambda表达式.成分(语法.lambda形参, 语法.lambda主体))
+    def lambda表达式(self, 片段):
+        #if len(p) == 1:
+        #    return p[0]
+        if isinstance(片段[-1], ast.expr):
+            return 语法树.Lambda(参数=片段[0],
+              主体=片段[-1],
+              片段=片段)
+        return self.创建匿名函数(片段, 片段[0], 片段[-1])
+
     @分析器母机.production(语法.匿名函数.成分(名词_函数, 前小括号, 语法.形参列表, 后小括号, 语法.块))
     def lambda_func(self, 片段):
         形参 = 片段[2]
@@ -630,6 +664,7 @@ class 语法分析器:
     @分析器母机.production(语法.表达式.成分(语法.一元表达式))
     @分析器母机.production(语法.表达式.成分(语法.表达式前缀))
     @分析器母机.production(语法.表达式.成分(语法.首要表达式))
+    @分析器母机.production(语法.表达式.成分(语法.lambda表达式))
     @分析器母机.production(语法.表达式.成分(语法.三元表达式))
     @分析器母机.production(语法.表达式.成分(语法.数)) # TODO: 为何要, precedence='==' ?
     @分析器母机.production(语法.表达式.成分(语法.常量))

@@ -68,8 +68,11 @@ class 语法树:
         return ast.arg(arg=名称, annotation=标注, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
-    def 各形参(各参数):
-        return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+    def 各形参(各参数, 片段=None):
+        if not 片段:
+            return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+        return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None,
+            lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 函数定义(名称, 形参列表, 主体, 返回, 片段):
@@ -164,6 +167,13 @@ class 语法树:
     def 字典(各键, 各值, 片段):
         return ast.Dict(keys=各键,
             values=各值,
+            lineno=语法树.取行号(片段),
+            col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def Lambda(参数, 主体, 片段):
+        return ast.Lambda(args=参数,
+            body=主体,
             lineno=语法树.取行号(片段),
             col_offset=语法树.取列号(片段))
 
