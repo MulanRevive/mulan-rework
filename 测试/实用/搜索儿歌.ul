@@ -17,26 +17,25 @@ func 按名搜歌(主题) {
 }
 
 func 按长度搜歌(句数) {
-    短歌 = []
-    for 歌 : 所有歌 {
-        if len(歌.内容) <= 句数 {
-            短歌.append(歌)
-        }
-    }
-    return list(map(取歌名, 短歌))
+    return list(map(取歌名,
+        filter(func (歌) {
+            return len(歌.内容) <= 句数
+        },
+        所有歌)
+    ))
 }
 
 func 按内容搜歌(词) {
-    歌单 = []
-    for 歌 : 所有歌 {
-        for 句子 : 歌.内容 {
-            if 句子.find(词) >= 0 {
-                歌单.append(歌)
-                break
+    return list(map(取歌名,
+        filter(func (歌) {
+            for 句子 : 歌.内容 {
+                if 句子.find(词) >= 0 {
+                    return true
+                }
             }
-        }
-    }
-    return list(map(取歌名, 歌单))
+        },
+        所有歌)
+    ))
 }
 
 func 按名取词(歌名) {
