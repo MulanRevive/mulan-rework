@@ -1,0 +1,6 @@
+func {
+  print(4)
+}
+/*
+TypeError: required field "args" missing from arguments
+*/
