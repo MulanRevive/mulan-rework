@@ -18,16 +18,14 @@ func 按名搜歌(主题) {
 
 func 按长度搜歌(句数) {
     return list(map(取歌名,
-        filter(func (歌) {
-            return len(歌.内容) <= 句数
-        },
+        filter(歌 -> len(歌.内容) <= 句数,
         所有歌)
     ))
 }
 
 func 按内容搜歌(词) {
     return list(map(取歌名,
-        filter(func (歌) {
+        filter(歌 -> {
             for 句子 : 歌.内容 {
                 if 句子.find(词) >= 0 {
                     return true
