@@ -603,6 +603,7 @@ class 语法分析器:
           source=(self.source_))
 
     @分析器母机.production(语法.lambda主体.成分(箭头, 语法.表达式))
+    @分析器母机.production(语法.lambda主体.成分(箭头, 语法.块))
     def lambda主体(self, 片段):
         return 片段[1]
 
