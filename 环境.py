@@ -73,6 +73,7 @@ def 创建全局变量(argv=[]):
         'print': 自定义输出,
         'println': lambda *各物件: 自定义输出(*各物件, **{'终止符': '\n'}),
         'len': len,
+        'any':any,
         'range': range,
         'list': list,
         'map': map,

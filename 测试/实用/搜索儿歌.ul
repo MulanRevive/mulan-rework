@@ -25,7 +25,7 @@ func 按长度搜歌(句数) {
 
 func 按内容搜歌(词) {
     return list(map(取歌名,
-        filter(歌 -> {
+        filter(歌 -> { //any(map(句子 -> 句子.find(词) >= 0, 歌.内容)), 会更慢
             for 句子 : 歌.内容 {
                 if 句子.find(词) >= 0 {
                     return true
