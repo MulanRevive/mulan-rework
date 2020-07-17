@@ -50,7 +50,7 @@ from sys import platform
     "函数/过滤.ul": b"[10]",
     "函数/map.ul": b"[1, 4, 9]",
     "函数/返回多值.ul": b"12", # TODO: 原本元组输出为 1, 2， 而非(1，2)
-    "函数/匿名函数.ul": b"[1][1][3][3][1, 1]",
+    "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12",
     "函数/API/any.ul": b"true",
 
     "特殊字符/多行.ul": b"23", # TODO: 如果末尾加空行, 报错 rply.errors.ParsingError: (None, None)
