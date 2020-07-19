@@ -31,5 +31,6 @@ for 笔画数 in 字表 {
   }
 }
 
-print(字集.__contains__("天"))
-print(字集.__contains__("喧"))
+func 为常用字(字) {
+  return 字集.__contains__(字)
+}
