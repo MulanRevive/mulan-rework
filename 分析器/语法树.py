@@ -64,6 +64,10 @@ class 语法树:
         return ast.Continue(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
+    def 无标注形参(名称, 片段):
+        return ast.arg(arg=名称, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
     def 形参(名称, 标注, 片段):
         return ast.arg(arg=名称, annotation=标注, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
@@ -72,6 +76,15 @@ class 语法树:
         if not 片段:
             return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
         return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None,
+            lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 无返回函数定义(名称, 形参列表, 主体, 片段):
+        return ast.FunctionDef(
+            name=名称,
+            args=形参列表,
+            body=主体,
+            decorator_list=[],
             lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
