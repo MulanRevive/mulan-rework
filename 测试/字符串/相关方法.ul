@@ -1,1 +1,4 @@
 print("你好".find('好'))
+for 字 in "hi" {
+  print(字)
+}
