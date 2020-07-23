@@ -40,4 +40,6 @@ def 提示(类型, 原信息):
             r"local variable '(.*)' referenced before assignment",
             r"请先对本地变量'\1'赋值再引用",
             原信息)
+    elif 类型 == 'KeyError':
+        return "字典中不存在此键：" + 原信息
     return 原信息

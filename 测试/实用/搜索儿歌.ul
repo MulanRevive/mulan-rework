@@ -47,7 +47,7 @@ func 按名取词(歌名) {
 开始 = time.time() * 1000
 println(所有歌名())
 println(按名搜歌("花"))
-println(按名取词("四季童谣"))
+println(按名取词("小鸭子"))
 println(按长度搜歌(4))
 println(按内容搜歌("小"))
 结束 = time.time() * 1000
