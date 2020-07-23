@@ -79,6 +79,7 @@ def 创建全局变量(argv=[]):
         'map': map,
         'filter': filter,
         'staticmethod': staticmethod,
+        'open':open,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,

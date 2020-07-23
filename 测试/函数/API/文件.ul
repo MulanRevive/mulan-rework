@@ -1,0 +1,4 @@
+f = open('测试/函数/API/测试.txt', 'rt')
+内容 = f.read()
+f.close()
+print(内容)
