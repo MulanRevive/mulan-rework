@@ -54,6 +54,7 @@ from sys import platform
     "函数/API/any.ul": b"true",
     "函数/API/文件.ul": b"hi",
     "函数/形参默认值.ul": b"2",
+    "函数/指名参数.ul": b"466",
 
     "特殊字符/多行.ul": b"23", # TODO: 如果末尾加空行, 报错 rply.errors.ParsingError: (None, None)
     "特殊字符/块.ul": b"2",

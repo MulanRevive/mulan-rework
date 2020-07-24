@@ -26,8 +26,8 @@ class 语法树:
         return ast.Name(id=标识, ctx=上下文, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
-    def 调用(函数, 参数, 片段):
-        return ast.Call(func=函数, args=参数, keywords=[], starargs=None, kwargs=None,
+    def 调用(函数, 参数, 关键字, 片段):
+        return ast.Call(func=函数, args=参数, keywords=关键字, starargs=None, kwargs=None,
                         lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod

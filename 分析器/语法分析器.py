@@ -306,6 +306,7 @@ class 语法分析器:
                 #if not isinstance(片段[0], ast.Str):
                     片段[0] = 语法树.调用(函数=片段[0],
                       参数=[],
+                      关键字=[],
                       片段=片段)
         return 语法树.表达式(值 = 片段[0], 片段 = 片段)
 
@@ -415,6 +416,7 @@ class 语法分析器:
                 上下文=(ast.Load()),
                 片段=片段),
             参数=[片段[0], 片段[2]],
+            关键字=[],
             片段=片段)
 
     @分析器母机.production(语法.二元表达式.成分(语法.表达式, 大于, 语法.表达式))
@@ -470,6 +472,7 @@ class 语法分析器:
                           上下文=ast.Load(),
                           片段=片段),
                 参数=[起, 止],
+                关键字=[],
                 片段=片段)
         assert isinstance(片段[0], ast.Call)    # 第三个格式
         参数 = 片段[0].args
@@ -572,14 +575,17 @@ class 语法分析器:
         if 语法分析器.调试:
             print("调用")
         各参数 = []
+        关键字 = []
         for 值, 键 in 片段[1]:
             if 键 is None:
-                #print(值)
                 各参数.append(值)
+            else:
+                关键字.append(ast.keyword(arg=键,value=值))
 
         return 语法树.调用(
                 片段[0],
                 参数=各参数,
+                关键字=关键字,
                 片段=片段)
 
     # TODO: SUPER
@@ -725,10 +731,13 @@ class 语法分析器:
         return [片段[0]]
 
     @分析器母机.production(语法.实参.成分(语法.表达式))
+    @分析器母机.production(语法.实参.成分(标识符, 符号_赋值, 语法.表达式))
     def 实参(self, 片段):
         if 语法分析器.调试:
             print("实参")
-        return (片段[0], None)
+        if len(片段) == 1:
+            return (片段[0], None)
+        return (片段[-1], 片段[0].getstr())
 
     @分析器母机.production(语法.形参列表.成分())
     @分析器母机.production(语法.形参列表.成分(语法.非空形参列表))

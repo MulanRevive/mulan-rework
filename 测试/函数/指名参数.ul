@@ -1,0 +1,10 @@
+func f(x, y=1, z=3) {
+  return x + y + z
+}
+func g(x, y, z=3) {
+  return x + y + z
+}
+
+print(f(1, z=2))
+print(f(1, y=2))
+print(g(1, y=2))
