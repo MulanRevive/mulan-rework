@@ -53,6 +53,7 @@ from sys import platform
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12",
     "函数/API/any.ul": b"true",
     "函数/API/文件.ul": b"hi",
+    "函数/形参默认值.ul": b"2",
 
     "特殊字符/多行.ul": b"23", # TODO: 如果末尾加空行, 报错 rply.errors.ParsingError: (None, None)
     "特殊字符/块.ul": b"2",

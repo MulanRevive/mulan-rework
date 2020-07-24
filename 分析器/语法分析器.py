@@ -735,8 +735,7 @@ class 语法分析器:
     def 形参列表(self, 片段=[]):
         if not 片段:
             return 语法树.各形参([])
-        # TODO: 如支持形参默认值, 需要 legalize_arguments
-        return 片段[0]
+        return self.形参合法化(片段[0])
 
     @分析器母机.production(语法.非空形参列表.成分(语法.形参))
     @分析器母机.production(语法.非空形参列表.成分(语法.非空形参列表, 逗号, 语法.形参))
@@ -754,6 +753,12 @@ class 语法分析器:
             名称=片段[0].id,
             标注=(None if len(片段) == 1 else 片段[-1]),
             片段=片段)
+
+    @分析器母机.production(语法.形参.成分(语法.名称, 符号_赋值, 语法.表达式))
+    def 带默认值形参(self, 片段):
+        参数 = self.形参(片段[:1])
+        参数.default = 片段[2]
+        return 参数
 
     @分析器母机.production(语法.函数.成分(名词_函数, 标识符, 前小括号, 语法.形参列表, 后小括号, 语法.块))
     @分析器母机.production(语法.函数.成分(名词_函数, 标识符, 语法.块))
@@ -855,6 +860,21 @@ class 语法分析器:
             行号=语法树.取行号(词),
             列号=语法树.取列号(词),
             源码=self.源码)
+
+    def 形参合法化(self, 形参):
+        带默认值 = False
+        for 参数 in 形参.args:
+            if hasattr(参数, 'default') and 参数.default:
+                带默认值 = True
+                形参.defaults.append(参数.default)
+            elif 带默认值:
+                raise 语法错误(信息='需要一个表达式指定默认值',
+                  文件名=self.文件名,
+                  行号=arg.lineno,
+                  列号=arg.col_offset,
+                  源码=self.源码)
+
+        return 形参
 
     分析器 = LRParser(分析器母机.build())
 
