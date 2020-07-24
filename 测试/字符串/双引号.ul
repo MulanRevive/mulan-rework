@@ -3,3 +3,7 @@ func print2(a, b) {
     print(a)
 }
 print2("a","b")
+源数据文件 = open("测试/字符串/空行.txt", 'rt', -1, "utf-8")
+内容 = 源数据文件.read()
+源数据文件.close()
+print(内容 == "\n")

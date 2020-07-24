@@ -645,6 +645,10 @@ class 语法分析器:
     @分析器母机.production(语法.字符串.成分(单引号字符串))
     def 字符串(self, 片段):
         值 = 片段[0].getstr()
+
+        # TODO: 其他转义字符，如\t \" 等等
+        if 值.startswith('"'):
+            值 = 值.replace('\\n', '\n')
         值 = 值[1:-1]
         return 语法树.字符串(值, 片段)
 
