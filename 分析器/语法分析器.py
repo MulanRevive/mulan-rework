@@ -646,9 +646,9 @@ class 语法分析器:
     def 字符串(self, 片段):
         值 = 片段[0].getstr()
 
-        # TODO: 其他转义字符，如\t \" 等等
+        # TODO: 其他转义字符，如\" 等等
         if 值.startswith('"'):
-            值 = 值.replace('\\n', '\n')
+            值 = 值.replace('\\n', '\n').replace('\\t', '\t')
         值 = 值[1:-1]
         return 语法树.字符串(值, 片段)
 
