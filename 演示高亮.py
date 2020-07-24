@@ -13,8 +13,10 @@ root.title("木兰笔谈")
 with open(源码文件, 'r', encoding='utf-8') as f:
     源码 = f.read()
 
+总高度 = 35
+宽度 = 70
 # 行间距设置, 参考: https://www.javatpoint.com/python-tkinter-text
-文本 = Text(root, spacing1=3, spacing3=3, height=30, width=65)
+文本 = Text(root, spacing1=3, spacing3=3, height=总高度, width=宽度)
 文本.insert(INSERT, 源码)
 
 文本.pack(side=LEFT)
@@ -30,15 +32,15 @@ with open(源码文件, 'r', encoding='utf-8') as f:
 输入框.insert(INSERT, '请见教')
 输入框.pack(side=BOTTOM)
 
-输出文本 = Text(右边, spacing1=3, spacing3=3, height=28, width=65)
+输出文本 = Text(右边, spacing1=3, spacing3=3, height=总高度 - 2, width=宽度 - 10)
 输出文本.configure(font=Font(family=文本字体, size=16))
 输出文本.insert(INSERT, '[建设中...]')
 输出文本.pack(side=TOP)
 
 高亮风格 = {
-    "紫红": ["using", "return", "in", "for", "while", "if", "else", "..<", ".."],
+    "紫红": ["using", "return", "in", "for", "while", "if", "else", "..<", "..", "continue", "break"],
     "黄绿": ["整数"],
-    "橙": ["字符串字面量", "字符串字面量单引号"],
+    "橙": ["双引号字符串", "单引号字符串"],
     "蓝": ["func", "type", "true", "false"],
     "绿": ["注释"]
 }
