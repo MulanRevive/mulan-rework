@@ -1,0 +1,37 @@
+using 为常用字 in 库_常用字
+using json
+
+// 数据来源：http://git.chise.org/gitweb/?p=chise/ids.git;a=blob_plain;f=IDS-UCS-Basic.txt;hb=HEAD
+源数据文件 = open("测试/实用/字/IDS-UCS-Basic.txt", 'rt', encoding="utf-8")
+内容 = 源数据文件.read()
+源数据文件.close()
+所有行 = 内容.split("\n")
+
+拆字 = {:}
+for 行 in 所有行 {
+  部分 = 行.split("\t")
+  if len(部分) != 3 {
+    continue
+  }
+  字 = 部分[1]
+  信息 = 部分[2]
+  if 为常用字(字) and 字 != 信息 {
+    字型 = 信息[0]
+    部分 = []
+    // TODO: 过滤 -- 除了部首(首先需要取到所有部首!), 部分都为常用字的
+    都为常用字 = true
+    for i in 1..<len(信息) {
+      if !为常用字(信息[i]) {
+        都为常用字 = false
+        break
+      }
+      部分.append(信息[i])
+    }
+    if 都为常用字 {
+      拆字[字] = {"字型": 字型, "部分": 部分}
+    }
+  }
+}
+常用字数据 = open('测试/实用/字/常用字拆字.json', 'w', encoding="utf-8")
+json.dump(拆字, 常用字数据, ensure_ascii=false, indent = 4)
+常用字数据.close()
