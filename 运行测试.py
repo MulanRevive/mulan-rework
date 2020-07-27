@@ -21,6 +21,7 @@ from sys import platform
     "运算/赋值增量.ul": b"21",
     "运算/一元操作.ul": b"2-1",
     "运算/赋值多项.ul": b"21",
+    "运算/其他.ul": b"8",
 
     # TODO: 加上 `(2<1)!=nil and`
     "运算/空.ul": b"true",
