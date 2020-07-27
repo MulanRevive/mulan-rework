@@ -1,0 +1,7 @@
+func 平方(n) {
+  return func {
+    print(n*n)
+  }
+}
+print(平方(2)())
+/* TypeError: required field "args" missing from arguments */
