@@ -2,3 +2,5 @@ print("你好".find('好'))
 for 字 in "hi" {
   print(字)
 }
+using re
+print(re.findall('\bfish', 'fish 1fish'))

@@ -105,7 +105,7 @@ from sys import platform
 
     "字符串/双引号.ul": b"okatruetrue",
     "字符串/单引号.ul": b"ok",
-    "字符串/相关方法.ul": b"1hi",
+    "字符串/相关方法.ul": b"1hi['fish']",
 
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)range(-1, 5, 2)range(4, -2, -2)02",
     "数据结构/列表.ul": b"[][2][2, 4, 6]",
