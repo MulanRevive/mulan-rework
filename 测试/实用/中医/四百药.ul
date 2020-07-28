@@ -1,0 +1,25 @@
+using re
+
+源数据 = open("测试/实用/中医/四百药.txt", 'rt', encoding="utf-8")
+所有行 = 源数据.read().split("\n")
+源数据.close()
+
+药名 = []
+
+for 行 in 所有行 {
+  匹配 = re.match("\d+\.(.*)[（\s]", 行)
+  if 匹配 {
+    药名.append(匹配.group(1))
+    continue
+  }
+
+  匹配 = re.match("\d+\.(.*)$", 行)
+  if 匹配 {
+    药名.append(匹配.group(1))
+  }
+}
+
+去重 = set(药名)
+
+println(药名)
+println(len(去重))
