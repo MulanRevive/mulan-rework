@@ -52,7 +52,7 @@ from sys import platform
     "函数/map.ul": b"[1, 4, 9]",
     "函数/返回多值.ul": b"12", # TODO: 原本元组输出为 1, 2， 而非(1，2)
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12",
-    "函数/API/any.ul": b"true",
+    "函数/API/内置.ul": b"truefalse",
     "函数/API/文件.ul": b"hi",
     "函数/形参默认值.ul": b"2",
     "函数/指名参数.ul": b"466",

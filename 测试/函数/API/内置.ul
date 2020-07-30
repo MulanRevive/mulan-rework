@@ -1,0 +1,2 @@
+print(any([true, false]))
+print(all([true, false]))
