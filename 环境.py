@@ -80,6 +80,7 @@ def 创建全局变量(argv=[]):
         'all': all,
         'any': any,
         'range': range,
+        'str': str,
         'list': list,
         'set': set,
         'map': map,

@@ -1,2 +1,3 @@
 print(any([true, false]))
 print(all([true, false]))
+print("a" + str([1]))
