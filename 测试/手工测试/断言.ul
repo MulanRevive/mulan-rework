@@ -1,0 +1,6 @@
+assert(2>1, 'pass')
+assert(2<1, 'fail')
+/*
+(..•˘_˘•..) fail
+见第2行：assert(2<1, 'fail')
+*/

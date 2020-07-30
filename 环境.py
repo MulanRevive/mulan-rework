@@ -69,9 +69,13 @@ def 创建全局变量(argv=[]):
         except:
             return __import__(名称, 全局, 本地, 源自, 目录相对层次)
 
+    def 本地断言(表达式, 反馈=None):
+        assert 表达式, 反馈
+
     return {
         'print': 自定义输出,
         'println': lambda *各物件: 自定义输出(*各物件, **{'终止符': '\n'}),
+        'assert': 本地断言,
         'len': len,
         'any':any,
         'range': range,
