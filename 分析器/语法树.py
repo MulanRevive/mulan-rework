@@ -162,6 +162,13 @@ class 语法树:
         return ast.Index(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
+    def 片(下限, 上限, 片段):
+        return ast.Slice(lower=下限,
+                        upper=上限,
+                        step=None,
+                        lineno=语法树.取行号(片段),
+                        col_offset=语法树.取列号(片段))
+    @staticmethod
     def 下标(全值, 片, 片段):
         return ast.Subscript(value=全值,
                              slice=片,
