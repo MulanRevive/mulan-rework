@@ -1,0 +1,15 @@
+type Person {
+    func $getAge() {
+        return 1
+    }
+    func __repr__(self) {
+      return "pii"
+    }
+    func __str__(self) {
+      return "hii"
+    }
+}
+mulan = Person()
+print(mulan.getAge())
+print(mulan)
+print([mulan])
