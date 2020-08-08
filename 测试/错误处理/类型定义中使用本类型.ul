@@ -1,0 +1,19 @@
+type Person {
+    {
+        name = "小白"
+    }
+
+    func $__init__(name) {
+        self.name = name
+    }
+
+    func newPerson(): Person {
+        return 0
+    }
+}
+/*
+请先定义'Person'再使用
+位于第10行：func newPerson(): Person {
+调用层级如下
+第1行：type Person {
+*/
