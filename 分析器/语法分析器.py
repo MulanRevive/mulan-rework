@@ -552,8 +552,12 @@ class 语法分析器:
 
     @分析器母机.production(语法.片.成分(语法.表达式, 冒号, 语法.表达式))
     @分析器母机.production(语法.片.成分(语法.表达式, 冒号))
+    @分析器母机.production(语法.片.成分(冒号, 语法.表达式))
+    @分析器母机.production(语法.片.成分(冒号))
     def 片表示(self, 片段):
         下限, 上限 = 片段[0], 片段[-1]
+        if isinstance(下限, Token):
+            下限 = None
         if isinstance(上限, Token):
             上限 = None
         return 语法树.片(下限, 上限, 片段)
