@@ -16,3 +16,9 @@ print(func (长, 宽) {
   面积 = 长 * 宽;
   return 面积
 }(3, 4))
+type 形状 {
+{}
+}
+print(func (边长) : 形状 {
+  return 形状()
+}(1) != nil)
