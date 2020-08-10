@@ -42,4 +42,8 @@ def 提示(类型, 原信息):
             原信息)
     elif 类型 == 'KeyError':
         return "字典中不存在此键：" + 原信息
+    elif 类型 == 'TypeError':
+        模式 = 'can only concatenate str \(not "(.*)"\) to str'
+        if re.match(模式, 原信息):
+            return re.sub(模式, r'字符串只能拼接字符串，请将"\1"先用 str() 转换', 原信息)
     return 原信息
