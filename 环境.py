@@ -40,8 +40,6 @@ def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
         所有模块.append(模块)
 
     顶层 = 所有模块[0]
-    # TODO: 源自不为空
-    '''
     if len(所有模块) > 1:
         if 源自 is not None:
             for sym in 源自:
@@ -49,11 +47,10 @@ def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
                     for k in 模块.__dict__:
                         if k not in 全局:
                             顶层.__dict__[k] = 模块.__dict__[k]
-
                     break
                 else:
                     顶层.__dict__[sym] = 模块.__dict__[sym]
-    '''
+
     return 顶层
 
 def 内置扩展(内置项):
