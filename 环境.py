@@ -18,14 +18,43 @@ def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
     if 可执行码 is None:
         raise ModuleNotFoundError(名称)
 
-    模块 = imp.new_module(名称)
-
     # TODO: 研究何用
-    模块.__dict__.update(创建全局变量(argv=(全局['ARGV'])))
-    模块.__dict__['__file__'] = os.path.abspath(木兰源码路径)
-    exec(可执行码, 模块.__dict__)
+    所有模块 = []
+    后段 = 名称
+    模块名 = lambda 名称: 所有模块[-1].__name__ + '.' + 名称 if 所有模块 else ""
 
-    return 模块
+    点位 = 0
+    while 点位 != -1:
+        点位 = 后段.find('.')
+        前段, 后段 = 后段[:点位], 后段[点位 + 1:]
+        if 点位 == -1:
+            前段 = 后段
+            模块 = imp.new_module(模块名(后段))
+            模块.__dict__.update(创建全局变量(argv=(全局['ARGV'])))
+            模块.__dict__['__file__'] = os.path.abspath(木兰源码路径)
+            exec(可执行码, 模块.__dict__)
+        else:
+            模块 = imp.new_module(模块名(前段))
+        if 所有模块:
+            所有模块[-1].__dict__[前段] = 模块
+        所有模块.append(模块)
+
+    顶层 = 所有模块[0]
+    # TODO: 源自不为空
+    '''
+    if len(所有模块) > 1:
+        if 源自 is not None:
+            for sym in 源自:
+                if sym == '*':
+                    for k in 模块.__dict__:
+                        if k not in 全局:
+                            顶层.__dict__[k] = 模块.__dict__[k]
+
+                    break
+                else:
+                    顶层.__dict__[sym] = 模块.__dict__[sym]
+    '''
+    return 顶层
 
 def 内置扩展(内置项):
     from inspect import isclass

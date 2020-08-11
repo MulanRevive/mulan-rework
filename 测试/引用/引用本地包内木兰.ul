@@ -1,2 +1,2 @@
-using testpackage.module_ul
-testpackage.module_ul.talk()
+using 测试包.module_ul
+测试包.module_ul.talk()
