@@ -47,7 +47,7 @@ for 部首 in 带部首的字 {
   println(部首 + " -> " + str(带部首的字[部首]))
 }
 for 部首 in 常用部首 {
-  if !带部首的字.__contains__(部首) {
+  if !带部首的字.get(部首) {
     print(部首)
   }
 }
