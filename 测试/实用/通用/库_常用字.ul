@@ -32,7 +32,7 @@ for 笔画数 in 字表 {
 }
 
 func 为常用字(字) {
-  return 字集.__contains__(字)
+  return 字集.get(字) != nil
 }
 
 assert(为常用字("罐"), "是")
