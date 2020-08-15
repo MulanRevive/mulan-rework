@@ -8,6 +8,7 @@ from 分析器.错误 import 语法错误
 from 分析器.词法分析器 import 分词器
 from 分析器.词法分析器 import *
 from 分析器.语法树处理 import *
+from 分析器.语法成分 import *
 
 from 功用.常用 import *
 
@@ -43,85 +44,9 @@ class 语法分析器:
 
     # ast 参考: https://docs.python.org/3.7/library/ast.html#abstract-grammar
 
-    @unique
-    class 语法(Enum):
-        # 语法名称, 英文为原代码中对应名称. 按定义的先后顺序
-        模块 = 'start'
-        块 = 'block'
-        注水声明列表 = 'stmt_list'
-        声明列表 = 'stmt_list_'
-        声明 = 'stmt'
-        类型定义 = 'type_define'
-        各基准类 = 'bases'
-        类型主体 = 'type_body'
-        各类型内声明 = 'type_stmts'
-        类型内声明 = 'type_stmt'
-        操作符 = 'operator'
-        操作数 = 'op_arg'
-        二元操作符 = 'bin_op'
-        模块位置 = 'module_name_'
-        引用声明 = 'using_stmt'
-        各模块名 = 'module_name'
-        模块名 = 'module_names'
-        表达式声明 = 'expr_stmt'
-        各表达式前缀 = 'prefix_expr'
-        赋值 = 'assignment'
-        外部声明 = 'declaration'
-        增量赋值 = 'aug(ment)_assign'
-        返回声明 = 'return_stmt'
-        终止声明 = 'break_stmt'
-        跳过声明 = 'continue_stmt'
-        表达式 = 'expr'
-        表达式前缀 = 'prefix_exprs'
-        片 = 'slice'
-        数 = 'number'
-        字符串 = 'string'
-        列表表达式 = 'list_expr'
-        字典表达式 = 'dict_expr'
-        各键值对 = 'kv_pairs'
-        键值对 = 'kv_pair'
-        常量 = 'name_const'
-        二元表达式 = 'bin_expr'
-        一元表达式 = 'unary_expr'
-        三元表达式 = 'ternary_expr'
-        首要表达式 = 'primary_expr'
-        范围表达式 = 'range_expr'
-        调用 = 'call'
-        lambda形参 = 'lambda_param',
-        lambda主体 = 'lambda_body',
-        lambda表达式 = 'lambda_expr',
-        匿名函数 = 'lambda_func'
-        类型名称 = 'type_name'
-        实参部分 = 'arguments'
-        各名称 = 'names'
-        各实参 = 'args'
-        各表达式 = 'exprs'
-        变量 = 'var'
-        实参 = 'arg'
-        形参列表 = 'param_list'
-        非空形参列表 = 'param_list_not_empty'
-        形参 = 'param'
-        函数 = 'function'
-        条件声明 = 'if_stmt'
-        否则如果声明 = 'elif_stmt'
-        每当声明 = 'while_stmt'
-        迭代器 = 'iterator'
-        遍历范围 = 'loop_range'
-        对于声明 = 'for_stmt'
-        名称 = 'name'
-
-        def 成分(self, *成分):
-            文本 = []
-            for 各成分 in 成分:
-                if isinstance(各成分, Enum):
-                    文本.append(各成分.name)
-                else:
-                    文本.append(各成分)
-            return self.name + " : " + " ".join(文本)
-
     @分析器母机.production(语法.模块.成分(语法.注水声明列表))
     def 模块(self, 片段):
-        return 语法树.模块(主体=片段[0], 忽略类型=[])
+        return 语法树.新节点(语法.模块, 主体=片段[0], 忽略类型=[])
 
     @分析器母机.production(语法.块.成分(分号))
     @分析器母机.production(语法.块.成分(前大括号, 语法.注水声明列表, 后大括号))
@@ -315,7 +240,7 @@ class 语法分析器:
                       参数=[],
                       关键字=[],
                       片段=片段)
-        return 语法树.表达式(值 = 片段[0], 片段 = 片段)
+        return 语法树.新节点(语法.表达式, 值 = 片段[0], 片段 = 片段)
 
     @分析器母机.production(语法.返回声明.成分(动词_返回))
     @分析器母机.production(语法.返回声明.成分(动词_返回, 语法.各表达式))
@@ -415,12 +340,12 @@ class 语法分析器:
             python运算 = 对照表[运算符]
         else:
             breakpoint()
-        return 语法树.二元运算(左, python运算, 右, 片段)
+        return 语法树.新节点(语法.二元表达式, 左=左, 运算符=python运算, 右=右, 片段=片段)
 
     @分析器母机.production(语法.二元表达式.成分(语法.表达式, 除, 语法.表达式))
     def 除法(self, 片段):
         return 语法树.调用(
-            函数=语法树.名称(
+            函数=语法树.新节点(语法.名称,
                 标识='__div__',
                 上下文=(ast.Load()),
                 片段=片段),
@@ -471,13 +396,13 @@ class 语法分析器:
             起 = 片段[0]
             止 = 片段[2]
             if 连词 == 点点:
-                止 = 语法树.二元运算(止,
-                             ast.Add(),
-                             语法树.数(1, 片段=止),
-                             片段=止)
+                止 = 语法树.新节点(语法.二元表达式, 左=止,
+                            运算符=ast.Add(),
+                            右=语法树.新节点(语法.数, 值=1, 片段=止),
+                            片段=止)
                 止.fixed = True
             return 语法树.调用(
-                函数=语法树.名称(标识='range',
+                函数=语法树.新节点(语法.名称, 标识='range',
                           上下文=ast.Load(),
                           片段=片段),
                 参数=[起, 止],
@@ -504,12 +429,12 @@ class 语法分析器:
                 为正 = 语法树.比较(
                         前项=片段[2],
                         操作符=ast.Gt(),
-                        后项=语法树.数(0, 片段[2]),
+                        后项=语法树.新节点(语法.数, 值=0, 片段=片段[2]),
                         片段=片段[2])
                 增量 = 语法树.如果表达式(
                     条件=为正,
                     主体=止.right,
-                    否则=语法树.数(-1, 片段[2]),
+                    否则=语法树.新节点(语法.数, 值=-1, 片段=片段[2]),
                     片段=片段)
                 止.right = 增量
             delattr(止, 'fixed')
@@ -658,7 +583,7 @@ class 语法分析器:
         return 片段[0]
 
     def 创建匿名函数(self, 片段, 形参, 主体, 返回=None):
-        函数名 = 语法树.名称(标识=随机文本(),
+        函数名 = 语法树.新节点(语法.名称, 标识=随机文本(),
             上下文=ast.Load(),
             片段=片段)
         函数 = 语法树.函数定义(名称=函数名.id,
@@ -673,9 +598,9 @@ class 语法分析器:
     @分析器母机.production(语法.数.成分(小数))
     def 数(self, 片段):
         try:
-            return 语法树.数(int(片段[0].getstr(), 0), 片段)
+            return 语法树.新节点(语法.数, 值=int(片段[0].getstr(), 0), 片段=片段)
         except ValueError:
-            return 语法树.数(float(片段[0].getstr()), 片段)
+            return 语法树.新节点(语法.数, 值=float(片段[0].getstr()), 片段=片段)
 
     @分析器母机.production(语法.字符串.成分(双引号字符串))
     @分析器母机.production(语法.字符串.成分(单引号字符串))
@@ -893,7 +818,7 @@ class 语法分析器:
     @分析器母机.production(语法.名称.成分(标识符))
     def 标识符(self, 片段):
         标识 = 片段[0].getstr()
-        return 语法树.名称(
+        return 语法树.新节点(语法.名称,
             标识=标识,
             上下文=(ast.Load()),
             片段=片段)

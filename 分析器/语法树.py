@@ -3,27 +3,28 @@ import ast
 from rply.token import SourcePosition
 from rply import Token
 
+from 分析器.语法成分 import *
 
 class 语法树:
-    @staticmethod
-    def 模块(主体, 忽略类型):
-        return ast.Module(body=主体, type_ignores=忽略类型)
 
     @staticmethod
-    def 表达式(值, 片段):
-        return ast.Expr(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+    def 新节点(类型, 主体=None, 忽略类型=None, 值=None, 左=None, 运算符=None, 右=None, 标识=None,
+            上下文=None, 片段=None):
+        if 类型 == 语法.模块:
+            节点 = ast.Module(body=主体, type_ignores=忽略类型)
+        elif 类型 == 语法.表达式:
+            节点 = ast.Expr(value=值)
+        elif 类型 == 语法.数:
+            节点 = ast.Num(n=值)
+        elif 类型 == 语法.二元表达式:
+            节点 = ast.BinOp(left=左, op=运算符, right=右)
+        elif 类型 == 语法.名称:
+            节点 = ast.Name(id=标识, ctx=上下文)
 
-    @staticmethod
-    def 数(值, 片段):
-        return ast.Num(值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 二元运算(左, 运算符, 右, 片段):
-        return ast.BinOp(左, 运算符, 右, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 名称(标识, 上下文, 片段):
-        return ast.Name(id=标识, ctx=上下文, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+        if 片段:
+            节点.lineno = 语法树.取行号(片段)
+            节点.col_offset = 语法树.取列号(片段)
+        return 节点
 
     @staticmethod
     def 调用(函数, 参数, 关键字, 片段):
