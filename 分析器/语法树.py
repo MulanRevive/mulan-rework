@@ -10,7 +10,7 @@ class 语法树:
     @staticmethod
     def 新节点(类型, 主体=None, 忽略类型=None, 值=None, 左=None, 运算符=None, 右=None, 标识=None,
             上下文=None, 函数=None, 参数=None, 关键字=None, 变量=None, 条件=None, 否则=None,
-            前项=None, 后项=None, 标注=None, 片段=None):
+            前项=None, 后项=None, 标注=None, 名称=None, 返回=None, 片段=None):
         if 类型 == 语法.模块:
             节点 = ast.Module(body=主体, type_ignores=忽略类型)
         elif 类型 == 语法.表达式:
@@ -45,45 +45,25 @@ class 语法树:
             节点 = ast.arg(arg=参数)
         elif 类型 == 语法.lambda形参 or 类型 == 语法.形参:
             节点 = ast.arg(arg=参数, annotation=标注)
+        elif 类型 == 语法.形参列表:
+            节点 = ast.arguments(args=参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+        elif 类型 == 语法.函数:
+            节点 = ast.FunctionDef(
+                    name=名称,
+                    args=参数,
+                    body=主体,
+                    decorator_list=[])
+            if 返回:
+                节点.returns = 返回
+        elif 类型 == 语法.返回声明:
+            节点 = ast.Return(value=值)
+        elif 类型 == 语法.引用声明:
+            节点 = ast.Import(names=名称)
 
         if 片段:
             节点.lineno = 语法树.取行号(片段)
             节点.col_offset = 语法树.取列号(片段)
         return 节点
-
-    @staticmethod
-    def 各形参(各参数, 片段=None):
-        if not 片段:
-            return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
-        return ast.arguments(args=各参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None,
-            lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 无返回函数定义(名称, 形参列表, 主体, 片段):
-        return ast.FunctionDef(
-            name=名称,
-            args=形参列表,
-            body=主体,
-            decorator_list=[],
-            lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 函数定义(名称, 形参列表, 主体, 返回, 片段):
-        return ast.FunctionDef(
-            name=名称,
-            args=形参列表,
-            body=主体,
-            decorator_list=[],
-            returns=返回,
-            lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 返回(值, 片段):
-        return ast.Return(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 导入(名称, 片段):
-        return ast.Import(names=名称, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 别名(名称, 别名, 片段):
