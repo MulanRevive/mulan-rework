@@ -10,7 +10,7 @@ class 语法树:
     @staticmethod
     def 新节点(类型, 主体=None, 忽略类型=None, 值=None, 左=None, 运算符=None, 右=None, 标识=None,
             上下文=None, 函数=None, 参数=None, 关键字=None, 变量=None, 条件=None, 否则=None,
-            前项=None, 后项=None, 片段=None):
+            前项=None, 后项=None, 标注=None, 片段=None):
         if 类型 == 语法.模块:
             节点 = ast.Module(body=主体, type_ignores=忽略类型)
         elif 类型 == 语法.表达式:
@@ -20,8 +20,11 @@ class 语法树:
         elif 类型 == 语法.二元表达式:
             if isinstance(运算符, ast.And) or isinstance(运算符, ast.Or):
                 节点 = ast.BoolOp(op=运算符, values=[前项, 后项])
-            else:
+            elif isinstance(运算符, ast.Add) or isinstance(运算符, ast.Sub) or isinstance(运算符, ast.Mult) or isinstance(运算符, ast.Pow):
                 节点 = ast.BinOp(left=左, op=运算符, right=右)
+            else:
+                # TODO: 为何比较符和后项在数组中?
+                节点 = ast.Compare(前项, [运算符], [后项])
         elif 类型 == 语法.名称:
             节点 = ast.Name(id=标识, ctx=上下文)
         elif 类型 == 语法.调用:
@@ -32,36 +35,21 @@ class 语法树:
             节点 = ast.AugAssign(变量, 运算符, 值)
         elif 类型 == 语法.条件声明:
             节点 = ast.If(test=条件, body=主体, orelse=否则)
+        elif 类型 == 语法.每当声明:
+            节点 = ast.While(test=条件, body=主体, orelse=[])
+        elif 类型 == 语法.终止声明:
+            节点 = ast.Break()
+        elif 类型 == 语法.跳过声明:
+            节点 = ast.Continue()
+        elif 类型 == 语法.操作数:
+            节点 = ast.arg(arg=参数)
+        elif 类型 == 语法.lambda形参 or 类型 == 语法.形参:
+            节点 = ast.arg(arg=参数, annotation=标注)
 
         if 片段:
             节点.lineno = 语法树.取行号(片段)
             节点.col_offset = 语法树.取列号(片段)
         return 节点
-
-    # TODO: 为何比较符和后项在数组中?
-    @staticmethod
-    def 比较(前项, 操作符, 后项, 片段):
-        return ast.Compare(前项, [操作符], [后项], lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 每当(条件, 主体, 片段):
-        return ast.While(test=条件, body=主体, orelse=[], lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 终止(片段):
-        return ast.Break(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 跳过(片段):
-        return ast.Continue(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 无标注形参(名称, 片段):
-        return ast.arg(arg=名称, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 形参(名称, 标注, 片段):
-        return ast.arg(arg=名称, annotation=标注, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 各形参(各参数, 片段=None):
