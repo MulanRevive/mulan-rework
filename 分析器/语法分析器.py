@@ -236,7 +236,7 @@ class 语法分析器:
             # TODO：下面两个似乎不需要
             # if not isinstance(片段[0], ast.Yield):
                 #if not isinstance(片段[0], ast.Str):
-                    片段[0] = 语法树.调用(函数=片段[0],
+                    片段[0] = 语法树.新节点(语法.调用, 函数=片段[0],
                       参数=[],
                       关键字=[],
                       片段=片段)
@@ -272,14 +272,14 @@ class 语法分析器:
         # ValueError: expression must have Store context but has Load instead
         片段[0].ctx = ast.Store()
 
-        return 语法树.增量赋值(片段[0], python运算, 片段[2], 片段=片段)
+        return 语法树.新节点(语法.增量赋值, 变量=片段[0], 运算符=python运算, 值=片段[2], 片段=片段)
 
     @分析器母机.production(语法.赋值.成分(语法.表达式前缀, 符号_赋值, 语法.表达式))
     def 赋值(self, 片段):
         if 语法分析器.调试:
             print("赋值")
         片段[0].ctx = ast.Store()
-        return 语法树.赋值(
+        return 语法树.新节点(语法.赋值,
             变量 = 片段[0],
             值 = 片段[2],
             片段 = 片段)
@@ -309,7 +309,7 @@ class 语法分析器:
         # TODO: 研究何用. a, b = 2 会报错: cannot unpack non-iterable int object
         else:
             右边 = 片段[2][0]
-        return 语法树.赋值(
+        return 语法树.新节点(语法.赋值,
             变量=左边,
             值=右边,
             片段=片段)
@@ -344,7 +344,7 @@ class 语法分析器:
 
     @分析器母机.production(语法.二元表达式.成分(语法.表达式, 除, 语法.表达式))
     def 除法(self, 片段):
-        return 语法树.调用(
+        return 语法树.新节点(语法.调用,
             函数=语法树.新节点(语法.名称,
                 标识='__div__',
                 上下文=(ast.Load()),
@@ -381,8 +381,8 @@ class 语法分析器:
     @分析器母机.production(语法.二元表达式.成分(语法.表达式, 连词_且, 语法.表达式))
     @分析器母机.production(语法.二元表达式.成分(语法.表达式, 连词_或, 语法.表达式))
     def 布尔表达式(self, 片段):
-        return 语法树.布尔操作(
-            操作符=(ast.And() if 片段[1].getstr() == 连词_且 else ast.Or()),
+        return 语法树.新节点(语法.二元表达式,
+            运算符=(ast.And() if 片段[1].getstr() == 连词_且 else ast.Or()),
             前项 = 片段[0],
             后项 = 片段[2],
             片段=片段)
@@ -401,7 +401,7 @@ class 语法分析器:
                             右=语法树.新节点(语法.数, 值=1, 片段=止),
                             片段=止)
                 止.fixed = True
-            return 语法树.调用(
+            return 语法树.新节点(语法.调用,
                 函数=语法树.新节点(语法.名称, 标识='range',
                           上下文=ast.Load(),
                           片段=片段),
@@ -528,8 +528,8 @@ class 语法分析器:
             else:
                 关键字.append(ast.keyword(arg=键,value=值))
 
-        return 语法树.调用(
-                片段[0],
+        return 语法树.新节点(语法.调用,
+                函数=片段[0],
                 参数=各参数,
                 关键字=关键字,
                 片段=片段)
@@ -752,7 +752,7 @@ class 语法分析器:
         if len(片段) == 0:
             return []
         否则部分 = 片段[-1]
-        return 语法树.如果(
+        return 语法树.新节点(语法.条件声明,
             条件=片段[1],
             主体=片段[2],
             否则=否则部分 if isinstance(否则部分, list) else [否则部分],
@@ -760,7 +760,7 @@ class 语法分析器:
 
     @分析器母机.production(语法.条件声明.成分(语法.声明, 连词_如果, 语法.表达式))
     def 条件倒置声明(self, 片段):
-        return 语法树.如果(
+        return 语法树.新节点(语法.条件声明,
             条件=片段[-1],
             主体=[片段[0]],
             否则=[],
@@ -768,7 +768,7 @@ class 语法分析器:
 
     @分析器母机.production(语法.声明.成分(语法.块))
     def 单块(self, 片段):
-        return 语法树.如果(
+        return 语法树.新节点(语法.条件声明,
             条件=语法树.常量(True, 片段),
             主体=片段[0],
             否则=[],

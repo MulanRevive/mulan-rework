@@ -9,7 +9,8 @@ class 语法树:
 
     @staticmethod
     def 新节点(类型, 主体=None, 忽略类型=None, 值=None, 左=None, 运算符=None, 右=None, 标识=None,
-            上下文=None, 片段=None):
+            上下文=None, 函数=None, 参数=None, 关键字=None, 变量=None, 条件=None, 否则=None,
+            前项=None, 后项=None, 片段=None):
         if 类型 == 语法.模块:
             节点 = ast.Module(body=主体, type_ignores=忽略类型)
         elif 类型 == 语法.表达式:
@@ -17,40 +18,30 @@ class 语法树:
         elif 类型 == 语法.数:
             节点 = ast.Num(n=值)
         elif 类型 == 语法.二元表达式:
-            节点 = ast.BinOp(left=左, op=运算符, right=右)
+            if isinstance(运算符, ast.And) or isinstance(运算符, ast.Or):
+                节点 = ast.BoolOp(op=运算符, values=[前项, 后项])
+            else:
+                节点 = ast.BinOp(left=左, op=运算符, right=右)
         elif 类型 == 语法.名称:
             节点 = ast.Name(id=标识, ctx=上下文)
+        elif 类型 == 语法.调用:
+            节点 = ast.Call(func=函数, args=参数, keywords=关键字)
+        elif 类型 == 语法.赋值:
+            节点 = ast.Assign([变量], 值)
+        elif 类型 == 语法.增量赋值:
+            节点 = ast.AugAssign(变量, 运算符, 值)
+        elif 类型 == 语法.条件声明:
+            节点 = ast.If(test=条件, body=主体, orelse=否则)
 
         if 片段:
             节点.lineno = 语法树.取行号(片段)
             节点.col_offset = 语法树.取列号(片段)
         return 节点
 
-    @staticmethod
-    def 调用(函数, 参数, 关键字, 片段):
-        return ast.Call(func=函数, args=参数, keywords=关键字, starargs=None, kwargs=None,
-                        lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 赋值(变量, 值, 片段):
-        return ast.Assign([变量], 值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 增量赋值(变量, 运算符, 值, 片段):
-        return ast.AugAssign(变量, 运算符, 值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 如果(条件, 主体, 否则, 片段):
-        return ast.If(test=条件, body=主体, orelse=否则, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
     # TODO: 为何比较符和后项在数组中?
     @staticmethod
     def 比较(前项, 操作符, 后项, 片段):
         return ast.Compare(前项, [操作符], [后项], lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 布尔操作(前项, 操作符, 后项, 片段):
-        return ast.BoolOp(op=操作符, values=[前项, 后项], lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 每当(条件, 主体, 片段):
