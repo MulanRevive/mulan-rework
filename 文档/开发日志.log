@@ -14,3 +14,7 @@
 rply.errors.ParserGeneratorError: Expecting :
 ```
 语法规则中, ":"必须前后带空格
+
+`运算符 == ast.And()`导致:
+TypeError: expected some sort of operator, but got <_ast.And object at 0x105a06518>
+改为比较类型: `isinstance(运算符, ast.Add)`

@@ -10,7 +10,7 @@ class 语法树:
     @staticmethod
     def 新节点(类型, 主体=None, 忽略类型=None, 值=None, 左=None, 运算符=None, 右=None, 标识=None,
             上下文=None, 函数=None, 参数=None, 关键字=None, 变量=None, 条件=None, 否则=None,
-            前项=None, 后项=None, 标注=None, 名称=None, 返回=None, 片段=None):
+            前项=None, 后项=None, 标注=None, 名称=None, 返回=None, 各基准类=None, 片段=None):
         if 类型 == 语法.模块:
             节点 = ast.Module(body=主体, type_ignores=忽略类型)
         elif 类型 == 语法.表达式:
@@ -59,6 +59,20 @@ class 语法树:
             节点 = ast.Return(value=值)
         elif 类型 == 语法.引用声明:
             节点 = ast.Import(names=名称)
+        elif 类型 == 语法.lambda表达式:
+            节点 = ast.Lambda(args=参数, body=主体)
+        elif 类型 == 语法.类型定义:
+            节点 = ast.ClassDef(name=名称,
+                            bases=各基准类,
+                            keywords=[],
+                            body=主体,
+                            decorator_list=[])
+        elif 类型 == 语法.字符串:
+            节点 = ast.Str(值)
+        elif 类型 == 语法.外部声明:
+            节点 = ast.Global(names=名称)
+        elif 类型 == 语法.一元表达式:
+            节点 = ast.UnaryOp(op=运算符, operand=值)
 
         if 片段:
             节点.lineno = 语法树.取行号(片段)
@@ -78,35 +92,12 @@ class 语法树:
         return ast.ImportFrom(module=模块, names=各名称, level=位置, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
-    def 一元操作(操作符, 值, 片段):
-        return ast.UnaryOp(操作符, 值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
     def 常量(值, 片段):
         return ast.NameConstant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
-    def 类定义(名称, 各基准类, 主体, 片段):
-        return ast.ClassDef(name=名称,
-                            bases=各基准类,
-                            keywords=[],
-                            body=主体,
-                            decorator_list=[],
-                            starargs=None,
-                            kwargs=None,
-                            lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
     def 空转(片段):
         return ast.Pass(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 全局(各名称, 片段):
-        return ast.Global(各名称, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def 字符串(值, 片段):
-        return ast.Str(值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
 
     @staticmethod
     def 对于(目标, 遍历范围, 主体, 片段):
@@ -147,13 +138,6 @@ class 语法树:
     def 字典(各键, 各值, 片段):
         return ast.Dict(keys=各键,
             values=各值,
-            lineno=语法树.取行号(片段),
-            col_offset=语法树.取列号(片段))
-
-    @staticmethod
-    def Lambda(参数, 主体, 片段):
-        return ast.Lambda(args=参数,
-            body=主体,
             lineno=语法树.取行号(片段),
             col_offset=语法树.取列号(片段))
 
