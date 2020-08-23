@@ -3,7 +3,13 @@ type Animal {
         return 1
     }
 }
+type 当地 {
+{}
+}
 type Person : Animal {
+{}
+}
+type 当地人 : Person, 当地 {
 {}
 }
 print(Person.getName())

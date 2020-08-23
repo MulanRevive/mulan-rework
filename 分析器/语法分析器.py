@@ -101,11 +101,14 @@ class 语法分析器:
 
     @分析器母机.production(语法.各基准类.成分())
     @分析器母机.production(语法.各基准类.成分(冒号, 语法.表达式前缀))
+    @分析器母机.production(语法.各基准类.成分(冒号, 语法.各表达式前缀))
     def 各基准类(self, 片段):
         if 语法分析器.调试:
             print('各基准类')
         if len(片段) == 0:
             return []
+        if isinstance(片段[1], list):
+            return 片段[1]
         return [片段[1]]
 
     @分析器母机.production(语法.类型主体.成分(前大括号, 语法.各类型内声明, 后大括号))
