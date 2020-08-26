@@ -792,6 +792,7 @@ class 语法分析器:
             片段=片段)
 
     @分析器母机.production(语法.迭代器.成分(语法.表达式前缀))
+    @分析器母机.production(语法.迭代器.成分(语法.各表达式前缀))
     def 迭代器(self, 片段):
         return 片段[0]
 
@@ -804,8 +805,16 @@ class 语法分析器:
     @分析器母机.production(语法.对于声明.成分(连词_对, 语法.迭代器, 冒号, 语法.遍历范围, 语法.块))
     def 对于声明(self, 片段):
         目标 = 片段[1]
-        # TODO: 遍历 list
-        目标.ctx = ast.Store()
+        if isinstance(目标, list):
+            for 项 in 目标:
+                if hasattr(项, 'ctx'):
+                    项.ctx = ast.Store()
+
+            目标 = 语法树.多项(元素=目标,
+               上下文=ast.Store(),
+               片段=片段)
+        else:
+            目标.ctx = ast.Store()
         return 语法树.对于(目标=目标,
                       遍历范围=片段[3],
                       主体=片段[4],

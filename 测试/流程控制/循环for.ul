@@ -14,3 +14,7 @@ print(n) for n in 0..2
 sum = 0
 sum += n for n : [1, 4]
 print(sum)
+
+for x, y in zip(['1', '2'], ['a', 'b']) {
+  print(x + y)
+}

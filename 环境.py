@@ -112,6 +112,7 @@ def 创建全局变量(argv=[]):
         'set': set,
         'map': map,
         'filter': filter,
+        'zip':zip,
         'staticmethod': staticmethod,
         'open':open,
         'ARGV': argv,
