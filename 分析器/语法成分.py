@@ -34,6 +34,7 @@ class 语法(Enum):
     数 = 'number'
     字符串 = 'string'
     列表表达式 = 'list_expr'
+    多项式乘法 = 'factor_expr'
     字典表达式 = 'dict_expr'
     各键值对 = 'kv_pairs'
     键值对 = 'kv_pair'

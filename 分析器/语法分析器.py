@@ -628,13 +628,14 @@ class 语法分析器:
     def 常量_空(self, 片段):
         return 语法树.常量(None, 片段=片段)
 
+    @分析器母机.production(语法.表达式.成分(语法.多项式乘法))
     @分析器母机.production(语法.表达式.成分(语法.二元表达式))
     @分析器母机.production(语法.表达式.成分(语法.一元表达式))
     @分析器母机.production(语法.表达式.成分(语法.表达式前缀))
     @分析器母机.production(语法.表达式.成分(语法.首要表达式))
     @分析器母机.production(语法.表达式.成分(语法.lambda表达式))
     @分析器母机.production(语法.表达式.成分(语法.三元表达式))
-    @分析器母机.production(语法.表达式.成分(语法.数)) # TODO: 为何要, precedence='==' ?
+    @分析器母机.production(语法.表达式.成分(语法.数), precedence=等于)
     @分析器母机.production(语法.表达式.成分(语法.常量))
 
     # ? 如果没有 precedence 就 1 shift/reduce conflict
@@ -643,6 +644,15 @@ class 语法分析器:
         if 语法分析器.调试:
             print("表达式")
         return 片段[0]
+
+    @分析器母机.production(语法.多项式乘法.成分(语法.数, 语法.表达式前缀))
+    def 多项式乘法(self, 片段):
+        片段[1] = self.转换为多项(片段[1])
+        return 语法树.新节点(语法.二元表达式,
+            左=片段[0],
+            运算符=ast.Mult(),
+            右=片段[1],
+            片段=片段)
 
     @分析器母机.production(语法.字典表达式.成分(前大括号, 冒号, 后大括号))
     @分析器母机.production(语法.字典表达式.成分(前大括号, 语法.各键值对, 后大括号))
@@ -861,6 +871,13 @@ class 语法分析器:
                   源码=self.源码)
 
         return 形参
+
+    def 转换为多项(self, 各实参):
+        if not isinstance(各实参, ast.arguments):
+            return 各实参
+        return 语法树.多项(上下文=ast.Load(),
+            元素=[ast.Name((arg.arg), (ast.Load()), lineno=(arg.lineno), col_offset=(arg.col_offset)) for arg in 各实参.args],
+            片段=各实参)
 
     分析器 = LRParser(分析器母机.build())
 
