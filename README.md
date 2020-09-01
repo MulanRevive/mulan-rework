@@ -1,5 +1,10 @@
 **_注：本项目的开发管理今后将在 [OSChina](https://www.oschina.net/p/mulan-rework) 继续_**
 
+## 前言
+没错，这就是那个木兰。
+
+2020 年一月第一时间提出知乎问题[「木兰」编程语言有什么特色？](https://www.zhihu.com/question/366509495/answer/977696328)的正是本人。至于此项目的渊源，见[悬赏布告](https://github.com/MulanRevive/bounty)和[木兰编程语言专栏](https://zhuanlan.zhihu.com/ulang)。
+
 ## 项目目标
 
 逐步实现木兰编程语言与交互环境的所有功能。
