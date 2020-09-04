@@ -549,11 +549,13 @@ class 语法分析器:
                 片段=片段)
             args.args = [arg]
             return args
+
+        # TODO：添加测试
         raise SyntaxError(message='expect an identifier here',
-          filename=(self.filename_),
-          lineno=(self.getlineno(p)),
-          colno=(self.getcolno(p)),
-          source=(self.source_))
+            filename=(self.文件名),
+            lineno=(self.getlineno(片段)),
+            colno=(self.getcolno(片段)),
+            source=(self.源码))
 
     @分析器母机.production(语法.lambda主体.成分(箭头, 语法.表达式))
     @分析器母机.production(语法.lambda主体.成分(箭头, 语法.块))
@@ -638,7 +640,7 @@ class 语法分析器:
     @分析器母机.production(语法.表达式.成分(语法.数), precedence=等于)
     @分析器母机.production(语法.表达式.成分(语法.常量))
 
-    # ? 如果没有 precedence 就 1 shift/reduce conflict
+    # TODO 待参透：等于 的优先级在 连词_每隔 下一位
     @分析器母机.production(语法.表达式.成分(语法.范围表达式), precedence=等于)
     def 表达式(self, 片段):
         if 语法分析器.调试:
