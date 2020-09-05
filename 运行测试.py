@@ -129,7 +129,12 @@ from sys import platform
 
 # 参考：https://stackoverflow.com/questions/748028/how-to-get-output-of-exe-in-python-script
 for 文件 in 期望值:
-    进程表[文件] = subprocess.Popen(["./中.py", 路径 + 文件], stdout=subprocess.PIPE)
+    if platform == 'win32':
+        # https://stackoverflow.com/questions/25651990/oserror-winerror-193-1-is-not-a-valid-win32-application
+        参数 = ["python.exe", "中.py", 路径 + 文件]
+    else:
+        参数 = ["./中.py", 路径 + 文件]
+    进程表[文件] = subprocess.Popen(参数, stdout=subprocess.PIPE)
 
 失败表 = {}
 
