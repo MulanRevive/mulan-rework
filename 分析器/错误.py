@@ -10,9 +10,8 @@ class 语法错误(ValueError):
     # TODO: 应使错误更易定位
     def __str__(self):
         反馈信息 = '文件 "%s", 第%d行, 第%d列, %s' % (
-         self.文件名, self.行号, self.列号, self.信息)
+                self.文件名, self.行号, self.列号, self.信息)
         if self.源码:
             行 = self.源码[(self.行号 - 1)]
-            列 = ' ' * (self.列号 - 1) + '^'
-            反馈信息 = '%s\n%s\n%s' % (反馈信息, 行, 列)
-        return 反馈信息
+            出错位置 = self.列号 - 1
+        return '%s\n%s' % (反馈信息, 行[:出错位置] + '✋' + 行[出错位置:])
