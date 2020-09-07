@@ -1,0 +1,5 @@
+print(2*3)
+length = 2
+width = 3
+print(3length + 4 width)
+print(6/2(1+2))

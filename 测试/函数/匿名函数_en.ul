@@ -1,0 +1,24 @@
+print(list(filter(func (n) { return n>0 }, [1,-1])))
+print(list(filter(n -> n>0, [1,-1])))
+print(list(filter(n -> {
+  square = n*n
+  return square>5
+}, [1,3])))
+print(list(filter(
+  length -> { area = length * length; return area > 5 },
+  [1,3]
+)))
+print(list(map(
+  func (length) { area = length * length; return area },
+  [1, 2]
+)))
+print(func (length, width) {
+  area = length * width;
+  return area
+}(3, 4))
+type shape {
+{}
+}
+print(func (length) : shape {
+  return shape()
+}(1) != nil)

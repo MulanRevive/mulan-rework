@@ -1,0 +1,4 @@
+func square(n) {
+    return n*n
+}
+print(list(map(square, [1,2,3])))

@@ -1,0 +1,6 @@
+func echo() {
+    return 1, 2
+}
+values = echo()
+print(values[0])
+print(values[1])

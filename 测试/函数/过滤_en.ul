@@ -1,0 +1,7 @@
+func a() {
+    func big(n) {
+        return n>5
+    }
+    return big
+}
+print(list(filter(a(), [1,10])))
