@@ -1,0 +1,15 @@
+type Animal {
+    func getName() {
+        return 1
+    }
+}
+type Local {
+{}
+}
+type Person : Animal {
+{}
+}
+type LocalPeople : Person, Local {
+{}
+}
+print(Person.getName())

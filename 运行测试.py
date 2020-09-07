@@ -128,15 +128,18 @@ from sys import platform
 进程表 = {}
 
 英文版 = set(["运算/乘.ul", "函数/过滤.ul", "函数/map.ul", "函数/返回多值.ul",
-    "函数/匿名函数.ul", "函数/API/文件.ul"])
+    "函数/匿名函数.ul", "函数/API/文件.ul", "字符串/相关方法.ul", "字符串/相关方法.ul",
+    "数据结构/列表取值.ul", ])
 # 参考：https://stackoverflow.com/questions/748028/how-to-get-output-of-exe-in-python-script
 for 文件 in 期望值:
     源码路径 = 路径 + 文件
     if platform == 'win32':
-        if 文件 in 英文版:
-            源码路径 += "_en"
         # https://stackoverflow.com/questions/25651990/oserror-winerror-193-1-is-not-a-valid-win32-application
         参数 = ["python.exe", "中.py",  源码路径]
+
+        # if 文件 in 英文版:
+        #    源码路径 = 源码路径[:-3] + "_en.ul"
+        # 参数 = ["ulang-0.2.2.exe",  源码路径]
     else:
         参数 = ["./中.py", 源码路径]
     进程表[文件] = subprocess.Popen(参数, stdout=subprocess.PIPE)

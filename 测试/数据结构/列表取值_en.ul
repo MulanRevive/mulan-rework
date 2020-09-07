@@ -1,0 +1,10 @@
+list=[1,2,3]
+print(list[1])
+list[1] = 4
+print(list[1])
+list.append(5)
+print(list[3])
+print(list[0:2])
+print(list[2:])
+print(list[:2])
+print(list[:])
