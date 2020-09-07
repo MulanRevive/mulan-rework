@@ -18,3 +18,26 @@ rply.errors.ParserGeneratorError: Expecting :
 `运算符 == ast.And()`导致:
 TypeError: expected some sort of operator, but got <_ast.And object at 0x105a06518>
 改为比较类型: `isinstance(运算符, ast.Add)`
+
+## [rply](https://github.com/alex/rply) 学习笔记
+
+运行测试用例：
+```
+$ py.test tests
+================================================================= test session starts ==================================================================
+platform darwin -- Python 3.7.6, pytest-5.3.5, py-1.8.1, pluggy-0.13.1
+rootdir: .../rply
+plugins: hypothesis-5.5.4, arraydiff-0.3, remotedata-0.3.2, openfiles-0.4.0, doctestplus-0.5.0, astropy-header-0.1.2
+collected 49 items                                                                                                                                     
+
+tests/test_both.py .                                                                                                                             [  2%]
+tests/test_lexer.py ..........                                                                                                                   [ 22%]
+tests/test_parser.py ..........                                                                                                                  [ 42%]
+tests/test_parsergenerator.py ........                                                                                                           [ 59%]
+tests/test_tokens.py .....                                                                                                                       [ 69%]
+tests/test_utils.py .....                                                                                                                        [ 79%]
+tests/test_warnings.py ....                                                                                                                      [ 87%]
+tests/test_ztranslation.py ssssss                                                                                                                [100%]
+
+============================================================ 43 passed, 6 skipped in 0.23s =============================================================
+```

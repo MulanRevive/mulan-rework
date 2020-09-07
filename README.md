@@ -3,13 +3,13 @@
 ## 前言
 没错，这就是那个木兰。
 
-2020 年一月第一时间提出知乎问题[「木兰」编程语言有什么特色？](https://www.zhihu.com/question/366509495/answer/977696328)的正是本人。至于此项目的渊源，见[悬赏布告](https://github.com/MulanRevive/bounty)和[木兰编程语言专栏](https://zhuanlan.zhihu.com/ulang)。
+2020 年一月第一时间提出知乎问题[「木兰」编程语言有什么特色？](https://www.zhihu.com/question/366509495/answer/977696328)的正是本人。
 
 ## 项目目标
 
-逐步实现木兰编程语言与交互环境的所有功能。
+在[悬赏尚未完成](https://github.com/MulanRevive/bounty)时，本项目将持续向[悬赏目标](https://github.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)推进。过程中的技术文章集结在[木兰编程语言专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
 
-将源程序转换为 Python 的中间表示（AST），可较便利地实现各种语法设计与周边功能。这种方式值得探索和研究。
+木兰源代码转换为 Python 的中间表示（AST）后执行，可实现各种语法设计与周边功能，并可方便地利用 Python 现有生态。
 
 ## 运行
 
