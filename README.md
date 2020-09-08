@@ -7,7 +7,7 @@
 
 ## 项目目标
 
-在[悬赏尚未完成](https://github.com/MulanRevive/bounty)时，本项目将持续向[悬赏目标](https://github.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)推进。过程中的技术文章集结在[木兰编程语言专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
+在[悬赏尚未完成](https://zhuanlan.zhihu.com/p/224600854)时，本项目将持续向[悬赏目标](https://github.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)推进。过程中的技术文章集结在[木兰编程语言专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
 
 木兰源代码转换为 Python 的中间表示（AST）后执行，可实现各种语法设计与周边功能，并可方便地利用 Python 现有生态。
 
@@ -23,14 +23,15 @@ $ python 中.py 测试/运算/四则运算.ul
 下面[例程](测试/手工测试/草蟒_海龟.ul)调用了[草蟒](https://www.oschina.net/p/grasspy)的中文 API：
 ```javascript
 using * in 海龟
+
 颜色("黄色", "红色")
 开始填充()
-for 拐数 in 0..4 {
-  前进(200)
-  右转(144)
+for 转角 in 0..4 {
+  前进(200); 右转(144)
 }
 结束填充()
 主循环()
+/* 需安装 Python 库“草蟒”： grasspy-modules */
 ```
 
 更多测试用例[在此](测试)。

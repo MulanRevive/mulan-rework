@@ -127,18 +127,26 @@ from sys import platform
 # 多进程参考：https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/
 进程表 = {}
 
-英文版 = set(["运算/乘.ul", "函数/过滤.ul", "函数/map.ul", "函数/返回多值.ul",
-    "函数/匿名函数.ul", "函数/API/文件.ul", "字符串/相关方法.ul", "字符串/相关方法.ul",
-    "数据结构/列表取值.ul", ])
+英文版 = set(["运算/乘.ul",
+    "函数/过滤.ul", "函数/map.ul", "函数/返回多值.ul", "函数/匿名函数.ul", "函数/API/文件.ul",
+    "特殊字符/注释块.ul",
+    "类型/继承.ul",
+    "字符串/双引号.ul", "字符串/相关方法.ul",
+    "数据结构/列表取值.ul",
+    "算法/排序/冒泡.ul", "算法/排序/插入.ul", "算法/排序/快速.ul",
+    "综合.ul"])
 # 参考：https://stackoverflow.com/questions/748028/how-to-get-output-of-exe-in-python-script
 for 文件 in 期望值:
     源码路径 = 路径 + 文件
     if platform == 'win32':
         # https://stackoverflow.com/questions/25651990/oserror-winerror-193-1-is-not-a-valid-win32-application
-        参数 = ["python.exe", "中.py",  源码路径]
+        参数 = ["python.exe", "中.py", 源码路径]
 
+        # 原始版本不支持中文标识符，且仅支持 gbk 编码。因此英文版测试文件仅用英文字符串和标识符。下面仅在验证与原始版本功能一致时手动打开。
         # if 文件 in 英文版:
         #    源码路径 = 源码路径[:-3] + "_en.ul"
+        # if 文件 == "特殊字符/中文标识符.ul":
+        #    continue
         # 参数 = ["ulang-0.2.2.exe",  源码路径]
     else:
         参数 = ["./中.py", 源码路径]

@@ -1,0 +1,28 @@
+func partition(numbers, low, high) {
+  pivot = numbers[high]
+  front = low
+  for back in low..high {
+    if numbers[back] < pivot {
+      numbers[front], numbers[back] = numbers[back], numbers[front]
+      front += 1
+    }
+  }
+  numbers[front], numbers[high] = numbers[high], numbers[front]
+  return front
+}
+
+func quick_sort(numbers) {
+  func _quick_sort(items, low, high) {
+    if low < high {
+      split_index = partition(items, low, high)
+      _quick_sort(items, low, split_index - 1)
+      _quick_sort(items, split_index + 1, high)
+    }
+  }
+
+  _quick_sort(numbers, 0, len(numbers) - 1)
+}
+
+random_numbers = [5, 2, 1, 8, 4]
+quick_sort(random_numbers)
+print(random_numbers)

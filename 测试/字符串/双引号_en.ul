@@ -1,0 +1,13 @@
+print("ok")
+func print2(a, b) {
+    print(a)
+}
+print2("a","b")
+file = open("testdata/space.txt", 'rt', -1, "utf-8")
+content = file.read()
+file.close()
+print(content == "\n")
+file = open("testdata/tab.txt", 'rt', -1, "utf-8")
+content = file.read()
+file.close()
+print(content == "\t")

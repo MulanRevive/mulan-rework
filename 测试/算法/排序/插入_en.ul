@@ -1,0 +1,15 @@
+func insertion_sort(numbers) {
+  for i in 1..<len(numbers) {
+    item_to_insert = numbers[i]
+    j = i - 1
+    while j >= 0 and numbers[j] > item_to_insert {
+      numbers[j + 1] = numbers[j]
+      j -= 1
+    }
+    numbers[j + 1] = item_to_insert
+  }
+}
+
+random_numbers = [5, 2, 1, 8, 4]
+insertion_sort(random_numbers)
+print(random_numbers)

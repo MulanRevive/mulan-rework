@@ -1,0 +1,19 @@
+/* 参考: https://stackabuse.com/sorting-algorithms-in-python/ */
+func bubble(numbers) {
+  swapped = true
+  while swapped {
+    swapped = false
+    for i in 0..len(numbers) - 2 {
+      front = numbers[i]
+      back = numbers[i + 1]
+      if front > back {
+        numbers[i], numbers[i + 1] = back, front
+        swapped = true
+      }
+    }
+  }
+}
+
+unsorted = [5, 2, 1, 8, 4]
+bubble(unsorted)
+print(unsorted)
