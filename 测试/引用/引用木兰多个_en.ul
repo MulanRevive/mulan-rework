@@ -1,0 +1,3 @@
+using test_module, test_module2
+test_module.talk()
+test_module2.sing()

@@ -133,6 +133,7 @@ from sys import platform
     "类型/继承.ul",
     "字符串/双引号.ul", "字符串/相关方法.ul",
     "数据结构/列表取值.ul",
+    "引用/引用木兰多个.ul", "引用/引用本地包内木兰.ul", "引用/引用本地包内木兰某内容.ul",
     "算法/排序/冒泡.ul", "算法/排序/插入.ul", "算法/排序/快速.ul",
     "综合.ul"])
 # 参考：https://stackoverflow.com/questions/748028/how-to-get-output-of-exe-in-python-script
@@ -144,9 +145,9 @@ for 文件 in 期望值:
 
         # 原始版本不支持中文标识符，且仅支持 gbk 编码。因此英文版测试文件仅用英文字符串和标识符。下面仅在验证与原始版本功能一致时手动打开。
         # if 文件 in 英文版:
-        #    源码路径 = 源码路径[:-3] + "_en.ul"
+        #     源码路径 = 源码路径[:-3] + "_en.ul"
         # if 文件 == "特殊字符/中文标识符.ul":
-        #    continue
+        #     continue
         # 参数 = ["ulang-0.2.2.exe",  源码路径]
     else:
         参数 = ["./中.py", 源码路径]

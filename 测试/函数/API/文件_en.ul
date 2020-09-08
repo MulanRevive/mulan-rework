@@ -1,4 +1,4 @@
-f = open('测试/函数/API/测试.txt', 'rt')
+f = open('testdata/hi.txt', 'rt')
 content = f.read()
 f.close()
 print(content)

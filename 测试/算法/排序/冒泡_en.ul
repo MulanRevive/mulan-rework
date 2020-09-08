@@ -1,4 +1,3 @@
-/* 参考: https://stackabuse.com/sorting-algorithms-in-python/ */
 func bubble(numbers) {
   swapped = true
   while swapped {
