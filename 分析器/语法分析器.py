@@ -1,7 +1,7 @@
 from enum import Enum, unique
 from rply import ParserGenerator
 from rply.errors import LexingError
-from rply_parser import LRParser
+from 分析器.rply_parser import LRParser
 from 分析器.语法树 import *
 from 分析器.错误 import 语法错误
 

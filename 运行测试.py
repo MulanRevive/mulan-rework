@@ -4,6 +4,8 @@ import subprocess
 
 from sys import platform
 
+# TODO: 合并 test语法树
+
 路径 = '测试/'
 # 不确定为何输出是bytes：https://stackoverflow.com/questions/6269765/what-does-the-b-character-do-in-front-of-a-string-literal
 期望值 = {
