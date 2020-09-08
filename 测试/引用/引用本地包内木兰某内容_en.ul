@@ -1,2 +1,2 @@
-using talk in testpackage.module_ul
+using talk in test.package.module_ul
 talk()

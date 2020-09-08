@@ -1,2 +1,2 @@
-import testpackage.module_py
-testpackage.module_py.talk()
+import test.package.module_py
+test.package.module_py.talk()

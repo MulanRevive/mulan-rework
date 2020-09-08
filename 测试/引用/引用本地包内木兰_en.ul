@@ -1,2 +1,2 @@
-using testpackage.module_ul
-testpackage.module_ul.talk()
+using test.package.module_ul
+test.package.module_ul.talk()

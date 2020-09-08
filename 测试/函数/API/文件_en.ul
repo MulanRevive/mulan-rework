@@ -1,4 +1,4 @@
-f = open('testdata/hi.txt', 'rt')
+f = open('test/data/hi.txt', 'rt')
 content = f.read()
 f.close()
 print(content)
