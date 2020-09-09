@@ -70,10 +70,23 @@ def __内置_除(a, b):
 def 创建全局变量(argv=[]):
 
     def 转字符串(x):
+
+        def 容器转为字符串(容器, 始='', 末=''):
+            字符串 = 始
+            for 序号, 该项 in enumerate(容器):
+                if 序号:
+                    字符串 += ', '
+                字符串 += 转字符串(该项)
+
+            字符串 += 末
+            return 字符串
+
         if x is None:
             return 'nil'
         if isinstance(x, bool):
             return 'true' if x else 'false'
+        if isinstance(x, list):
+            return 容器转为字符串(x, '[', ']')
         return str(x)
 
     def 自定义输出(*各物件, 分隔符=' ', 终止符='', 文件=sys.stdout, flush=False):

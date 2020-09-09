@@ -107,12 +107,12 @@ from sys import platform
 
     "字符串/双引号.ul": b"okatruetrue",
     "字符串/单引号.ul": b"ok",
-    "字符串/相关方法.ul": b"1hi['fish']",
+    "字符串/相关方法.ul": b"1hi[fish]",
 
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)range(-1, 5, 2)range(4, -2, -2)02",
     "数据结构/列表.ul": b"[][2][2, 4, 6]",
     "数据结构/列表取值.ul": b"245[1, 4][3, 5][1, 4][1, 4, 3, 5]",
-    "数据结构/列表组合.ul": b"['a', 'b', 'b']",
+    "数据结构/列表组合.ul": b"[a, b, b]",
     "数据结构/字典.ul": b"0acfalsefalse",
     "数据结构/集合.ul": b"{1, 2, 3}",
 
@@ -143,7 +143,9 @@ for 文件 in 期望值:
         # https://stackoverflow.com/questions/25651990/oserror-winerror-193-1-is-not-a-valid-win32-application
         参数 = ["python.exe", "中.py", 源码路径]
 
-        # 原始版本不支持中文标识符，且仅支持 gbk 编码。因此英文版测试文件仅用英文字符串和标识符。下面仅在验证与原始版本功能一致时手动打开。
+        # 原始可执行文件在：https://github.com/MulanRevive/bounty/blob/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6/ulang-0.2.2.exe
+        # 原始版本不支持中文标识符，且仅支持 gbk 编码的源文件。因此英文版测试文件仅用英文字符串和标识符。
+        # 在验证与原始版本功能一致时，将可执行文件拷贝到项目根目录，手动打开下面这段。
         # if 文件 in 英文版:
         #     源码路径 = 源码路径[:-3] + "_en.ul"
         # if 文件 == "特殊字符/中文标识符.ul":
