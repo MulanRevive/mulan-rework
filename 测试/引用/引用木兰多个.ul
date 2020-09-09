@@ -1,3 +1,3 @@
-using test_module, 测试引用2
-test_module.talk()
+using 测试.包.module_ul, 测试引用2
+测试.包.module_ul.talk()
 测试引用2.唱()

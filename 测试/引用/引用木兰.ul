@@ -1,2 +1,0 @@
-using test_module
-test_module.talk()

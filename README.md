@@ -53,7 +53,7 @@ for 转角 in 0..4 {
 
 ```
 $ chmod +x 中.py
-$ python 运行测试.py
+$ python 测试/运行所有.py
 $ python test语法树.py
 ```
 

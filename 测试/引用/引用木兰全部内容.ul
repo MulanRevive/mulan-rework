@@ -1,2 +1,2 @@
-using * in test_module
+using * in 测试.包.module_ul
 talk()
