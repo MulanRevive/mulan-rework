@@ -4,11 +4,8 @@ from 分析器.语法分析器 import 语法分析器
 from 环境 import 创建全局变量
 from 功用.反馈信息 import 反馈信息
 
-def is_close(源码):
-    """
-    Check if the given 源码 is closed,
-    which means each '{' has a matched '}' 
-    """
+# TODO: 添加测试
+def 括号已配对(源码):
     关键词 = {
      名词_函数, #'OPERATOR', 'ATTR', 'TYPE',
      #'FOR', 'LOOP', 'WHILE',
@@ -68,19 +65,19 @@ def input_swallowing_interrupt(_input):
     return _input_swallowing_interrupt
 
 
-class Repl(cmd.Cmd):
+class 交互(cmd.Cmd):
     """
     A simple wrapper for REPL using the python cmd module.
     """
 
-    def __init__(self, ps1='> ', ps2='>> ', globals=None, locals=None):
+    def __init__(self, 提示符1='> ', 提示符2='>> ', 全局变量=None, locals=None):
         super().__init__()
-        self.ps1 = ps1
-        self.ps2 = ps2
-        self.globals = globals
+        self.提示符1 = 提示符1
+        self.提示符2 = 提示符2
+        self.全局变量 = 全局变量
         self.locals = locals
         self.parser = 语法分析器(分词器)
-        self.prompt = ps1
+        self.prompt = 提示符1
         self.stmt = ''
 
     def do_help(self, arg):
@@ -96,12 +93,12 @@ class Repl(cmd.Cmd):
         if line == 'EOF':
             return self.do_EOF(line)
         self.default(line)
-        self.prompt = self.ps1 if len(self.stmt) == 0 else self.ps2
+        self.prompt = self.提示符1 if len(self.stmt) == 0 else self.提示符2
 
     def default(self, line):
         if line is not None:
             self.stmt += '%s\n' % line
-            if not self.is_close():
+            if not self.括号已配对():
                 return
             try:
                 try:
@@ -110,7 +107,7 @@ class Repl(cmd.Cmd):
                     node = self.parser.分析(self.stmt, '<STDIN>')
 
                 code = compile(node, '<STDIN>', 'exec')
-                exec(code, self.globals, self.locals)
+                exec(code, self.全局变量, self.locals)
             except SystemExit:
                 sys.exit()
             except BaseException as e:
@@ -123,8 +120,8 @@ class Repl(cmd.Cmd):
             finally:
                 self.stmt = ''
 
-    def is_close(self):
-        return is_close(self.stmt)
+    def 括号已配对(self):
+        return 括号已配对(self.stmt)
 
     def cmdloop(self, *args, **kwargs):
         orig_input_func = cmd.__builtins__['input']
@@ -135,17 +132,17 @@ class Repl(cmd.Cmd):
             cmd.__builtins__['input'] = orig_input_func
 
 
-def repl(ps1='> ', ps2='>> ', globals=None):
+def 开始交互(提示符1='> ', 提示符2='>> ', 全局变量=None):
     """
-    A simple read-eval-print-loop for the µLang program
+    简易的木兰交互环境
     """
-    info = [
+    介绍 = [
      '\t详情: 列出内置功能',
      '\t再会: 结束对话',
      '\t你好: 显示这段']
-    if not globals:
-        globals = 创建全局变量(文件名='<STDIN>')
-    globals['详情'] = lambda : print('\n'.join([' %s (%s)' % (k, v.__class__.__name__) for k, v in globals.items() if k != '__builtins__' if k != '___']))
-    globals['你好'] = lambda *args: print('\n'.join(info)) if not args else print()
-    Repl(ps1, ps2, globals).cmdloop("木兰向您问好\n更多信息请说'你好'")
+    if not 全局变量:
+        全局变量 = 创建全局变量(文件名='<STDIN>')
+    全局变量['详情'] = lambda : print('\n'.join([' %s (%s)' % (k, v.__class__.__name__) for k, v in 全局变量.items() if k != '__builtins__' if k != '___']))
+    全局变量['你好'] = lambda *args: print('\n'.join(介绍)) if not args else print()
+    交互(提示符1, 提示符2, 全局变量).cmdloop("木兰向您问好\n更多信息请说'你好'")
     sys.exit(0)

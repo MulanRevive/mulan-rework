@@ -5,12 +5,12 @@ import ast
 from 分析器.词法分析器 import 分词器
 from 分析器.语法分析器 import 语法分析器
 from 环境 import 创建全局变量
-from repl import repl
+from 交互 import 开始交互
 from 功用.反馈信息 import 反馈信息
 from 功用.调试辅助 import 语法树相关
 
 if len(sys.argv) == 1:
-    sys.exit(repl())
+    sys.exit(开始交互())
 
 源码文件 = sys.argv[1]
 with open(源码文件, 'r', encoding='utf-8') as f:
