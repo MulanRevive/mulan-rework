@@ -4,13 +4,13 @@ from 分析器.语法分析器 import 语法分析器
 from 环境 import 创建全局变量
 from 功用.反馈信息 import 反馈信息
 
-# TODO: 添加测试
+# TODO: 更多测试
 def 括号已配对(源码):
     关键词 = {
-     名词_函数, #'OPERATOR', 'ATTR', 'TYPE',
-     #'FOR', 'LOOP', 'WHILE',
-     #'IF', 'ELIF', 'ELSE',
-     #'TRY', 'CATCH', 'FINALLY'
+        名词_函数, #'OPERATOR', 'ATTR', 'TYPE',
+        #'FOR', 'LOOP', 'WHILE',
+        #'IF', 'ELIF', 'ELSE',
+        #'TRY', 'CATCH', 'FINALLY'
     }
     未配对之和 = 0
     unclosed_sum = 0
@@ -18,13 +18,12 @@ def 括号已配对(源码):
         if 源码[-2] == '\\':
             return False
         else:
-            tokens = 分词器.lex(源码)
+            各词 = 分词器.lex(源码)
             unclosed = []
-            未配对 = [
-            0, 0, 0]
+            未配对 = [0, 0, 0]
             last = 2 * ['']
-            for tok in tokens:
-                c = tok.gettokentype()
+            for 词 in 各词:
+                c = 词.gettokentype()
                 last[0], last[1] = last[1], c
                 if c in 关键词:
                     unclosed.append(c)
@@ -50,6 +49,7 @@ def 括号已配对(源码):
                         if (last[0] == 'NEWLINE' or last[0]) == ';':
                             pass
                         return True
+    # print('unclosed_sum：' + str(unclosed_sum) + ' 未配对之和: ' + str(未配对之和))
     return unclosed_sum == 0 and 未配对之和 == 0
 
 
@@ -59,6 +59,7 @@ def input_swallowing_interrupt(_input):
         try:
             return _input(*args)
         except KeyboardInterrupt:
+            # TODO: 何用？
             print('^C')
             return '\n'
 
@@ -66,48 +67,38 @@ def input_swallowing_interrupt(_input):
 
 
 class 交互(cmd.Cmd):
-    """
-    A simple wrapper for REPL using the python cmd module.
-    """
-
-    def __init__(self, 提示符1='> ', 提示符2='>> ', 全局变量=None, locals=None):
+    # 本地变量暂时无用
+    def __init__(self, 提示符1='> ', 提示符2='>> ', 全局变量=None):
         super().__init__()
         self.提示符1 = 提示符1
         self.提示符2 = 提示符2
         self.全局变量 = 全局变量
-        self.locals = locals
-        self.parser = 语法分析器(分词器)
+        self.分析器 = 语法分析器(分词器)
         self.prompt = 提示符1
-        self.stmt = ''
-
-    def do_help(self, arg):
-        self.default('help(%s)' % arg)
-
-    def do_quit(self, arg):
-        self.default('quit(%s)' % arg)
+        self.声明 = ''
 
     def do_EOF(self, arg):
-        self.default('quit()')
+        self.default('再会()')
 
-    def onecmd(self, line):
-        if line == 'EOF':
-            return self.do_EOF(line)
-        self.default(line)
-        self.prompt = self.提示符1 if len(self.stmt) == 0 else self.提示符2
+    def onecmd(self, 行):
+        if 行 == 'EOF':
+            return self.do_EOF(行)
+        self.default(行)
+        self.prompt = self.提示符1 if len(self.声明) == 0 else self.提示符2
 
-    def default(self, line):
-        if line is not None:
-            self.stmt += '%s\n' % line
+    def default(self, 行):
+        if 行 is not None:
+            self.声明 += '%s\n' % 行
             if not self.括号已配对():
                 return
             try:
                 try:
-                    node = self.parser.分析('___=(%s);__print__(___)' % self.stmt, '<STDIN>')
+                    节点 = self.分析器.分析('___=(%s);__print__(___)' % self.声明, '【标准输入】')
                 except Exception:
-                    node = self.parser.分析(self.stmt, '<STDIN>')
+                    节点 = self.分析器.分析(self.声明, '【标准输入】')
 
-                code = compile(node, '<STDIN>', 'exec')
-                exec(code, self.全局变量, self.locals)
+                可执行码 = compile(节点, '【标准输入】', 'exec')
+                exec(可执行码, self.全局变量)
             except SystemExit:
                 sys.exit()
             except BaseException as e:
@@ -118,18 +109,18 @@ class 交互(cmd.Cmd):
                     del e
 
             finally:
-                self.stmt = ''
+                self.声明 = ''
 
     def 括号已配对(self):
-        return 括号已配对(self.stmt)
+        return 括号已配对(self.声明)
 
     def cmdloop(self, *args, **kwargs):
-        orig_input_func = cmd.__builtins__['input']
-        cmd.__builtins__['input'] = input_swallowing_interrupt(orig_input_func)
+        原始输入函数 = cmd.__builtins__['input']
+        cmd.__builtins__['input'] = input_swallowing_interrupt(原始输入函数)
         try:
             (super().cmdloop)(*args, **kwargs)
         finally:
-            cmd.__builtins__['input'] = orig_input_func
+            cmd.__builtins__['input'] = 原始输入函数
 
 
 def 开始交互(提示符1='> ', 提示符2='>> ', 全局变量=None):
@@ -141,6 +132,7 @@ def 开始交互(提示符1='> ', 提示符2='>> ', 全局变量=None):
      '\t再会: 结束对话',
      '\t你好: 显示这段']
     if not 全局变量:
+        # TODO: 何时会用
         全局变量 = 创建全局变量(文件名='<STDIN>')
     全局变量['详情'] = lambda : print('\n'.join([' %s (%s)' % (k, v.__class__.__name__) for k, v in 全局变量.items() if k != '__builtins__' if k != '___']))
     全局变量['你好'] = lambda *args: print('\n'.join(介绍)) if not args else print()

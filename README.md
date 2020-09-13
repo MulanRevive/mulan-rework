@@ -53,7 +53,7 @@ for 转角 in 0..4 {
 
 ```
 $ python 测试/运行所有.py
-$ python test语法树.py
+$ python -m unittest 测试.unittest.交互 测试.unittest.语法树
 ```
 
 ## IDE 辅助
