@@ -7,50 +7,48 @@ from 功用.反馈信息 import 反馈信息
 # TODO: 更多测试
 def 括号已配对(源码):
     关键词 = {
-        名词_函数, #'OPERATOR', 'ATTR', 'TYPE',
-        #'FOR', 'LOOP', 'WHILE',
-        #'IF', 'ELIF', 'ELSE',
+        名词_操作符, 名词_函数, 名词_类型, #'OPERATOR', 'FUNC', 'ATTR', 'TYPE',
+        连词_对, 动词_循环, 连词_每当,
+        连词_如果, 连词_否则如果, 连词_否则,
         #'TRY', 'CATCH', 'FINALLY'
     }
     未配对之和 = 0
-    unclosed_sum = 0
+    未闭合的个数 = 0
     if len(源码) > 1:
         if 源码[-2] == '\\':
             return False
         else:
             各词 = 分词器.lex(源码)
-            unclosed = []
+            未闭合的 = []
             未配对 = [0, 0, 0]
-            last = 2 * ['']
+            末两词 = 2 * ['']
             for 词 in 各词:
                 c = 词.gettokentype()
-                last[0], last[1] = last[1], c
+                末两词[0], 末两词[1] = 末两词[1], c
                 if c in 关键词:
-                    unclosed.append(c)
+                    未闭合的.append(c)
                 if c == 前大括号:
                     未配对[0] += 1
                 elif c == 后大括号:
                     未配对[0] -= 1
-                    if len(unclosed):
-                        unclosed.pop(-1)
-                elif c == '(':
+                    if len(未闭合的):
+                        未闭合的.pop(-1)
+                elif c == 前小括号:
                     未配对[1] += 1
-                elif c == ')':
+                elif c == 后小括号:
                     未配对[1] -= 1
-                elif c == '[':
+                elif c == 前中括号:
                     未配对[2] += 1
-                elif c == ']':
+                elif c == 后中括号:
                     未配对[2] -= 1
             未配对之和 = sum(未配对)
-            unclosed_sum = len(unclosed)
-            if unclosed_sum > 0:
+            未闭合的个数 = len(未闭合的)
+            if 未闭合的个数 > 0:
                 if 未配对之和 == 0:
-                    if last[1] == 'NEWLINE':
-                        if (last[0] == 'NEWLINE' or last[0]) == ';':
-                            pass
-                        return True
-    # print('unclosed_sum：' + str(unclosed_sum) + ' 未配对之和: ' + str(未配对之和))
-    return unclosed_sum == 0 and 未配对之和 == 0
+                    if 末两词[1] == 换行:
+                        if 末两词[0] == 换行 or 末两词[0] == 分号:
+                            return True
+    return 未闭合的个数 == 0 and 未配对之和 == 0
 
 
 def input_swallowing_interrupt(_input):
