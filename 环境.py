@@ -67,7 +67,7 @@ def __内置_除(a, b):
             return math.floor(a / b)
     return a / b
 
-def 创建全局变量(argv=[]):
+def 创建全局变量(argv=[], 文件名=''):
 
     def 转字符串(x):
 
@@ -111,6 +111,14 @@ def 创建全局变量(argv=[]):
     def 本地断言(表达式, 反馈=None):
         assert 表达式, 反馈
 
+    def eval_print(expr):
+        if expr is None:
+            return
+        try:
+            expr()
+        except Exception:
+            自定义输出(expr, 终止符='\n')
+
     return {
         'print': 自定义输出,
         'println': lambda *各物件: 自定义输出(*各物件, **{'终止符': '\n'}),
@@ -119,6 +127,7 @@ def 创建全局变量(argv=[]):
         'all': all,
         'any': any,
         'range': range,
+        'input':input,
         'int': int,
         'str': str,
         'list': list,
@@ -127,11 +136,14 @@ def 创建全局变量(argv=[]):
         'filter': filter,
         'zip':zip,
         'staticmethod': staticmethod,
+        '再会':sys.exit,
         'open':open,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
             '__build_class__': __build_class__,
             '__name__': '__main__',
+            '__file__': 文件名,
+            '__print__': eval_print,
             '__div__': __内置_除})
     }

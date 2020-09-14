@@ -36,6 +36,20 @@ for 转角 in 0..4 {
 
 更多测试用例[在此](测试)。
 
+## 交互环境
+
+```
+$ python 中.py 
+木兰向您问好
+更多信息请说'你好'
+> 和 = 0
+> for 数 in 1..10 {
+>> 和 += 数
+>> }
+> print(和)
+55
+```
+
 ## 开发环境
 
 使用 Python 3.7。 Mac 和 [Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3) 下全部测试通过；windows 下测试[大多数通过](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP)。如使用 3.8，语法树测试将失败。
@@ -53,7 +67,7 @@ for 转角 in 0..4 {
 
 ```
 $ python 测试/运行所有.py
-$ python test语法树.py
+$ python -m unittest 测试.unittest.交互 测试.unittest.语法树
 ```
 
 ## IDE 辅助

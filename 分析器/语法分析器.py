@@ -5,7 +5,6 @@ from 分析器.rply_parser import LRParser
 from 分析器.语法树 import *
 from 分析器.错误 import 语法错误
 
-from 分析器.词法分析器 import 分词器
 from 分析器.词法分析器 import *
 from 分析器.语法树处理 import *
 from 分析器.语法成分 import *
