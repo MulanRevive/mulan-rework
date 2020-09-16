@@ -132,6 +132,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'str': str,
         'list': list,
         'set': set,
+        'max': max,
         'map': map,
         'filter': filter,
         'zip':zip,
