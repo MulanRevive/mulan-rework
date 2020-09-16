@@ -50,6 +50,10 @@ $ python 中.py
 55
 ```
 
+## 新手入门
+
+如果无编程经验，请入[此门](文档/用户手册/编程新手/1猜数字.md)。
+
 ## 开发环境
 
 使用 Python 3.7。 Mac 和 [Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3) 下全部测试通过；windows 下测试[大多数通过](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP)。如使用 3.8，语法树测试将失败。
@@ -57,11 +61,13 @@ $ python 中.py
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 
 依赖 Python 包：
-- rply
+- [rply](https://pypi.org/project/rply/)
 
 ## 已实现功能
 
 随着项目推进，将同步[语法说明](文档/语法说明.md)。另外，为调试方便，报错等等反馈信息将中文化。短期内的目标细化[在此](https://gitee.com/MulanRevive/mulan-rework/issues/I1SEU5)。
+
+交互环境功能说明[在此](文档/功能/交互环境.md)。
 
 ## 测试
 

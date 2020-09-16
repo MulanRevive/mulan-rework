@@ -9,7 +9,7 @@ class 语法树:
 
     @staticmethod
     def 新节点(类型, 主体=None, 忽略类型=None, 值=None, 左=None, 运算符=None, 右=None, 标识=None,
-            上下文=None, 函数=None, 参数=None, 关键字=None, 变量=None, 条件=None, 否则=None,
+            上下文=None, 函数=None, 参数=None, 关键词=None, 变量=None, 条件=None, 否则=None,
             前项=None, 后项=None, 标注=None, 名称=None, 返回=None, 各基准类=None, 片段=None):
         if 类型 == 语法.模块:
             节点 = ast.Module(body=主体, type_ignores=忽略类型)
@@ -28,7 +28,7 @@ class 语法树:
         elif 类型 == 语法.名称:
             节点 = ast.Name(id=标识, ctx=上下文)
         elif 类型 == 语法.调用:
-            节点 = ast.Call(func=函数, args=参数, keywords=关键字)
+            节点 = ast.Call(func=函数, args=参数, keywords=关键词)
         elif 类型 == 语法.赋值:
             节点 = ast.Assign([变量], 值)
         elif 类型 == 语法.增量赋值:

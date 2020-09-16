@@ -1,7 +1,7 @@
 from rply import LexerGenerator
 import rply, re
 
-# 顺序与词法规则添加顺序一致. 值不为中文的是关键字.
+# 顺序与词法规则添加顺序一致. 值不为中文的是关键词.
 
 小数 = '小数'
 整数 = '整数'
