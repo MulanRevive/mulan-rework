@@ -72,15 +72,14 @@ for 词 in 各词 {
     列号 = 词.getsourcepos().colno - 1
     词长 = len(词.getstr())
 
-    //print(词.name + " " + 词.getstr() + " -> " + str([f'{行号}.0', f'{行号}.{列号}']))
-    if !每行位置.get(行号) {
+    if 每行位置.get(行号) == nil {
         if 列号 != 0 and 列号 > 1 {
-          跳过部分.append([str(行号) + ".0", str(行号) + "." + str(列号)])//([f'{行号}.0', f'{行号}.{列号}'])
+          跳过部分.append([str(行号) + ".0", str(行号) + "." + str(列号)])
         }
         每行位置[行号] = 列号
     }
     if 高亮风格表.get(词.name) {
-        文本.tag_add(高亮风格表[词.name], str(行号) + "." + str(列号), str(行号) + "." + str(列号 + 词长))//f'{行号}.{列号}', f'{行号}.{列号 + 词长}')
+        文本.tag_add(高亮风格表[词.name], str(行号) + "." + str(列号), str(行号) + "." + str(列号 + 词长))
     }
 }
 
@@ -88,14 +87,12 @@ for 词 in 各词 {
 所有行 = 源码.splitlines()
 for 索引 in range(len(所有行)) {
     行号 = 索引 + 1
-    if !每行位置.get(行号) {
-        //print(str(行号))
+    if 每行位置.get(行号) == nil {
         跳过部分.append([str(行号) + ".0", str(行号) + "." + str(len(所有行[索引]))])
     }
 }
 
 for i in 跳过部分 {
-    //print(i)
     文本.tag_add("绿", i[0], i[1])
 }
 
