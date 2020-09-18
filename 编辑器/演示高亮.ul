@@ -3,6 +3,8 @@ using Font in tkinter.font
 
 using 词法分析器 in 分析器
 
+// TODO: 重构(提取 UI 无关部分并添加测试)
+
 // TODO: 已知问题: 输入中文符号"（"时，实际为退格，"）"时为空格。thonny 也有同样问题。
 
 root = Tk()
@@ -66,14 +68,15 @@ for 颜色 in 高亮风格 {
 跳过部分 = []
 每行位置 = {:}
 
-// 基于 token 列表获取跳过的源码部分, 将 ignore 的注释部分也高亮
+// 基于词列表获取跳过的源码部分, 将词法分析时无视的注释部分也高亮
 for 词 in 各词 {
     行号 = 词.getsourcepos().lineno
     列号 = 词.getsourcepos().colno - 1
     词长 = len(词.getstr())
 
     if 每行位置.get(行号) == nil {
-        if 列号 != 0 and 列号 > 1 {
+        if 列号 > 1 {
+          // TODO: 这里仅添加了行首的注释部分. 还需其他位置的.
           跳过部分.append([str(行号) + ".0", str(行号) + "." + str(列号)])
         }
         每行位置[行号] = 列号
@@ -83,8 +86,8 @@ for 词 in 各词 {
     }
 }
 
-// 遍历所有行, 看是否无 token
 所有行 = 源码.splitlines()
+// 如无词, 则为注释行
 for 索引 in range(len(所有行)) {
     行号 = 索引 + 1
     if 每行位置.get(行号) == nil {
