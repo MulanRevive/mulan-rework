@@ -1,0 +1,9 @@
+using * in tkinter
+
+func 开始() {}
+root = Tk()
+文本 = Text(root, spacing1=3, spacing3=3)
+文本.tag_add("绿", 开始, "1")
+/*
+bad text index "<function 开始 at 0x102bd0048>"
+*/

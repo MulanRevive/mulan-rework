@@ -1,0 +1,16 @@
+
+type 代码段 {
+  func $代码段(词性, 行, 起, 止) {
+    self.词性 = 词性
+    self.行 = str(行)
+    self.起, self.止 = str(起), str(止)
+  }
+
+  func 开始(self) {
+    return self.行 + "." + self.起
+  }
+
+  func 结束(self) {
+    return self.行 + "." + self.止
+  }
+}
