@@ -3,6 +3,7 @@ using Font in tkinter.font
 
 using 词法分析器 in 分析器
 using 代码段 in 编辑器.代码段
+using * in 编辑器.常量
 
 // TODO: 重构(提取 UI 无关部分并添加测试)
 
@@ -41,29 +42,7 @@ f.close()
 输出文本.insert(INSERT, '[建设中...]')
 输出文本.pack(side=TOP)
 
-高亮风格 = {
-    "紫红": ["using", "return", "in", "for", "while", "if", "else", "..<", "..", "continue", "break"],
-    "黄绿": ["整数"],
-    "橙": ["双引号字符串", "单引号字符串"],
-    "蓝": ["func", "type", "true", "false"],
-    "绿": ["注释"]
-}
-
-高亮风格表 = {:}
-for 颜色 in 高亮风格 {
-    for 词性 in 高亮风格[颜色] {
-        高亮风格表[词性] = 颜色
-    }
-}
-
-// 颜色表: https://www.w3schools.com/colors/colors_names.asp
-颜色表 = {
-    "紫红": "VioletRed",
-    "黄绿": "YellowGreen",
-    "橙": "orange",
-    "蓝": "blue",
-    "绿": "green"
-}
+func 解析(源码) {
 各词 = 词法分析器.分词器.lex(源码)
 
 各代码段 = []
@@ -78,7 +57,7 @@ for 词 in 各词 {
     if 每行位置.get(行号) == nil {
         if 列号 > 1 {
           // TODO: 这里仅添加了行首的注释部分. 还需其他位置的.
-          各代码段.append(代码段("注释", 行号, 0, 列号))
+          各代码段.append(代码段(注释, 行号, 0, 列号))
         }
         每行位置[行号] = 列号
     }
@@ -91,11 +70,13 @@ for 词 in 各词 {
 for 索引 in range(len(所有行)) {
     行号 = 索引 + 1
     if 每行位置.get(行号) == nil {
-        各代码段.append(代码段("注释", 行号, 0, len(所有行[索引])))
+        各代码段.append(代码段(注释, 行号, 0, len(所有行[索引])))
     }
 }
+return 各代码段
+}
 
-for 代码段 in 各代码段 {
+for 代码段 in 解析(源码) {
   文本.tag_add(高亮风格表[代码段.词性], 代码段.开始(), 代码段.结束()) if 高亮风格表.get(代码段.词性)
 }
 
