@@ -13,4 +13,8 @@ type 代码段 {
   func 结束(self) {
     return self.行 + "." + self.止
   }
+
+  func __repr__(self) {
+    return "[" + self.词性 + " 行:" + self.行 + " 列:" + self.起 + "~" + self.止 + "]"
+  }
 }
