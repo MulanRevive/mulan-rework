@@ -82,7 +82,7 @@ $ python -m unittest 测试.unittest.交互 测试.unittest.语法树
 
 ![](https://raw.githubusercontent.com/MulanRevive/ide-extension-vscode/master/%E6%88%AA%E5%9B%BE/%E8%B0%83%E7%94%A8python%E5%BA%93.png)
 
-【原型状态】[自带的语法高亮编辑器](https://gitee.com/MulanRevive/mulan-rework/blob/master/%E6%BC%94%E7%A4%BA%E9%AB%98%E4%BA%AE.py)：
+【原型状态】[自带的语法高亮编辑器](编辑器)：
 
 ![](https://raw.githubusercontent.com/MulanRevive/bounty/master/%E8%BF%9B%E5%B1%95%E5%B0%8F%E7%BB%93/%E6%88%AA%E5%9B%BE/2020-06-25_mulan%E6%90%9C%E5%84%BF%E6%AD%8C.png)
 
