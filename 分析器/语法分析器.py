@@ -907,6 +907,6 @@ class 语法分析器:
         节点 = NameFixPass(源码文件).visit(节点)
         return 节点
 
-    def 查看(各词):
+    def 查看(self, 各词):
         for 词 in 各词:
             print(词)

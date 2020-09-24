@@ -1,17 +1,28 @@
 
-using 词法分析器 in 分析器
+using * in 分析器.词法分析器
 using 代码段 in 编辑器.代码段
-using 注释 in 编辑器.常量
+using * in 编辑器.常量
 using 按某项生成映射 in 测试.实用.通用.结构
 
 func 解析(源码) {
-  各词 = 词法分析器.分词器.lex(源码)
+  各词 = 分词器.lex(源码)
 
   各代码段 = list(map(词 -> {
     行号 = 词.getsourcepos().lineno
     列号 = 词.getsourcepos().colno - 1
-    词长 = len(词.getstr())
-    return 代码段(词.name, 行号, 列号, 列号 + 词长)
+    内容 = 词.getstr()
+    词长 = len(内容)
+    词性 = 词.name
+    if 词性 == 标识符 {
+      if 内置函数表.__contains__(内容) {
+        词性 = 内置函数
+      } elif 内置类型表.__contains__(内容) {
+        词性 = 内置类型
+      } elif 内容 == 自身 {
+        词性 = 自身
+      }
+    }
+    return 代码段(词性, 行号, 列号, 列号 + 词长)
   }, 各词))
   各行代码段 = 按某项生成映射(各代码段, 段 -> 段.行, 段 -> 段)
 
