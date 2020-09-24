@@ -9,11 +9,13 @@
 对以下几种代码元素进行不同颜色的高亮：
 
 - 关键词【分类方法待明确】
-  - "func", "type", "true", "false"
+  - func, type, true", false, self, ->
   - 其他
 - 字符串：包括单双引号
 - 数：整数
 - 注释：包括//开头和以/* */起止的
+- 内置函数：如"map", "print"
+- 内置类型：如"str", "list"
 
 颜色参考 VSC 风格"Light+ (default light)", "Dark+ (default dark)"等
 

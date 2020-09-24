@@ -1,20 +1,20 @@
 
 type 代码段 {
   func $代码段(词性, 行, 起, 止) {
-    self.词性 = 词性
-    self.行 = 行
-    self.起, self.止 = 起, 止
+    $词性 = 词性
+    $行 = 行
+    $起, $止 = 起, 止
   }
 
-  func 开始(self) {
-    return str(self.行) + "." + str(self.起)
+  func $开始 {
+    return str($行) + "." + str($起)
   }
 
-  func 结束(self) {
-    return str(self.行) + "." + str(self.止)
+  func $结束 {
+    return str($行) + "." + str($止)
   }
 
-  func __repr__(self) {
-    return "[" + self.词性 + " 行:" + str(self.行) + " 列:" + str(self.起) + "~" + str(self.止) + "]"
+  func $__repr__ {
+    return "[" + $词性 + " 行:" + str($行) + " 列:" + str($起) + "~" + str($止) + "]"
   }
 }
