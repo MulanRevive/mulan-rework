@@ -842,9 +842,16 @@ class 语法分析器:
     @分析器母机.production(语法.名称.成分(标识符))
     def 标识符(self, 片段):
         标识 = 片段[0].getstr()
-        return 语法树.新节点(语法.名称,
+        名称 = 语法树.新节点(语法.名称,
             标识=标识,
             上下文=(ast.Load()),
+            片段=片段)
+        if not 标识.startswith('$'):
+            return 名称
+        名称.id = 'self'
+        return 语法树.属性(
+            值=名称,
+            属性=标识.replace('$', ''),
             片段=片段)
 
     @分析器母机.error

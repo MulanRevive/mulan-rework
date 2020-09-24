@@ -1,7 +1,9 @@
 type Person {
     func $Person(name) {
         self.name = name
+        $名字 = name
     }
 }
 mulan = Person(1)
 print(mulan.name)
+print(mulan.名字)

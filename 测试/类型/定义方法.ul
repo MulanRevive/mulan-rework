@@ -1,5 +1,9 @@
 type Person {
     func $getAge() {
+        return $getOther()
+    }
+
+    func $getOther() {
         return 1
     }
 }

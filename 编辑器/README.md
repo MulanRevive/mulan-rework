@@ -15,6 +15,8 @@
 - 数：整数
 - 注释：包括//开头和以/* */起止的
 
+颜色参考 VSC 风格"Light+ (default light)", "Dark+ (default dark)"等
+
 # 开发相关
 
 ## 测试
