@@ -108,7 +108,7 @@ from sys import platform
     "字符串/双引号.ul": b"okatruetrue",
     "字符串/单引号.ul": b"ok",
     "字符串/相关方法.ul": b"1hi[fish]",
-    # "字符串/插值.ul": b"a3ao44ta3a44t",
+    "字符串/插值.ul": b"b3b3",#o44ta3a44t",
 
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)range(-1, 5, 2)range(4, -2, -2)02",
     "数据结构/列表.ul": b"[][2][2, 4, 6]",

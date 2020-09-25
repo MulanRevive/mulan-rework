@@ -615,7 +615,38 @@ class 语法分析器:
         if 值.startswith('"'):
             值 = 值.replace('\\n', '\n').replace('\\t', '\t')
         值 = 值[1:-1]
+        ret = self.执行插值(值, 片段)
+        if ret is not None:
+            return ret
         return 语法树.新节点(语法.字符串, 值=值, 片段=片段)
+
+    def 执行插值(self, string, p):
+        import re
+        pattern = re.compile('\\`([^\\`]*)\\`')
+        # pattern = re.compile('\\\\\\(([^\\\\\\)]*)\\\\\\)|\\`([^\\`]*)\\`')
+        format_string = string
+        exprs = []
+        pos = 0
+        while True:
+            match = pattern.search(string=string,
+              pos=pos)
+            if match is None:
+                break
+            pos = match.span()[1]
+            expr = match.group(1)
+            if expr is None:
+                expr = match.group(2)
+            submo = 语法分析器().分析('str(%s)' % expr)
+            exprs.append(submo.body[0].value)
+            format_string = format_string.replace(match.group(0), '%s')
+
+        if len(exprs) == 0:
+            return
+        return 语法树.新节点(语法.二元表达式,
+            左=语法树.新节点(语法.字符串, 值=format_string, 片段=p),
+            运算符=ast.Mod(),
+            右=语法树.多项(元素=exprs, 上下文=ast.Load(), 片段=p),
+            片段=p)
 
     @分析器母机.production(语法.常量.成分(名词_真))
     def 常量_真(self, 片段):
@@ -902,7 +933,7 @@ class 语法分析器:
         self.匿名函数 = {}
         self.源码 = None
 
-    def 分析(self, 源码, 源码文件):
+    def 分析(self, 源码, 源码文件=''):
         self.源码 = 源码.split("\n")
         self.文件名 = 源码文件
         try:
