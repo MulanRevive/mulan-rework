@@ -96,7 +96,7 @@ from sys import platform
     "类型/定义.ul": b"true",
     "类型/定义静态方法.ul": b"1",
     "类型/定义方法.ul": b"1",
-    "类型/定义方法self.ul": b"1",
+    "类型/定义方法self.ul": b"11",
     "类型/定义构造方法.ul": b"1",
     "类型/构造方法原始.ul": b"Mulan",
     "类型/个体属性.ul": b"11",

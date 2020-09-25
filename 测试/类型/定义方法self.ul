@@ -2,6 +2,10 @@ type Person {
     func getAge(self) {
         return 1
     }
+    func $自身() {
+        return $
+    }
 }
 mulan = Person()
 print(mulan.getAge())
+print(mulan.自身().getAge())
