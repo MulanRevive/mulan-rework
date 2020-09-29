@@ -111,6 +111,10 @@ def 创建全局变量(argv=[], 文件名=''):
     def 本地断言(表达式, 反馈=None):
         assert 表达式, 反馈
 
+    def 内置自身():
+        """ 当前任务 ID """
+        return threading.currentThread()
+
     def eval_print(expr):
         if expr is None:
             return
@@ -137,6 +141,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'filter': filter,
         'zip':zip,
         'staticmethod': staticmethod,
+        'self':内置自身,
         '再会':sys.exit,
         'open':open,
         'ARGV': argv,
