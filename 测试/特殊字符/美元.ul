@@ -1,3 +1,11 @@
 // keywords
 $while, $if = 2, 3
 print($while + $if)
+$t1 = 6
+print($t1)
+t1 = 7
+print($t1)
+print(t1)
+self.t1 = 8
+print($t1)
+print(t1)
