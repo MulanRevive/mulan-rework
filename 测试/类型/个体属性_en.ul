@@ -1,0 +1,9 @@
+type Person {
+    func $Person(name) {
+        self.name = name
+        $nickname = name
+    }
+}
+mulan = Person(1)
+print(mulan.name)
+print(mulan.nickname)
