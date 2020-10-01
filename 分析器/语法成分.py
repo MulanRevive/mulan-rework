@@ -13,6 +13,7 @@ class 语法(Enum):
     类型主体 = 'type_body'
     各类型内声明 = 'type_stmts'
     类型内声明 = 'type_stmt'
+    应变属性 = 'property'
     操作符 = 'operator'
     操作数 = 'op_arg'
     二元操作符 = 'bin_op'

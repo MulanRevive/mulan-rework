@@ -141,6 +141,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'filter': filter,
         'zip':zip,
         'staticmethod': staticmethod,
+        'property':property,
         'self':内置自身,
         '再会':sys.exit,
         'open':open,
