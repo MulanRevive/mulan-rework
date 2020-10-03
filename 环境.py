@@ -144,6 +144,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'property':property,
         'self':内置自身,
         '再会':sys.exit,
+        'quit':sys.exit,
         'open':open,
         'ARGV': argv,
         '__builtins__': 内置扩展({
