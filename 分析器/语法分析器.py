@@ -935,6 +935,7 @@ class 语法分析器:
         self.文件名 = 源码文件
         try:
             各词 = self.分词器.lex(源码)
+            # self.查看(各词)
             节点 = self.分析器.parse(各词, state=self)
         except LexingError as e:
             raise 语法错误(
@@ -950,4 +951,7 @@ class 语法分析器:
 
     def 查看(self, 各词):
         for 词 in 各词:
-            print(词)
+            行号 = 词.getsourcepos().lineno
+            列号 = 词.getsourcepos().colno - 1
+            词长 = len(词.getstr())
+            print(str(词) + "=" + str(行号) + ":" + str(列号))

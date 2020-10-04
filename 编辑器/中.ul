@@ -5,6 +5,8 @@ using 代码段 in 编辑器.代码段
 using * in 编辑器.代码分析
 using * in 编辑器.常量
 
+using time
+
 // TODO: 重构(提取 UI 无关部分并添加测试)
 
 // TODO: 已知问题: 输入中文符号"（"时，实际为退格，"）"时为空格。thonny 也有同样问题。
@@ -13,7 +15,10 @@ using * in 编辑器.常量
 
 func 回应(要求) {
   //if 要求 == "格式化" {
+    开始 = time.time() * 1000
     格式源码 = 格式化(文本.get(1.0, END))
+    结束 = time.time() * 1000
+    println(str(结束 - 开始) + "毫秒")
     文本.delete(1.0, END)
     文本.insert(INSERT, 格式源码)
     更新高亮()
