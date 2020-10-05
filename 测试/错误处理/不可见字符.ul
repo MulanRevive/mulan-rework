@@ -1,0 +1,24 @@
+func 号(段) {}
+
+/*
+Traceback (most recent call last):
+  File "/Users/xuanwu/work/木兰/prototype/分析器/语法分析器.py", line 939, in 分析
+    节点 = self.分析器.parse(各词, state=self)
+  File "/Users/xuanwu/work/木兰/prototype/分析器/rply_parser.py", line 62, in parse
+    lookahead = next(tokenizer)
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/rply/lexer.py", line 60, in __next__
+    return self.next()
+  File "/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/rply/lexer.py", line 57, in next
+    raise LexingError(None, SourcePosition(self.idx, -1, -1))
+rply.errors.LexingError: (None, SourcePosition(idx=0, lineno=-1, colno=-1))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./中.py", line 20, in <module>
+    节点 = 分析器.分析(源码, 源码文件)
+  File "/Users/xuanwu/work/木兰/prototype/分析器/语法分析器.py", line 946, in 分析
+    源码=源码.split("\n"))
+分析器.错误.语法错误: 文件 "测试/错误处理/不可见字符.ul", 第1行, 第1列, 分词时没认出这个词 "
+ func 号(段) {}
+ */
