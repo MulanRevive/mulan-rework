@@ -2,12 +2,35 @@ using * in tkinter
 using Font in tkinter.font
 
 using 代码段 in 编辑器.代码段
-using 解析 in 编辑器.代码分析
+using * in 编辑器.代码分析
 using * in 编辑器.常量
+
+using time
 
 // TODO: 重构(提取 UI 无关部分并添加测试)
 
 // TODO: 已知问题: 输入中文符号"（"时，实际为退格，"）"时为空格。thonny 也有同样问题。
+
+// 逐行代码段分析，数每行未配对 {}，决定每行开头多少空格
+
+func 回应(要求) {
+  if 要求 == "格式化" {
+    开始 = time.time() * 1000
+    格式源码 = 格式化(文本.get(1.0, END))
+    结束 = time.time() * 1000
+    println(str(结束 - 开始) + "毫秒")
+    文本.delete(1.0, END)
+    文本.insert(INSERT, 格式源码)
+    更新高亮()
+  }
+}
+
+func 更新高亮() {
+  源码 = 文本.get(1.0, END)
+  for 代码段 in 解析(源码) {
+    文本.tag_add(高亮风格表[代码段.词性], 代码段.开始(), 代码段.结束()) if 高亮风格表.get(代码段.词性)
+  }
+}
 
 root = Tk()
 root.title("木兰笔谈")
@@ -36,6 +59,7 @@ f.close()
 输入框['fg'] = 'grey'
 输入框.insert(INSERT, '请见教')
 输入框.pack(side=BOTTOM)
+输入框.bind('<Return>', event -> 回应(输入框.get()))
 
 输出文本 = Text(右边, spacing1=3, spacing3=3, height=总高度 - 2, width=宽度 - 10)
 输出文本.configure(font=Font(family=文本字体, size=16))
@@ -43,10 +67,7 @@ f.close()
 输出文本.pack(side=TOP)
 
 
-
-for 代码段 in 解析(源码) {
-  文本.tag_add(高亮风格表[代码段.词性], 代码段.开始(), 代码段.结束()) if 高亮风格表.get(代码段.词性)
-}
+更新高亮()
 
 for 颜色 in 颜色表 {
     文本.tag_config(颜色, foreground=颜色表[颜色])

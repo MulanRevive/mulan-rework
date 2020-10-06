@@ -1,0 +1,11 @@
+type Person {
+    func getAge(self) {
+        return 1
+    }
+    func $getSelf() {
+        return $
+    }
+}
+mulan = Person()
+print(mulan.getAge())
+print(mulan.getSelf().getAge())

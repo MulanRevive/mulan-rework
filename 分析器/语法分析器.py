@@ -133,10 +133,38 @@ class 语法分析器:
     @分析器母机.production(语法.类型内声明.成分(语法.块))
     @分析器母机.production(语法.类型内声明.成分(语法.操作符))
     @分析器母机.production(语法.类型内声明.成分(语法.函数))
+    @分析器母机.production(语法.类型内声明.成分(语法.应变属性))
     def 类型内声明(self, 片段):
         if 语法分析器.调试:
             print('类型内声明')
         return 片段[0]
+
+    @分析器母机.production(语法.应变属性.成分(名词_应变属性, 标识符, 语法.块))
+    @分析器母机.production(语法.应变属性.成分(名词_应变属性, 标识符, 前小括号, 后小括号, 语法.块))
+    @分析器母机.production(语法.应变属性.成分(名词_应变属性, 标识符, 符号_赋值, 前小括号, 语法.形参, 后小括号, 语法.块))
+    def 应变属性(self, 片段):
+        名称 = 片段[1].getstr()
+        函数 = 语法树.新节点(语法.函数, 名称=名称,
+                        参数=self.形参列表(),
+                        主体=片段[-1],
+                        片段=片段)
+        if len(片段) == 7:
+            函数.args.args.append(片段[4])
+            函数.decorator_list.append(
+                语法树.属性(
+                    值=语法树.新节点(语法.名称,
+                        标识=名称.replace('$', ''),
+                        上下文=ast.Load(),
+                        片段=片段),
+                    属性='setter',
+                    片段=片段))
+        else:
+            函数.decorator_list.append(
+                语法树.新节点(语法.名称,
+                    标识='property',
+                    上下文=ast.Load(),
+                    片段=片段))
+        return 函数
 
     @分析器母机.production(语法.操作符.成分(名词_操作符, 语法.二元操作符, 语法.操作数, 语法.块))
     def 操作符(self, 片段):
@@ -938,6 +966,7 @@ class 语法分析器:
         self.文件名 = 源码文件
         try:
             各词 = self.分词器.lex(源码)
+            # self.查看(各词)
             节点 = self.分析器.parse(各词, state=self)
         except LexingError as e:
             raise 语法错误(
@@ -953,4 +982,7 @@ class 语法分析器:
 
     def 查看(self, 各词):
         for 词 in 各词:
-            print(词)
+            行号 = 词.getsourcepos().lineno
+            列号 = 词.getsourcepos().colno - 1
+            词长 = len(词.getstr())
+            print(str(词) + "=" + str(行号) + ":" + str(列号))

@@ -1,0 +1,26 @@
+type Person {
+  func $Person() {
+    $id = 1
+  }
+
+  attr $a() {
+    return $id
+  }
+
+  attr $b {
+    return 2
+  }
+
+  attr $type {
+    return 3
+  }
+
+  attr $a = (n) {
+    $id += n
+  }
+}
+mulan = Person()
+print(mulan.a + mulan.b)
+mulan.a = 3
+print(mulan.a)
+print(mulan.__getattribute__('type'))

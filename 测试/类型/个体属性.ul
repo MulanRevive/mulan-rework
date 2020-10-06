@@ -2,8 +2,15 @@ type Person {
     func $Person(name) {
         self.name = name
         $名字 = name
+        $type = name
     }
 }
 mulan = Person(1)
 print(mulan.name)
 print(mulan.名字)
+print(mulan.__getattribute__('type'))
+/* 等价于：
+for attribute, value in mulan.__dict__.items() {
+   print(attribute, '=', value) if attribute == 'type'
+}
+*/

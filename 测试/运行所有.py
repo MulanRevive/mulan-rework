@@ -56,6 +56,7 @@ from sys import platform
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12true",
     "函数/API/内置.ul": b"truefalsea[1]20",
     "函数/API/文件.ul": b"hi",
+    "函数/API/self.ul": b"true",
     "函数/形参默认值.ul": b"2",
     "函数/指名参数.ul": b"466",
     "函数/指定返回类型.ul": b"Mulan1",
@@ -72,6 +73,7 @@ from sys import platform
     "特殊字符/空行.ul": b"1",
     "特殊字符/小括号.ul": b"4",
     "特殊字符/分号.ul": b"2",
+    "特殊字符/美元.ul": b"566787",
 
     "引用/引用本地py.ul": b"2",
     "引用/引用本地包内py.ul": b"2",
@@ -99,8 +101,9 @@ from sys import platform
     "类型/定义方法self.ul": b"11",
     "类型/定义构造方法.ul": b"1",
     "类型/构造方法原始.ul": b"Mulan",
-    "类型/个体属性.ul": b"11",
+    "类型/个体属性.ul": b"111",
     "类型/类型属性.ul": b"2",
+    "类型/应变属性.ul": b"343",
     "类型/继承.ul": b"1",
     "类型/继承于调用.ul": b"1",
     "类型/操作符/定义操作符.ul": b"31true",
@@ -131,7 +134,7 @@ from sys import platform
 英文版 = set(["运算/乘.ul",
     "函数/过滤.ul", "函数/map.ul", "函数/返回多值.ul", "函数/匿名函数.ul", "函数/API/文件.ul",
     "特殊字符/注释块.ul",
-    "类型/继承.ul",
+    "类型/继承.ul", "类型/个体属性.ul", "类型/定义方法self.ul",
     "字符串/双引号.ul", "字符串/相关方法.ul",
     "数据结构/列表取值.ul",
     "引用/引用木兰多个.ul", "引用/引用本地包内木兰.ul", "引用/引用本地包内木兰某内容.ul",
@@ -144,7 +147,7 @@ for 文件 in 期望值:
         # https://stackoverflow.com/questions/25651990/oserror-winerror-193-1-is-not-a-valid-win32-application
         参数 = ["python.exe", "中.py", 源码路径]
 
-        # 原始可执行文件在：https://github.com/MulanRevive/bounty/blob/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6/ulang-0.2.2.exe
+        # 原始可执行文件在：https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6/ulang-0.2.2.exe
         # 原始版本不支持中文标识符，且仅支持 gbk 编码的源文件。因此英文版测试文件仅用英文字符串和标识符。
         # 在验证与原始版本功能一致时，将可执行文件拷贝到项目根目录，手动打开下面这段。
         # if 文件 in 英文版:
