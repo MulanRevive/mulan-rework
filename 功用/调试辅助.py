@@ -24,8 +24,8 @@ class 语法树相关:
                 输出 += "\n" + 缩进 * 层次 + 属性[0] + "="
                 输出 += 语法树相关.格式化节点(属性[1], 层次 + 1)
             if isinstance(节点, ast.stmt) or isinstance(节点, ast.expr):
-                输出 += "\n" + 缩进 * 层次 + "lineno=" + str(节点.lineno)
-                输出 += "\n" + 缩进 * 层次 + "col_offset=" + str(节点.col_offset)
+                输出 += f"\n{缩进 * 层次}lineno={节点.lineno}"
+                输出 += f"\n{缩进 * 层次}col_offset={节点.col_offset}"
             if 属性个数 == 0:
                 return 输出 + ")"
             return 输出 + "\n" + 缩进 * (层次 - 1) + ")"

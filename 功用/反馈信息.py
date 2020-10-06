@@ -13,7 +13,7 @@ def 反馈信息(例外, 源码文件=None):
     for 层号 in range(len(各层)-1, -1, -1):
         层 = 各层[层号]
         文件名 = 层.filename
-        行信息 = '见第' + str(层.lineno) + '行'
+        行信息 = f'见第{层.lineno}行'
         if 源码文件 == None and 文件名 == "<STDIN>":
             return 信息 + ', ' + 行信息
         elif 文件名 == 源码文件:
@@ -25,7 +25,7 @@ def 反馈信息(例外, 源码文件=None):
                 if not 调用提示:
                     信息 += "\n调用层级如下"
                     调用提示 = True
-                信息 += "\n" + '第' + str(层.lineno) + '行：' + 行内容
+                信息 += f"\n第{层.lineno}行：{行内容}"
     return 信息
 
 def 提示(类型, 原信息):

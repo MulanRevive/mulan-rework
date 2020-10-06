@@ -111,7 +111,7 @@ from sys import platform
     "字符串/双引号.ul": b"okatruetrue",
     "字符串/单引号.ul": b"ok",
     "字符串/相关方法.ul": b"1hi[fish]",
-    "字符串/插值.ul": b"b3b3",#o44ta3a44t",
+    "字符串/插值.ul": b"b3b3o44ta3a44t",
 
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)range(-1, 5, 2)range(4, -2, -2)02",
     "数据结构/列表.ul": b"[][2][2, 4, 6]",
@@ -179,7 +179,7 @@ for 文件 in 进程表:
 print("===================")
 if len(失败表) > 0:
     for 文件 in 失败表:
-        print("失败： " + 文件 + " 期望：" + str(期望值[文件]) + " 实际：" + str(失败表[文件]))
+        print(f"失败： {文件} 期望：{期望值[文件]} 实际：{失败表[文件]}")
 else:
     print("！全部通过！")
 

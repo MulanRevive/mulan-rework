@@ -643,15 +643,14 @@ class 语法分析器:
         if 值.startswith('"'):
             值 = 值.replace('\\n', '\n').replace('\\t', '\t')
         值 = 值[1:-1]
-        ret = self.执行插值(值, 片段)
-        if ret is not None:
-            return ret
+        插值后 = self.执行插值(值, 片段)
+        if 插值后 is not None:
+            return 插值后
         return 语法树.新节点(语法.字符串, 值=值, 片段=片段)
 
     def 执行插值(self, 原始字符串, 片段):
         import re
-        模式 = re.compile('\\`([^\\`]*)\\`')
-        # 模式 = re.compile('\\\\\\(([^\\\\\\)]*)\\\\\\)|\\`([^\\`]*)\\`')
+        模式 = re.compile('\\\\\\(([^\\\\\\)]*)\\\\\\)|\\`([^\\`]*)\\`')
         占位替代 = 原始字符串
         所有插值 = []
         位置 = 0
@@ -984,4 +983,4 @@ class 语法分析器:
             行号 = 词.getsourcepos().lineno
             列号 = 词.getsourcepos().colno - 1
             词长 = len(词.getstr())
-            print(str(词) + "=" + str(行号) + ":" + str(列号))
+            print(f"{词}={行号}:{列号}")
