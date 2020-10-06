@@ -12,7 +12,7 @@ type 占地 {
   }
 
   func $__repr__ {
-    return "中心为" + str($原点) + "的" + str($范围)
+    return "中心为`$原点`的`$范围`"
   }
 }
 

@@ -2,15 +2,15 @@ using 相等 in 测试.实用.通用.测试相关
 
 type 点 {
     func $点(横, 纵) {
-      self.横, self.纵 = 横, 纵
+      $横, $纵 = 横, 纵
     }
 
     operator == (另一点) {
-      return self.横 == 另一点.横 and self.纵 == 另一点.纵
+      return $横 == 另一点.横 and $纵 == 另一点.纵
     }
 
     func __repr__(self) {
-      return "(" + str(self.横) + ", " + str(self.纵) + ")"
+      return "(`$横`, `$纵`)"
     }
 }
 
