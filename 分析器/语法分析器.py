@@ -643,7 +643,36 @@ class 语法分析器:
         if 值.startswith('"'):
             值 = 值.replace('\\n', '\n').replace('\\t', '\t')
         值 = 值[1:-1]
+        插值后 = self.执行插值(值, 片段)
+        if 插值后 is not None:
+            return 插值后
         return 语法树.新节点(语法.字符串, 值=值, 片段=片段)
+
+    def 执行插值(self, 原始字符串, 片段):
+        import re
+        模式 = re.compile('\\\\\\(([^\\\\\\)]*)\\\\\\)|\\`([^\\`]*)\\`')
+        占位替代 = 原始字符串
+        所有插值 = []
+        位置 = 0
+        while True:
+            匹配 = 模式.search(string=原始字符串, pos=位置)
+            if 匹配 is None:
+                break
+            位置 = 匹配.span()[1]
+            表达式 = 匹配.group(1)
+            if 表达式 is None:
+                表达式 = 匹配.group(2)
+            替代文本 = 语法分析器().分析('str(%s)' % 表达式)
+            所有插值.append(替代文本.body[0].value)
+            占位替代 = 占位替代.replace(匹配.group(0), '%s')
+
+        if len(所有插值) == 0:
+            return
+        return 语法树.新节点(语法.二元表达式,
+            左=语法树.新节点(语法.字符串, 值=占位替代, 片段=片段),
+            运算符=ast.Mod(),
+            右=语法树.多项(元素=所有插值, 上下文=ast.Load(), 片段=片段),
+            片段=片段)
 
     @分析器母机.production(语法.常量.成分(名词_真))
     def 常量_真(self, 片段):
@@ -930,7 +959,7 @@ class 语法分析器:
         self.匿名函数 = {}
         self.源码 = None
 
-    def 分析(self, 源码, 源码文件):
+    def 分析(self, 源码, 源码文件=''):
         self.源码 = 源码.split("\n")
         self.文件名 = 源码文件
         try:
@@ -954,4 +983,4 @@ class 语法分析器:
             行号 = 词.getsourcepos().lineno
             列号 = 词.getsourcepos().colno - 1
             词长 = len(词.getstr())
-            print(str(词) + "=" + str(行号) + ":" + str(列号))
+            print(f"{词}={行号}:{列号}")

@@ -37,5 +37,5 @@ try:
             e = None
             del e
 except SyntaxError as 语法错误:
-    sys.stderr.write("语法错误: " + str(语法错误) + '\n')
+    sys.stderr.write(f"语法错误: {语法错误}\n")
 

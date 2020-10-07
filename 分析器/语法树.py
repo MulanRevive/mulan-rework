@@ -20,7 +20,7 @@ class 语法树:
         elif 类型 == 语法.二元表达式:
             if isinstance(运算符, ast.And) or isinstance(运算符, ast.Or):
                 节点 = ast.BoolOp(op=运算符, values=[前项, 后项])
-            elif isinstance(运算符, ast.Add) or isinstance(运算符, ast.Sub) or isinstance(运算符, ast.Mult) or isinstance(运算符, ast.Pow):
+            elif isinstance(运算符, ast.Add) or isinstance(运算符, ast.Sub) or isinstance(运算符, ast.Mult) or isinstance(运算符, ast.Pow) or isinstance(运算符, ast.Mod):
                 节点 = ast.BinOp(left=左, op=运算符, right=右)
             else:
                 # TODO: 为何比较符和后项在数组中?
