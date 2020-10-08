@@ -3,3 +3,6 @@ print("b`a`b`a`")
 bb = 44
 print("o\(bb\)t")
 print("a`a`a\(bb\)t")
+print("`a\(a\)a")
+//print("`a" + str(a) + "a`") // can't "`a\(a\)a`"
+//print("`" * 2) // can't "``"
