@@ -6,31 +6,51 @@ using * in 编辑器.代码分析
 using * in 编辑器.常量
 
 using time
+using logging
 
 // TODO: 重构(提取 UI 无关部分并添加测试)
 
 // TODO: 已知问题: 输入中文符号"（"时，实际为退格，"）"时为空格。thonny 也有同样问题。
 
-// 逐行代码段分析，数每行未配对 {}，决定每行开头多少空格
-
 func 回应(要求) {
+  logging.info(要求)
+
+  // TODO: 添加"打开文件"功能
+
   if 要求 == "格式化" {
-    开始 = time.time() * 1000
-    格式源码 = 格式化(文本.get(1.0, END))
-    结束 = time.time() * 1000
-    println(str(结束 - 开始) + "毫秒")
+    格式源码 = 格式化(取文本内容())
     文本.delete(1.0, END)
     文本.insert(INSERT, 格式源码)
     更新高亮()
+    logging.info("格式化完成")
+  } elif 要求 == "保存" {
+    源码 = 取文本内容()
+    logging.debug("源码长度:`len(源码)`")
+    f = open(源码文件, 'w', encoding='utf-8')
+    f.write(源码)
+    f.close()
+    logging.info("保存`len(源码)`字到`源码文件`")
+
+    // TODO: 在上面显示会话-保存, 保存完成(一些附带信息如文件名\大小等等)
   }
 }
 
 func 更新高亮() {
-  源码 = 文本.get(1.0, END)
+  源码 = 取文本内容()
   for 代码段 in 解析(源码) {
     文本.tag_add(高亮风格表[代码段.词性], 代码段.开始(), 代码段.结束()) if 高亮风格表.get(代码段.词性)
   }
 }
+
+func 取文本内容 {
+  // https://stackoverflow.com/questions/14824163/how-to-get-the-input-from-the-tkinter-text-widget
+  return 文本.get(1.0, 'end-1c')
+}
+
+logging.basicConfig(
+  filename='编辑器/事件.log',
+  format='%(asctime)s %(message)s',
+  level=logging.DEBUG)
 
 root = Tk()
 root.title("木兰笔谈")
@@ -39,6 +59,7 @@ root.title("木兰笔谈")
 源码文件 = sys.argv[2]
 f = open(源码文件, 'r', encoding='utf-8')
 源码 = f.read()
+logging.debug("打开源码长度:`len(源码)`")
 f.close()
 
 总高度 = 35
