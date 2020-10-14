@@ -1,5 +1,5 @@
 import math, sys, imp, os, threading
-from 分析器.语法分析器 import 语法分析器
+from 木兰.分析器.语法分析器 import 语法分析器
 
 
 def 分析并编译(源码文件名):

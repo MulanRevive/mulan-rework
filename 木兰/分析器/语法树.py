@@ -3,7 +3,7 @@ import ast
 from rply.token import SourcePosition
 from rply import Token
 
-from 分析器.语法成分 import *
+from 木兰.分析器.语法成分 import *
 
 class 语法树:
 

@@ -1,8 +1,8 @@
 import sys, cmd
-from 分析器.词法分析器 import *
-from 分析器.语法分析器 import 语法分析器
-from 环境 import 创建全局变量
-from 功用.反馈信息 import 反馈信息
+from 木兰.分析器.词法分析器 import *
+from 木兰.分析器.语法分析器 import 语法分析器
+from 木兰.环境 import 创建全局变量
+from 木兰.功用.反馈信息 import 反馈信息
 
 # TODO: 更多测试
 def 括号已配对(源码):

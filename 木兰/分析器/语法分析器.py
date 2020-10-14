@@ -1,15 +1,15 @@
 from enum import Enum, unique
 from rply import ParserGenerator
 from rply.errors import LexingError
-from 分析器.rply_parser import LRParser
-from 分析器.语法树 import *
-from 分析器.错误 import 语法错误
+from 木兰.分析器.rply_parser import LRParser
+from 木兰.分析器.语法树 import *
+from 木兰.分析器.错误 import 语法错误
 
-from 分析器.词法分析器 import *
-from 分析器.语法树处理 import *
-from 分析器.语法成分 import *
+from 木兰.分析器.词法分析器 import *
+from 木兰.分析器.语法树处理 import *
+from 木兰.分析器.语法成分 import *
 
-from 功用.常用 import *
+from 木兰.功用.常用 import *
 
 """
 LR(1) 将木兰源码分析后生成 Python 语法树

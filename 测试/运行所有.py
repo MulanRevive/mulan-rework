@@ -156,7 +156,7 @@ for 文件 in 期望值:
         #     continue
         # 参数 = ["ulang-0.2.2.exe",  源码路径]
     else:
-        参数 = ["./中.py", 源码路径]
+        参数 = ["python3", "-m", "木兰", 源码路径]
     进程表[文件] = subprocess.Popen(参数, stdout=subprocess.PIPE)
 
 失败表 = {}
