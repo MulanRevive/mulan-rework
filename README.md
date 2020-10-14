@@ -35,11 +35,11 @@ $ 木兰
 
 [VS Code 语法高亮插件](https://marketplace.visualstudio.com/items?itemName=CodeInChinese.ulang)：
 
-![](https://raw.githubusercontent.com/MulanRevive/ide-extension-vscode/master/%E6%88%AA%E5%9B%BE/%E8%B0%83%E7%94%A8python%E5%BA%93.png)
+![vsc截图](https://gitee.com/MulanRevive/ide-extension-vscode/raw/master/%E6%88%AA%E5%9B%BE/%E8%B0%83%E7%94%A8python%E5%BA%93.png)
 
 【原型】[自带的编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器)：
 
-![](https://gitee.com/MulanRevive/bounty/raw/master/%E8%BF%9B%E5%B1%95%E5%B0%8F%E7%BB%93/%E6%88%AA%E5%9B%BE/2020-06-25_mulan%E6%90%9C%E5%84%BF%E6%AD%8C.png)
+![自带IDE截图](https://gitee.com/MulanRevive/bounty/raw/master/%E8%BF%9B%E5%B1%95%E5%B0%8F%E7%BB%93/%E6%88%AA%E5%9B%BE/2020-06-25_mulan%E6%90%9C%E5%84%BF%E6%AD%8C.png)
 
 ### 运行木兰源码文件
 
