@@ -1,19 +1,21 @@
-**_注：本项目的开发管理今后将在 [开源中国](https://www.oschina.net/p/mulan-rework) 继续_**
 
 ## 前言
+
 没错，这就是那个木兰。
 
 2020 年一月第一时间提出知乎问题[「木兰」编程语言有什么特色？](https://www.zhihu.com/question/366509495)的正是本人，[这是那段暴风骤雨的亲历记](https://zhuanlan.zhihu.com/p/265091649)。
 
 ## 目标
 
-在[悬赏尚未完成](https://zhuanlan.zhihu.com/p/224600854)时，将努力向[目标](https://github.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)迈进。过程中的技术文章集结在[木兰编程语言专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
+在[悬赏尚未完成](https://zhuanlan.zhihu.com/p/224600854)时，将努力向[重现「木兰」编程语言的目标](https://gitee.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)迈进。过程中的技术文章集结在[知乎专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
 
 木兰源代码转换为 Python 的中间表示（AST）后执行，可实现各种语法设计与周边功能，并可方便地利用 Python 现有生态。
 
 ## 运行
 
-需先安装 Python 3.7。通过 `pip install ulang` 安装木兰。
+***！必需 Python 3.7 ！***
+
+通过 `pip install ulang` 安装木兰。
 
 ### 命令行交互环境
 
@@ -64,6 +66,8 @@ for 转角 in 0..4 {
 ## 参考例程[在此](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试)
 
 其中[实用](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/实用)为较接近实用的部分。另外[木兰代码编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器)也用木兰代码编写。
+
+所有例程演示的语法可用原始的木兰可执行文件 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 检验。***如发现有异烦请告知，定将[同样礼谢](https://gitee.com/MulanRevive/bounty)。***
 
 ### 新手入门
 
