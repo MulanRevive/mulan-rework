@@ -1,5 +1,5 @@
 
-using * in 分析器.词法分析器
+using * in 木兰.分析器.词法分析器
 using 代码段 in 编辑器.代码段
 using * in 编辑器.常量
 using 按某项生成映射 in 测试.实用.通用.结构
