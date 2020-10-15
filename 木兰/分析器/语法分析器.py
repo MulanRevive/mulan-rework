@@ -336,7 +336,6 @@ class 语法分析器:
                 元素=片段[2],
                 上下文=ast.Load(),
                 片段=片段[2])
-        # TODO: 研究何用. a, b = 2 会报错: cannot unpack non-iterable int object
         else:
             右边 = 片段[2][0]
         return 语法树.新节点(语法.赋值,
