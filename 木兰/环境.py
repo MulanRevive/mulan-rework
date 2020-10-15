@@ -87,6 +87,8 @@ def 创建全局变量(argv=[], 文件名=''):
             return 'true' if x else 'false'
         if isinstance(x, list):
             return 容器转为字符串(x, '[', ']')
+        if isinstance(x, tuple):
+            return 容器转为字符串(x)
         return str(x)
 
     def 自定义输出(*各物件, 分隔符=' ', 终止符='', 文件=sys.stdout, flush=False):
@@ -136,6 +138,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'str': str,
         'list': list,
         'set': set,
+        'tuple':lambda *各实参: 各实参,
         'max': max,
         'map': map,
         'filter': filter,
