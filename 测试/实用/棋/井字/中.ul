@@ -1,28 +1,28 @@
 using pygame
 
 pygame.init()
-		边框 = 60
-		格子尺寸 = 100
-		格数 = 4
-		棋盘尺寸 = 格子尺寸 * (格数-1) + 边框 * 2
-		pygame.display.set_caption('井字棋')
-		屏幕 = pygame.display.set_mode(tuple(棋盘尺寸, 棋盘尺寸))
+边框 = 60
+格子尺寸 = 100
+格数 = 4
+棋盘尺寸 = 格子尺寸 * (格数-1) + 边框 * 2
+pygame.display.set_caption('井字棋')
+屏幕 = pygame.display.set_mode(tuple(棋盘尺寸, 棋盘尺寸))
 loop {
   
-			for 事件 in pygame.event.get() {
-				if 事件.__getattribute__('type') == pygame.QUIT {
-					pygame.quit()
-					quit()
-        }
-      }
+  for 事件 in pygame.event.get() {
+    if 事件.__getattribute__('type') == pygame.QUIT {
+      pygame.quit()
+      quit()
+    }
+  }
   屏幕.fill(tuple(208,104,0))
-			for x in range(0,格子尺寸*格数,格子尺寸) {
-				pygame.draw.line(屏幕,tuple(0,0,0),tuple(x+边框,0+边框),tuple(x+边框,格子尺寸*(格数-1)+边框),5)
-      }
-			for y in range(0,格子尺寸*格数,格子尺寸) {
-				pygame.draw.line(屏幕,tuple(0,0,0),tuple(0+边框,y+边框),tuple(格子尺寸*(格数-1)+边框,y+边框),5)
-      }
-			
-
-			pygame.display.update()
+  for x in range(0,格子尺寸*格数,格子尺寸) {
+    pygame.draw.line(屏幕,tuple(0,0,0),tuple(x+边框,0+边框),tuple(x+边框,格子尺寸*(格数-1)+边框),5)
+  }
+  for y in range(0,格子尺寸*格数,格子尺寸) {
+    pygame.draw.line(屏幕,tuple(0,0,0),tuple(0+边框,y+边框),tuple(格子尺寸*(格数-1)+边框,y+边框),5)
+  }
+  
+  
+  pygame.display.update()
 }
