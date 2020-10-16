@@ -1,0 +1,10 @@
+using Enum in enum
+type Color : Enum {
+  {
+    RED = 1
+    YELLOW = 2
+  }
+}
+for color in Color {
+  print(color.value)
+}
