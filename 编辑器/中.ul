@@ -4,9 +4,9 @@ using Font in tkinter.font
 using 代码段 in 编辑器.代码段
 using * in 编辑器.代码分析
 using * in 编辑器.常量
+using * in 编辑器.日志
 
 using time
-using logging
 
 // TODO: 重构(提取 UI 无关部分并添加测试)
 
@@ -46,11 +46,6 @@ func 取文本内容 {
   // https://stackoverflow.com/questions/14824163/how-to-get-the-input-from-the-tkinter-text-widget
   return 文本.get(1.0, 'end-1c')
 }
-
-logging.basicConfig(
-  filename='编辑器/事件.log',
-  format='%(asctime)s %(message)s',
-  level=logging.DEBUG)
 
 root = Tk()
 root.title("木兰笔谈")

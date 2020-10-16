@@ -1,0 +1,6 @@
+using logging
+
+logging.basicConfig(
+  filename='编辑器/事件.log',
+  format='%(asctime)s %(message)s',
+  level=logging.DEBUG)
