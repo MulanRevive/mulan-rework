@@ -7,6 +7,7 @@ using pygame
 pygame.init()
 边框 = 60
 格子尺寸 = 100
+圆子半径 = 格子尺寸 / 2
 格数 = 4
 棋盘内边长 = 格子尺寸 * (格数-1)
 棋盘尺寸 = 棋盘内边长 + 边框 * 2
@@ -28,13 +29,10 @@ loop {
       x, y = pygame.mouse.get_pos()
       横格 = int((x - 边框) * 1.0 / 格子尺寸)
       纵格 = int((y - 边框) * 1.0 / 格子尺寸)
-      if 横格 >= 0 and 横格 < 格数 - 1 and 纵格 >= 0 and 纵格 < 格数-1 and !所有落子.__contains__(tuple(横格, 纵格, 1)) and !所有落子.__contains__(tuple(横格, 纵格, 2)) {
+      if 横格 >= 0 and 横格 < 格数 - 1 and 纵格 >= 0 and 纵格 < 格数 - 1
+        and !所有落子.__contains__(tuple(横格, 纵格, 1)) and !所有落子.__contains__(tuple(横格, 纵格, 2)) {
         所有落子.append(tuple(横格, 纵格, 哪方))
-        if 哪方 == 1 {
-          哪方 = 2
-        } else {
-          哪方 = 1
-        }
+        哪方 = 哪方 == 1 ? 2 : 1
       }
     }
   }
@@ -48,11 +46,16 @@ loop {
   for 落子 in 所有落子 {
     横格 , 纵格 = 落子[0], 落子[1]
     落子轮次 = 落子[2]
+
+    右x = (横格 + 1) * 格子尺寸 + 边框
+    左x = 横格 * 格子尺寸 + 边框
+    上y = (纵格 + 1) * 格子尺寸 + 边框
+    下y = 纵格 * 格子尺寸 + 边框
     if 落子轮次 == 1 {
-      pygame.draw.line(屏幕, 黑色, tuple(横格*格子尺寸+边框,纵格*格子尺寸+边框), tuple((横格+1)*格子尺寸+边框,(纵格+1)*格子尺寸+边框),8)
-      pygame.draw.line(屏幕, 黑色, tuple((横格+1)*格子尺寸+边框,纵格*格子尺寸+边框), tuple(横格*格子尺寸+边框,(纵格+1)*格子尺寸+边框),8)
+      pygame.draw.line(屏幕, 黑色, tuple(左x, 下y), tuple(右x, 上y), 8)
+      pygame.draw.line(屏幕, 黑色, tuple(右x, 下y), tuple(左x, 上y), 8)
     } else {
-      pygame.draw.circle(屏幕, 黑色, tuple(横格*格子尺寸+边框+50,纵格*格子尺寸+边框+50), 50, 线宽)
+      pygame.draw.circle(屏幕, 黑色, tuple(左x + 圆子半径, 下y + 圆子半径), 圆子半径, 线宽)
     }
   }
 
