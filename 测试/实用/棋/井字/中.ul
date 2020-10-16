@@ -1,6 +1,7 @@
 using pygame
 
 所有落子 = [] // 储存落在棋盘上的棋子。
+// TODO： 改为枚举
 进行状态 = 1 // 1 为正常进行 2 为X获胜 3 为O获胜
 哪方 = 1 // 定义X O 的轮次 1：X 2：O
 
@@ -43,15 +44,12 @@ loop {
     pygame.draw.line(屏幕, 黑色, tuple(位置, 边框), tuple(位置, 棋盘内边长 + 边框), 线宽)
     pygame.draw.line(屏幕, 黑色, tuple(边框, 位置), tuple(棋盘内边长 + 边框, 位置), 线宽)
   }
-  for 落子 in 所有落子 {
-    横格 , 纵格 = 落子[0], 落子[1]
-    落子轮次 = 落子[2]
-
+  for 横格, 纵格, 何方落子 in 所有落子 {
     右x = (横格 + 1) * 格子尺寸 + 边框
     左x = 横格 * 格子尺寸 + 边框
     上y = (纵格 + 1) * 格子尺寸 + 边框
     下y = 纵格 * 格子尺寸 + 边框
-    if 落子轮次 == 1 {
+    if 何方落子 == 1 {
       pygame.draw.line(屏幕, 黑色, tuple(左x, 下y), tuple(右x, 上y), 8)
       pygame.draw.line(屏幕, 黑色, tuple(右x, 下y), tuple(左x, 上y), 8)
     } else {
