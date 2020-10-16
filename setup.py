@@ -16,8 +16,9 @@ setuptools.setup(
     long_description=longDescription,
     long_description_content_type="text/markdown",
     url="https://www.oschina.net/p/mulan-rework",
-        project_urls={
+    project_urls={
         "Source": "https://gitee.com/MulanRevive/mulan-rework",
+        "Changelog": "https://gitee.com/MulanRevive/mulan-rework#版本历史介绍",
     },
     packages=setuptools.find_packages(),
     classifiers=[

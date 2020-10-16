@@ -105,3 +105,5 @@ $ python -m unittest 测试.unittest.交互 测试.unittest.语法树
 ## 许可证
 
 GNU GPLv3
+
+## [版本历史介绍](CHANGELOG.md)
