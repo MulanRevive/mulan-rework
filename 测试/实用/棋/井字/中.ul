@@ -1,5 +1,9 @@
 using pygame
 
+所有落子 = [] // 储存落在棋盘上的棋子。
+进行状态 = 1 // 1 为正常进行 2 为X获胜 3 为O获胜
+哪方 = 1 // 定义X O 的轮次 1：X 2：O
+
 pygame.init()
 边框 = 60
 格子尺寸 = 100
@@ -16,9 +20,22 @@ pygame.display.set_caption('井字棋')
 loop {
 
   for 事件 in pygame.event.get() {
-    if 事件.__getattribute__('type') == pygame.QUIT {
+    事件类型 = 事件.__getattribute__('type')
+    if 事件类型 == pygame.QUIT {
       pygame.quit()
       quit()
+    } elif 进行状态 == 1 and 事件类型 == pygame.MOUSEBUTTONUP{
+      x, y = pygame.mouse.get_pos()
+      横格 = int((x - 边框) * 1.0 / 格子尺寸)
+      纵格 = int((y - 边框) * 1.0 / 格子尺寸)
+      if 横格 >= 0 and 横格 < 格数 - 1 and 纵格 >= 0 and 纵格 < 格数-1 and !所有落子.__contains__(tuple(横格, 纵格, 1)) and !所有落子.__contains__(tuple(横格, 纵格, 2)) {
+        所有落子.append(tuple(横格, 纵格, 哪方))
+        if 哪方 == 1 {
+          哪方 = 2
+        } else {
+          哪方 = 1
+        }
+      }
     }
   }
   屏幕.fill(背景色)
@@ -27,6 +44,16 @@ loop {
     位置 = 格子尺寸 * x + 边框
     pygame.draw.line(屏幕, 黑色, tuple(位置, 边框), tuple(位置, 棋盘内边长 + 边框), 线宽)
     pygame.draw.line(屏幕, 黑色, tuple(边框, 位置), tuple(棋盘内边长 + 边框, 位置), 线宽)
+  }
+  for 落子 in 所有落子 {
+    横格 , 纵格 = 落子[0], 落子[1]
+    落子轮次 = 落子[2]
+    if 落子轮次 == 1 {
+      pygame.draw.line(屏幕, 黑色, tuple(横格*格子尺寸+边框,纵格*格子尺寸+边框), tuple((横格+1)*格子尺寸+边框,(纵格+1)*格子尺寸+边框),8)
+      pygame.draw.line(屏幕, 黑色, tuple((横格+1)*格子尺寸+边框,纵格*格子尺寸+边框), tuple(横格*格子尺寸+边框,(纵格+1)*格子尺寸+边框),8)
+    } else {
+      pygame.draw.circle(屏幕, 黑色, tuple(横格*格子尺寸+边框+50,纵格*格子尺寸+边框+50), 50, 线宽)
+    }
   }
 
   pygame.display.update()
