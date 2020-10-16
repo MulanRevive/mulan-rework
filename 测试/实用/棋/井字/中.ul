@@ -1,60 +1,88 @@
 using pygame
+using Enum in enum
 
-所有落子 = [] // 储存落在棋盘上的棋子。
-// TODO： 改为枚举
-进行状态 = 1 // 1 为正常进行 2 为X获胜 3 为O获胜
-哪方 = 1 // 定义X O 的轮次 1：X 2：O
+type 棋手 : Enum {
+  {
+    X = 1
+    O = 2
+  }
+}
 
-pygame.init()
+type 状态 : Enum {
+  {
+    对弈 = 1
+    X胜 = 2
+    O胜 = 3
+  }
+}
+
+所有落子 = [] // 储存落在棋盘上的棋子。TODO: 类型化
+进行状态 = 状态.对弈
+哪方 = 棋手.X
+
 边框 = 60
 格子尺寸 = 100
 圆子半径 = 格子尺寸 / 2
-格数 = 4
-棋盘内边长 = 格子尺寸 * (格数-1)
+格数 = 3
+棋盘内边长 = 格子尺寸 * 格数
 棋盘尺寸 = 棋盘内边长 + 边框 * 2
 
 背景色 = tuple(208, 104, 0)
 黑色 = tuple(0,0,0)
 线宽 = 5
 
+func 画格子() {
+  for x in 0..格数 {
+    位置 = 格子尺寸 * x + 边框
+    pygame.draw.line(屏幕, 黑色, tuple(位置, 边框), tuple(位置, 棋盘内边长 + 边框), 线宽)
+    pygame.draw.line(屏幕, 黑色, tuple(边框, 位置), tuple(棋盘内边长 + 边框, 位置), 线宽)
+  }
+}
+
+func 画棋子(落子) {
+  横格, 纵格, 何方落子 = 落子
+  右x = (横格 + 1) * 格子尺寸 + 边框
+  左x = 横格 * 格子尺寸 + 边框
+  上y = (纵格 + 1) * 格子尺寸 + 边框
+  下y = 纵格 * 格子尺寸 + 边框
+  if 何方落子 == 棋手.X {
+    pygame.draw.line(屏幕, 黑色, tuple(左x, 下y), tuple(右x, 上y), 8)
+    pygame.draw.line(屏幕, 黑色, tuple(右x, 下y), tuple(左x, 上y), 8)
+  } else {
+    pygame.draw.circle(屏幕, 黑色, tuple(左x + 圆子半径, 下y + 圆子半径), 圆子半径, 线宽)
+  }
+}
+
+func 该位置已占(横格, 纵格) {
+  return 所有落子.__contains__(tuple(横格, 纵格, 棋手.X)) or 所有落子.__contains__(tuple(横格, 纵格, 棋手.O))
+}
+
+pygame.init()
 pygame.display.set_caption('井字棋')
 屏幕 = pygame.display.set_mode(tuple(棋盘尺寸, 棋盘尺寸))
 loop {
-
   for 事件 in pygame.event.get() {
     事件类型 = 事件.__getattribute__('type')
     if 事件类型 == pygame.QUIT {
       pygame.quit()
       quit()
-    } elif 进行状态 == 1 and 事件类型 == pygame.MOUSEBUTTONUP{
+    } elif 进行状态 == 状态.对弈 and 事件类型 == pygame.MOUSEBUTTONUP {
       x, y = pygame.mouse.get_pos()
-      横格 = int((x - 边框) * 1.0 / 格子尺寸)
-      纵格 = int((y - 边框) * 1.0 / 格子尺寸)
-      if 横格 >= 0 and 横格 < 格数 - 1 and 纵格 >= 0 and 纵格 < 格数 - 1
-        and !所有落子.__contains__(tuple(横格, 纵格, 1)) and !所有落子.__contains__(tuple(横格, 纵格, 2)) {
-        所有落子.append(tuple(横格, 纵格, 哪方))
-        哪方 = 哪方 == 1 ? 2 : 1
+      if x > 边框 and x < 棋盘内边长 + 边框 and y > 边框 and y < 棋盘内边长 + 边框 {
+        横格 = int((x - 边框) * 1.0 / 格子尺寸)
+        纵格 = int((y - 边框) * 1.0 / 格子尺寸)
+        if !该位置已占(横格, 纵格) {
+          所有落子.append(tuple(横格, 纵格, 哪方))
+          哪方 = 哪方 == 棋手.X ? 棋手.O : 棋手.X
+        }
       }
     }
   }
   屏幕.fill(背景色)
+  画格子()
 
-  for x in 0..<格数 {
-    位置 = 格子尺寸 * x + 边框
-    pygame.draw.line(屏幕, 黑色, tuple(位置, 边框), tuple(位置, 棋盘内边长 + 边框), 线宽)
-    pygame.draw.line(屏幕, 黑色, tuple(边框, 位置), tuple(棋盘内边长 + 边框, 位置), 线宽)
-  }
-  for 横格, 纵格, 何方落子 in 所有落子 {
-    右x = (横格 + 1) * 格子尺寸 + 边框
-    左x = 横格 * 格子尺寸 + 边框
-    上y = (纵格 + 1) * 格子尺寸 + 边框
-    下y = 纵格 * 格子尺寸 + 边框
-    if 何方落子 == 1 {
-      pygame.draw.line(屏幕, 黑色, tuple(左x, 下y), tuple(右x, 上y), 8)
-      pygame.draw.line(屏幕, 黑色, tuple(右x, 下y), tuple(左x, 上y), 8)
-    } else {
-      pygame.draw.circle(屏幕, 黑色, tuple(左x + 圆子半径, 下y + 圆子半径), 圆子半径, 线宽)
-    }
+  for 落子 in 所有落子 {
+    画棋子(落子)
   }
 
   pygame.display.update()
