@@ -5,7 +5,7 @@ with open("README.md", encoding="utf-8", mode="r") as readme:
 
 setuptools.setup(
     name="ulang",
-    version="0.0.14.1",
+    version="0.0.14.3",
     license="GNU GPLv3",
     author="吴烜",
     author_email="mulanrevive@gmail.com",

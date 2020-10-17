@@ -1,0 +1,10 @@
+using Enum in enum
+type 颜色 : Enum {
+  {
+    红 = 1
+    黄 = 2
+  }
+}
+for 某色 in 颜色 {
+  print(某色.value)
+}

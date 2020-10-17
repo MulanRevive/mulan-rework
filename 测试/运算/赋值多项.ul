@@ -4,3 +4,7 @@ print(b)
 a, b = [1, 2]
 print(a)
 print(b)
+a, b, c = tuple(1, 2, 3)
+print(a)
+print(b)
+print(c)
