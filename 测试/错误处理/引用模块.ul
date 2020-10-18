@@ -1,0 +1,24 @@
+using * in 测试.错误处理.下标越界函数
+
+a()
+/*
+(..•˘_˘•..) list index out of range
+见第3行：a()
+
+应该显示调用层级
+
+对比 python:
+$ python3 test相对导入.py 
+__file__=test相对导入.py                         | __name__=__main__             | __package__=None                
+__file__=/Users/xuanwu/work/木兰/prototype/test/package/test.py | __name__=test.package.test    | __package__=test.package        
+Traceback (most recent call last):
+  File "test相对导入.py", line 3, in <module>
+    import test.package.test
+  File "/Users/xuanwu/work/木兰/prototype/test/package/test.py", line 2, in <module>
+    from . import module_py
+  File "/Users/xuanwu/work/木兰/prototype/test/package/module_py.py", line 4, in <module>
+    talk()
+  File "/Users/xuanwu/work/木兰/prototype/test/package/module_py.py", line 2, in talk
+    print([][0])
+IndexError: list index out of range
+*/
