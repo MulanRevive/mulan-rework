@@ -964,6 +964,7 @@ class 语法分析器:
 
     def 分析(self, 源码, 源码文件=''):
         self.源码 = 源码.split("\n")
+        语法树.源码 = self.源码
         self.文件名 = 源码文件
         try:
             各词 = self.分词器.lex(源码)

@@ -1,6 +1,6 @@
 func a() {
 /*
-File "测试/错误处理/括号不匹配.ul", line 1:10, unexpected token "$end"
+File "测试/错误处理/括号不匹配.ul", line 6:2, unexpected token "$end"
 func a() {
          ^
 */
