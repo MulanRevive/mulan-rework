@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import sys
+import os, sys, getopt
 import ast
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.语法分析器 import 语法分析器
@@ -9,15 +9,44 @@ from 木兰.交互 import 开始交互
 from 木兰.功用.反馈信息 import 反馈信息
 from 木兰.功用.调试辅助 import 语法树相关
 
+def 用途(程序):
+    介绍 = '''使用方法: %s 源码文件
+选项:
+ --版本,         -版   显示版本
+'''
+    sys.stderr.write(介绍 % os.path.basename(程序))
+    sys.exit(-1)
 
 def 中(argv=None):
     if argv is None:
         argv = sys.argv
 
+    try:
+        选项, 参数 = getopt.getopt(argv[1:], '版', [
+            '版本'])
+    except getopt.GetoptError as e:
+        try:
+            sys.stderr.write(str(e) + '\n')
+            用途(argv[0])
+        finally:
+            e = None
+            del e
+
+    版本 = False
+    for 某项, 值 in 选项:
+        if 某项 in ('-版', '--版本'):
+            版本 = True
+
+    if 版本:
+        from 木兰 import __版本__
+        sys.stderr.write('%s\n' % __版本__)
+        sys.exit()
+
     if len(sys.argv) == 1:
         sys.exit(开始交互())
 
-    源码文件 = sys.argv[1]
+    if len(参数) > 0:
+        源码文件 = 参数[0]
     with open(源码文件, 'r', encoding='utf-8') as f:
         源码 = f.read()
 

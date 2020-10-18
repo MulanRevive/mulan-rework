@@ -5,6 +5,7 @@ with open("README.md", encoding="utf-8", mode="r") as readme:
 
 setuptools.setup(
     name="ulang",
+    # 木兰/__init__.py 中保持一致
     version="0.0.14.3",
     license="GNU GPLv3",
     author="吴烜",

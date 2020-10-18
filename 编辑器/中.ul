@@ -51,7 +51,11 @@ root = Tk()
 root.title("木兰笔谈")
 
 文本字体 = "Courier"
-源码文件 = sys.argv[2]
+if len(sys.argv) == 3 {
+  源码文件 = sys.argv[2]
+} else {
+  源码文件 = "编辑器/中.ul"
+}
 f = open(源码文件, 'r', encoding='utf-8')
 源码 = f.read()
 logging.debug("打开源码长度:`len(源码)`")
