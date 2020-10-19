@@ -1,8 +1,5 @@
 using * in 测试.实用.棋.井字.棋盘
 
-// TODO: 这俩移到棋局
-哪方 = 棋手.X
-
 // 参考: https://pygame-zero.readthedocs.io/en/latest/colors_ref.html
 // https://github.com/pygame/pygame/blob/master/src_py/colordict.py
 背景色 = pygame.Color("darkorange")
@@ -17,10 +14,8 @@ loop {
     if 事件类型 == pygame.QUIT {
       pygame.quit()
       quit()
-    } elif 状况.进行状态 == 状态.对弈 and 事件类型 == pygame.MOUSEBUTTONUP and 鼠标位置落子(哪方) {
-      if !状况.已赢() {
-        哪方 = 哪方 == 棋手.X ? 棋手.O : 棋手.X
-      }
+    } elif 事件类型 == pygame.MOUSEBUTTONUP {
+      状况.落子(鼠标位置所在格())
     }
   }
   屏幕.fill(背景色)

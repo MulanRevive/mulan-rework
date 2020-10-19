@@ -35,9 +35,9 @@ func 画棋子(屏幕, 落子) {
   }
 }
 
-func 鼠标位置落子(哪方) {
+func 鼠标位置所在格() {
   x, y = pygame.mouse.get_pos()
   横格 = int((x - 边框) * 1.0 / 格子尺寸)
   纵格 = int((y - 边框) * 1.0 / 格子尺寸)
-  return 落子(横格, 纵格, 哪方)
+  return 横格, 纵格
 }
