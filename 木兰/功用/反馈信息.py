@@ -8,24 +8,23 @@ def 反馈信息(例外, 源码文件=None):
     各层 = traceback.extract_tb(回溯信息)
     # print(repr(各层))
     信息 = 提神符 + 提示(类型, 原信息)
-    出错处 = True
-    调用提示 = False
-    for 层号 in range(len(各层)-1, -1, -1):
+    最高层号 = len(各层) - 1
+    for 层号 in range(最高层号, -1, -1):
         层 = 各层[层号]
         文件名 = 层.filename
         行信息 = f'见第{层.lineno}行'
-        if 源码文件 == None and 文件名 == "<STDIN>":
-            return 信息 + ', ' + 行信息
-        elif 文件名 == 源码文件:
-            行内容 = 层.line
-            if 出错处:
+        行内容 = 层.line
+        if 源码文件 == None and 文件名 == "【标准输入】":
+            return f"{信息}，{行信息}"
+        else:
+            # 在第二层前显示
+            if 层号 == 最高层号 - 1:
+                信息 += "\n调用层级如下"
+
+            if 文件名 == 源码文件:
                 信息 += "\n" + 行信息 + '：' + 行内容
-                出错处 = False
             else:
-                if not 调用提示:
-                    信息 += "\n调用层级如下"
-                    调用提示 = True
-                信息 += f"\n第{层.lineno}行：{行内容}"
+                信息 += f"\n“{文件名}”第{层.lineno}行：{行内容}"
     return 信息
 
 def 提示(类型, 原信息):
@@ -46,4 +45,6 @@ def 提示(类型, 原信息):
         模式 = 'can only concatenate str \(not "(.*)"\) to str'
         if re.match(模式, 原信息):
             return re.sub(模式, r'字符串只能拼接字符串，请将"\1"先用 str() 转换', 原信息)
+    elif 类型 == 'IndexError' and 原信息 == "list index out of range":
+        return "取列表内容时，索引超出范围"
     return 原信息
