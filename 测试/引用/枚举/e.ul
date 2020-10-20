@@ -1,0 +1,8 @@
+using Enum in enum
+
+type T : Enum {
+  {
+    X = 1
+    O = 2
+  }
+}

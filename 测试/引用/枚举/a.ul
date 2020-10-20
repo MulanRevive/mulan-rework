@@ -1,0 +1,3 @@
+using T in 测试.引用.枚举.e
+
+a = T.X
