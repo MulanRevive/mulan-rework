@@ -1,39 +1,27 @@
 using * in 测试.实用.棋.井字.棋盘
+using * in 测试.实用.棋.井字.棋局
 
-// 参考: https://pygame-zero.readthedocs.io/en/latest/colors_ref.html
-// https://github.com/pygame/pygame/blob/master/src_py/colordict.py
-背景色 = pygame.Color("darkorange")
-红色 = pygame.Color("red")
-
-pygame.init()
-pygame.display.set_caption('井字棋')
-屏幕 = pygame.display.set_mode(tuple(棋盘尺寸, 棋盘尺寸))
+格数 = 3
+棋盘 = 棋盘图样(格数)
+状况 = 棋盘状况(格数)
 loop {
-  for 事件 in pygame.event.get() {
-    事件类型 = 事件.__getattribute__('type')
-    if 事件类型 == pygame.QUIT {
-      pygame.quit()
-      quit()
-    } elif 事件类型 == pygame.MOUSEBUTTONUP {
-      状况.落子(鼠标位置所在格())
-    }
-  }
-  屏幕.fill(背景色)
-  画格子(屏幕)
+  状况.落子(棋盘.鼠标位置所在格()) if 棋盘.取事件() == 棋盘事件.鼠标按键
+  棋盘.画棋盘()
+  // TODO: 提取下一部分
+  //棋盘.画棋子(状况.所有子)
 
   for 落子 in 状况.所有子 {
-    画棋子(屏幕, 落子)
+    横格, 纵格 = 落子.横, 落子.纵
+    if 落子.棋手 == 棋手.X {
+      棋盘.画X(横格, 纵格)
+    } else {
+      棋盘.画O(横格, 纵格)
+    }
   }
 
-  宣布 = 状况.进行状态 != 状态.对弈 ?
-    ((状况.进行状态 == 状态.X胜 ? 'X' : 'O') + " 赢了!!")
-    : (len(状况.所有子) == 9 ? "平局" : "")
   // 比赛结束
-  if 宣布 != "" {
-    字体 = pygame.font.SysFont("pmingliu", 50)
-    文字 = 字体.render(宣布, true, 红色)
-    屏幕.blit(文字, tuple(20,190))
+  if 状况.进行状态 != 状态.对弈 {
+    棋盘.宣布结果(状况.取结语())
   }
-
-  pygame.display.update()
+  棋盘.更新()
 }
