@@ -31,12 +31,12 @@ type 棋盘图样 {
     $屏幕 = pygame.display.set_mode(tuple(棋盘尺寸, 棋盘尺寸))
   }
 
-  func $画棋盘() {
+  func $画棋盘 {
     $屏幕.fill(背景色)
     $画格子()
   }
 
-  func $画格子() {
+  func $画格子 {
     for x in 0..$格数 {
       位置 = 格子尺寸 * x + 边框
       pygame.draw.line($屏幕, 黑色, tuple(位置, 边框), tuple(位置, $棋盘内边长 + 边框), 线宽)
@@ -45,14 +45,14 @@ type 棋盘图样 {
   }
 
   func $画棋子(所有子) {
-  for 落子 in 所有子 {
-    横格, 纵格 = 落子.横, 落子.纵
-    if 落子.棋手 == 棋手.X {
-      $画X(横格, 纵格)
-    } else {
-      $画O(横格, 纵格)
+    for 落子 in 所有子 {
+      横格, 纵格 = 落子.横, 落子.纵
+      if 落子.棋手为X() {
+        $画X(横格, 纵格)
+      } else {
+        $画O(横格, 纵格)
+      }
     }
-  }
   }
 
   func $画X(横格, 纵格) {
@@ -72,7 +72,7 @@ type 棋盘图样 {
     return 中心x, 中心y
   }
 
-  func $鼠标位置所在格() {
+  func $鼠标位置所在格 {
     x, y = pygame.mouse.get_pos()
     横格 = int((x - 边框) * 1.0 / 格子尺寸)
     纵格 = int((y - 边框) * 1.0 / 格子尺寸)
@@ -85,11 +85,11 @@ type 棋盘图样 {
     $屏幕.blit(文字, tuple(20, 10))
   }
 
-  func $更新() {
+  func $更新 {
     pygame.display.update()
   }
 
-  func $取事件() {
+  func $取事件 {
     for 事件 in pygame.event.get() {
       事件类型 = 事件.__getattribute__('type')
       if 事件类型 == pygame.QUIT {

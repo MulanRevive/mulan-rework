@@ -1,26 +1,11 @@
 using Enum in enum
 
 using 相等 in 测试.实用.通用.测试相关
+using * in 测试.实用.棋.井字.模型
 
 /* 不依赖 pygame, 易于测试 */
 
 赢了 = 3
-
-type 棋手 : Enum {
-  {
-    X = 1
-    O = 2
-  }
-}
-
-type 状态 : Enum {
-  {
-    对弈 = 1
-    X胜 = 2
-    O胜 = 3
-    平局 = 4
-  }
-}
 
 结语 = {
   状态.X胜: "X 赢了!",
@@ -31,6 +16,10 @@ type 状态 : Enum {
 type 步 {
   func $步(横, 纵, 棋手) {
     $横, $纵, $棋手 = 横, 纵, 棋手
+  }
+
+  func $棋手为X {
+    return $棋手 == 棋手.X
   }
 
   operator == (另一子) {
@@ -70,7 +59,7 @@ type 棋盘状况 {
     return any(map(某子 -> 某子.横 == 横格 and 某子.纵 == 纵格, $所有子))
   }
 
-  func $已赢() {
+  func $已赢 {
     return false if len($所有子) < 赢了
     获胜方式 = [
       [tuple(-1, 0), tuple(1, 0)],
@@ -107,8 +96,12 @@ type 棋盘状况 {
     return 横格 >= 0 and 横格 < $格数 and 纵格 >= 0 and 纵格 < $格数
   }
 
-  func $取结语() {
+  func $取结语 {
     return 结语[$进行状态]
+  }
+
+  func $结束 {
+    return $进行状态 != 状态.对弈
   }
 }
 

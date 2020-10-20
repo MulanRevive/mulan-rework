@@ -1,0 +1,17 @@
+using Enum in enum
+
+type 棋手 : Enum {
+  {
+    X = 1
+    O = 2
+  }
+}
+
+type 状态 : Enum {
+  {
+    对弈 = 1
+    X胜 = 2
+    O胜 = 3
+    平局 = 4
+  }
+}
