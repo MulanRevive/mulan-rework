@@ -1,0 +1,22 @@
+using * in 测试.错误处理.下标越界函数
+
+a()
+/*
+ 😰 取列表内容时，索引超出范围
+“测试/错误处理/下标越界函数.ul”第2行：print([][0])
+调用层级如下
+见第3行：a()
+
+对比 python:
+$ python3 test相对导入.py 
+Traceback (most recent call last):
+  File "test相对导入.py", line 3, in <module>
+    import test.package.test
+  File "/Users/xuanwu/work/木兰/prototype/test/package/test.py", line 2, in <module>
+    from . import module_py
+  File "/Users/xuanwu/work/木兰/prototype/test/package/module_py.py", line 4, in <module>
+    talk()
+  File "/Users/xuanwu/work/木兰/prototype/test/package/module_py.py", line 2, in talk
+    print([][0])
+IndexError: list index out of range
+*/

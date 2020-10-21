@@ -1,43 +1,103 @@
-using pygame
-using * in 测试.实用.棋.井字.棋局
+using Enum in enum
 
-// TODO: 与棋局冗余
-格数 = 3
+using pygame
+
+type 棋盘事件 : Enum {
+  {
+    退出 = 1
+    鼠标按键 = 2
+  }
+}
 
 边框 = 60
 格子尺寸 = 100
-圆子半径 = 格子尺寸 / 2
-棋盘内边长 = 格子尺寸 * 格数
-棋盘尺寸 = 棋盘内边长 + 边框 * 2
+半格 = 格子尺寸 / 2
 
 线宽 = 5
+// 参考: https://pygame-zero.readthedocs.io/en/latest/colors_ref.html
+// https://github.com/pygame/pygame/blob/master/src_py/colordict.py
+背景色 = pygame.Color("darkorange")
+红色 = pygame.Color("red")
 黑色 = pygame.Color("black")
 
-func 画格子(屏幕) {
-  for x in 0..格数 {
-    位置 = 格子尺寸 * x + 边框
-    pygame.draw.line(屏幕, 黑色, tuple(位置, 边框), tuple(位置, 棋盘内边长 + 边框), 线宽)
-    pygame.draw.line(屏幕, 黑色, tuple(边框, 位置), tuple(棋盘内边长 + 边框, 位置), 线宽)
-  }
-}
+type 棋盘图样 {
 
-func 画棋子(屏幕, 落子) {
-  横格, 纵格, 何方落子 = 落子
-  右x = (横格 + 1) * 格子尺寸 + 边框
-  左x = 横格 * 格子尺寸 + 边框
-  上y = (纵格 + 1) * 格子尺寸 + 边框
-  下y = 纵格 * 格子尺寸 + 边框
-  if 何方落子 == 棋手.X {
-    pygame.draw.line(屏幕, 黑色, tuple(左x, 下y), tuple(右x, 上y), 8)
-    pygame.draw.line(屏幕, 黑色, tuple(右x, 下y), tuple(左x, 上y), 8)
-  } else {
-    pygame.draw.circle(屏幕, 黑色, tuple(左x + 圆子半径, 下y + 圆子半径), 圆子半径, 线宽)
+  func $棋盘图样(格数) {
+    $格数 = 格数
+    $棋盘内边长 = 格子尺寸 * 格数
+    棋盘尺寸 = $棋盘内边长 + 边框 * 2
+    pygame.init()
+    pygame.display.set_caption('井字棋')
+    $屏幕 = pygame.display.set_mode(tuple(棋盘尺寸, 棋盘尺寸))
   }
-}
 
-func 鼠标位置落子(哪方) {
-  x, y = pygame.mouse.get_pos()
-  横格 = int((x - 边框) * 1.0 / 格子尺寸)
-  纵格 = int((y - 边框) * 1.0 / 格子尺寸)
-  return 落子(横格, 纵格, 哪方)
+  func $画棋盘 {
+    $屏幕.fill(背景色)
+    $画格子()
+  }
+
+  func $画格子 {
+    for x in 0..$格数 {
+      位置 = 格子尺寸 * x + 边框
+      pygame.draw.line($屏幕, 黑色, tuple(位置, 边框), tuple(位置, $棋盘内边长 + 边框), 线宽)
+      pygame.draw.line($屏幕, 黑色, tuple(边框, 位置), tuple($棋盘内边长 + 边框, 位置), 线宽)
+    }
+  }
+
+  func $画棋子(所有子) {
+    for 落子 in 所有子 {
+      横格, 纵格 = 落子.横, 落子.纵
+      if 落子.棋手为X() {
+        $画X(横格, 纵格)
+      } else {
+        $画O(横格, 纵格)
+      }
+    }
+  }
+
+  func $画X(横格, 纵格) {
+    中心x, 中心y = $取中心位置(横格, 纵格)
+    pygame.draw.line($屏幕, 黑色, tuple(中心x - 半格, 中心y - 半格), tuple(中心x + 半格, 中心y + 半格), 8)
+    pygame.draw.line($屏幕, 黑色, tuple(中心x + 半格, 中心y - 半格), tuple(中心x - 半格, 中心y + 半格), 8)
+  }
+
+  func $画O(横格, 纵格) {
+    中心x, 中心y = $取中心位置(横格, 纵格)
+    pygame.draw.circle($屏幕, 黑色, tuple(中心x, 中心y), 半格, 线宽)
+  }
+
+  func $取中心位置(横格, 纵格) {
+    中心x = int((横格 + 0.5) * 格子尺寸 + 边框)
+    中心y = int((纵格 + 0.5) * 格子尺寸 + 边框)
+    return 中心x, 中心y
+  }
+
+  func $鼠标位置所在格 {
+    x, y = pygame.mouse.get_pos()
+    横格 = int((x - 边框) * 1.0 / 格子尺寸)
+    纵格 = int((y - 边框) * 1.0 / 格子尺寸)
+    return 横格, 纵格
+  }
+
+  func $宣布结果(用词) {
+    字体 = pygame.font.SysFont("pmingliu", 50)
+    文字 = 字体.render(用词, true, 红色)
+    $屏幕.blit(文字, tuple(20, 10))
+  }
+
+  func $更新 {
+    pygame.display.update()
+  }
+
+  func $取事件 {
+    for 事件 in pygame.event.get() {
+      事件类型 = 事件.__getattribute__('type')
+      if 事件类型 == pygame.QUIT {
+        pygame.quit()
+        quit()
+      } elif 事件类型 == pygame.MOUSEBUTTONUP {
+        return 棋盘事件.鼠标按键
+      }
+    }
+  }
 }

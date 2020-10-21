@@ -95,6 +95,8 @@ from sys import platform
     "引用/引用本地包内木兰.ul": b"2",
     "引用/引用本地包内木兰某内容.ul": b"2",
 
+    "引用/枚举/b.ul": b"T.X\nfalse\ntrue\n",
+
     "类型/定义.ul": b"true",
     "类型/定义静态方法.ul": b"1",
     "类型/定义方法.ul": b"1",
