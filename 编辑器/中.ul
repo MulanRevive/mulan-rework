@@ -1,5 +1,6 @@
 using * in tkinter
 using Font in tkinter.font
+using scrolledtext in tkinter
 
 using 代码段 in 编辑器.代码段
 using * in 编辑器.代码分析
@@ -18,13 +19,13 @@ using time
 func 回应(要求) {
   logging.info(要求)
 
-  // TODO: 在上面显示会话, 比如: 保存, 保存完成(一些附带信息如文件名\大小等等)
   if 要求 == 默认要求 {
     执行(动词.格式化)
     执行(动词.保存)
   } else {
     执行(要求)
   }
+  刷新日志()
 }
 
 func 执行(要求) {
@@ -37,9 +38,7 @@ func 执行(要求) {
   } elif 要求 == 动词.保存.value {
     源码 = 取文本内容()
     logging.debug("源码长度:`len(源码)`")
-    f = open(源码文件, 'w', encoding='utf-8')
-    f.write(源码)
-    f.close()
+    保存文件(源码文件, 源码)
     logging.info("保存`len(源码)`字到`源码文件`")
   }
 }
@@ -64,6 +63,17 @@ func 读文件内容(文件名) {
   return 内容
 }
 
+func 保存文件(文件名, 内容) {
+  f = open(文件名, 'w', encoding='utf-8')
+  f.write(内容)
+  f.close()
+}
+
+func 刷新日志 {
+  输出文本.insert(INSERT, 读文件内容(日志文件))
+  输出文本.see(END)
+}
+
 root = Tk()
 root.title("木兰笔谈")
 
@@ -74,10 +84,11 @@ if len(sys.argv) == 3 {
   源码文件 = "编辑器/中.ul"
 }
 源码 = 读文件内容(源码文件)
+logging.info("打开源码文件：`源码文件`")
 总高度 = 35
 宽度 = 90
 // 行间距设置, 参考: https://www.javatpoint.com/python-tkinter-text
-文本 = Text(root, spacing1=3, spacing3=3, height=总高度, width=宽度)
+文本 = scrolledtext.ScrolledText(root, spacing1=3, spacing3=3, height=总高度, width=宽度)
 文本.insert(INSERT, 源码)
 
 文本.pack(side=LEFT)
@@ -94,10 +105,9 @@ if len(sys.argv) == 3 {
 输入框.pack(side=BOTTOM)
 输入框.bind('<Return>', event -> 回应(输入框.get()))
 
-输出文本 = Text(右边, spacing1=3, spacing3=3, height=总高度 - 2, width=宽度 / 2)
+输出文本 = scrolledtext.ScrolledText(右边, spacing1=3, spacing3=3, height=总高度 - 2, width=宽度 / 2)
 输出文本.configure(font=Font(family=文本字体, size=16))
-日志内容 = 读文件内容(日志文件)
-输出文本.insert(INSERT, 日志内容)
+刷新日志()
 输出文本.pack(side=TOP)
 
 
