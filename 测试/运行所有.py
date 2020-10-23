@@ -147,9 +147,10 @@ from sys import platform
 # 参考：https://stackoverflow.com/questions/748028/how-to-get-output-of-exe-in-python-script
 for 文件 in 期望值:
     源码路径 = 路径 + 文件
+    参数 = ["-m", "木兰", 源码路径]
     if platform == 'win32':
         # https://stackoverflow.com/questions/25651990/oserror-winerror-193-1-is-not-a-valid-win32-application
-        参数 = ["python.exe", "中.py", 源码路径]
+        参数 = ["python.exe"] + 参数
 
         # 原始可执行文件在：https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6/ulang-0.2.2.exe
         # 原始版本不支持中文标识符，且仅支持 gbk 编码的源文件。因此英文版测试文件仅用英文字符串和标识符。
@@ -160,7 +161,7 @@ for 文件 in 期望值:
         #     continue
         # 参数 = ["ulang-0.2.2.exe",  源码路径]
     else:
-        参数 = ["python3", "-m", "木兰", 源码路径]
+        参数 = ["python3"] + 参数
     进程表[文件] = subprocess.Popen(参数, stdout=subprocess.PIPE)
 
 失败表 = {}
