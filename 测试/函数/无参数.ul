@@ -7,5 +7,5 @@ func a {
   return false
 }
 print(3) if !a()
-print(4) if !a  // 返回了函数, 而非它的返回值
+print(4) if !a
  
