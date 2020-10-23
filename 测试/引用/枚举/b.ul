@@ -1,7 +1,7 @@
 using T in 测试.引用.枚举.e
 using * in 测试.引用.枚举.a
 
-println(aa)
-println(aa == T.X)
+print(aa)
+print(aa == T.X)
 bb = T.X
-println(bb == T.X)
+print(bb == T.X)

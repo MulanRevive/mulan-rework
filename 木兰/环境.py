@@ -3,7 +3,7 @@ from 木兰.分析器.语法分析器 import 语法分析器
 
 
 def 分析并编译(源码文件名):
-    with open(源码文件名, 'r') as 文件:
+    with open(源码文件名, 'r', encoding='utf-8') as 文件:
         源码 = 文件.read()
 
         分析器 = 语法分析器()
