@@ -1,9 +1,13 @@
 import re, sys, traceback
 
 运行时木兰路径 = "site-packages/木兰/"
+if sys.platform == 'win32':
+    运行时木兰路径 = 运行时木兰路径.replace('/', '\\')
 
 def 反馈信息(例外, 源码文件=None):
     提神符 = " 😰 "
+    if sys.platform == 'win32':
+        提神符 = "（>﹏<）"
     类型 = 例外.__class__.__name__
     原信息 = str(例外)
     exc_type, exc_value, 回溯信息 = sys.exc_info()
