@@ -198,11 +198,23 @@ class 语法分析器:
     @分析器母机.production(语法.声明.成分(语法.增量赋值))
     @分析器母机.production(语法.声明.成分(语法.终止声明))
     @分析器母机.production(语法.声明.成分(语法.跳过声明))
+    @分析器母机.production(语法.声明.成分(语法.试试声明))
     @分析器母机.production(语法.声明.成分(语法.返回声明))
     def 声明(self, 片段):
         return 片段[0]
 
-    # TODO: try-catch-throw
+    # TODO: 补完 try-catch-throw
+
+    @分析器母机.production(语法.顺便处理.成分(语法.表达式前缀, 符号_赋值, 语法.表达式))
+    def 顺便处理(self, 片段):
+        处理项 = 语法树.顺便处理项(上下文表达式=片段[(-1)], 可选变量=None, 片段=片段)
+        片段[0].ctx = ast.Store()
+        处理项.optional_vars = 片段[0]
+        return 处理项
+
+    @分析器母机.production(语法.试试声明.成分(动词_试试, 语法.顺便处理, 语法.块))
+    def 试试声明_顺便处理(self, 片段):
+        return 语法树.顺便(各项=[片段[1]], 主体=片段[2], 片段=片段)
 
     # TODO: 更多引用方式
 

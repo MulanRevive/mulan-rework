@@ -143,6 +143,20 @@ class 语法树:
             lineno=语法树.取行号(片段),
             col_offset=语法树.取列号(片段))
 
+    @staticmethod
+    def 顺便处理项(上下文表达式, 可选变量, 片段):
+        return ast.withitem(context_expr=上下文表达式,
+            optional_vars=可选变量,
+            lineno=语法树.取行号(片段),
+            col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 顺便(各项, 主体, 片段):
+        return ast.With(items=各项,
+            body=主体,
+            lineno=语法树.取行号(片段),
+            col_offset=语法树.取列号(片段))
+
     # 表达式部分
 
     @staticmethod

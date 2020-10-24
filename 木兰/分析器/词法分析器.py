@@ -27,6 +27,7 @@ import rply, re
 名词_类型 = 'type'
 动词_引用 = 'using'
 连词_于 = 'in'
+动词_试试 = 'try'
 名词_操作符 = 'operator'
 连词_每隔 = 'by'
 形容词_外部 = 'extern'
@@ -125,6 +126,7 @@ import rply, re
     乘方,
     名词_自身,
     名词_应变属性,
+    动词_试试,
 ]
 
 分词器母机 = LexerGenerator()
@@ -155,6 +157,7 @@ import rply, re
 分词器母机.add(名词_类型, '\\btype\\b')
 分词器母机.add(动词_引用, '\\busing\\b')
 分词器母机.add(连词_于, '\\bin\\b')
+分词器母机.add(动词_试试, '\\btry\\b')
 分词器母机.add(名词_操作符, '\\boperator\\b')
 分词器母机.add(连词_每隔, '\\bby\\b')
 分词器母机.add(形容词_外部, '\\bextern\\b')

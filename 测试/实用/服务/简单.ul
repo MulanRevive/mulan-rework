@@ -1,0 +1,9 @@
+using SimpleHTTPRequestHandler in http.server
+using socketserver
+
+端口 = 8080
+
+try 服务=socketserver.TCPServer(tuple("", 端口), SimpleHTTPRequestHandler) {
+    println("服务于端口：", 端口)
+    服务.serve_forever()
+}
