@@ -107,8 +107,10 @@ def 创建全局变量(argv=[], 文件名=''):
         """
         try:
             return 加载木兰模块(名称, 全局, 源自, 目录相对层次)
-        except:
+        except FileNotFoundError:
             return __import__(名称, 全局, 本地, 源自, 目录相对层次)
+        except Exception as ex:
+            raise ex
 
     def 本地断言(表达式, 反馈=None):
         assert 表达式, 反馈
