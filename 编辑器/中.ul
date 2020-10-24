@@ -1,12 +1,6 @@
-using * in tkinter
-using Font in tkinter.font
-using scrolledtext in tkinter
-
 using 代码段 in 编辑器.代码段
-using * in 编辑器.代码分析
-using * in 编辑器.常量
 using * in 编辑器.日志
-using * in 编辑器.词.常量
+using * in 编辑器.笔谈
 
 using time
 
@@ -14,70 +8,6 @@ using time
 
 // TODO: 已知问题: 输入中文符号"（"时，实际为退格，"）"时为空格。thonny 也有同样问题。
 
-默认要求 = "`动词.格式化.value`，`动词.保存.value`"
-
-func 回应(要求) {
-  logging.info(要求)
-
-  if 要求 == 默认要求 {
-    执行(动词.格式化)
-    执行(动词.保存)
-  } else {
-    执行(要求)
-  }
-  刷新日志()
-}
-
-func 执行(要求) {
-  if 要求 == 动词.格式化.value {
-    格式源码 = 格式化(取文本内容())
-    文本.delete(1.0, END)
-    文本.insert(INSERT, 格式源码)
-    更新高亮()
-    logging.info("格式化完成")
-  } elif 要求 == 动词.保存.value {
-    源码 = 取文本内容()
-    logging.debug("源码长度:`len(源码)`")
-    保存文件(源码文件, 源码)
-    logging.info("保存`len(源码)`字到`源码文件`")
-  }
-}
-
-func 更新高亮() {
-  源码 = 取文本内容()
-  for 代码段 in 解析(源码) {
-    文本.tag_add(高亮风格表[代码段.词性], 代码段.开始(), 代码段.结束()) if 高亮风格表.get(代码段.词性)
-  }
-}
-
-func 取文本内容 {
-  // https://stackoverflow.com/questions/14824163/how-to-get-the-input-from-the-tkinter-text-widget
-  return 文本.get(1.0, 'end-1c')
-}
-
-func 读文件内容(文件名) {
-  f = open(文件名, 'r', encoding='utf-8')
-  内容 = f.read()
-  logging.debug("打开“`文件名`”长度:`len(内容)`")
-  f.close()
-  return 内容
-}
-
-func 保存文件(文件名, 内容) {
-  f = open(文件名, 'w', encoding='utf-8')
-  f.write(内容)
-  f.close()
-}
-
-func 刷新日志 {
-  输出文本.insert(INSERT, 读文件内容(日志文件))
-  输出文本.see(END)
-}
-
-root = Tk()
-root.title("木兰笔谈")
-
-文本字体 = "Courier"
 if len(sys.argv) == 3 {
   源码文件 = sys.argv[2]
 } else {
@@ -85,40 +15,6 @@ if len(sys.argv) == 3 {
 }
 源码 = 读文件内容(源码文件)
 logging.info("打开源码文件：`源码文件`")
-总高度 = 35
-宽度 = 90
-// 行间距设置, 参考: https://www.javatpoint.com/python-tkinter-text
-文本 = scrolledtext.ScrolledText(root, spacing1=3, spacing3=3, height=总高度, width=宽度)
-文本.insert(INSERT, 源码)
 
-文本.pack(side=LEFT)
+会话 = 笔谈(源码文件, 源码)
 
-右边 = Frame(root, height=2, bd=1, relief=SUNKEN)
-右边.pack(fill=X, padx=5, pady=5)
-
-输入框 = Entry(右边,
-       background="#a0ffa0",foreground="#000000",
-       disabledbackground="#7f7f7f",disabledforeground="#000000",
-       font=Font(family=文本字体, size=24), width=40)
-输入框['fg'] = 'grey'
-输入框.insert(INSERT, 默认要求)
-输入框.pack(side=BOTTOM)
-输入框.bind('<Return>', event -> 回应(输入框.get()))
-
-输出文本 = scrolledtext.ScrolledText(右边, spacing1=3, spacing3=3, height=总高度 - 2, width=宽度 / 2)
-输出文本.configure(font=Font(family=文本字体, size=16))
-刷新日志()
-输出文本.pack(side=TOP)
-
-
-更新高亮()
-
-for 颜色 in 颜色表 {
-  文本.tag_config(颜色, foreground=颜色表[颜色])
-}
-
-文本.configure(font=Font(family=文本字体, size=16))
-
-// 参考: https://www.delftstack.com/howto/python-tkinter/how-to-set-tkinter-backgroud-color/
-
-root.mainloop()
