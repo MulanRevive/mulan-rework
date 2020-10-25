@@ -43,7 +43,7 @@ $ 木兰
 
 ### 运行木兰源码文件
 
-建议`.ul`后缀
+使用`.ul`后缀才可被引用
 ```
 $ 木兰 测试/运算/四则运算.ul
 4
@@ -72,15 +72,7 @@ for 转角 in 0..4 {
 > b(a(2))
  😰 请先定义'n1'再使用, 见第1行
 ```
-运行源码时，可见调用各层的详细信息：
-```
-$ 木兰 测试/错误处理/未定义变量于多层函数.ul
- 😰 请先定义'数1'再使用
-见第2行：return 数1 + 1
-调用层级如下
-见第7行：输出(加(2))
-```
-如果错误发生在另一个文件，可见文件名：
+运行源码时，可见调用各层的详细信息。如果错误发生在其他文件，可见文件名：
 ```
 $ 木兰 测试/错误处理/引用模块.ul
  😰 取列表内容时，索引超出范围
@@ -107,7 +99,7 @@ $ 木兰 测试/错误处理/引用模块.ul
 
 ## 开发
 
-使用 Python 3.7。 Mac 和 [Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3) 下全部测试通过；windows 下测试[大多数通过](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP)。如使用 3.8，语法树测试将失败。
+使用 Python 3.7 的最新小版本。 Mac 和 [Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3) 下全部测试通过；windows 下测试[大多数通过](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP)。如使用 3.8，语法树测试将失败。
 
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 

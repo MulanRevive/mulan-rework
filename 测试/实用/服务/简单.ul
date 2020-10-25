@@ -4,7 +4,7 @@ using socketserver
 端口 = 8080
 
 try 服务=socketserver.TCPServer(tuple("", 端口), SimpleHTTPRequestHandler) {
-    println("服务于端口：", 端口)
+    println("请访问：http://localhost:8080/")
     服务.serve_forever()
 }
 

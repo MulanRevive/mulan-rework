@@ -1,3 +1,7 @@
+## 0.0.14.6 （2020-10-25）
+
+[网络服务演示；with...as 的替代语法](https://zhuanlan.zhihu.com/p/268660973)
+
 ## 0.0.14.5 （2020-10-22）
 修复： windows 下[引用模块问题](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP)，现可运行井字棋与编辑器。
 
