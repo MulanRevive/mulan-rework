@@ -13,7 +13,7 @@
 
 ## 运行
 
-***！必需 Python 3.7 ！***
+***！必需 Python 3.7 ！源码文件需 UTF-8 编码***
 
 通过 `pip install ulang` 安装木兰。
 

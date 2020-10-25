@@ -7,3 +7,5 @@ try 服务=socketserver.TCPServer(tuple("", 端口), SimpleHTTPRequestHandler) {
     println("服务于端口：", 端口)
     服务.serve_forever()
 }
+
+/* 参考: https://www.afternerd.com/blog/python-http-server/ */
