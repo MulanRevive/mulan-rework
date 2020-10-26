@@ -62,4 +62,6 @@ def 提示(类型, 原信息):
         return re.sub(r"\[Errno 2\] No such file or directory: '(.*)'",
             r"没找到文件或路径：‘\1’",
             原信息)
+    elif 类型 == 'ModuleNotFoundError':
+        return re.sub(r"No module named '(.*)'", r"没找到模块：‘\1’", 原信息)
     return 类型 + "：" + 原信息

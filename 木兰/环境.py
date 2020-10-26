@@ -127,6 +127,9 @@ def 创建全局变量(argv=[], 文件名=''):
         except Exception:
             自定义输出(expr, 终止符='\n')
 
+    当前目录 = os.getcwd()
+    if 当前目录 not in sys.path:
+        sys.path.append(当前目录)
     return {
         'print': 自定义输出,
         'println': lambda *各物件: 自定义输出(*各物件, **{'终止符': '\n'}),
