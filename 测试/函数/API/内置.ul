@@ -3,3 +3,6 @@ print(all([true, false]))
 print("a" + str([1]))
 a = int("20")
 print(a)
+for i, v in enumerate(['a', 'b', 'c']) {
+  print(i, v)
+}

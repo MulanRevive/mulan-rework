@@ -131,6 +131,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'print': 自定义输出,
         'println': lambda *各物件: 自定义输出(*各物件, **{'终止符': '\n'}),
         'assert': 本地断言,
+        'enumerate':enumerate,
         'len': len,
         'all': all,
         'any': any,
