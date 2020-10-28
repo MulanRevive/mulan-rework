@@ -804,6 +804,7 @@ class 语法分析器:
         各形参.args.append(片段[-1])
         return 各形参
 
+    @分析器母机.production(语法.形参.成分(语法.名称, 冒号, 语法.类型名称))
     @分析器母机.production(语法.形参.成分(语法.名称))
     def 形参(self, 片段):
         return 语法树.新节点(语法.形参,

@@ -1,0 +1,11 @@
+type Person {
+  func $Person(name) {
+    self.name = name
+  }
+}
+
+func hello(p : Person) {
+  print("hi " + p.name)
+}
+
+hello(Person("Mulan1"))

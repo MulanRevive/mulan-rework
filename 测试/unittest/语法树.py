@@ -48,6 +48,10 @@ class test语法树(unittest.TestCase):
         节点 = self.生成语法树("type Person {\noperator + (a) { return Person(self.name + a.name) }\nfunc $Person(name) { self.name = name }}")
         self.assertEqual(ast.dump(节点, True, True), 木兰)
 
+        木兰 = "Module(body=[FunctionDef(name='hello', args=arguments(args=[arg(arg='p', annotation=Name(id='Person', ctx=Load(), lineno=1, col_offset=16), lineno=1, col_offset=12)], vararg=None, kwonlyargs=[], kw_defaults=[], kwarg=None, defaults=[]), body=[Return(value=Num(n=1, lineno=2, col_offset=10), lineno=2, col_offset=3)], decorator_list=[], lineno=1, col_offset=1)])"
+        节点 = self.生成语法树("func hello(p : Person) {\n  return 1\n}")
+        self.assertEqual(ast.dump(节点, True, True), 木兰)
+
     def 分词(self, 源码):
         return 分词器.lex(源码)
 
