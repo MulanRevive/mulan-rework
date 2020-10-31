@@ -1,1 +1,4 @@
 print('ok')
+print('\n')
+print('\t')
+//print('\\\')

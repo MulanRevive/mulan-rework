@@ -112,8 +112,8 @@ from sys import platform
     "类型/继承于调用.ul": b"1",
     "类型/操作符/定义操作符.ul": b"31true",
 
-    "字符串/双引号.ul": b"okatruetrue",
-    "字符串/单引号.ul": b"ok",
+    "字符串/双引号.ul": b"ok\n\tatruetrue",
+    "字符串/单引号.ul": b"ok\n\t",
     "字符串/相关方法.ul": b"1hi[fish]",
     "字符串/插值.ul": b"b3b3o44ta3a44t`a3a",
 
