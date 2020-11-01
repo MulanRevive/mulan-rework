@@ -1,0 +1,4 @@
+func echo(number) {
+print(number)
+}
+echo(2)
