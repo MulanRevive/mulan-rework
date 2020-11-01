@@ -67,6 +67,10 @@ def __内置_除(a, b):
             return math.floor(a / b)
     return a / b
 
+def __内置_求余(a, b):
+    # TODO: 不解为何要在 a b 为整数时特殊处理
+    return a % b
+
 def 创建全局变量(argv=[], 文件名=''):
 
     def 转字符串(x):
@@ -162,5 +166,6 @@ def 创建全局变量(argv=[], 文件名=''):
             '__name__': '__main__',
             '__file__': 文件名,
             '__print__': eval_print,
-            '__div__': __内置_除})
+            '__div__': __内置_除,
+            '__rem__': __内置_求余})
     }
