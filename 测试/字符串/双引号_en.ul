@@ -3,6 +3,7 @@ print("\n")
 print("\t")
 print("\\\")
 print("\"")
+print("\\\"+"n")
 func print2(a, b) {
     print(a)
 }
