@@ -133,8 +133,8 @@ import rply, re
 
 分词器母机.add(小数, '\\d+\\.\\d+')
 分词器母机.add(整数, '\\d+')
-分词器母机.add(双引号字符串, '(\\").*?\\1')
-分词器母机.add(单引号字符串, "(\\').*?\\1")
+分词器母机.add(双引号字符串, '(\\")(\\\\\\1|.)*?\\1')
+分词器母机.add(单引号字符串, "(\\')(\\\\\\1|.)*?\\1") # TODO: 未完成
 分词器母机.add(前大括号, '{\\r*\\n*') # TODO: 何用？ , flags=(re.DOTALL)
 # TODO: 参考[rply 测试用例](https://github.com/alex/rply/blob/19a9e08c486b2723a2e2378df6edb6a26e2df4a5/tests/test_lexer.py#L106)
 # 不知在正则表达式中无`.`时此 flag 有何用

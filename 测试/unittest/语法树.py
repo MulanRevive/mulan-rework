@@ -52,12 +52,21 @@ class test语法树(unittest.TestCase):
         节点 = self.生成语法树("func hello(p : Person) {\n  return 1\n}")
         self.assertEqual(ast.dump(节点, True, True), 木兰)
 
+        木兰 = r"Module(body=[Expr(value=Call(func=Name(id='print', ctx=Load(), lineno=1, col_offset=1), args=[Str(s='\\', lineno=1, col_offset=7)], keywords=[], lineno=1, col_offset=1), lineno=1, col_offset=1)])"
+        节点 = self.读源码生成树("测试/unittest/例程/反斜杠.ul")  # TODO: win 斜杠相反
+        self.assertEqual(ast.dump(节点, True, True), 木兰)
+
     def 分词(self, 源码):
         return 分词器.lex(源码)
 
     def 生成语法树(self, 源码):
         分析器 = 语法分析器()
         return 分析器.分析(源码, '')
+
+    def 读源码生成树(self, 源码文件):
+        with open(源码文件, 'r', encoding='utf-8') as f:
+            源码 = f.read()
+            return self.生成语法树(源码)
 
     def 取子节点(self, 节点, 子节点名, 索引 = -1):
         for 子节点 in ast.iter_fields(节点):

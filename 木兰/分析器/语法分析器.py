@@ -655,9 +655,11 @@ class 语法分析器:
         值 = 片段[0].getstr()
 
         # TODO: 其他转义字符，如\" 等等
-        值 = 值.replace('\\n', '\n').replace('\\t', '\t')
-        #if 值.startswith('"'):
-        #    值 = 值
+        值 = 值.replace('\\n', '\n').replace('\\t', '\t').replace('\\\\', '\\')
+        if 值.startswith('"'):
+            值 = 值.replace('\\"', '"')
+        else:
+            值 = 值.replace("\\'", "'")
         值 = 值[1:-1]
         插值后 = self.执行插值(值, 片段)
         if 插值后 is not None:

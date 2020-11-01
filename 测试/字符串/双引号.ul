@@ -1,7 +1,8 @@
 print("ok")
 print("\n")
 print("\t")
-//print("\\\")
+print("\\\")
+print("\"")
 func print2(a, b) {
     print(a)
 }
