@@ -656,7 +656,7 @@ class 语法分析器:
     def 字符串(self, 片段):
         值 = 片段[0].getstr()
 
-        # TODO: 其他转义字符，如\" 等等
+        # TODO: 其他转义字符，如 () 等等
         值 = 值.replace('\\n', '\n').replace('\\t', '\t').replace('\\\\', '\\')
         if 值.startswith('"'):
             值 = 值.replace('\\"', '"')

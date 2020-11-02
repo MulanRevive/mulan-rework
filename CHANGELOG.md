@@ -1,3 +1,7 @@
+## 0.0.14.7 (2020-11-01)
+
+[功能覆盖初版用户手册；Gitee Go 流水线尝鲜](https://zhuanlan.zhihu.com/p/271636727)
+
 ## 0.0.14.6 （2020-10-25）
 
 [网络服务演示；with...as 的替代语法](https://zhuanlan.zhihu.com/p/268660973)
