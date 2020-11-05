@@ -1,3 +1,4 @@
+/*
 #!/usr/bin/env python
 #
 # Copyright 2009 Facebook
@@ -17,86 +18,103 @@
 
 Authentication, error handling, etc are left as an exercise for the reader :)
 """
+*/
 
-import logging
-import tornado.escape
-import tornado.ioloop
-import tornado.options
-import tornado.web
-import tornado.websocket
-import os.path
-import uuid
+using logging
+using tornado.escape
+using tornado.ioloop
+using tornado.options
+using tornado.web
+using tornado.websocket
+using os.path
+using uuid
 
-from tornado.options import define, options
+using define, options in tornado.options
 
-define("port", default=8888, help="run on the given port", type=int)
+func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
+  define(名称, 默认, 类型, 帮助)
+}
+定义("port", 默认=8888, 帮助="run on the given port", 类型=int)
 
 
-class Application(tornado.web.Application):
-    def __init__(self):
-        handlers = [(r"/", MainHandler), (r"/chatsocket", ChatSocketHandler)]
-        settings = dict(
+type Application : tornado.web.Application {
+    func $__init__() {
+        handlers = [tuple("/", MainHandler),
+          tuple("/chatsocket", ChatSocketHandler)]
+        // TODO: 对应 python 的 super(), 需重现
+        // 不支持 **?
+        super.__init__(handlers,
             cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            xsrf_cookies=True,
+            xsrf_cookies=true
         )
-        super().__init__(handlers, **settings)
+    }
+}
 
-
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
+type MainHandler : tornado.web.RequestHandler {
+    func $get() {
         self.render("index.html", messages=ChatSocketHandler.cache)
+    }
+}
 
-
-class ChatSocketHandler(tornado.websocket.WebSocketHandler):
+type ChatSocketHandler : tornado.websocket.WebSocketHandler {
+    {
     waiters = set()
     cache = []
     cache_size = 200
+    }
 
-    def get_compression_options(self):
-        # Non-None enables compression with default options.
-        return {}
+    func $get_compression_options() {
+        // Non-None enables compression with default options.
+        return {:}
+    }
 
-    def open(self):
-        ChatSocketHandler.waiters.add(self)
+    func $open() {
+        ChatSocketHandler.waiters.add($)
+    }
 
-    def on_close(self):
-        ChatSocketHandler.waiters.remove(self)
+    func $on_close() {
+        ChatSocketHandler.waiters.remove($)
+    }
 
-    @classmethod
-    def update_cache(cls, chat):
+    func update_cache(cls, chat) {
         cls.cache.append(chat)
-        if len(cls.cache) > cls.cache_size:
+        if len(cls.cache) > cls.cache_size {
             cls.cache = cls.cache[-cls.cache_size :]
+        }
+    }
 
-    @classmethod
-    def send_updates(cls, chat):
+    func send_updates(cls, chat) {
         logging.info("sending message to %d waiters", len(cls.waiters))
-        for waiter in cls.waiters:
-            try:
+        for waiter in cls.waiters {
+            //try:
                 waiter.write_message(chat)
-            except:
-                logging.error("Error sending message", exc_info=True)
+            //except:
+            //    logging.error("Error sending message", exc_info=True)
+        }
+    }
 
-    def on_message(self, message):
+    func $on_message(message) {
         logging.info("got message %r", message)
         parsed = tornado.escape.json_decode(message)
         chat = {"id": str(uuid.uuid4()), "body": parsed["body"]}
         chat["html"] = tornado.escape.to_basestring(
-            self.render_string("message.html", message=chat)
+            $render_string("message.html", message=chat)
         )
 
         ChatSocketHandler.update_cache(chat)
         ChatSocketHandler.send_updates(chat)
+    }
+}
 
-
-def main():
+func main() {
     tornado.options.parse_command_line()
     app = Application()
     app.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
+}
 
-
-if __name__ == "__main__":
+// 这个无法使用?
+//if __name__ == "__main__":
     main()
