@@ -144,6 +144,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'any': any,
         'range': range,
         'input':input,
+        'super':super,
         'int': int,
         'str': str,
         'list': list,

@@ -581,7 +581,18 @@ class 语法分析器:
                 关键词=关键词,
                 片段=片段)
 
-    # TODO: SUPER
+    # TODO: 补全 SUPER
+    @分析器母机.production(语法.调用.成分(语法.超类))
+    def 调用超类(self, 片段):
+        return 片段[0]
+
+    @分析器母机.production(语法.超类.成分(名词_超类))
+    def 超类(self, 片段):
+        超类节点 = [语法树.新节点(语法.名称, 标识='super',
+            上下文=ast.Load(),
+            片段=片段)]
+        超类节点.append([])
+        return self.调用(超类节点)
 
     @分析器母机.production(语法.lambda形参.成分(语法.名称))
     def lambda形参(self, 片段):

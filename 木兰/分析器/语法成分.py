@@ -48,6 +48,7 @@ class 语法(Enum):
     首要表达式 = 'primary_expr'
     范围表达式 = 'range_expr'
     调用 = 'call'
+    超类 = 'super'
     lambda形参 = 'lambda_param',
     lambda主体 = 'lambda_body',
     lambda表达式 = 'lambda_expr',

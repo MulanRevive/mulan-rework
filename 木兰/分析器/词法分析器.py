@@ -31,6 +31,7 @@ import rply, re
 名词_操作符 = 'operator'
 连词_每隔 = 'by'
 形容词_外部 = 'extern'
+名词_超类 = 'super'
 名词_应变属性 = 'attr'
 标识符 = '标识符'
 点点小于 = '..<'
@@ -129,6 +130,7 @@ import rply, re
     名词_应变属性,
     动词_试试,
     求余,
+    名词_超类,
 ]
 
 分词器母机 = LexerGenerator()
@@ -163,6 +165,7 @@ import rply, re
 分词器母机.add(名词_操作符, '\\boperator\\b')
 分词器母机.add(连词_每隔, '\\bby\\b')
 分词器母机.add(形容词_外部, '\\bextern\\b')
+分词器母机.add(名词_超类, '\\bsuper\\b')
 分词器母机.add(名词_应变属性, '\\battr\\b')
 分词器母机.add(标识符, '\\$?[_a-zA-Z\u4e00-\u9fa5][_a-zA-Z0-9\u4e00-\u9fa5]*')
 分词器母机.add(点点小于, '\\.\\.<')

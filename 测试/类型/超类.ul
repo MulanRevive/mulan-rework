@@ -1,0 +1,12 @@
+type Animal {
+  func $Animal {
+    $name = 'animal'
+  }
+}
+type Person : Animal {
+  func $Person {
+    super.__init__()
+  }
+}
+p = Person()
+print(p.name)
