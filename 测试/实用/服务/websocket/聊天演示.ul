@@ -37,17 +37,17 @@ using define, options in tornado.options
 func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
   define(名称, 默认, 类型, 帮助)
 }
-定义("port", 默认=8888, 帮助="run on the given port", 类型=int)
+定义("port", 默认=8888, 帮助="在此端口运行服务", 类型=int)
 
 
-type Application : tornado.web.Application {
-  func $Application {
-    handlers = [tuple("/", MainHandler),
-        tuple("/chatsocket", ChatSocketHandler)]
+type 应用 : tornado.web.Application {
+  func $应用 {
+    相应处置 = [tuple("/", 主页面),
+        tuple("/chatsocket", 聊天渠道)]
     // TODO: 对应 python 的 super(), 需重现
     // 不支持 **?
-    super.__init__(handlers,
-        cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+    super.__init__(相应处置,
+        cookie_secret="__TODO: 生成随机内容",
         template_path=os.path.join(os.path.dirname(__file__), "templates"),
         static_path=os.path.join(os.path.dirname(__file__), "static"),
         xsrf_cookies=true
@@ -55,17 +55,17 @@ type Application : tornado.web.Application {
   }
 }
 
-type MainHandler : tornado.web.RequestHandler {
+type 主页面 : tornado.web.RequestHandler {
   func $get {
-    $render("index.html", messages=ChatSocketHandler.cache)
+    $render("index.html", messages=聊天渠道.历史)
   }
 }
 
-type ChatSocketHandler : tornado.websocket.WebSocketHandler {
+type 聊天渠道 : tornado.websocket.WebSocketHandler {
   {
-    waiters = set()
-    cache = []
-    cache_size = 200
+    接收端 = set()
+    历史 = []
+    历史长度 = 200
   }
 
   func $get_compression_options {
@@ -74,52 +74,53 @@ type ChatSocketHandler : tornado.websocket.WebSocketHandler {
   }
 
   func $open {
-    ChatSocketHandler.waiters.add($)
+    聊天渠道.接收端.add($)
   }
 
   func $on_close {
-    ChatSocketHandler.waiters.remove($)
+    聊天渠道.接收端.remove($)
   }
 
   // 不用 cls 形参
-  func update_cache(chat) {
+  func 更新历史(消息) {
     // 必须指定类
-    ChatSocketHandler.cache.append(chat)
-    if len(ChatSocketHandler.cache) > ChatSocketHandler.cache_size {
-      ChatSocketHandler.cache = ChatSocketHandler.cache[-ChatSocketHandler.cache_size :]
+    聊天渠道.历史.append(消息)
+    if len(聊天渠道.历史) > 聊天渠道.历史长度 {
+      聊天渠道.历史 = 聊天渠道.历史[-聊天渠道.历史长度 :]
     }
   }
 
-  func send_updates(chat) {
-    logging.info("sending message to %d waiters", len(ChatSocketHandler.waiters))
-    for waiter in ChatSocketHandler.waiters {
+  func 广播(消息) {
+    logging.info("发到%d个接收端", len(聊天渠道.接收端))
+    for 某接收端 in 聊天渠道.接收端 {
+      // TODO: 尚不支持 try catch
       //try:
-      waiter.write_message(chat)
+      某接收端.write_message(消息)
       //except:
       //    logging.error("Error sending message", exc_info=True)
     }
   }
 
-  func $on_message(message) {
-    logging.info("got message %r", message)
-    parsed = tornado.escape.json_decode(message)
-    chat = {"id": str(uuid.uuid4()), "body": parsed["body"]}
-    chat["html"] = tornado.escape.to_basestring(
-      $render_string("message.html", message=chat)
+  func $on_message(内容) {
+    logging.info("收到消息: %r", 内容)
+    parsed = tornado.escape.json_decode(内容)
+    消息 = {"id": str(uuid.uuid4()), "body": parsed["body"]}
+    消息["html"] = tornado.escape.to_basestring(
+      $render_string("message.html", message=消息)
     )
 
-    ChatSocketHandler.update_cache(chat)
-    ChatSocketHandler.send_updates(chat)
+    聊天渠道.更新历史(消息)
+    聊天渠道.广播(消息)
   }
 }
 
-func main {
+func 中 {
   tornado.options.parse_command_line()
-  app = Application()
+  app = 应用()
   app.listen(options.port)
   tornado.ioloop.IOLoop.current().start()
 }
 
 if __name__ == "__main__" {
-  main()
+  中()
 }
