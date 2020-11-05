@@ -18,6 +18,8 @@
 
 Authentication, error handling, etc are left as an exercise for the reader :)
 """
+
+在原始 tornado 源码库例程基础上改为木兰实现
 */
 
 using logging
@@ -31,6 +33,7 @@ using uuid
 
 using define, options in tornado.options
 
+// type 为语言关键词, 因而不可以作为函数形参的关键词
 func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
   define(名称, 默认, 类型, 帮助)
 }
@@ -38,7 +41,7 @@ func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
 
 
 type Application : tornado.web.Application {
-    func $__init__() {
+    func $Application {
         handlers = [tuple("/", MainHandler),
           tuple("/chatsocket", ChatSocketHandler)]
         // TODO: 对应 python 的 super(), 需重现
@@ -53,41 +56,43 @@ type Application : tornado.web.Application {
 }
 
 type MainHandler : tornado.web.RequestHandler {
-    func $get() {
-        self.render("index.html", messages=ChatSocketHandler.cache)
+    func $get {
+        $render("index.html", messages=ChatSocketHandler.cache)
     }
 }
 
 type ChatSocketHandler : tornado.websocket.WebSocketHandler {
     {
-    waiters = set()
-    cache = []
-    cache_size = 200
+      waiters = set()
+      cache = []
+      cache_size = 200
     }
 
-    func $get_compression_options() {
+    func $get_compression_options {
         // Non-None enables compression with default options.
         return {:}
     }
 
-    func $open() {
+    func $open {
         ChatSocketHandler.waiters.add($)
     }
 
-    func $on_close() {
+    func $on_close {
         ChatSocketHandler.waiters.remove($)
     }
 
-    func update_cache(cls, chat) {
-        cls.cache.append(chat)
-        if len(cls.cache) > cls.cache_size {
-            cls.cache = cls.cache[-cls.cache_size :]
+    // 不用 cls 形参
+    func update_cache(chat) {
+        // 必须指定类
+        ChatSocketHandler.cache.append(chat)
+        if len(ChatSocketHandler.cache) > ChatSocketHandler.cache_size {
+            ChatSocketHandler.cache = ChatSocketHandler.cache[-ChatSocketHandler.cache_size :]
         }
     }
 
-    func send_updates(cls, chat) {
-        logging.info("sending message to %d waiters", len(cls.waiters))
-        for waiter in cls.waiters {
+    func send_updates(chat) {
+        logging.info("sending message to %d waiters", len(ChatSocketHandler.waiters))
+        for waiter in ChatSocketHandler.waiters {
             //try:
                 waiter.write_message(chat)
             //except:
@@ -108,13 +113,13 @@ type ChatSocketHandler : tornado.websocket.WebSocketHandler {
     }
 }
 
-func main() {
+func main {
     tornado.options.parse_command_line()
     app = Application()
     app.listen(options.port)
     tornado.ioloop.IOLoop.current().start()
 }
 
-// 这个无法使用?
-//if __name__ == "__main__":
+if __name__ == "__main__" {
     main()
+}
