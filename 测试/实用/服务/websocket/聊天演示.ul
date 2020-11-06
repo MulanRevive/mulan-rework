@@ -44,8 +44,7 @@ type 应用 : tornado.web.Application {
   func $应用 {
     相应处置 = [tuple("/", 主页面),
         tuple("/chatsocket", 聊天渠道)]
-    // TODO: 对应 python 的 super(), 需重现
-    // 不支持 **?
+    // 不支持 **
     super.__init__(相应处置,
         cookie_secret="__TODO: 生成随机内容",
         template_path=os.path.join(os.path.dirname(__file__), "templates"),

@@ -1,6 +1,12 @@
 type Person {
     {
         name = 2
+        history = []
+    }
+    func p {
+      Person.history.append(Person.name)
+      return Person.history
     }
 }
 print(Person.name)
+print(Person.p())
