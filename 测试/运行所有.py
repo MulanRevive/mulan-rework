@@ -58,6 +58,7 @@ from sys import platform
     "函数/API/内置.ul": b"truefalsea[1]200 a1 b2 c",
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
+    "函数/API/file.ul": b"true",
     "函数/形参默认值.ul": b"2",
     "函数/指名参数.ul": b"466",
     "函数/指定返回类型.ul": b"Mulan1",

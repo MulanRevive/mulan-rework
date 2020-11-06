@@ -1,0 +1,5 @@
+using os
+localFile = "self.ul"
+fullPath = os.path.join(os.path.dirname(__file__), localFile)
+// fullPath should be the full file path
+print(len(fullPath) > len(localFile))
