@@ -1,3 +1,7 @@
+## 0.0.14.8 (2020-11-07)
+
+[websocket 聊天演示；部分比较 Python 语法](https://zhuanlan.zhihu.com/p/277557485)
+
 ## 0.0.14.7 (2020-11-01)
 
 [功能覆盖初版用户手册；Gitee Go 流水线尝鲜](https://zhuanlan.zhihu.com/p/271636727)

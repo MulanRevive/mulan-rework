@@ -80,7 +80,6 @@ type 聊天渠道 : tornado.websocket.WebSocketHandler {
     聊天渠道.接收端.remove($)
   }
 
-  // 不用 cls 形参
   func 更新历史(消息) {
     // 必须指定类
     聊天渠道.历史.append(消息)
@@ -92,7 +91,7 @@ type 聊天渠道 : tornado.websocket.WebSocketHandler {
   func 广播(消息) {
     logging.info("发到%d个接收端", len(聊天渠道.接收端))
     for 某接收端 in 聊天渠道.接收端 {
-      // TODO: 尚不支持 try catch
+      // TODO: try catch 尚待重现
       //try:
       某接收端.write_message(消息)
       //except:
