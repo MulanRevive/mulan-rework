@@ -1,4 +1,6 @@
 import math, sys, imp, os, threading
+from pathlib import Path
+
 from 木兰.分析器.语法分析器 import 语法分析器
 
 
@@ -11,9 +13,7 @@ def 分析并编译(源码文件名):
         return compile(节点, 源码文件名, 'exec')
 
 def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
-    木兰源码路径 = 名称.replace('.', '/') + '.ul'
-    if sys.platform == 'win32':
-        木兰源码路径 = 木兰源码路径.replace('/', '\\')
+    木兰源码路径 = str(Path(*(名称.split(".")))) + '.ul'
     可执行码 = 分析并编译(木兰源码路径)
     if 可执行码 is None:
         raise ModuleNotFoundError(名称)

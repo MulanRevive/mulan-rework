@@ -1,8 +1,7 @@
 import re, sys, traceback
+from pathlib import Path
 
-运行时木兰路径 = "site-packages/木兰/"
-if sys.platform == 'win32':
-    运行时木兰路径 = 运行时木兰路径.replace('/', '\\')
+运行时木兰路径 = str(Path("site-packages/木兰/"))
 
 def 反馈信息(例外, 源码文件=None):
     提神符 = " 😰 "
