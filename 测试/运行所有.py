@@ -6,6 +6,7 @@ from sys import platform
 
 # TODO: 合并 test语法树
 
+为win系统 = platform == 'win32'
 路径 = '测试/'
 # 不确定为何输出是bytes：https://stackoverflow.com/questions/6269765/what-does-the-b-character-do-in-front-of-a-string-literal
 期望值 = {
@@ -114,8 +115,8 @@ from sys import platform
     "类型/操作符/定义操作符.ul": b"31true",
     "类型/超类.ul": b"animal",
 
-    "字符串/双引号.ul": b'ok\n\t\\"\\natruetrue',
-    "字符串/单引号.ul": b"ok\n\t\\'\\n",
+    "字符串/双引号.ul": b'ok\n\t\\"\\natruetrue' if not 为win系统 else b'ok\r\n\t\\"\\natruetrue',
+    "字符串/单引号.ul": b"ok\n\t\\'\\n" if not 为win系统 else b"ok\r\n\t\\'\\n",
     "字符串/相关方法.ul": b"1hi[fish]",
     "字符串/插值.ul": b"b3b3o44ta3a44t`a3a",
 
@@ -152,7 +153,7 @@ from sys import platform
 for 文件 in 期望值:
     源码路径 = 路径 + 文件
     参数 = ["-m", "木兰", 源码路径]
-    if platform == 'win32':
+    if 为win系统:
         # https://stackoverflow.com/questions/25651990/oserror-winerror-193-1-is-not-a-valid-win32-application
         参数 = ["python.exe"] + 参数
 
