@@ -1,0 +1,67 @@
+using logging
+using tornado.escape
+using tornado.ioloop
+using tornado.options
+using tornado.web
+using tornado.websocket
+using uuid
+using Path in pathlib
+
+using define, options in tornado.options
+
+func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
+  define(名称, 默认, 类型, 帮助)
+}
+定义("port", 默认=8888, 帮助="在此端口运行服务", 类型=int)
+
+
+type 应用 : tornado.web.Application {
+  func $应用 {
+    相应处置 = [tuple("/", 主页面),
+        tuple("/chatsocket", 聊天渠道)]
+    当前目录 = Path(__file__).parent
+    super.__init__(相应处置,
+        template_path = 当前目录 / "模板",
+        static_path = 当前目录 / "静态资源",
+        xsrf_cookies=true
+    )
+  }
+}
+
+type 主页面 : tornado.web.RequestHandler {
+  func $get {
+    $render("首页.html", 所有对话=[])
+  }
+}
+
+type 聊天渠道 : tornado.websocket.WebSocketHandler {
+
+  func $on_message(内容) {
+    logging.info("收到消息: %r", 内容)
+    解码 = tornado.escape.json_decode(内容)
+    输入 = $包装(解码["请求内容"], false)
+
+    $write_message(输入)
+    $write_message($包装(解码["请求内容"] + "是吗？", true)) // TODO: 回应 (需更多)
+  }
+
+  func $包装(字符串, 回应) {
+    消息 = {"id": str(uuid.uuid4()), "内容": 字符串}
+    消息["html"] = tornado.escape.to_basestring(
+      $render_string("消息.html", 语句=消息)
+    )
+    消息["风格"] = 回应 ? "回应" : "要求"
+    return 消息
+  }
+}
+
+func 中 {
+  tornado.options.parse_command_line()
+  app = 应用()
+  app.listen(options.port)
+  tornado.ioloop.IOLoop.current().start()
+}
+
+if __name__ == "__main__" {
+  中()
+}
