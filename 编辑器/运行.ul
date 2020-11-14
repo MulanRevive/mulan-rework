@@ -8,6 +8,7 @@ using uuid
 using Path in pathlib
 
 using define, options in tornado.options
+using 运行木兰代码 in 编辑器.运行木兰
 
 func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
   define(名称, 默认, 类型, 帮助)
@@ -38,11 +39,14 @@ type 聊天渠道 : tornado.websocket.WebSocketHandler {
 
   func $on_message(内容) {
     logging.info("收到消息: %r", 内容)
-    解码 = tornado.escape.json_decode(内容)
-    输入 = $包装(解码["请求内容"], false)
+    请求 = tornado.escape.json_decode(内容)["请求内容"]
+    输入 = $包装(请求, false)
 
+    // 从 木兰/中.py 提取运行部分, 获取返回值(如何??)或者错误
+    // https://stackoverflow.com/questions/3906232/python-get-the-print-output-in-an-exec-statement
     $write_message(输入)
-    $write_message($包装(解码["请求内容"] + "是吗？", true)) // TODO: 回应 (需更多)
+    //logging.info(运行木兰代码(请求))
+    $write_message($包装(运行木兰代码(请求), true)) // TODO: 回应 (需更多)
   }
 
   func $包装(字符串, 回应) {
