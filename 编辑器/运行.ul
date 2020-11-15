@@ -9,6 +9,7 @@ using Path in pathlib
 
 using define, options in tornado.options
 using 运行木兰代码 in 编辑器.运行木兰
+using * in 编辑器.笔谈
 
 func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
   define(名称, 默认, 类型, 帮助)
@@ -40,21 +41,37 @@ type 聊天渠道 : tornado.websocket.WebSocketHandler {
   func $on_message(内容) {
     logging.info("收到消息: %r", 内容)
     请求 = tornado.escape.json_decode(内容)["请求内容"]
-    输入 = $包装(请求, false)
+    输入 = $包装(请求, "要求")
 
-    // 从 木兰/中.py 提取运行部分, 获取返回值(如何??)或者错误
-    // https://stackoverflow.com/questions/3906232/python-get-the-print-output-in-an-exec-statement
     $write_message(输入)
-    //logging.info(运行木兰代码(请求))
-    $write_message($包装(运行木兰代码(请求), true)) // TODO: 回应 (需更多)
+    logging.info(请求)
+
+    分词 = 请求.split(" ")
+    if len(分词) == 2 {
+      命令 = 分词[0]
+      文件 = 分词[1]
+      if 命令 == "打开" {
+        源码 = 读文件内容(文件)
+        // TODO: 同时返回语法信息?
+        $write_message($包装(源码, "编辑器"))
+        // TODO: 如果读文件出错, 反馈信息
+      } elif 命令 == "运行" {
+        $write_message($包装(运行木兰代码(文件), "反馈"))
+      } elif 命令 == "保存" {
+        源码 = tornado.escape.json_decode(内容)["编辑器内容"]
+        保存文件(文件, 源码)
+      }
+    } else {
+      $write_message($包装("不懂", "反馈"))
+    }
+
   }
 
-  func $包装(字符串, 回应) {
-    消息 = {"id": str(uuid.uuid4()), "内容": 字符串}
+  func $包装(字符串, 类型) {
+    消息 = {"id": str(uuid.uuid4()), "类型": 类型, "内容": 字符串}
     消息["html"] = tornado.escape.to_basestring(
       $render_string("消息.html", 语句=消息)
     )
-    消息["风格"] = 回应 ? "回应" : "要求"
     return 消息
   }
 }
