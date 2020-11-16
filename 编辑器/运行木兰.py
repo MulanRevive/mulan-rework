@@ -9,6 +9,7 @@ from 木兰.交互 import 开始交互
 from 木兰.功用.反馈信息 import 中文化
 from 木兰.功用.调试辅助 import 语法树相关
 
+# 木兰不支持 compile, exec, 因此不改写为木兰代码
 def 运行木兰代码(源码文件):
     with open(源码文件, 'r', encoding='utf-8') as f:
         源码 = f.read()
@@ -30,6 +31,7 @@ def 运行木兰代码(源码文件):
         try:
             exec(可执行码, 环境变量)
         except Exception as e:
+            # TODO: 提神符为确保各平台显示一致, 改为图片
             return " 😰 " + "\n".join([行 for 行 in 中文化(e, 源码文件) if 行.find(str(Path("编辑器/运行木兰.py"))) < 0])
     except SyntaxError as 语法错误:
         return f"语法错误: {语法错误}\n"

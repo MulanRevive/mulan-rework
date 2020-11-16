@@ -13,7 +13,7 @@
     <script src="{{ static_url("codemirror/mode/clike/clike.js") }}"></script>
   </head>
   <body>
-    <div style="float: left">
+    <div id="详情">
       <textarea id="源码编辑"></textarea>
     </div>
     <div id="对话" style="float: left">
@@ -22,7 +22,7 @@
           {% include "消息.html" %}
         {% end %}
       </div>
-      <div>
+      <div id="请求">
           <input type="text" name="要求内容" id="输入" style="width:400px">
       </div>
     </div>
@@ -32,7 +32,7 @@
         lineNumbers : true,
         matchBrackets : true
       });
-      编辑器.setSize(500, 500);
+      编辑器.setSize(500, window.innerHeight - 20);
     </script>
     <script src="{{ static_url("聊天.js") }}" type="text/javascript"></script>
   </body>

@@ -9,7 +9,7 @@ using Path in pathlib
 
 using define, options in tornado.options
 using 运行木兰代码 in 编辑器.运行木兰
-using * in 编辑器.笔谈
+using 读文件内容, 保存文件 in 编辑器.笔谈
 
 func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
   define(名称, 默认, 类型, 帮助)
@@ -55,11 +55,14 @@ type 聊天渠道 : tornado.websocket.WebSocketHandler {
         // TODO: 同时返回语法信息?
         $write_message($包装(源码, "编辑器"))
         // TODO: 如果读文件出错, 反馈信息
+        $write_message($包装("打开完成", "反馈"))
       } elif 命令 == "运行" {
         $write_message($包装(运行木兰代码(文件), "反馈"))
       } elif 命令 == "保存" {
         源码 = tornado.escape.json_decode(内容)["编辑器内容"]
         保存文件(文件, 源码)
+        // TODO: 检查保存状态
+        $write_message($包装("保存完成", "反馈"))
       }
     } else {
       $write_message($包装("不懂", "反馈"))
