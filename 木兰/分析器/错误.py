@@ -13,5 +13,14 @@ class 语法错误(ValueError):
                 self.文件名, self.行号, self.列号, self.信息)
         if self.源码:
             行 = self.源码[(self.行号 - 1)]
-            出错位置 = self.列号 - 1
+            出错位置 = self.列号
         return '%s\n%s' % (反馈信息, 行[:出错位置] + '✋' + 行[出错位置:])
+
+class 词法错误(语法错误):
+
+    def __init__(self, 异常, 文件名, 源码=None):
+        self.信息='分词时没认出这个词 "%s"' % 源码[异常.getsourcepos().idx]
+        self.文件名=文件名
+        self.行号=异常.getsourcepos().lineno
+        self.列号=异常.getsourcepos().colno
+        self.源码=源码.split("\n")

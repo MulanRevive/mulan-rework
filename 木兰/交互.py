@@ -5,7 +5,7 @@ from 木兰.分析器.词法分析器 import *
 from 木兰.分析器.语法分析器 import 语法分析器
 from 木兰.环境 import 创建全局变量
 from 木兰.功用.反馈信息 import 反馈信息
-from 木兰.分析器.错误 import 语法错误
+from 木兰.分析器.错误 import 语法错误, 词法错误
 
 # TODO: 更多测试
 def 括号已配对(源码):
@@ -94,13 +94,10 @@ class 交互(cmd.Cmd):
                 if not self.括号已配对():
                     return
             except LexingError as e:
-                分词错误 = 语法错误(
-                    信息=('分词时没认出这个词 "%s"' % self.声明[e.getsourcepos().idx]),
+                错误 = 词法错误(异常=e,
                     文件名='【标准输入】',
-                    行号=e.getsourcepos().lineno,
-                    列号=e.getsourcepos().colno,
-                    源码=self.声明.split("\n"))
-                sys.stderr.write('%s\n' % 反馈信息(分词错误))
+                    源码=self.声明)
+                sys.stderr.write('%s\n' % 反馈信息(错误))
                 self.声明 = ''
             try:
                 try:

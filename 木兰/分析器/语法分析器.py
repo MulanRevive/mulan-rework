@@ -3,7 +3,7 @@ from rply import ParserGenerator
 from rply.errors import LexingError
 from 木兰.分析器.rply_parser import LRParser
 from 木兰.分析器.语法树 import *
-from 木兰.分析器.错误 import 语法错误
+from 木兰.分析器.错误 import 语法错误, 词法错误
 
 from 木兰.分析器.词法分析器 import *
 from 木兰.分析器.语法树处理 import *
@@ -1000,12 +1000,9 @@ class 语法分析器:
             # self.查看(各词)
             节点 = self.分析器.parse(各词, state=self)
         except LexingError as e:
-            raise 语法错误(
-                信息=('分词时没认出这个词 "%s"' % 源码[e.getsourcepos().idx]),
-                文件名=源码文件,
-                行号=e.getsourcepos().lineno,
-                列号=e.getsourcepos().colno,
-                源码=源码.split("\n"))
+            raise 词法错误(异常=e,
+                    文件名=源码文件,
+                    源码=源码)
 
         节点 = AnnoFuncInsertPass(self.匿名函数).visit(节点)
         节点 = NameFixPass(源码文件).visit(节点)
