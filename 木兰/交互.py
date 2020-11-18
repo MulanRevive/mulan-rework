@@ -98,7 +98,7 @@ class 交互(cmd.Cmd):
                     信息=('分词时没认出这个词 "%s"' % self.声明[e.getsourcepos().idx]),
                     文件名='【标准输入】',
                     行号=e.getsourcepos().lineno,
-                    列号=e.getsourcepos().idx + 1,
+                    列号=e.getsourcepos().colno,
                     源码=self.声明.split("\n"))
                 sys.stderr.write('%s\n' % 反馈信息(分词错误))
                 self.声明 = ''

@@ -1013,7 +1013,4 @@ class 语法分析器:
 
     def 查看(self, 各词):
         for 词 in 各词:
-            行号 = 词.getsourcepos().lineno
-            列号 = 词.getsourcepos().colno - 1
-            词长 = len(词.getstr())
-            print(f"{词}={行号}:{列号}")
+            print(f"{词}={词.getsourcepos()}")
