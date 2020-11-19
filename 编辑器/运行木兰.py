@@ -19,6 +19,8 @@ def 运行木兰代码(源码文件):
 
     #print(ast.dump(节点, True, True))
     #print(语法树相关.格式化节点(节点, 1))
+
+    # 参考： https://stackoverflow.com/questions/3906232/python-get-the-print-output-in-an-exec-statement
     原标准输出 = sys.stdout
     重定向输出 = sys.stdout = StringIO()
 
