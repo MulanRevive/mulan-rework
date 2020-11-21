@@ -8,13 +8,26 @@ $(document).ready(function () {
       return false;
     }
   });
+  $( "#输入" ).autocomplete({
+    source: 输入历史,
+    autoFocus: true
+  });
   $("#输入").select();
   更新.开始();
   编辑器.setValue("");
 });
 
+var 输入历史 = []
+
 function 发送请求(输入框) {
   输入 = 输入框.val()
+
+  var 之前位置 = 输入历史.indexOf(输入)
+  if (之前位置 > -1) {
+    输入历史.splice(之前位置, 1)
+  }
+  输入历史.unshift(输入)
+
   发送内容 = { "类型": "保存", "请求内容": 输入 }
   if (输入.startsWith("保存")) {
     发送内容["编辑器内容"] = 编辑器.getValue()
