@@ -1,0 +1,23 @@
+using tornado.web
+using SessionMixin in tornado_sqlalchemy
+using desc, distinct in sqlalchemy
+
+using 过往请求 in 编辑器.过往请求
+
+type 预估请求: SessionMixin, tornado.web.RequestHandler {
+  func $get {
+    所有请求 = []
+
+    // TODO: 优化?
+    历史请求 = self.session.query(过往请求).order_by(desc(过往请求.时间)).group_by(过往请求.请求).distinct()
+
+    //个数 = self.session.query(distinct(过往请求.请求)).count()
+    // logging.info(str(历史请求))  // 可查看 sql 语句
+    // TODO: 通过拼音补全
+    for 记录 in 历史请求 {
+      所有请求.append(记录.请求)
+    }
+    // logging.info("|".join(所有请求))
+    $write({"历史" : 所有请求})
+  }
+}

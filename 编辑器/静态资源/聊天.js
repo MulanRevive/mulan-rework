@@ -9,25 +9,30 @@ $(document).ready(function () {
     }
   });
   $( "#输入" ).autocomplete({
-    source: 输入历史,
-    autoFocus: true
+    source: function( request, response ) {
+      $.ajax( {
+        url: "http://localhost:8888/requests",
+        //dataType: "json",
+
+        // TODO: https://api.jqueryui.com/autocomplete/#option-source 发送输入内容
+        /*data: {
+          term: request.term
+        },*/
+        success: function( data ) {
+          response( data["历史"] );
+        }
+      } );
+    },
+    // TODO: 暂时去掉, 感觉影响输入(即使输入新内容, 回车就仍会用第一个补全项)
+    //autoFocus: true
   });
   $("#输入").select();
   更新.开始();
   编辑器.setValue("");
 });
 
-var 输入历史 = []
-
 function 发送请求(输入框) {
   输入 = 输入框.val()
-
-  var 之前位置 = 输入历史.indexOf(输入)
-  if (之前位置 > -1) {
-    输入历史.splice(之前位置, 1)
-  }
-  输入历史.unshift(输入)
-
   发送内容 = { "类型": "保存", "请求内容": 输入 }
   if (输入.startsWith("保存")) {
     发送内容["编辑器内容"] = 编辑器.getValue()

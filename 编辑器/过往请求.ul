@@ -1,0 +1,17 @@
+using SQLAlchemy in tornado_sqlalchemy
+using DateTime, Column, String in sqlalchemy
+
+db = SQLAlchemy(url="sqlite:///编辑器/请求历史.db")
+
+type 过往请求 : db.Model {
+  {
+    __tablename__ = '请求历史'
+
+    时间 = Column(DateTime, primary_key=true)
+    请求 = Column(String(255))
+  }
+
+  func $__repr__ {
+    return str($时间) + $请求
+  }
+}
