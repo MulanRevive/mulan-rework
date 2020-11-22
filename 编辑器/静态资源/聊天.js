@@ -14,16 +14,16 @@ $(document).ready(function () {
         url: "http://localhost:8888/requests",
         //dataType: "json",
 
-        // TODO: https://api.jqueryui.com/autocomplete/#option-source 发送输入内容
-        /*data: {
+        // https://api.jqueryui.com/autocomplete/#option-source 发送输入内容
+        data: {
           term: request.term
-        },*/
+        },
         success: function( data ) {
           response( data["历史"] );
         }
       } );
     },
-    // TODO: 暂时去掉, 感觉影响输入(即使输入新内容, 回车就仍会用第一个补全项)
+    // 影响输入(如果新内容触发了补全, 即使直接回车就仍会用第一个补全项)
     //autoFocus: true
   });
   $("#输入").select();
