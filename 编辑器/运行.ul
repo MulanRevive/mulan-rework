@@ -1,29 +1,17 @@
 using logging
-using tornado.escape
 using tornado.ioloop
 using tornado.web
-using tornado.websocket
-// 不能用 func (为木兰关键词)
-using SessionMixin in tornado_sqlalchemy
 
-using datetime
-using uuid
 using Path in pathlib
 
-using define, options in tornado.options
-using 运行木兰代码 in 编辑器.运行木兰
-using 预估请求 in 编辑器.预估请求
-using db, 过往请求 in 编辑器.过往请求
-using 读文件内容, 保存文件 in 编辑器.笔谈
-
-func 定义(名称 : str, 默认=nil, 类型=nil, 帮助=nil) {
-  define(名称, 默认, 类型, 帮助)
-}
-定义("port", 默认=8888, 帮助="在此端口运行服务", 类型=int)
+using 预估请求 in 编辑器.访问处理.预估请求
+using 聊天渠道 in 编辑器.访问处理.聊天渠道
+using 首页 in 编辑器.访问处理.首页
+using db in 编辑器.过往请求
 
 type 应用 : tornado.web.Application {
   func $应用 {
-    相应处置 = [tuple("/", 主页面),
+    相应处置 = [tuple("/", 首页),
         tuple("/chatsocket", 聊天渠道),
         tuple("/requests", 预估请求)]
     当前目录 = Path(__file__).parent
@@ -36,66 +24,12 @@ type 应用 : tornado.web.Application {
   }
 }
 
-type 主页面 : tornado.web.RequestHandler {
-  func $get {
-    $render("首页.html", 所有对话=[])
-  }
-}
-
-type 聊天渠道 : SessionMixin, tornado.websocket.WebSocketHandler {
-
-  func $on_message(内容) {
-    logging.info("收到消息: %r", 内容)
-    请求 = tornado.escape.json_decode(内容)["请求内容"]
-    输入 = $包装(请求, "要求")
-
-    $write_message(输入)
-    logging.info(请求)
-
-    try 会话=self.make_session() {
-        会话.add(过往请求(时间=datetime.datetime.now(), 请求=请求))
-    }
-
-    分词 = 请求.split(" ")
-    if len(分词) == 2 {
-      命令 = 分词[0]
-      文件 = 分词[1]
-      if 命令 == "打开" {
-        源码 = 读文件内容(文件)
-        // TODO: 同时返回语法信息?
-        $write_message($包装(源码, "编辑器"))
-        // TODO: 如果读文件出错, 反馈信息
-        $write_message($包装("打开完成", "反馈"))
-      } elif 命令 == "运行" {
-        $write_message($包装(运行木兰代码(文件), "反馈"))
-      } elif 命令 == "保存" {
-        源码 = tornado.escape.json_decode(内容)["编辑器内容"]
-        保存文件(文件, 源码)
-        // TODO: 检查保存状态
-        $write_message($包装("保存完成", "反馈"))
-      }
-    } else {
-      $write_message($包装("不懂", "反馈"))
-    }
-
-  }
-
-  func $包装(字符串, 类型) {
-    消息 = {"id": str(uuid.uuid4()), "类型": 类型, "内容": 字符串}
-    消息["html"] = tornado.escape.to_basestring(
-      $render_string("消息.html", 语句=消息)
-    )
-    return 消息
-  }
-}
-
 func 中 {
-  tornado.options.parse_command_line()
   app = 应用()
   db.create_all()
 
-  app.listen(options.port)
-  logging.info("服务启动于 http://localhost:`options.port`")
+  app.listen(8888)
+  logging.info("服务启动于 http://localhost:8888")
   tornado.ioloop.IOLoop.current().start()
 }
 

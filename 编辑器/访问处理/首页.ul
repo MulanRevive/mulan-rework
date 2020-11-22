@@ -1,0 +1,7 @@
+using tornado.web
+
+type 首页 : tornado.web.RequestHandler {
+  func $get {
+    $render("首页.html", 所有对话=[])
+  }
+}
