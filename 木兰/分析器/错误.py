@@ -13,7 +13,7 @@ class 语法错误(ValueError):
                 self.文件名, self.行号, self.列号, self.信息)
         if self.源码:
             行 = self.源码[(self.行号 - 1)]
-            出错位置 = self.列号
+            出错位置 = self.列号 - 1
         return '%s\n%s' % (反馈信息, 行[:出错位置] + '✋' + 行[出错位置:])
 
 class 词法错误(语法错误):
