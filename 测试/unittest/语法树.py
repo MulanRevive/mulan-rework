@@ -5,6 +5,7 @@ from rply import LexingError
 from 木兰.分析器.语法分析器 import 语法分析器
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.错误 import 语法错误
+from 编辑器.运行木兰 import 运行木兰代码
 
 # TODO：需确保无此类 Warning：ParserGeneratorWarning: 28 shift/reduce conflicts
 class test语法树(unittest.TestCase):
@@ -59,6 +60,9 @@ class test语法树(unittest.TestCase):
             self.assertEqual(e.信息, "分词时没认出这个词 \"#\"")
             self.assertEqual(e.行号, 3)
             self.assertEqual(e.列号, 6) # 应该为 1, 在rply 提问: https://github.com/alex/rply/pull/95#issuecomment-729513800
+
+    def test_try随意(self):
+        self.assertTrue(运行木兰代码("测试/错误处理/try随意.ul").find("要添加此属性：__enter__") > 0)
 
     def 分词(self, 源码):
         return 分词器.lex(源码)
