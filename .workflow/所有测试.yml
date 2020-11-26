@@ -2,7 +2,7 @@
 # Python 构建参考流水线样例
 # 功能：运行语法树测试，其他测试待添加
 # ========================================================
-name: 木兰编程语言
+name: mulan-rework
 displayName: '语法树测试'
 triggers:                                # 流水线触发器配置
   push:                                  # 设置 master 分支 在产生代码 push 时精确触发（PRECISE）构建
