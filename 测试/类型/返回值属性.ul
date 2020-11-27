@@ -1,0 +1,10 @@
+type Person {
+  func $Person(name) {
+    $name = name
+  }
+
+  func $new() {
+    return Person("ok")
+  }
+}
+print(Person("mulan").new().name)

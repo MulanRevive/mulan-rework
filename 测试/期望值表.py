@@ -15,7 +15,7 @@ from sys import platform
     "运算/赋值.ul": b"2",
     "运算/赋值两次.ul": b"6",
     "运算/赋值增量.ul": b"21",
-    "运算/一元操作.ul": b"2-1",
+    "运算/一元操作.ul": b"2-1-2",
     "运算/赋值多项.ul": b"2112123",
     "运算/其他.ul": b"82",
 
@@ -107,6 +107,7 @@ from sys import platform
     "类型/继承于调用.ul": b"1",
     "类型/操作符/定义操作符.ul": b"31true",
     "类型/超类.ul": b"animal",
+    "类型/返回值属性.ul": b"ok",
 
     "字符串/双引号.ul": b'ok\n\t\\"\\natruetrue' if not 为win系统 else b'ok\r\n\t\\"\\natruetrue',
     "字符串/单引号.ul": b"ok\n\t\\'\\n" if not 为win系统 else b"ok\r\n\t\\'\\n",

@@ -489,14 +489,16 @@ class 语法分析器:
             delattr(止, 'fixed')
         return 片段[0]
 
-    # TODO: ~
+    # TODO: #
     @分析器母机.production(语法.一元表达式.成分(减, 语法.表达式))
     @分析器母机.production(语法.一元表达式.成分(非, 语法.表达式))
+    @分析器母机.production(语法.一元表达式.成分(取反, 语法.表达式), precedence=非)
     def 一元表达式(self, 片段):
         操作符 = 片段[0].getstr()
         对照表 = {
             减: ast.USub(),
-            '!': ast.Not(),
+            非: ast.Not(),
+            取反: ast.Invert(),
         }
         return 语法树.新节点(语法.一元表达式, 运算符=对照表[操作符], 值=片段[1], 片段=片段)
 
@@ -543,7 +545,6 @@ class 语法分析器:
     def 片表达式(self, 片段):
         return 语法树.下标(片段[0], 片段[2], 片段)
 
-    # TODO: 添加测试: 调用().名称
     @分析器母机.production(语法.变量.成分(语法.表达式前缀, 点, 语法.名称))
     def 属性表达式(self, 片段):
         return 语法树.属性(
