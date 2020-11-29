@@ -671,11 +671,11 @@ class 语法分析器:
         值 = 片段[0].getstr()
 
         # TODO: 其他转义字符，如 () 等等
-        值 = 值.replace('\\n', '\n').replace('\\t', '\t').replace('\\\\', '\\')
+        值 = 值.replace(r'\n', '\n').replace(r'\t', '\t').replace(r'\\', '\\')
         if 值.startswith('"'):
-            值 = 值.replace('\\"', '"')
+            值 = 值.replace(r'\"', '"')
         else:
-            值 = 值.replace("\\'", "'")
+            值 = 值.replace(r"\'", "'")
         值 = 值[1:-1]
         插值后 = self.执行插值(值, 片段)
         if 插值后 is not None:
@@ -684,7 +684,7 @@ class 语法分析器:
 
     def 执行插值(self, 原始字符串, 片段):
         import re
-        模式 = re.compile('\\\\\\(([^\\\\\\)]*)\\\\\\)|\\`([^\\`]*)\\`')
+        模式 = re.compile(r'\\\(([^\\\)]*)\\\)|\`([^\`]*)\`')
         占位替代 = 原始字符串
         所有插值 = []
         位置 = 0
