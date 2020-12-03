@@ -1,7 +1,8 @@
 import re
 import unittest
+from 木兰.功用.规律 import *
 
-class test交互(unittest.TestCase):
+class test正则(unittest.TestCase):
 
     def test_双引号字符串(self):
         双引号字符串 = r'(")((?<!\\)\\\1|.)*?\1'
@@ -32,3 +33,17 @@ class test交互(unittest.TestCase):
     def 比较(self, 表达式, 全文本, 目标匹配内容):
         m = re.search(表达式, 全文本)
         self.assertEqual(m.group(0), 目标匹配内容, "比较有误")
+
+    def test_规律(self):
+        self.assertEqual(一个("a").表达(), r"a")
+        self.assertEqual(最多一个("$").一个("_", 大小写英文, 中文).任意个("_", 大小写英文, 数字, 中文).表达(),
+            r'\$?[_a-zA-Z\u4e00-\u9fa5][_a-zA-Z0-9\u4e00-\u9fa5]*')
+
+        self.assertEqual(不是(反斜杠, 右小括号).表达(), r'[^\\\)]')
+
+        self.assertEqual(
+            皆可(
+                一个(反斜杠).一个(左小括号).分组(任意个(不是(反斜杠, 右小括号))).一个(反斜杠).一个(右小括号).表达(),
+                一个(反引号).分组(任意个(不是(反引号))).一个(反引号).表达()
+            ).表达(),
+            r'\\\(([^\\\)]*)\\\)|`([^`]*)`')
