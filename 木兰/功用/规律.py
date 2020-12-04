@@ -13,17 +13,14 @@
 
 注意, 顶层方法不可带 self!
 '''
-def 一个(*各规律):
-    return 规律().一个(*各规律)
+def 序列(*各规律):
+    return 规律().序列(*各规律)
 
 def 最多一个(某规律):
     return 规律().最多一个(某规律)
 
 def 不是(*各规律):
     return 规律().不是(*各规律)
-
-def 任意个(*各规律):
-    return 规律().任意个(*各规律)
 
 def 皆可(*各规律):
     return 规律().皆可(*各规律)
@@ -32,23 +29,30 @@ class 规律:
     def __init__(self):
         self.__所有段 = []
 
-    def 一个(self, *各规律):
+    def 序列(self, *各规律):
+        if len(各规律) == 1:
+            self.__所有段.append(各规律[0])
+        else:
+            self.__所有段.append("".join(各规律))
+        return self
+
+    def 某字(self, *各规律):
         if len(各规律) == 1:
             self.__所有段.append(各规律[0])
         else:
             self.__所有段.append("[" + "".join(各规律) + "]")
         return self
 
-    def 任意个(self, *各规律):
-        if len(各规律) == 1:
-            # TODO: 提取到方法
-            if type(各规律[0]).__name__ == "规律":
-                规律表达 = 各规律[0].表达()
-                self.__所有段.append(规律表达 + "*")
+    def 若干(self, 下限=None, 上限=None):
+        if 下限 is None and 上限 is None:
+            self.__所有段.append("*")
+        elif 上限 is None:
+            if 下限 == 1:
+                self.__所有段.append("+")
             else:
-                self.__所有段.append(各规律[0] + "*")
+                self.__所有段.append("{" + 下限 + "}")
         else:
-            self.__所有段.append("[" + "".join(各规律) + "]*")
+            self.__所有段.append("{" + 下限 + ", " + 上限 + "}")
         return self
 
     def 最多一个(self, 规律):
@@ -69,7 +73,7 @@ class 规律:
         self.__所有段.append("[^" + "".join(各规律) + "]") # TODO: 不是每次都需要 []?
         return self
 
-    def 分组(self, 规律):
+    def 分段(self, 规律):
         # 如果是规律类型, 自动展开, 可省去调用一次"表达", TODO: 需加在其他所有方法内
         if type(规律).__name__ == "规律":
             规律 = 规律.表达()
