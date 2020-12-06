@@ -33,10 +33,7 @@ class 规律:
         self.__所有段 = []
 
     def 序列(self, *各规律):
-        if len(各规律) == 1:
-            self.__所有段.append(各规律[0])
-        else:
-            self.__所有段.append("".join(各规律))
+        self.__所有段.append("".join(各规律))
         return self
 
     def 某字(self, *各规律):
@@ -69,11 +66,10 @@ class 规律:
         return "".join(map(self.__本义, self.__所有段))
 
     def 任一(self, *各规律):
-        # TODO: 允许 1 个吗？
-        if len(各规律) == 1:
-            self.__所有段.append(各规律[0])
-        else:
-            self.__所有段.append("|".join(各规律))
+        展开内容 = []
+        for 某规律 in 各规律:
+            展开内容.append(某规律.表达() if type(某规律).__name__ == "规律" else 某规律)
+        self.__所有段.append("|".join(展开内容))
         return self
 
     def 不是(self, *各规律):
