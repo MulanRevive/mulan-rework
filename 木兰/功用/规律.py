@@ -6,24 +6,24 @@
 左小括号 = r"\("
 右小括号 = r"\)"
 反引号 = r"`"
+双引号 = r"\""
+非换行字符 = r"."
 
 '''
-如果输入输出都为字符串, 如何串联?
 如需串联, 则返回值必须为本类型. 方法都在类型内, 那么不串联(作参数)时, 就需要新建个体, 并调用`表达`方法
-
-注意, 顶层方法不可带 self!
 '''
 def 序列(*各规律):
     return 规律().序列(*各规律)
 
-def 最多一个(某规律):
-    return 规律().最多一个(某规律)
-
 def 不是(*各规律):
     return 规律().不是(*各规律)
 
-def 皆可(*各规律):
-    return 规律().皆可(*各规律)
+def 任一(*各规律):
+    return 规律().任一(*各规律)
+
+# 由于参数可以是一串，如果后置则无法确认分段位置
+def 分段(某规律):
+    return 规律().分段(某规律)
 
 class 规律:
     def __init__(self):
@@ -55,14 +55,18 @@ class 规律:
             self.__所有段.append("{" + 下限 + ", " + 上限 + "}")
         return self
 
-    def 最多一个(self, 规律):
-        self.__所有段.append(self.__本义(规律) + r"?")
+    def 可无(self):
+        self.__所有段.append(r"?")
         return self
 
-    def 表达(self):
-        return "".join(self.__所有段)
+    def 不贪(self):
+        return self.可无()
 
-    def 皆可(self, *各规律):
+    def 表达(self):
+        return "".join(map(self.__本义, self.__所有段))
+
+    def 任一(self, *各规律):
+        # TODO: 允许 1 个吗？
         if len(各规律) == 1:
             self.__所有段.append(各规律[0])
         else:
@@ -81,8 +85,8 @@ class 规律:
         return self
 
     # TODO: 对所有字符操作
-    def __本义(self, 字符):
-        if 字符 == r'$':
+    def __本义(self, 规律):
+        if 规律 == r'$':
             return r'\$'
         else:
-            return 字符
+            return 规律
