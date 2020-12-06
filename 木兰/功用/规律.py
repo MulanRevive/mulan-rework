@@ -25,6 +25,9 @@ def 任一(*各规律):
 def 分段(某规律):
     return 规律().分段(某规律)
 
+def 引用分段(序号):
+    return f"\{序号}"
+
 class 规律:
     def __init__(self):
         self.__所有段 = []
@@ -82,6 +85,15 @@ class 规律:
         if type(规律).__name__ == "规律":
             规律 = 规律.表达()
         self.__所有段.append("(" + 规律 + ")")
+        return self
+
+    def 前面不是(self, 规律):
+        前一位置 = len(self.__所有段) - 1
+        self.__所有段[前一位置 : 前一位置] = [r"(?<!" + 规律 + r")"]
+        return self
+
+    def 引用分段(self, 序号):
+        self.__所有段.append(f"\{序号}")
         return self
 
     # TODO: 对所有字符操作
