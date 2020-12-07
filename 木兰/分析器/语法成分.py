@@ -30,6 +30,7 @@ class 语法(Enum):
     终止声明 = 'break_stmt'
     跳过声明 = 'continue_stmt'
     试试声明 = 'try_stmt'
+    抛出声明 = 'throw_stmt'
     顺便处理 = 'withitem'
     表达式 = 'expr'
     各表达式前缀 = 'prefix_exprs'
