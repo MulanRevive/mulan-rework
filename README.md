@@ -100,6 +100,8 @@ $ 木兰 测试/错误处理/引用模块.ul
 
 ## 开发
 
+新手开发者请看[开发流程](文档/开发上手.md)。
+
 使用 Python 3.7 的最新小版本。 Mac 和 [Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3) 下全部测试通过；windows 下测试[大多数通过](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP)。如使用 3.8，语法树测试将失败。
 
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
