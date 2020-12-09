@@ -150,6 +150,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'list': list,
         'set': set,
         'tuple':lambda *各实参: 各实参,
+        'isa': lambda x, 类型: isinstance(x, 类型),
         'max': max,
         'map': map,
         'filter': filter,

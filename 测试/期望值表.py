@@ -49,7 +49,7 @@ from sys import platform
     "函数/map.ul": b"[1, 4, 9]",
     "函数/返回多值.ul": b"12", # TODO: 原本元组输出为 1, 2， 而非(1，2)
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12true",
-    "函数/API/内置.ul": b"truefalsea[1]200 a1 b2 c",
+    "函数/API/内置.ul": b"truefalsea[1]200 a1 b2 ctruefalse",
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
     "函数/API/file.ul": b"true",
@@ -115,7 +115,7 @@ from sys import platform
     "字符串/插值.ul": b"b3b3o44ta3a44t`a3a",
 
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)range(-1, 5, 2)range(4, -2, -2)02",
-    "数据结构/列表.ul": b"[][2][2, 4, 6]",
+    "数据结构/列表.ul": b"[][2][2, 4, 6][[1], [2]]",
     "数据结构/列表取值.ul": b"245[1, 4][3, 5][1, 4][1, 4, 3, 5]",
     "数据结构/列表组合.ul": b"[a, b, b]",
     "数据结构/字典.ul": b"0acfalsefalse1",

@@ -6,3 +6,5 @@ print(a)
 for i, v in enumerate(['a', 'b', 'c']) {
   print(i, v)
 }
+print(isa("a", str))
+print(isa("a", int))
