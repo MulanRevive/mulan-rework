@@ -8,3 +8,5 @@ print(d.__contains__(4))
 print(d.get(4) != nil)
 d = {'a' : 1, 'b' : 2}
 print(d['a'])
+for k, v in d.items() { print('`k``v`') }
+print(d.pop('a'))
