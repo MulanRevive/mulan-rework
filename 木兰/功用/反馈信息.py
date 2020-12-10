@@ -61,6 +61,7 @@ def 提示(类型, 原信息):
     elif 类型 == 'IndexError' and 原信息 == "list index out of range":
         return "取列表内容时，索引超出范围"
     elif 类型 == 'AttributeError':
+        # TODO: 为 测试/错误处理/属性被静态调用.ul 改进错误信息
         信息 = "需要添加此属性：" + 原信息
         if 原信息 == "__enter__":
             信息 += "\n参考：https://stackoverflow.com/questions/1984325/explaining-pythons-enter-and-exit"
