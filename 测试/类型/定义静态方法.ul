@@ -4,3 +4,4 @@ type Person {
     }
 }
 print(Person.getId())
+print(Person().getId())

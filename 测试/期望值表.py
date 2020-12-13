@@ -49,7 +49,7 @@ from sys import platform
     "函数/map.ul": b"[1, 4, 9]",
     "函数/返回多值.ul": b"12", # TODO: 原本元组输出为 1, 2， 而非(1，2)
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12true",
-    "函数/API/内置.ul": b"truefalsea[1]200 a1 b2 ctruefalse",
+    "函数/API/内置.ul": b"truefalsea[1]200 a1 b2 ctruefalse32",
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
     "函数/API/file.ul": b"true",
@@ -95,7 +95,7 @@ from sys import platform
     "引用/枚举/b.ul": b"T.Xfalsetrue",
 
     "类型/定义.ul": b"true",
-    "类型/定义静态方法.ul": b"1",
+    "类型/定义静态方法.ul": b"11",
     "类型/定义方法.ul": b"1",
     "类型/定义方法self.ul": b"11",
     "类型/定义构造方法.ul": b"1",

@@ -152,6 +152,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'tuple':lambda *各实参: 各实参,
         'isa': lambda x, 类型: isinstance(x, 类型),
         'max': max,
+        'min': min,
         'map': map,
         'filter': filter,
         'zip':zip,

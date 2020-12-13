@@ -8,3 +8,5 @@ for i, v in enumerate(['a', 'b', 'c']) {
 }
 print(isa("a", str))
 print(isa("a", int))
+print(max(2, 3))
+print(min(2, 3))
