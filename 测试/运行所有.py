@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import shutil
 import subprocess
 
 from 期望值表 import *
@@ -12,6 +13,14 @@ from 期望值表 import *
 
 # 多进程参考：https://shuzhanfan.github.io/2017/12/parallel-processing-python-subprocess/
 进程表 = {}
+原始可执行文件 = "ulang-0.2.2.exe"
+木兰重现 = "木兰"
+
+可执行文件 = 原始可执行文件 if 为win系统 else 木兰重现
+
+if shutil.which(可执行文件) is None:
+    print("运行测试需安装'" + 可执行文件 + "'")
+    exit()
 
 英文版 = set(["运算/乘.ul",
     "函数/过滤.ul", "函数/map.ul", "函数/返回多值.ul", "函数/匿名函数.ul", "函数/API/文件.ul",
@@ -23,17 +32,16 @@ from 期望值表 import *
     "算法/排序/冒泡.ul", "算法/排序/插入.ul", "算法/排序/快速.ul",
     "综合.ul"])
 # 参考：https://stackoverflow.com/questions/748028/how-to-get-output-of-exe-in-python-script
-if 为win系统:
-    for 文件 in 期望值:
-        源码路径 = 路径 + 文件
+for 文件 in 期望值:
+    源码路径 = 路径 + 文件
+    if 为win系统:
         if 文件 in 英文版:
             源码路径 = 源码路径[:-3] + "_en.ul"
         if 文件 == "特殊字符/中文标识符.ul":
             continue
-        参数 = ["ulang-0.2.2.exe",  源码路径]
-        进程表[文件] = subprocess.Popen(参数, stdout=subprocess.PIPE)
-else:
-    print("本测试仅针对原始木兰可执行文件。针对重现项目的测试在`测试/unittest`下")
+
+    参数 = [可执行文件, 源码路径]
+    进程表[文件] = subprocess.Popen(参数, stdout=subprocess.PIPE)
 
 失败表 = {}
 
@@ -60,3 +68,4 @@ if len(失败表) > 0:
 else:
     print("！全部通过！")
 
+print("本测试针对木兰原始可执行文件与重现项目的发布版。在此之前先运行`测试/unittest`下的集成测试。")
