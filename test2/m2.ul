@@ -1,0 +1,4 @@
+using m1
+using ran
+
+println("in m2: `ran.r`")

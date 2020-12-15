@@ -1,0 +1,3 @@
+using * in test1.ran
+
+println("in m1: `r`")
