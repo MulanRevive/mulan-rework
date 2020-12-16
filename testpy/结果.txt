@@ -1,0 +1,8 @@
+(base) Xuans-MacBook-Pro:木兰重现 xuanwu$ python3 testpy/m2.py 
+in ran: 0.05438901688701592
+in m1: 0.05438901688701592
+in m2: 0.05438901688701592
+(base) Xuans-MacBook-Pro:testpy xuanwu$ python3 m2.py 
+in ran: 0.8289859988038359
+in m1: 0.8289859988038359
+in m2: 0.8289859988038359
