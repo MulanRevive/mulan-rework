@@ -1,0 +1,4 @@
+using * in test1.ran
+using * in test1.m1
+
+println("in m2: `r`")
