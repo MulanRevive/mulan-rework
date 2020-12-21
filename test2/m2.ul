@@ -1,4 +1,4 @@
-using m1
-using ran
+using * in m1
+using * in ran
 
-println("in m2: `ran.r`")
+println("in m2: `r`")
