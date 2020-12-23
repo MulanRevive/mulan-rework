@@ -106,7 +106,7 @@ $ 木兰 测试/错误处理/引用模块.ul
 
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 
-依赖 Python 包：
+木兰语言部分依赖的第三方 Python 包：
 - [rply](https://pypi.org/project/rply/)
 
 ### 本地运行
@@ -120,7 +120,7 @@ $ python -m 木兰
 ```
 $ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.正则
 ```
-为检验[与原始木兰可执行文件功能一致](https://zhuanlan.zhihu.com/p/230155471)，在 Windows 下运行：
+为检验[与原始木兰可执行文件功能一致](https://zhuanlan.zhihu.com/p/230155471)，在 Windows 下运行；其他系统下，会对从 PyPI 安装的版本进行测试：
 ```
 $ python 测试/运行所有.py
 ```
