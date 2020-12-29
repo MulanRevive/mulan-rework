@@ -1,2 +1,2 @@
-using test.package.module_py
-test.package.module_py.talk()
+using testmulan.package.module_py
+testmulan.package.module_py.talk()

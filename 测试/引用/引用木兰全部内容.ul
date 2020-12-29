@@ -1,2 +1,2 @@
-using * in test.package.module_ul
+using * in testmulan.package.module_ul
 talk()

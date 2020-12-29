@@ -1,5 +1,5 @@
-using T in test.package.en.e
-using * in test.package.en.a
+using T in testmulan.package.en.e
+using * in testmulan.package.en.a
 
 print(aa)
 print(aa == T.X)
