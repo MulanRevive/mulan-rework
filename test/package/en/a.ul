@@ -1,3 +1,6 @@
 using T in test.package.en.e
 
 aa = T.X
+
+println("in a: " + str(T))
+cc = T
