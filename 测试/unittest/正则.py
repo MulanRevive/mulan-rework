@@ -61,6 +61,18 @@ class test正则(unittest.TestCase):
             ).若干().不贪().引用分段(1).表达(),
             r'(\")((?<!\\)\\\1|.)*?\1')
 
+    def test_精通(self):
+        self.assertEqual(任一("From", "Subject").表达(), r"From|Subject")
+        self.assertEqual(序列(开头, "cat").表达(), r"^cat")
+        self.assertEqual(序列(开头, 结尾).表达(), r"^$")
+        self.assertEqual(开头, r"^")
+        self.assertEqual(序列(开头, 分段(任一("From", "Subject")), 冒号).表达(), r"^(From|Subject):")
+        多个数字 = 某字(数字).若干(1)
+        self.assertEqual(多个数字.表达(), r"[0-9]+")
+        self.assertEqual(序列("<emphasis>", 分段(序列(多个数字, 分段(序列(点号, 多个数字)).若干(3))), "</emphasis>").表达(), r"<emphasis>([0-9]+(\.[0-9]+){3})</emphasis>")
+        self.assertEqual(序列("sep", 某字("ea"), "r", 某字("ea"), "te").表达(), r"sep[ea]r[ea]te")
+        # 范围: r"<H[1-6]>"
+
     def test_规律常量(self):
         美元 = r'\$'
         self.assertEqual(

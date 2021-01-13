@@ -8,12 +8,19 @@
 反引号 = r"`"
 双引号 = r"\""
 非换行字符 = r"."
+开头 = r"^"
+结尾 = r"$"
+冒号 = r":"
+点号 = r"\."
 
 '''
 如需串联, 则返回值必须为本类型. 方法都在类型内, 那么不串联(作参数)时, 就需要新建个体, 并调用`表达`方法
 '''
 def 序列(*各规律):
     return 规律().序列(*各规律)
+
+def 某字(*各规律):
+    return 规律().某字(*各规律)
 
 def 不是(*各规律):
     return 规律().不是(*各规律)
@@ -33,14 +40,11 @@ class 规律:
         self.__所有段 = []
 
     def 序列(self, *各规律):
-        self.__所有段.append("".join(各规律))
+        self.__所有段.append("".join(map(self.__展开, 各规律)))
         return self
 
     def 某字(self, *各规律):
-        if len(各规律) == 1:
-            self.__所有段.append(各规律[0])
-        else:
-            self.__所有段.append("[" + "".join(各规律) + "]")
+        self.__所有段.append("[" + "".join(各规律) + "]")
         return self
 
     def 若干(self, 下限=None, 上限=None):
@@ -50,9 +54,9 @@ class 规律:
             if 下限 == 1:
                 self.__所有段.append("+")
             else:
-                self.__所有段.append("{" + 下限 + "}")
+                self.__所有段.append("{" + str(下限) + "}")
         else:
-            self.__所有段.append("{" + 下限 + ", " + 上限 + "}")
+            self.__所有段.append("{" + str(下限) + ", " + str(上限) + "}")
         return self
 
     def 可无(self):
@@ -66,10 +70,7 @@ class 规律:
         return "".join(map(self.__本义, self.__所有段))
 
     def 任一(self, *各规律):
-        展开内容 = []
-        for 某规律 in 各规律:
-            展开内容.append(某规律.表达() if type(某规律).__name__ == "规律" else 某规律)
-        self.__所有段.append("|".join(展开内容))
+        self.__所有段.append("|".join(map(self.__展开, 各规律)))
         return self
 
     def 不是(self, *各规律):
@@ -98,3 +99,6 @@ class 规律:
             return r'\$'
         else:
             return 规律
+
+    def __展开(self, 规律):
+        return 规律.表达() if type(规律).__name__ == "规律" else 规律
