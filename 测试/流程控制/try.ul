@@ -4,3 +4,8 @@ try f=open("__init__.py") {
 try open("__init__.py") {
   print(3)
 }
+try {
+  print([][0])
+} catch IndexError {
+  print('0')
+}

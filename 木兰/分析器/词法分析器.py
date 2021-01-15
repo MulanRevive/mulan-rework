@@ -28,6 +28,7 @@ import rply, re
 动词_引用 = 'using'
 连词_于 = 'in'
 动词_试试 = 'try'
+动词_接手 = 'catch'
 动词_抛出 = 'throw'
 名词_操作符 = 'operator'
 连词_每隔 = 'by'
@@ -135,6 +136,7 @@ import rply, re
     名词_超类,
     取反,
     动词_抛出,
+    动词_接手,
 ]
 
 分词器母机 = LexerGenerator()
@@ -166,6 +168,7 @@ import rply, re
 分词器母机.add(动词_引用, r'\busing\b')
 分词器母机.add(连词_于, r'\bin\b')
 分词器母机.add(动词_试试, r'\btry\b')
+分词器母机.add(动词_接手, r'\r*\n*\s*catch\s*\r*\n*') # , flags=(re.DOTALL)
 分词器母机.add(动词_抛出, r'\bthrow\b')
 分词器母机.add(名词_操作符, r'\boperator\b')
 分词器母机.add(连词_每隔, r'\bby\b')

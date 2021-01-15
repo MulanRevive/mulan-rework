@@ -158,6 +158,22 @@ class 语法树:
             col_offset=语法树.取列号(片段))
 
     @staticmethod
+    def 试试(主体, 处理, 片段):
+        return ast.Try(body=主体,
+                       handlers=处理,
+                       orelse=[],
+                       finalbody=[],
+                       lineno=语法树.取行号(片段),
+                       col_offset=语法树.取列号(片段))
+
+    @staticmethod
+    def 例外处理(类型, 名称, 主体, 片段):
+        return ast.ExceptHandler(type=类型,
+                                 name=名称,
+                                 body=主体,
+                                 lineno=语法树.取行号(片段),
+                                 col_offset=语法树.取列号(片段))
+    @staticmethod
     def 引发(例外, 片段):
         return ast.Raise(exc=例外,
             cause=None,
