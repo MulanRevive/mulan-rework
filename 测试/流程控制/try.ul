@@ -6,6 +6,6 @@ try open("__init__.py") {
 }
 try {
   print([][0])
-} catch IndexError {
+} catch e {
   print('0')
 }
