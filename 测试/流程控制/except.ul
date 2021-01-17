@@ -1,5 +1,0 @@
-try {
-  print([][int('x')])
-} catch e : ValueError {
-  print('v')
-}

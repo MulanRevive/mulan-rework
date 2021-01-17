@@ -1,0 +1,13 @@
+try {
+  print(int('x'))
+} catch e : ValueError {
+  print('v')
+}
+
+try {
+  print([][int('0')])
+} catch e : ValueError {
+  print('v')
+} catch e : IndexError {
+  print('i')
+}

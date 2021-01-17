@@ -1,0 +1,5 @@
+try {
+  print([][int('0')])
+} catch e {
+  print(e)
+}

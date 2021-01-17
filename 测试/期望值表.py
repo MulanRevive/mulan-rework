@@ -35,7 +35,8 @@ from sys import platform
     "流程控制/空块.ul": b"123",
     "流程控制/循环loop.ul": b"123",
     "流程控制/try.ul": b"030",
-    "流程控制/except.ul": b"v",
+    "流程控制/catch.ul": b"vi",
+    "流程控制/catch名称.ul": b"list index out of range",
 
     "函数/无参数.ul": b"223", # 最后无4是因为返回了函数, 而非它的返回值
     "函数/单参数.ul": b"2",
