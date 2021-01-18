@@ -118,7 +118,7 @@ $ python -m 木兰
 ### 运行测试
 
 ```
-$ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.行号
+$ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.行列号
 ```
 为检验[与原始木兰可执行文件功能一致](https://zhuanlan.zhihu.com/p/230155471)，在 Windows 下运行；其他系统下，会对从 PyPI 安装的版本进行测试：
 ```
