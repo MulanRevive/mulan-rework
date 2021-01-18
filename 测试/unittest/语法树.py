@@ -58,7 +58,6 @@ class test语法树(unittest.TestCase):
             读源码生成树("测试/错误处理/词不识.ul")
         except 语法错误 as e:
             self.assertEqual(e.信息, "分词时没认出这个词 \"#\"")
-            self.assertEqual(e.行号, 3, "注意：此用例需安装包含此 commit 的 rply：https://github.com/alex/rply/commit/6e16262dc6d434fc467eed83ed31ca764ba01a34")
             self.assertEqual(e.列号, 6) # 应该为 1, 在rply 提问: https://github.com/alex/rply/pull/95#issuecomment-729513800
 
     def test_try随意(self):
