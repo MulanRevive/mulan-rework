@@ -21,8 +21,5 @@ stages:                                  # 构建阶段配置
           inputs:                        # 构建输入参数设定
             pythonVersion: 3.7           # 指定 Python 环境版本为 3.7
             goals: |                     # 运行 unittest
-              git clone https://github.com/alex/rply.git
-              cd rply
-              python setup.py install
-              cd ..
+              python -m pip install rply
               python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例

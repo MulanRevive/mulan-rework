@@ -2,10 +2,10 @@ import unittest
 import ast
 from rply import LexingError
 
-from 木兰.分析器.语法分析器 import 语法分析器
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.错误 import 语法错误
 from 编辑器.运行木兰 import 运行木兰代码
+from 测试.unittest.功用 import *
 
 # TODO：需确保无此类 Warning：ParserGeneratorWarning: 28 shift/reduce conflicts
 class test语法树(unittest.TestCase):
@@ -20,7 +20,7 @@ class test语法树(unittest.TestCase):
         self.assertEqual(最末.getsourcepos().colno, 10)
 
     def test_行列号(self):
-        节点 = self.生成语法树("print(1/0)")
+        节点 = 生成语法树("print(1/0)")
         expr节点 = self.取子节点(节点, "body", 0)
         call节点 = self.取子节点(expr节点, "value")
         self.assertEqual(call节点.lineno, 1)
@@ -43,19 +43,19 @@ class test语法树(unittest.TestCase):
         }
         for 文件 in 期望值:
             源码路径 = 路径 + 文件
-            节点 = self.读源码生成树(源码路径)
+            节点 = 读源码生成树(源码路径)
             self.assertEqual(ast.dump(节点, True, True), 期望值[文件], f"\"{文件}\"出错")
 
     def test_报错(self):
         try:
-            节点 = self.生成语法树("using func")
+            节点 = 生成语法树("using func")
             self.fail("不该到这")
         except 语法错误 as e:
             self.assertEqual(e.列号, 7)
 
     def test_词不识(self):
         try:
-            self.读源码生成树("测试/错误处理/词不识.ul")
+            读源码生成树("测试/错误处理/词不识.ul")
         except 语法错误 as e:
             self.assertEqual(e.信息, "分词时没认出这个词 \"#\"")
             self.assertEqual(e.行号, 3, "注意：此用例需安装包含此 commit 的 rply：https://github.com/alex/rply/commit/6e16262dc6d434fc467eed83ed31ca764ba01a34")
@@ -66,15 +66,6 @@ class test语法树(unittest.TestCase):
 
     def 分词(self, 源码):
         return 分词器.lex(源码)
-
-    def 生成语法树(self, 源码):
-        分析器 = 语法分析器()
-        return 分析器.分析(源码, '')
-
-    def 读源码生成树(self, 源码文件):
-        with open(源码文件, 'r', encoding='utf-8') as f:
-            源码 = f.read()
-            return self.生成语法树(源码)
 
     def 取子节点(self, 节点, 子节点名, 索引 = -1):
         for 子节点 in ast.iter_fields(节点):
