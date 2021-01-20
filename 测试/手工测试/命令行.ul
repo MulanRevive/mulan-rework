@@ -1,16 +1,17 @@
 using Cmd in cmd
-using 随机范围数 in 随机数
 using exit in sys
+using 随机范围数 in 随机数
 
 type 猜数字 : Cmd {
   {
     intro, prompt = "木兰想了个 100 之内的数，猜是几？", "猜猜吧: "
-    想的 = 随机范围数(1000) / 10; 猜过的 = []; 最近 = 100
+    想的 = 随机范围数(1000) / 10; 历史 = []; 至今最近 = 100
   }
 
   func $default(行) {
-    try { 数 = int(行) } catch 例外 { println("`行` 不是数，请再试"); return }
-    $猜过的.append(数); $比较(数)
+    try { 数 = int(行) }
+    catch 例外 : ValueError { println("`行` 不是数，请再试"); return }
+    $历史.append(数); $比较(数)
   }
 
   func $比较(数) {
@@ -22,8 +23,8 @@ type 猜数字 : Cmd {
   }
 
   func $接近了 {
-    最小距离 = min(map(数 -> { 差 = 数 - $想的; return 差 > 0 ? 差 : -差 }, $猜过的))
-    { $最近 = 最小距离; return true } if $最近 > 最小距离
+    最近 = min(map(数 -> { 差 = 数 - $想的; return 差 > 0 ? 差 : -差 }, $历史))
+    { $至今最近 = 最近; return true } if $至今最近 > 最近
   }
 }
 猜数字().cmdloop()
