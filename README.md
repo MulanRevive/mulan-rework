@@ -1,4 +1,4 @@
- [![Gitee Go 语法树测试](https://gitee.com/MulanRevive/mulan-rework/badge/giteego.svg?name=语法树测试&id=13267)](https://gitee.com/MulanRevive/dashboard/projects/MulanRevive/mulan-rework/gitee_go/13267?branch=master)
+[![Gitee Go 所有测试](https://gitee.com/MulanRevive/mulan-rework/badge/giteego.svg?name=所有测试&id=13267)](https://gitee.com/MulanRevive/dashboard/projects/MulanRevive/mulan-rework/gitee_go/13267?branch=master)
 
 ## 前言
 
