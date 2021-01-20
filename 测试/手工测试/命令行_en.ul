@@ -1,0 +1,30 @@
+using Cmd in cmd
+using exit in sys
+using randrange in random
+
+type GuessNumber : Cmd {
+  {
+    intro, prompt = "I have a number within 100 in mind, guess which one?", "Try: "
+    numberInMind = randrange(1000) / 10; history = []; closestDiffSoFar = 100
+  }
+
+  func $default(row) {
+    try { n = int(row) }
+    catch e : ValueError { println("`row` is not a number, try again"); return }
+    $history.append(n); $compare(n)
+  }
+
+  func $compare(n) {
+    if n == $numberInMind { println("Bingo!"); exit() }
+    else {
+      println("Too " + (n > $numberInMind ? "large" : "small") + "!")
+      println("Getting close though") if $gettingCloser()
+    }
+  }
+
+  func $gettingCloser {
+    minDiff = min(map(n -> { diff = n - $numberInMind; return diff > 0 ? diff : -diff }, $history))
+    { $closestDiffSoFar = minDiff; return true } if $closestDiffSoFar > minDiff
+  }
+}
+GuessNumber().cmdloop()
