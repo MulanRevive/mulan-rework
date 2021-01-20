@@ -2,7 +2,7 @@ import unittest
 from 木兰.分析器.错误 import 语法错误
 from 测试.unittest.功用 import *
 
-
+# 由于需要从 rply 源码库安装，此用例仅在本地而不在 gitee 流水线运行
 class test行号(unittest.TestCase):
 
     def test_词不识(self):
