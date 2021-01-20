@@ -5,17 +5,25 @@ using exit in sys
 type 猜数字 : Cmd {
   {
     intro, prompt = "木兰想了个 100 之内的数，猜是几？", "猜猜吧: "
-    想的 = 随机范围数(1000) / 10; 猜过的 = []
+    想的 = 随机范围数(1000) / 10; 猜过的 = []; 最近 = 100
   }
 
   func $default(行) {
     try { 数 = int(行) } catch 例外 { println("`行` 不是数，请再试"); return }
-    $比较(数)
+    $猜过的.append(数); $比较(数)
   }
 
   func $比较(数) {
     if 数 == $想的 { println("中了!"); exit() }
-    else { println("太" + (数 > $想的 ? "大" : "小") + "了!") }
+    else {
+      println("太" + (数 > $想的 ? "大" : "小") + "了!")
+      println("不过接近咯") if $接近了()
+    }
+  }
+
+  func $接近了 {
+    最小距离 = min(map(数 -> { 差 = 数 - $想的; return 差 > 0 ? 差 : -差 }, $猜过的))
+    { $最近 = 最小距离; return true } if $最近 > 最小距离
   }
 }
 猜数字().cmdloop()
