@@ -1,6 +1,4 @@
-using Cmd in cmd
-using exit in sys
-using randrange in random
+using Cmd in cmd; using exit in sys; using randrange in random
 
 type GuessNumber : Cmd {
   {

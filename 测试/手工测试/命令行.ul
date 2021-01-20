@@ -1,6 +1,4 @@
-using Cmd in cmd
-using exit in sys
-using 随机范围数 in 随机数
+using Cmd in cmd; using exit in sys; using 随机范围数 in 随机数
 
 type 猜数字 : Cmd {
   {
