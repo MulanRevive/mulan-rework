@@ -8,9 +8,7 @@
 
 ## 目标
 
-在[悬赏尚未完成](https://zhuanlan.zhihu.com/p/224600854)时，将努力向[重现「木兰」编程语言的目标](https://gitee.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)迈进。过程中的技术文章集结在[知乎专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
-
-木兰源代码转换为 Python 的中间表示（AST）后执行，可实现各种语法设计与周边功能，并可方便地利用 Python 现有生态。
+[悬赏完成之前](https://zhuanlan.zhihu.com/p/224600854)，将努力向[重现「木兰」编程语言的目标](https://gitee.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)迈进。系列技术文章集结在[知乎专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
 
 ## 运行
 
@@ -99,6 +97,10 @@ $ 木兰 测试/错误处理/引用模块.ul
 交互环境功能说明[在此](https://gitee.com/MulanRevive/mulan-rework/tree/master/文档/功能/交互环境.md)。
 
 ## 开发
+
+### 实现简介
+
+木兰源代码转换为 Python 的中间表示（AST）后执行，可实现各种语法设计与周边功能，并可方便地利用 Python 现有生态。
 
 新手开发者请看[开发流程与项目结构简介](文档/开发上手.md)。
 
