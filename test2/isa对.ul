@@ -1,0 +1,6 @@
+using * in 某类
+using * in 引用1
+
+个例2 = 类1()
+println(isa(个例2, 类1))
+println(isa(个例1, 类1))
