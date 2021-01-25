@@ -1,0 +1,5 @@
+x = 1
+func double() {
+    extern x
+    x = x * 2
+}

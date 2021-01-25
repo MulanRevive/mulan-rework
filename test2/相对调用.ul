@@ -1,0 +1,4 @@
+using * in 外部
+
+double()
+println("调用后：" + str(x))

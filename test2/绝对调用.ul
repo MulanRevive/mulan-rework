@@ -1,0 +1,4 @@
+using 外部
+
+外部.double()
+println("调用后：" + str(外部.x))
