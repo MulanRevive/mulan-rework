@@ -58,6 +58,8 @@ class test语法树(unittest.TestCase):
             读源码生成树("测试/错误处理/词不识.ul")
         except 语法错误 as e:
             self.assertEqual(e.信息, "分词时没认出这个词 \"#\"")
+            self.assertEqual(e.行号, 3)
+            self.assertEqual(e.列号, 6) # 应该为 1, 在rply 提问: https://github.com/alex/rply/pull/95#issuecomment-729513800
 
     def test_try随意(self):
         self.assertTrue(运行木兰代码("测试/错误处理/try随意.ul").find("要添加此属性：__enter__") > 0)
