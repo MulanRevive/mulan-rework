@@ -1,7 +1,7 @@
 using T in test.package.en.e
 using * in test.package.en.a
 
-println("in b: " + str(T))
-println(cc)
-println(T)
-println(cc == T)
+print(aa)
+print(aa == T.X)
+bb = T.X
+print(bb == T.X)

@@ -1,4 +1,0 @@
-using * in 原值
-
-a()
-println("修改后：`x`")

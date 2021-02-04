@@ -5,4 +5,4 @@ func a() {
     x = x * 3
 }
 
-println("原值：`x`")
+print(x)
