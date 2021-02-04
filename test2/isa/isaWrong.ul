@@ -1,6 +1,0 @@
-using * in Instance1
-using * in TypeDef
-
-instance2 = Type1()
-println(isa(instance2, Type1))
-println(isa(instance1, Type1))

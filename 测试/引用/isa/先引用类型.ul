@@ -1,0 +1,4 @@
+using * in TypeDef
+using * in Instance1
+
+print(isa(instance1, Type1))
