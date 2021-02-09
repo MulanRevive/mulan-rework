@@ -1,4 +1,0 @@
-using random
-
-r = random.random()
-println("in ran: `r`")

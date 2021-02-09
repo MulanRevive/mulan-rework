@@ -1,4 +1,0 @@
-using test1.m1
-using test1.ran
-
-println("in m4: `test1.ran.r`")
