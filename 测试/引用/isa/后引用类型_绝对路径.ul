@@ -1,0 +1,4 @@
+using Instance1
+using TypeDef
+
+print(isa(Instance1.instance1, TypeDef.Type1))

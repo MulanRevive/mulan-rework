@@ -1,4 +1,0 @@
-using * in test1.m1
-using * in test1.ran
-
-println("in m2: `r`")
