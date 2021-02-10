@@ -1,4 +1,4 @@
-using 测试.引用.外部.原值
+using test.package.test_extern
 
-测试.引用.外部.原值.a()
-print(测试.引用.外部.原值.x)
+test.package.test_extern.a()
+print(test.package.test_extern.x)

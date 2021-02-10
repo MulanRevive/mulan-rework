@@ -1,4 +1,4 @@
-using * in 测试.引用.外部.原值
+using * in test.package.test_extern
 
 a()
 print(x)
