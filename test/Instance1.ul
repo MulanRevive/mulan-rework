@@ -1,0 +1,3 @@
+using * in test.TypeDef
+
+instance1 = Type1()

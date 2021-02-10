@@ -1,0 +1,4 @@
+using * in test.TypeDef
+using * in test.Instance1
+
+print(isa(instance1, Type1))

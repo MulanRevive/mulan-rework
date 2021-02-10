@@ -1,0 +1,6 @@
+using TypeDef
+
+print(TypeDef.a)
+
+// module '' has no attribute 'a'
+// TODO: differ from ulang.exe -- module 'TypeDef' has no attribute 'a'

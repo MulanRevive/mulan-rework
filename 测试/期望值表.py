@@ -95,6 +95,17 @@ from sys import platform
     "引用/引用本地包内木兰某内容.ul": b"2",
 
     "引用/枚举/b.ul": b"T.Xfalsetrue",
+    "引用/外部/修改成功.ul": b"13",
+    "引用/外部/修改失败.ul": b"11",
+
+    "引用/isa/先引用包内类型.ul": b"false",
+    "引用/isa/后引用包内类型.ul": b"true",
+    "引用/isa/先引用类型.ul": b"true",
+    "引用/isa/后引用类型.ul": b"false",
+    "引用/isa/先引用类型_绝对路径.ul": b"false",
+    "引用/isa/后引用类型_绝对路径.ul": b"false",
+    "引用/isa/先引用包内类型_绝对路径.ul": b"false",
+    "引用/isa/后引用包内类型_绝对路径.ul": b"false",
 
     "类型/定义.ul": b"true",
     "类型/定义静态方法.ul": b"11",

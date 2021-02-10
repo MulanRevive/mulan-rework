@@ -1,0 +1,4 @@
+using test.package.test_extern
+
+test.package.test_extern.a()
+print(test.package.test_extern.x)

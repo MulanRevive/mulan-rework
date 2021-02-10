@@ -1,0 +1,4 @@
+using b
+
+aa = b.bb
+print("aa in a: " + aa)
