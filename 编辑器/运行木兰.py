@@ -33,8 +33,7 @@ def 运行木兰代码(源码文件):
         try:
             exec(可执行码, 环境变量)
         except Exception as e:
-            # TODO: 提神符为确保各平台显示一致, 改为图片
-            return " 😰 " + "\n".join([行 for 行 in 中文化(e, 源码文件) if 行.find(str(Path("编辑器/运行木兰.py"))) < 0])
+            return 中文化(e, 源码文件)
     except SyntaxError as 语法错误:
         return f"语法错误: {语法错误}\n"
     finally:

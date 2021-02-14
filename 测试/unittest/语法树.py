@@ -1,10 +1,7 @@
 import unittest
 import ast
-from rply import LexingError
 
 from 木兰.分析器.词法分析器 import 分词器
-from 木兰.分析器.错误 import 语法错误
-from 编辑器.运行木兰 import 运行木兰代码
 from 测试.unittest.功用 import *
 
 # TODO：需确保无此类 Warning：ParserGeneratorWarning: 28 shift/reduce conflicts
@@ -45,24 +42,6 @@ class test语法树(unittest.TestCase):
             源码路径 = 路径 + 文件
             节点 = 读源码生成树(源码路径)
             self.assertEqual(ast.dump(节点, True, True), 期望值[文件], f"\"{文件}\"出错")
-
-    def test_报错(self):
-        try:
-            节点 = 生成语法树("using func")
-            self.fail("不该到这")
-        except 语法错误 as e:
-            self.assertEqual(e.列号, 7)
-
-    def test_词不识(self):
-        try:
-            读源码生成树("测试/错误处理/词不识.ul")
-        except 语法错误 as e:
-            self.assertEqual(e.信息, "分词时没认出这个词 \"#\"")
-            self.assertEqual(e.行号, 3)
-            self.assertEqual(e.列号, 6) # 应该为 1, 在rply 提问: https://github.com/alex/rply/pull/95#issuecomment-729513800
-
-    def test_try随意(self):
-        self.assertTrue(运行木兰代码("测试/错误处理/try随意.ul").find("要添加此属性：__enter__") > 0)
 
     def 分词(self, 源码):
         return 分词器.lex(源码)

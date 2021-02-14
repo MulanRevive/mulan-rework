@@ -1,6 +1,1 @@
 2
-/* parse 报错:
-SyntaxError: File "测试代码/用例/语法错误.ul", line 1:1, unexpected token "INTEGER_LITERAL"
-1
-^
-*/

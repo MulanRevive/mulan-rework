@@ -3,6 +3,9 @@ from pathlib import Path
 
 运行时木兰路径 = str(Path("site-packages/木兰/"))
 
+报错_列表索引 = "取列表内容时，索引超出范围"
+参考_enter = "\n参考：https://stackoverflow.com/questions/1984325/explaining-pythons-enter-and-exit"
+
 def 反馈信息(例外, 源码文件=None):
     提神符 = " 😰 "
     if sys.platform == 'win32':
@@ -59,12 +62,12 @@ def 提示(类型, 原信息):
         if re.match(模式, 原信息):
             return re.sub(模式, r'字符串只能拼接字符串，请将“\1”先用 str() 转换', 原信息)
     elif 类型 == 'IndexError' and 原信息 == "list index out of range":
-        return "取列表内容时，索引超出范围"
+        return 报错_列表索引
     elif 类型 == 'AttributeError':
         # TODO: 为 测试/错误处理/属性被静态调用.ul 改进错误信息
         信息 = "需要添加此属性：" + 原信息
         if 原信息 == "__enter__":
-            信息 += "\n参考：https://stackoverflow.com/questions/1984325/explaining-pythons-enter-and-exit"
+            信息 += 参考_enter
         return 信息
     elif 类型 == 'FileNotFoundError':
         return re.sub(r"\[Errno 2\] No such file or directory: '(.*)'",
