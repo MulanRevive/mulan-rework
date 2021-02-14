@@ -5,6 +5,3 @@ try {
 } catch IndexError {
   print('i')
 }
-/*
-default 'except:' must be last (catch2.ul, line 2)
-*/

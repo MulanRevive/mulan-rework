@@ -3,7 +3,3 @@ try {
 } catch e : ValueError {
   print('v')
 }
-/*
- 😰 取列表内容时，索引超出范围
-见第2行：print([][0])
-*/
