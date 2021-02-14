@@ -13,6 +13,8 @@ class test所有(unittest.TestCase):
 
             # TODO：如果是用错关键词，如 throw 用错为 raise（原 py 用户）则应提示
             "测试/错误处理/不识关键词.ul": "没认出这个词 \"标识符\"",
+
+            "测试/错误处理/列表内容末尾逗号.ul": "没认出这个词 \"]\""
         }
         for 文件 in 对应报错:
             try:
@@ -30,6 +32,9 @@ class test所有(unittest.TestCase):
             "测试/错误处理/try随意.ul": "需要添加此属性：__enter__" + 参考_enter,
             "测试/错误处理/全局.ul": "请先对本地变量‘x’赋值再引用",
             "测试/错误处理/调用错误函数.ul": "请先定义‘b’再使用",
+            "测试/错误处理/多行除零.ul": "请勿除以零",
+            "测试/错误处理/字典无键.ul": "字典中不存在此键：4",
+            "测试/错误处理/字符串拼接.ul": "字符串只能拼接字符串，请将“int”先用 str() 转换",
 
             # TODO:
             # 测试/错误处理/不可见字符.ul
@@ -38,7 +43,12 @@ class test所有(unittest.TestCase):
             报错 = 运行木兰代码(文件)
             self.assertEqual(报错[0], 对应报错[文件], 文件)
 
-        self.assertEqual(运行木兰代码("测试/错误处理/catch2.ul"), "语法错误: default 'except:' must be last (catch2.ul, line 2)\n")
+        单层报错 = {
+            "测试/错误处理/catch2.ul": "语法错误: default 'except:' must be last (catch2.ul, line 2)\n",
+            "测试/错误处理/函数外return.ul": "语法错误: 'return' outside function (函数外return.ul, line 2)\n",
+        }
+        for 文件 in 单层报错:
+            self.assertEqual(运行木兰代码(文件), 单层报错[文件], 文件)
 
     def test_列号(self):
         try:

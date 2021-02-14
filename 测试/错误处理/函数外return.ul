@@ -1,12 +1,3 @@
 print(2)
 return
 print(3)
-/*
-Traceback (most recent call last):
-  File "./中.py", line 29, in <module>
-    可执行码 = compile(节点, 源码文件, 'exec')
-  File "测试/返回空.ul", line 2
-    return
-    ^
-SyntaxError: 'return' outside function
-*/
