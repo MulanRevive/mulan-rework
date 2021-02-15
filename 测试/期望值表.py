@@ -142,5 +142,4 @@ from sys import platform
     "算法/排序/快速.ul": b"[1, 2, 4, 5, 8]",
 
     "综合.ul": b"10",
-    #"错误处理/死递归.ul": b"test",
 }

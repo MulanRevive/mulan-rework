@@ -2,5 +2,3 @@ using test.TypeDef
 using test.Instance1
 
 print(isa(test.Instance1.instance1, test.TypeDef.Type1))
-
-// module '' has no attribute 'TypeDef'

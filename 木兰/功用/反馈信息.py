@@ -4,6 +4,7 @@ from pathlib import Path
 运行时木兰路径 = str(Path("site-packages/木兰/"))
 
 报错_列表索引 = "取列表内容时，索引超出范围"
+报错_层级 = "调用层级如下"
 参考_enter = "\n参考：https://stackoverflow.com/questions/1984325/explaining-pythons-enter-and-exit"
 
 def 反馈信息(例外, 源码文件=None):
@@ -35,7 +36,7 @@ def 中文化(例外, 源码文件=None):
         else:
             # 在第二层前显示
             if 层号 == 最高层号 - 1:
-                各行.append("调用层级如下")
+                各行.append(报错_层级)
 
             if 文件名 == 源码文件:
                 各行.append(行信息 + '：' + 行内容)
