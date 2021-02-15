@@ -9,4 +9,3 @@ type P {
 }
 print(P().var)
 P.test()
-/* 需要添加此属性：'function' object has no attribute 'var' */

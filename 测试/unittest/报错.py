@@ -14,7 +14,8 @@ class test所有(unittest.TestCase):
             # TODO：如果是用错关键词，如 throw 用错为 raise（原 py 用户）则应提示
             "测试/错误处理/不识关键词.ul": "没认出这个词 \"标识符\"",
 
-            "测试/错误处理/列表内容末尾逗号.ul": "没认出这个词 \"]\""
+            "测试/错误处理/列表内容末尾逗号.ul": "没认出这个词 \"]\"",
+            "测试/错误处理/属性为关键词self.ul": "没认出这个词 \"while\"",
         }
         for 文件 in 对应报错:
             try:
@@ -35,6 +36,7 @@ class test所有(unittest.TestCase):
             "测试/错误处理/多行除零.ul": "请勿除以零",
             "测试/错误处理/字典无键.ul": "字典中不存在此键：4",
             "测试/错误处理/字符串拼接.ul": "字符串只能拼接字符串，请将“int”先用 str() 转换",
+            "测试/错误处理/属性被静态调用.ul": "需要添加此属性：'function' object has no attribute 'var'",
 
             # TODO:
             # 测试/错误处理/不可见字符.ul
@@ -49,6 +51,14 @@ class test所有(unittest.TestCase):
         }
         for 文件 in 单层报错:
             self.assertEqual(运行木兰代码(文件), 单层报错[文件], 文件)
+
+    def test_行号(self):
+        try:
+            读源码生成树("测试/错误处理/属性为关键词引用.ul")
+            self.fail("不该到这")
+        except 语法错误 as e:
+            self.assertEqual(e.信息, "没认出这个词 \"while\"")
+            self.assertEqual(e.行号, 7)  # 第三行定义可以, 第七行引用时报错
 
     def test_列号(self):
         try:
