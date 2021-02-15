@@ -1,4 +1,4 @@
-using a
+using * in 测试.错误处理.循环引用.a
 
-bb = a.aa
+bb = aa
 print("bb in b: " + bb)

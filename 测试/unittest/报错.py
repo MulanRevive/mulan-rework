@@ -110,3 +110,8 @@ class test所有(unittest.TestCase):
         self.assertEqual(报错[1], "“测试/错误处理/无此变量.ul”第1行：a")
         self.assertEqual(报错[2], 报错_层级)
         self.assertEqual(报错[6], "见第1行：using * in 测试.错误处理.无此变量") # 2 6 行之间为木兰源码
+
+        报错 = 运行木兰代码("测试/错误处理/循环引用/a.ul")
+        self.assertEqual(报错[0], 报错_递归) # 间隔为 ast.py 与木兰源码
+        self.assertEqual(报错[19], "“测试/错误处理/循环引用/b.ul”第1行：using * in 测试.错误处理.循环引用.a")
+        self.assertEqual(报错[23], "见第1行：using * in 测试.错误处理.循环引用.b")
