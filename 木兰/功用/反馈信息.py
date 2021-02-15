@@ -5,6 +5,8 @@ from pathlib import Path
 
 报错_列表索引 = "取列表内容时，索引超出范围"
 报错_层级 = "调用层级如下"
+报错_除零 = "请勿除以零"
+报错_递归 = "递归过深。请确认: 1、的确需要递归 2、递归的收敛正确"
 参考_enter = "\n参考：https://stackoverflow.com/questions/1984325/explaining-pythons-enter-and-exit"
 
 def 反馈信息(例外, 源码文件=None):
@@ -48,9 +50,9 @@ def 提示(类型, 原信息):
     if 类型 == 'NameError':
         return re.sub(r"name '(.*)' is not defined", r"请先定义‘\1’再使用", 原信息)
     elif 类型 == 'ZeroDivisionError':
-        return "请勿除以零"
+        return 报错_除零
     elif 类型 == 'RecursionError':
-        return "递归过深。请确认: 1、的确需要递归 2、递归的收敛正确"
+        return 报错_递归
     elif 类型 == 'UnboundLocalError':
         return re.sub(
             r"local variable '(.*)' referenced before assignment",

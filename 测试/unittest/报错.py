@@ -21,6 +21,7 @@ class test所有(unittest.TestCase):
             "测试/错误处理/范围by2.ul": "没认出这个词 \"by\"",
             "测试/错误处理/运算换行and.ul": "没认出这个词 \"and\"",
             "测试/错误处理/运算换行加.ul": "没认出这个词 \"+\"",
+            "测试/错误处理/不可见字符.ul": "分词时没认出这个词 \"\x08\"",
         }
         for 文件 in 对应报错:
             try:
@@ -38,21 +39,17 @@ class test所有(unittest.TestCase):
             "测试/错误处理/try随意.ul": "需要添加此属性：__enter__" + 参考_enter,
             "测试/错误处理/全局.ul": "请先对本地变量‘x’赋值再引用",
             "测试/错误处理/调用错误函数.ul": "请先定义‘b’再使用",
-            "测试/错误处理/多行除零.ul": "请勿除以零",
+            "测试/错误处理/多行除零.ul": 报错_除零,
             "测试/错误处理/字典无键.ul": "字典中不存在此键：4",
             "测试/错误处理/字符串拼接.ul": "字符串只能拼接字符串，请将“int”先用 str() 转换",
             "测试/错误处理/属性被静态调用.ul": "需要添加此属性：'function' object has no attribute 'var'",
             "测试/错误处理/未定义.ul": "请先定义‘number’再使用",
             "测试/错误处理/模块无属性.ul": "需要添加此属性：module '' has no attribute 'a'",
-            "测试/错误处理/死递归.ul": "递归过深。请确认: 1、的确需要递归 2、递归的收敛正确",
+            "测试/错误处理/死递归.ul": 报错_递归,
             "测试/错误处理/类型定义中使用本类型.ul": "请先定义‘Person’再使用",
             "测试/错误处理/调用非静态方法.ul": "TypeError：getAge() missing 1 required positional argument: 'self'",
             "测试/错误处理/重复引用_绝对路径1.ul": "需要添加此属性：module '' has no attribute 'TypeDef'",
             "测试/错误处理/重复引用_绝对路径2.ul": "需要添加此属性：module '' has no attribute 'Instance1'",
-
-            # TODO:
-            # 测试/错误处理/不可见字符.ul
-            # 测试/错误处理/非法赋值.ul
         }
         for 文件 in 对应报错:
             报错 = 运行木兰代码(文件)
@@ -67,6 +64,12 @@ class test所有(unittest.TestCase):
 
         报错 = 运行木兰代码("测试/错误处理/误用函数.ul")
         self.assertEqual(报错[0][:41], "TclError：bad text index \"<function 开始 at ")
+
+        # TODO: 需捕获此错误
+        try:
+            运行木兰代码("测试/错误处理/非法赋值.ul")
+        except ValueError as e:
+            self.assertEqual(str(e), "expression which can't be assigned to in Store context")
 
     def test_行号(self):
         try:
@@ -98,9 +101,12 @@ class test所有(unittest.TestCase):
         self.assertEqual(报错[2], 报错_层级)
         self.assertEqual(报错[3], "见第3行：a()")
 
-        # TODO: 测试/错误处理/引用问题模块.ul
-
         报错 = 运行木兰代码("测试/错误处理/未定义变量于多层函数.ul")
         self.assertEqual(报错[1], "见第2行：return 数1 + 1")
         self.assertEqual(报错[2], 报错_层级)
         self.assertEqual(报错[3], "见第7行：输出(加(2))")
+
+        报错 = 运行木兰代码("测试/错误处理/引用问题模块.ul")
+        self.assertEqual(报错[1], "“测试/错误处理/无此变量.ul”第1行：a")
+        self.assertEqual(报错[2], 报错_层级)
+        self.assertEqual(报错[6], "见第1行：using * in 测试.错误处理.无此变量") # 2 6 行之间为木兰源码
