@@ -63,7 +63,7 @@ class test所有(unittest.TestCase):
             self.assertEqual(运行木兰代码(文件), 单层报错[文件], 文件)
 
         报错 = 运行木兰代码("测试/错误处理/误用函数.ul")
-        self.assertEqual(报错[0][:41], "TclError：bad text index \"<function 开始 at ")
+        self.assertEqual(报错[0], "TypeError：'function' object cannot be interpreted as an integer")
 
         # TODO: 需捕获此错误
         try:
