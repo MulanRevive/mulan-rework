@@ -15,7 +15,6 @@ def 反馈信息(例外, 源码文件=None):
         提神符 = "（>﹏<）"
     return 提神符 + "\n".join(中文化(例外, 源码文件))
 
-# TODO: 测试
 def 中文化(例外, 源码文件=None):
     类型 = 例外.__class__.__name__
     原信息 = str(例外)
@@ -23,28 +22,39 @@ def 中文化(例外, 源码文件=None):
     各层 = traceback.extract_tb(回溯信息)
     # print(repr(各层))
     各行 = []
-    各行.append(提示(类型, 原信息))
-    最高层号 = len(各层) - 1
-    for 层号 in range(最高层号, -1, -1):
-        层 = 各层[层号]
-        文件名 = 层.filename
-        if 文件名.find(运行时木兰路径) > 0:
-            continue
 
-        行信息 = f'见第{层.lineno}行'
-        行内容 = 层.line
-        if 源码文件 == None and 文件名 == "【标准输入】":
-            return [各行[-1] + f"，{行信息}"]
+    行信息 = 提取(各层)
+    if len(行信息) > 0:
+        关键 = 取关键信息(提示(类型, 原信息), 行信息[0])
+    各行.append(关键)
+    for 行号, 行 in enumerate(行信息, start=1):
+        if 源码文件 is None and 行.文件名 == "【标准输入】":
+            return [关键 + f"，见第{行.行号}行"]
         else:
             # 在第二层前显示
-            if 层号 == 最高层号 - 1:
+            if 行号 == 2:
                 各行.append(报错_层级)
 
-            if 文件名 == 源码文件:
-                各行.append(行信息 + '：' + 行内容)
-            else:
-                各行.append(f"“{文件名}”第{层.lineno}行：{行内容}")
+            各行.append(("见" if 行.文件名 == 源码文件 else f"“{行.文件名}”") + f"第{行.行号}行：{行.内容}")
     return 各行
+
+class 层信息:
+    def __init__(self, 行号, 内容, 文件名):
+        self.行号, self.内容, self.文件名 = 行号, 内容, 文件名
+
+def 提取(各层):
+    各行 = []
+    for 层号 in range(len(各层) - 1, -1, -1):
+        层 = 各层[层号]
+        文件名 = 层.filename
+        if 文件名.find(运行时木兰路径) == -1:
+            各行.append(层信息(层.lineno, 层.line, 文件名))
+
+    return 各行
+
+def 取关键信息(基本信息, 首行):
+    代码行 = 首行.内容
+    return 基本信息
 
 def 提示(类型, 原信息):
     if 类型 == 'NameError':
