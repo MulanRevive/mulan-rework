@@ -123,7 +123,7 @@ from sys import platform
     "类型/超类.ul": b"animal",
     "类型/返回值属性.ul": b"ok",
 
-    "字符串/双引号.ul": b'ok\n\t\\"\\natruetrue' if not 为win系统 else b'ok\r\n\t\\"\\natruetrue',
+    "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc' if not 为win系统 else b'ok\r\n\t\\"\\natruetruecc',
     "字符串/单引号.ul": b"ok\n\t\\'\\n" if not 为win系统 else b"ok\r\n\t\\'\\n",
     "字符串/相关方法.ul": b"1hi[fish]",
     "字符串/插值.ul": b"b3b3o44ta3a44t`a3a",
@@ -131,7 +131,7 @@ from sys import platform
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)range(-1, 5, 2)range(4, -2, -2)02",
     "数据结构/列表.ul": b"[][2][2, 4, 6][[1], [2]]",
     "数据结构/列表取值.ul": b"245[1, 4][3, 5][1, 4][1, 4, 3, 5]",
-    "数据结构/列表组合.ul": b"[a, b, b]",
+    "数据结构/列表组合.ul": b"[a, b, b][0, 0]",
     "数据结构/字典.ul": b"0acfalsefalse1a1b21",
     "数据结构/集合.ul": b"{1, 2, 3}",
     "数据结构/多项.ul": b"1, 2, 3",
