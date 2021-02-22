@@ -1,5 +1,8 @@
-import re, sys, traceback
+import ast, re, sys, traceback
 from pathlib import Path
+
+from 木兰.分析器.词法分析器 import 分词器
+from 木兰.分析器.语法分析器 import 语法分析器
 
 运行时木兰路径 = str(Path("site-packages/木兰/"))
 
@@ -54,7 +57,29 @@ def 提取(各层):
 
 def 取关键信息(基本信息, 首行):
     代码行 = 首行.内容
+    if 基本信息.find("类型的变量不支持按索引取项") > 0:
+        分析器 = 语法分析器(分词器)
+        节点 = 分析器.分析(代码行)
+        问题变量 = 诊断问题(节点)
+        return 基本信息 + ": " + (str(问题变量) if len(问题变量) != 1 else 问题变量[0])
     return 基本信息
+
+def 诊断问题(节点):
+    所有变量 = []
+    if isinstance(节点, list):
+        for 子节点 in 节点:
+            所有变量 += 诊断问题(子节点)
+    elif isinstance(节点, int) or isinstance(节点, str):
+        pass
+    else:
+        if 节点 == None:
+            return
+        for 属性 in ast.iter_fields(节点):
+            if type(节点).__name__ == "Subscript":
+                if 属性[0] == "value":
+                    return [属性[1].id]
+            所有变量 += 诊断问题(属性[1])
+    return 所有变量
 
 def 提示(类型, 原信息):
     if 类型 == 'NameError':
@@ -72,8 +97,11 @@ def 提示(类型, 原信息):
         return "字典中不存在此键：" + 原信息
     elif 类型 == 'TypeError':
         模式 = 'can only concatenate str \(not "(.*)"\) to str'
+        无法取项 = "'(.*)' object is not subscriptable"
         if re.match(模式, 原信息):
             return re.sub(模式, r'字符串只能拼接字符串，请将“\1”先用 str() 转换', 原信息)
+        elif re.match(无法取项, 原信息):
+            return re.sub(无法取项, r'“\1”类型的变量不支持按索引取项', 原信息)
     elif 类型 == 'IndexError' and 原信息 == "list index out of range":
         return 报错_列表索引
     elif 类型 == 'AttributeError':
