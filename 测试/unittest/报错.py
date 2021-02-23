@@ -51,8 +51,10 @@ class test所有(unittest.TestCase):
             "测试/错误处理/调用非静态方法.ul": "TypeError：getAge() missing 1 required positional argument: 'self'",
             "测试/错误处理/重复引用_绝对路径1.ul": "需要添加此属性：module '' has no attribute 'TypeDef'",
             "测试/错误处理/重复引用_绝对路径2.ul": "需要添加此属性：module '' has no attribute 'Instance1'",
-            "测试/错误处理/空误作数组.ul": "“NoneType”类型的变量不支持按索引取项: a",
-            "测试/错误处理/数误作数组.ul": "“int”类型的变量不支持按索引取项: a",
+            "测试/错误处理/空误作数组.ul": "空变量不支持按索引取项: a",
+            "测试/错误处理/数误作数组.ul": "整数变量不支持按索引取项: a",
+            "测试/错误处理/函数误作数组.ul": "函数不支持按索引取项: a",
+            "测试/错误处理/真误作数组.ul": "真假变量不支持按索引取项: a",
         }
         for 文件 in 对应报错:
             报错 = 运行木兰代码(文件)

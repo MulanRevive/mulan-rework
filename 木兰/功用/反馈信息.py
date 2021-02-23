@@ -10,6 +10,7 @@ from 木兰.分析器.语法分析器 import 语法分析器
 报错_层级 = "调用层级如下"
 报错_除零 = "请勿除以零"
 报错_递归 = "递归过深。请确认: 1、的确需要递归 2、递归的收敛正确"
+报错_按索引取项 = "不支持按索引取项"
 参考_enter = "\n参考：https://stackoverflow.com/questions/1984325/explaining-pythons-enter-and-exit"
 
 def 反馈信息(例外, 源码文件=None):
@@ -57,7 +58,7 @@ def 提取(各层):
 
 def 取关键信息(基本信息, 首行):
     代码行 = 首行.内容
-    if 基本信息.find("类型的变量不支持按索引取项") > 0:
+    if 基本信息.find(报错_按索引取项) > 0:
         分析器 = 语法分析器(分词器)
         节点 = 分析器.分析(代码行)
         问题变量 = 诊断问题(节点)
@@ -100,8 +101,9 @@ def 提示(类型, 原信息):
         无法取项 = "'(.*)' object is not subscriptable"
         if re.match(模式, 原信息):
             return re.sub(模式, r'字符串只能拼接字符串，请将“\1”先用 str() 转换', 原信息)
-        elif re.match(无法取项, 原信息):
-            return re.sub(无法取项, r'“\1”类型的变量不支持按索引取项', 原信息)
+        匹配 = re.search(无法取项, 原信息)
+        if 匹配:
+            return f'{类型中文化(匹配.group(1))}{报错_按索引取项}'
     elif 类型 == 'IndexError' and 原信息 == "list index out of range":
         return 报错_列表索引
     elif 类型 == 'AttributeError':
@@ -117,3 +119,12 @@ def 提示(类型, 原信息):
     elif 类型 == 'ModuleNotFoundError':
         return re.sub(r"No module named '(.*)'", r"没找到模块：‘\1’", 原信息)
     return 类型 + "：" + 原信息
+
+def 类型中文化(类型):
+    中英表 = {
+        "NoneType": "空变量",
+        "int": "整数变量",
+        "bool": "真假变量",
+        "function": "函数",
+    }
+    return 中英表[类型] if 类型 in 中英表 else 类型
