@@ -1,0 +1,3 @@
+a = true
+if a {
+print(a[0])}
