@@ -1,0 +1,1 @@
+output(add(2))

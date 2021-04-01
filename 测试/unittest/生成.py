@@ -12,6 +12,8 @@ import unittest
     "函数/调用指名参数.py": "操作(x=1)",
     "函数/调用print.py": "println(1)",
     "函数/调用chr.py": "char(97)",
+    "函数/调用多层.py": "output(add(2))",
+    "函数/二阶函数.py": "println(increment(10)(1))",
 }
 
 class test所有(unittest.TestCase):
