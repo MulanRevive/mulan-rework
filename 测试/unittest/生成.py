@@ -6,6 +6,7 @@ import unittest
 期望值 = {
     "1.py": "1",
     "标识符.py": "某量",
+    "函数/调用无实参.py": "操作()",
 }
 
 class test所有(unittest.TestCase):
