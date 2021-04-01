@@ -44,6 +44,8 @@ class 木兰生成器(NodeVisitor):
     def visit_Name(self, 节点):
         if 节点.id == 'print':
             self.编写('println')
+        elif 节点.id == 'chr':
+            self.编写('char')
         else:
             self.编写(节点.id)
 
