@@ -13,11 +13,19 @@ class 木兰生成器(NodeVisitor):
 
     def __init__(self, 头部=None):
         self.结果 = []
+        self.行数 = 0
         if 头部 is not None:
             self.结果.append(头部)
 
     def 编写(self, 文本):
+        if self.行数:
+            if self.结果:
+                self.结果.append('\n' * self.行数)
+            self.行数 = 0
         self.结果.append(文本)
+
+    def 另起一行(self, 节点=None, 额外=0):
+        self.行数 = max(self.行数, 1 + 额外)
 
     def visit_Call(self, 节点):
         需逗号 = []
@@ -51,6 +59,10 @@ class 木兰生成器(NodeVisitor):
 
     def visit_Num(self, 节点):
         self.编写(repr(节点.n))
+
+    def visit_Expr(self, node):
+        self.另起一行()
+        self.visit(node.value)
 
 def 转换(节点):
     return 转源码(节点)
