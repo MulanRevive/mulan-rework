@@ -22,6 +22,8 @@ class 木兰生成器(NodeVisitor):
     def visit_Call(self, 节点):
         self.visit(节点.func)
         self.编写('(')
+        for 实参 in 节点.args:
+            self.visit(实参)
         self.编写(')')
 
     def visit_Name(self, 节点):
