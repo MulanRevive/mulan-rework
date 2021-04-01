@@ -20,10 +20,20 @@ class 木兰生成器(NodeVisitor):
         self.结果.append(文本)
 
     def visit_Call(self, 节点):
+        需逗号 = []
+
+        def 写逗号():
+            if 需逗号:
+                self.编写(', ')
+            else:
+                需逗号.append(True)
+
         self.visit(节点.func)
         self.编写('(')
         for 实参 in 节点.args:
+            写逗号()
             self.visit(实参)
+
         self.编写(')')
 
     def visit_Name(self, 节点):

@@ -8,6 +8,7 @@ import unittest
     "标识符.py": "某量",
     "函数/调用无实参.py": "操作()",
     "函数/调用单个实参.py": "操作(1)",
+    "函数/调用多个实参.py": "操作(1, 2)",
 }
 
 class test所有(unittest.TestCase):
