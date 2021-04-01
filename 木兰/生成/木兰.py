@@ -42,7 +42,10 @@ class 木兰生成器(NodeVisitor):
         self.编写(')')
 
     def visit_Name(self, 节点):
-        self.编写(节点.id)
+        if 节点.id == 'print':
+            self.编写('println')
+        else:
+            self.编写(节点.id)
 
     def visit_Num(self, 节点):
         self.编写(repr(节点.n))
