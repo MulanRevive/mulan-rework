@@ -34,6 +34,11 @@ class 木兰生成器(NodeVisitor):
             写逗号()
             self.visit(实参)
 
+        for 关键词 in 节点.keywords:
+            写逗号()
+            self.编写(关键词.arg + '=')
+            self.visit(关键词.value)
+
         self.编写(')')
 
     def visit_Name(self, 节点):
