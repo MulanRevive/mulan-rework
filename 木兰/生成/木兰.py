@@ -27,6 +27,22 @@ class 木兰生成器(NodeVisitor):
     def 另起一行(self, 节点=None, 额外=0):
         self.行数 = max(self.行数, 1 + 额外)
 
+    def 主体(self, 所有声明):
+        self.编写(' {')
+        for 声明 in 所有声明:
+            self.visit(声明)
+
+        self.另起一行()
+        self.编写('}')
+
+    def visit_FunctionDef(self, 节点):
+        self.另起一行(额外=1)
+        self.另起一行(节点)
+        self.编写('func ')
+        self.编写('(')
+        self.编写(')')
+        self.主体(节点.body)
+
     def visit_Call(self, 节点):
         需逗号 = []
 
