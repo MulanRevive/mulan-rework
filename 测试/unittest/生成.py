@@ -1,33 +1,35 @@
 from 木兰.生成 import 木兰
 
 import ast
+import os
 import unittest
 
 # TODO: 确保生成的木兰代码运行效果与 Python 相同
 
-期望值 = {
-    "1.py": "1",
-    "标识符.py": "某量",
-    "函数/无实参.py": "func a() {\nprintln(1)\n}\na()", # TODO: 文本置于文件中？
-    "函数/调用单个实参.py": "a(1)",
-    "函数/调用多个实参.py": "a(1, 2)",
-    "函数/调用指名参数.py": "a(x=1)",
-    "函数/调用print.py": "println(1)",
-    "函数/调用chr.py": "char(97)",
-    "函数/调用多层.py": "output(add(2))",
-    "函数/二阶函数.py": "println(increment(10)(1))",
-    "特殊字符/多行.py": "println(2)\nprintln(3)",
-}
+源码目录 = "测试/unittest/源码生成/"
 
 class test所有(unittest.TestCase):
 
     def test(self):
-        for 文件 in 期望值:
-            路径 = "测试/unittest/源码生成/python/" + 文件
-            with open(路径, 'r', encoding='utf-8') as f:
-                源码 = f.read()
+        for 路径, 目录名, 所有文件 in os.walk(源码目录):
+            for 文件 in 所有文件:
+                文件名 = os.path.splitext(os.path.join(路径, 文件))
+                if 文件名[1] == '.py':
+                    self.比较(文件名[0])
 
-            语法树节点 = ast.parse(源码, 路径)
-            生成器 = 木兰.木兰生成器()
-            生成器.visit(语法树节点)
-            self.assertEqual("".join(生成器.结果), 期望值[文件], 文件 + " 转换错误")
+    def 比较(self, python文件名):
+        python路径 = python文件名 + '.py'
+        with open(python路径, 'r', encoding='utf-8') as f:
+            python源码 = f.read()
+
+        木兰路径 = python文件名 + ".ul"
+        if os.path.isfile(木兰路径):
+            with open(木兰路径, 'r', encoding='utf-8') as f:
+                木兰源码 = f.read()
+        else:
+            木兰源码 = python源码
+
+        语法树节点 = ast.parse(python源码, python路径)
+        生成器 = 木兰.木兰生成器()
+        生成器.visit(语法树节点)
+        self.assertEqual("".join(生成器.结果), 木兰源码, python路径 + " 转换错误")
