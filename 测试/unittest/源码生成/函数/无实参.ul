@@ -1,0 +1,4 @@
+func a() {
+println(1)
+}
+a()
