@@ -38,7 +38,17 @@ class 木兰生成器(NodeVisitor):
         self.编写('}')
 
     def 形参(self, 节点):
+        # TODO: 避免重复
+        需逗号 = []
+
+        def 写逗号():
+            if 需逗号:
+                self.编写(', ')
+            else:
+                需逗号.append(True)
+
         for arg in 节点.args:
+            写逗号()
             self.visit(arg)
 
     def visit_FunctionDef(self, 节点):
