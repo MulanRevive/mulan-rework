@@ -47,9 +47,13 @@ class 木兰生成器(NodeVisitor):
             else:
                 需逗号.append(True)
 
-        for arg in 节点.args:
+        空档 = [None] * (len(节点.args) - len(节点.defaults))
+        for 形参, 默认值 in zip(节点.args, 空档 + 节点.defaults):
             写逗号()
-            self.visit(arg)
+            self.visit(形参)
+            if 默认值 is not None:
+                self.编写("=")
+                self.visit(默认值)
 
     def visit_FunctionDef(self, 节点):
         self.另起一行(额外=1)
