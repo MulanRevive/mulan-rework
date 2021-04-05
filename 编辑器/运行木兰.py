@@ -17,9 +17,6 @@ def 运行木兰代码(源码文件):
     分析器 = 语法分析器(分词器)
     节点 = 分析器.分析(源码, 源码文件)
 
-    #print(ast.dump(节点, True, True))
-    #print(语法树相关.格式化节点(节点, 1))
-
     # 参考： https://stackoverflow.com/questions/3906232/python-get-the-print-output-in-an-exec-statement
     原标准输出 = sys.stdout
     重定向输出 = sys.stdout = StringIO()
@@ -40,5 +37,3 @@ def 运行木兰代码(源码文件):
         sys.stdout = 原标准输出
 
     return 重定向输出.getvalue()
-
-#print(运行木兰代码("测试/数据结构/字典.ul"))

@@ -5,6 +5,7 @@ import os
 import unittest
 
 # TODO: 确保生成的木兰代码运行效果与 Python 相同
+# 如果用例与木兰功能测试用例有相当重合，考虑复用
 
 源码目录 = "测试/unittest/源码生成/"
 
