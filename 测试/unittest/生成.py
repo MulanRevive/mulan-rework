@@ -37,6 +37,6 @@ class test所有(unittest.TestCase):
             木兰源码 = python源码
 
         语法树节点 = ast.parse(python源码, python路径)
-        生成器 = 木兰.木兰生成器()
+        生成器 = 木兰.木兰生成器("  ")
         生成器.visit(语法树节点)
         self.assertEqual("".join(生成器.结果), 木兰源码, python路径 + " 转换错误")

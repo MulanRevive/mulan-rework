@@ -1,18 +1,20 @@
 from ast import NodeVisitor
 
-def 转源码(节点, 缩进="  "):
+def 转源码(节点, 缩进量="  "):
     """
     本方法由语法树生成木兰源码，可用于实现 Python 到木兰源码的简单转换工具。
     """
     自述 = "/* 本文件由命令 `木兰 -兰 ` 自动生成. */\n"
-    生成器 = 木兰生成器(头部=自述)
+    生成器 = 木兰生成器(缩进量, 头部=自述)
     生成器.visit(节点)
     return "".join(生成器.结果)
 
 class 木兰生成器(NodeVisitor):
 
-    def __init__(self, 头部=None):
+    def __init__(self, 缩进量, 头部=None):
         self.结果 = []
+        self.缩进量 = 缩进量
+        self.缩进 = 0
         self.行数 = 0
         if 头部 is not None:
             self.结果.append(头部)
@@ -23,20 +25,25 @@ class 木兰生成器(NodeVisitor):
         if self.行数:
             if self.结果:
                 self.结果.append('\n' * self.行数)
+            self.结果.append(self.缩进量 * self.缩进)
             self.行数 = 0
         self.结果.append(文本)
 
+    # 待加行号信息
     def 另起一行(self, 节点=None, 额外=0):
         self.行数 = max(self.行数, 1 + 额外)
 
     def 主体(self, 所有声明):
         self.编写(' {')
+        self.缩进 += 1
         for 声明 in 所有声明:
             self.visit(声明)
 
+        self.缩进 -= 1
         self.另起一行()
         self.编写('}')
 
+    # 待补全
     def 形参(self, 节点):
         # TODO: 避免重复
         需逗号 = []
@@ -60,6 +67,7 @@ class 木兰生成器(NodeVisitor):
             # 实际上木兰的变长形参并非如此声明，不知此何用
             self.编写("**" + 节点.kwarg)
 
+    # 待补全
     def visit_FunctionDef(self, 节点):
         self.另起一行(额外=1)
         self.另起一行(节点)
