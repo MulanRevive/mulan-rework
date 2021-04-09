@@ -43,6 +43,15 @@ class 木兰生成器(NodeVisitor):
         self.另起一行()
         self.编写('}')
 
+    def class_body(self, 所有声明):
+        self.编写(' {')
+        self.缩进 += 1
+        self.另起一行()
+        self.主体([])
+        self.缩进 -= 1
+        self.另起一行()
+        self.编写('}')
+
     # 待补全
     def 形参(self, 节点):
         # TODO: 避免重复
@@ -67,7 +76,7 @@ class 木兰生成器(NodeVisitor):
             # 实际上木兰的变长形参并非如此声明，不知此何用
             self.编写("**" + 节点.kwarg)
 
-    # 待补全
+    # 待补全：类方法等
     def visit_FunctionDef(self, 节点):
         self.另起一行(额外=1)
         self.另起一行(节点)
@@ -76,6 +85,13 @@ class 木兰生成器(NodeVisitor):
         self.visit(节点.args)
         self.编写(')')
         self.主体(节点.body)
+
+    def visit_ClassDef(self, 节点):
+        self.另起一行(额外=2)
+        self.另起一行(节点)
+        self.编写('type %s' % 节点.name)
+
+        self.class_body(节点.body)
 
     def visit_Call(self, 节点):
         需逗号 = []
