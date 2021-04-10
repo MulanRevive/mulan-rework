@@ -1,0 +1,6 @@
+type Person {
+
+  $getAge() {
+    println(1)
+  }
+}

@@ -1,4 +1,4 @@
-from ast import NodeVisitor
+from ast import NodeVisitor, FunctionDef, ClassDef
 
 def 转源码(节点, 缩进量="  "):
     """
@@ -16,6 +16,7 @@ class 木兰生成器(NodeVisitor):
         self.缩进量 = 缩进量
         self.缩进 = 0
         self.行数 = 0
+        self.所有类型 = []
         if 头部 is not None:
             self.结果.append(头部)
 
@@ -43,11 +44,25 @@ class 木兰生成器(NodeVisitor):
         self.另起一行()
         self.编写('}')
 
-    def class_body(self, 所有声明):
+    # 待补全：嵌套类
+    def 类型主体(self, 所有声明):
         self.编写(' {')
         self.缩进 += 1
-        self.另起一行()
-        self.主体([])
+        变量声明 = []
+
+        for 声明 in 所有声明:
+            if isinstance(声明, FunctionDef):
+                if 变量声明:
+                    self.另起一行()
+                    self.主体(变量声明)
+                    变量声明 = []
+                self.visit(声明)
+            else:
+                变量声明.append(声明)
+
+        if 变量声明:
+            self.另起一行()
+            self.主体(变量声明)
         self.缩进 -= 1
         self.另起一行()
         self.编写('}')
@@ -80,18 +95,26 @@ class 木兰生成器(NodeVisitor):
     def visit_FunctionDef(self, 节点):
         self.另起一行(额外=1)
         self.另起一行(节点)
-        self.编写('func ')
+        if len(self.所有类型) > 0:
+            if len(节点.args.args) > 0:
+                if 节点.args.args[0].arg == 'self':
+                    节点.args.args = 节点.args.args[1:]
+                    节点.name = '$' + 节点.name
+        else:
+            self.编写('func ')
+
         self.编写('%s(' % 节点.name)
         self.visit(节点.args)
         self.编写(')')
         self.主体(节点.body)
 
     def visit_ClassDef(self, 节点):
+        self.所有类型.append(节点.name)
         self.另起一行(额外=2)
         self.另起一行(节点)
         self.编写('type %s' % 节点.name)
 
-        self.class_body(节点.body)
+        self.类型主体(节点.body)
 
     def visit_Call(self, 节点):
         需逗号 = []
