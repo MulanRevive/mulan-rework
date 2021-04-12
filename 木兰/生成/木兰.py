@@ -99,15 +99,17 @@ class 木兰生成器(NodeVisitor):
             if len(节点.args.args) > 0:
                 if 节点.args.args[0].arg == 'self':
                     节点.args.args = 节点.args.args[1:]
+                    if 节点.name == '__init__':
+                        节点.name = self.所有类型[-1]
                     节点.name = '$' + 节点.name
-        else:
-            self.编写('func ')
+        self.编写('func ')
 
         self.编写('%s(' % 节点.name)
         self.visit(节点.args)
         self.编写(')')
         self.主体(节点.body)
 
+    # 待补全：基类
     def visit_ClassDef(self, 节点):
         self.所有类型.append(节点.name)
         self.另起一行(额外=2)

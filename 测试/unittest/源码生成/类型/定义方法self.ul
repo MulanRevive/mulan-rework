@@ -1,6 +1,6 @@
 type Person {
 
-  $getAge() {
+  func $getAge() {
     println(1)
   }
 }

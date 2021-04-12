@@ -1,0 +1,10 @@
+type Person {
+
+  func $Person() {
+  }
+}
+
+func a() {
+  println(1)
+}
+a()
