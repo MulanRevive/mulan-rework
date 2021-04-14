@@ -121,7 +121,10 @@ class 木兰生成器(NodeVisitor):
         self.另起一行(节点)
         self.编写('type %s' % 节点.name)
         for 基类 in 节点.bases:
-            self.编写(' : ')
+            if 基类 != 节点.bases[0]:
+                self.编写(', ')
+            else:
+                self.编写(' : ')
             self.visit(基类)
 
         self.类型主体(节点.body)
