@@ -1,3 +1,4 @@
+
 func a() {
   println(1)
 }
