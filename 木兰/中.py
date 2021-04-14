@@ -15,6 +15,7 @@ def 用途(程序):
 选项:
  --版本,         -版   显示版本
  --python变木兰, -兰   将 Python 源码转换为木兰源码
+ --语法树,       -树   语法树信息
 '''
     sys.stderr.write(介绍 % os.path.basename(程序))
     sys.exit(-1)
@@ -26,8 +27,9 @@ def 中(argv=None):
     try:
         选项, 参数 = getopt.getopt(
             argv[1:],
-            '兰版',
+            '兰版树',
             [
+                "语法树",
                 "python变木兰",
                 '版本'])
     except getopt.GetoptError as e:
@@ -40,11 +42,14 @@ def 中(argv=None):
 
     版本 = False
     python变木兰 = False
+    语法树 = False
     for 某项, 值 in 选项:
         if 某项 in ('-版', '--版本'):
             版本 = True
         elif 某项 in ("-兰", "--python变木兰"):
             python变木兰 = True
+        elif 某项 in ("-树", "--语法树"):
+            语法树 = True
 
     if 版本:
         from 木兰 import __版本__
@@ -67,8 +72,10 @@ def 中(argv=None):
     分析器 = 语法分析器(分词器)
     节点 = 分析器.分析(源码, 源码文件)
 
-    #print(ast.dump(节点, True, True))
-    #print(语法树相关.格式化节点(节点, 1))
+    if 语法树:
+        print(ast.dump(节点, True, True))
+        # print(语法树相关.格式化节点(节点, 1))
+        return
 
     # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
     try:
