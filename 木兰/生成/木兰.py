@@ -12,6 +12,7 @@ def 转源码(节点, 缩进量="  "):
 class 木兰生成器(NodeVisitor):
 
     def __init__(self, 缩进量, 头部=None):
+        self.调试 = False
         self.结果 = []
         self.缩进量 = 缩进量
         self.缩进 = 0
@@ -19,6 +20,10 @@ class 木兰生成器(NodeVisitor):
         self.所有类型 = []
         if 头部 is not None:
             self.结果.append(头部)
+
+    def 记录(self, 信息):
+        if self.调试:
+            print(信息)
 
     def 编写(self, 文本):
         if not isinstance(文本, str):
@@ -141,6 +146,7 @@ class 木兰生成器(NodeVisitor):
         self.编写(')')
 
     def visit_Name(self, 节点):
+        self.记录("Name: " + 节点.id)
         if 节点.id == 'print':
             self.编写('println')
         elif 节点.id == 'chr':
@@ -152,6 +158,7 @@ class 木兰生成器(NodeVisitor):
         self.编写(repr(节点.n))
 
     def visit_Expr(self, 节点):
+        self.记录("Expr: " + str(节点))
         self.另起一行()
         self.visit(节点.value)
 
