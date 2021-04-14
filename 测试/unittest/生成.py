@@ -46,7 +46,9 @@ class test所有(unittest.TestCase):
             进程 = subprocess.Popen([原始可执行文件, '-s', python路径], stdout=subprocess.PIPE)
             反馈 = 进程.communicate()
             生成源码 = 反馈[0]
-            self.assertEqual(生成源码, 头部信息 + "\n\n" + 木兰源码, python路径 + " 转换错误")
+            self.assertEqual(生成源码.decode("utf-8").replace("\r\n", "\n"),
+                头部信息 + "\n" + 木兰源码 + "\n",
+                python路径 + " 转换错误")
         else:
             语法树节点 = ast.parse(python源码, python路径)
             生成器 = 木兰.木兰生成器("  ")
