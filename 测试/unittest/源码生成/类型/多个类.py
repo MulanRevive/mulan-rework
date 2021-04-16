@@ -6,4 +6,4 @@ class C1:
     def __init__(self):
         print(1)
 C1()
-C2()
+C1.C2()

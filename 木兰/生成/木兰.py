@@ -1,4 +1,4 @@
-from ast import NodeVisitor, FunctionDef, ClassDef
+from ast import NodeVisitor, FunctionDef, ClassDef, Name
 
 '''
 注释"研究"的待进一步揣摩
@@ -132,6 +132,11 @@ class 木兰生成器(NodeVisitor):
 
         # 研究：为何不 :-1 ？
         self.所有类型 = self.所有类型[:-2]
+
+    # 待补全
+    def visit_Attribute(self, 节点):
+        self.visit(节点.value)
+        self.编写('.' + 节点.attr)
 
     def visit_Call(self, 节点):
         需逗号 = []
