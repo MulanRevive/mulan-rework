@@ -1,0 +1,18 @@
+
+
+type C1 {
+
+
+  type C2 {
+
+    func $C2() {
+      println(2)
+    }
+  }
+
+  func __init__(self) {
+    println(1)
+  }
+}
+C1()
+C2()

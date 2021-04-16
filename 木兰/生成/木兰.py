@@ -1,5 +1,8 @@
 from ast import NodeVisitor, FunctionDef, ClassDef
 
+'''
+注释"研究"的待进一步揣摩
+'''
 def 转源码(节点, 缩进量="  "):
     """
     本方法由语法树生成木兰源码，可用于实现 Python 到木兰源码的简单转换工具。
@@ -49,14 +52,13 @@ class 木兰生成器(NodeVisitor):
         self.另起一行()
         self.编写('}')
 
-    # 待补全：嵌套类
     def 类型主体(self, 所有声明):
         self.编写(' {')
         self.缩进 += 1
         变量声明 = []
 
         for 声明 in 所有声明:
-            if isinstance(声明, FunctionDef):
+            if isinstance(声明, FunctionDef) or isinstance(声明, ClassDef):
                 if 变量声明:
                     self.另起一行()
                     self.主体(变量声明)
@@ -114,7 +116,6 @@ class 木兰生成器(NodeVisitor):
         self.编写(')')
         self.主体(节点.body)
 
-    # 待补全：基类
     def visit_ClassDef(self, 节点):
         self.所有类型.append(节点.name)
         self.另起一行(额外=2)
@@ -128,6 +129,9 @@ class 木兰生成器(NodeVisitor):
             self.visit(基类)
 
         self.类型主体(节点.body)
+
+        # 研究：为何不 :-1 ？
+        self.所有类型 = self.所有类型[:-2]
 
     def visit_Call(self, 节点):
         需逗号 = []
