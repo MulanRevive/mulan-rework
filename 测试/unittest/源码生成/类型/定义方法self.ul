@@ -5,4 +5,8 @@ type Person {
   func $getAge() {
     println(1)
   }
+
+  func $hi() {
+    $getAge()
+  }
 }

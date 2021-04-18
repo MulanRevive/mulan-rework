@@ -135,8 +135,11 @@ class 木兰生成器(NodeVisitor):
 
     # 待补全
     def visit_Attribute(self, 节点):
-        self.visit(节点.value)
-        self.编写('.' + 节点.attr)
+        if isinstance(节点.value, Name) and 节点.value.id == 'self':
+            self.编写('$%s' % 节点.attr)
+        else:
+            self.visit(节点.value)
+            self.编写('.' + 节点.attr)
 
     def visit_Call(self, 节点):
         需逗号 = []
