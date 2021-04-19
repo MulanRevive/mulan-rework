@@ -1,4 +1,4 @@
-from ast import NodeVisitor, FunctionDef, ClassDef, Name
+from ast import NodeVisitor, FunctionDef, ClassDef, Name, Attribute
 
 '''
 注释"研究"的待进一步揣摩
@@ -102,6 +102,21 @@ class 木兰生成器(NodeVisitor):
     def visit_FunctionDef(self, 节点):
         self.另起一行(额外=1)
         self.另起一行(节点)
+
+        取值 = False
+        赋值 = False
+        if 节点.decorator_list:
+
+            # 研究：此处会报错，应为 节点.decorator_list
+            for 修饰 in 节点.decorator_list:
+                print(修饰)
+                if isinstance(修饰, Name) and 修饰.id == 'property':
+                    取值 = True
+                else:
+                    if isinstance(修饰, Attribute) and 修饰.attr == "setter":
+                        赋值 = True
+        if 取值:
+            assert not 赋值
         if len(self.所有类型) > 0:
             if len(节点.args.args) > 0:
                 if 节点.args.args[0].arg == 'self':
@@ -109,9 +124,12 @@ class 木兰生成器(NodeVisitor):
                     if 节点.name == '__init__':
                         节点.name = self.所有类型[-1]
                     节点.name = '$' + 节点.name
-        self.编写('func ')
+        if 取值 or 赋值:
+            self.编写('attr ')
+        else:
+            self.编写('func ')
 
-        self.编写('%s(' % 节点.name)
+        self.编写('%s%s(' % (节点.name, ' = ' if 赋值 else ''))
         self.visit(节点.args)
         self.编写(')')
         self.主体(节点.body)
@@ -133,7 +151,7 @@ class 木兰生成器(NodeVisitor):
         # 研究：为何不 :-1 ？
         self.所有类型 = self.所有类型[:-2]
 
-    # 待补全
+    # 待补全: super
     def visit_Attribute(self, 节点):
         if isinstance(节点.value, Name) and 节点.value.id == 'self':
             self.编写('$%s' % 节点.attr)

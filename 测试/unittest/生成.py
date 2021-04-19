@@ -18,7 +18,8 @@ if 为win系统:
 源码目录 = "测试/unittest/源码生成/"
 
 原始木兰未过 = {
-    "变长指名参数.py": "TypeError: can only concatenate str (not \"arg\") to str",
+    "测试/unittest/源码生成/函数/变长指名参数": "TypeError: can only concatenate str (not \"arg\") to str",
+    #"测试/unittest/源码生成/类型/属性": "NameError: name 'decorator_list' is not defined",
 }
 
 
@@ -29,7 +30,7 @@ class test所有(unittest.TestCase):
         for 路径, 目录名, 所有文件 in os.walk(源码目录):
             for 文件 in 所有文件:
                 文件名 = os.path.splitext(os.path.join(路径, 文件))
-                if 文件名[1] == '.py' and 文件 not in 原始木兰未过:
+                if 文件名[1] == '.py' and 文件名[0] not in 原始木兰未过:
                     self.比较(文件名[0])
 
     def 比较(self, python文件名):

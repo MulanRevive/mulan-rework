@@ -1,0 +1,12 @@
+
+
+type C {
+
+  attr $m() {
+    println(0)
+  }
+
+  attr $m = (value) {
+    println(1)
+  }
+}
