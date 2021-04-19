@@ -98,7 +98,6 @@ class 木兰生成器(NodeVisitor):
             # 实际上木兰的变长形参并非如此声明，不知此何用
             self.编写("**" + 节点.kwarg)
 
-    # 待补全：类方法等
     def visit_FunctionDef(self, 节点):
         self.另起一行(额外=1)
         self.另起一行(节点)
@@ -108,13 +107,12 @@ class 木兰生成器(NodeVisitor):
         if 节点.decorator_list:
 
             # 研究：此处会报错，应为 节点.decorator_list
-            for 修饰 in 节点.decorator_list:
+            for 修饰 in decorator_list:
                 print(修饰)
                 if isinstance(修饰, Name) and 修饰.id == 'property':
                     取值 = True
-                else:
-                    if isinstance(修饰, Attribute) and 修饰.attr == "setter":
-                        赋值 = True
+                elif isinstance(修饰, Attribute) and 修饰.attr == "setter":
+                    赋值 = True
         if 取值:
             assert not 赋值
         if len(self.所有类型) > 0:

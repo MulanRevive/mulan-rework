@@ -19,7 +19,7 @@ if 为win系统:
 
 原始木兰未过 = {
     "测试/unittest/源码生成/函数/变长指名参数": "TypeError: can only concatenate str (not \"arg\") to str",
-    #"测试/unittest/源码生成/类型/属性": "NameError: name 'decorator_list' is not defined",
+    "测试/unittest/源码生成/类型/属性": "NameError: name 'decorator_list' is not defined",
 }
 
 
