@@ -120,7 +120,7 @@ from sys import platform
     "类型/继承.ul": b"1",
     "类型/继承于调用.ul": b"1",
     "类型/操作符/定义操作符.ul": b"31true",
-    "类型/超类.ul": b"animal",
+    "类型/超类.ul": b"animalwowo",
     "类型/返回值属性.ul": b"ok",
 
     "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc' if not 为win系统 else b'ok\r\n\t\\"\\natruetruecc',

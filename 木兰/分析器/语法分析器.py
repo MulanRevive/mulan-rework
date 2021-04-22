@@ -22,7 +22,7 @@ class 语法分析器:
     分析器母机 = ParserGenerator(
         规则,
         precedence=[
-            #('nonassoc', [名词_超类, 标识符]),
+            ('nonassoc', [名词_超类]),
             ('right', [箭头]),
             ('right', [问号, 冒号]),
             ('left', [连词_或]),
@@ -33,7 +33,7 @@ class 语法分析器:
             ('left', [不等于, 等于]),
             ('nonassoc', [连词_每隔]),
             ('nonassoc', [点点, 点点小于]),
-            #('nonassoc', ['(']),
+            ('nonassoc', [前小括号]),
             ('left', [加, 减]),
             ('left', [星号, 除, 求余]),
             ('left', [非]),
