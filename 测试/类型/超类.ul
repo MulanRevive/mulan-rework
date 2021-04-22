@@ -3,10 +3,22 @@ type Animal {
     $name = 'animal'
   }
 }
+type WildAnimal {
+  func $WildAnimal(name) {
+    $name = name
+  }
+}
 type Person : Animal {
   func $Person {
     super.__init__()
   }
 }
+type Wolf : WildAnimal {
+  func $Wolf {
+    super(Wolf, self).__init__("wowo")
+  }
+}
 p = Person()
 print(p.name)
+w = Wolf()
+print(w.name)
