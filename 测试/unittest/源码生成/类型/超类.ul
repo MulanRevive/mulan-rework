@@ -1,0 +1,34 @@
+
+
+type Animal {
+
+  func $Animal() {
+    $name = 'animal'
+  }
+}
+
+
+type WildAnimal {
+
+  func $WildAnimal(name) {
+    $name = name
+  }
+}
+
+
+type Person : Animal {
+
+  func $Person() {
+    super()
+  }
+}
+
+
+type Wolf : WildAnimal {
+
+  func $Wolf() {
+    super('wowo')
+  }
+}
+println(Person().name)
+println(Wolf().name)
