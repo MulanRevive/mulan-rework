@@ -192,6 +192,9 @@ class 木兰生成器(NodeVisitor):
         else:
             self.编写(节点.id)
 
+    def visit_Str(self, 节点):
+        self.编写(repr(节点.s))
+
     def visit_Num(self, 节点):
         self.编写(repr(节点.n))
 
