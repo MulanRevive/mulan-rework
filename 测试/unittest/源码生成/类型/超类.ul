@@ -3,7 +3,7 @@
 type Animal {
 
   func $Animal() {
-    $name = 1
+    println(1)
   }
 }
 
@@ -11,7 +11,7 @@ type Animal {
 type WildAnimal {
 
   func $WildAnimal(name) {
-    $name = name
+    println(name)
   }
 }
 
@@ -30,5 +30,5 @@ type Wolf : WildAnimal {
     super(2)
   }
 }
-println(Person().name)
-println(Wolf().name)
+Person()
+Wolf()
