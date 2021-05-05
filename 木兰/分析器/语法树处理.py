@@ -41,6 +41,29 @@ class NameFixPass(ast.NodeTransformer):
         self.类.pop(-1)
         return 类
 
+    # 待补全：assert
+    def visit_Call(self, 调用):
+        函数 = 调用.func
+        if isinstance(函数, ast.Name):
+            if 函数.id == 'super' and len(调用.args) > 0:
+                函数 = ast.Call(func=函数,
+                  args=[],
+                  keywords=[],
+                  starargs=None,
+                  kwargs=None,
+                  lineno=(函数.lineno),
+                  col_offset=(函数.col_offset))
+                调用.func = ast.Attribute(value=函数,
+                  attr='__init__',
+                  ctx=(ast.Load()),
+                  lineno=(函数.lineno),
+                  col_offset=(函数.col_offset))
+
+                # 为解决 super() 报错：ValueError: None disallowed in expression list
+                if len(调用.args) == 1 and 调用.args[0] is None:
+                    调用.args = []
+        return 调用
+
 class AnnoFuncInsertPass(ast.NodeTransformer):
     """
     Visit all ast to insert each anonymous function
