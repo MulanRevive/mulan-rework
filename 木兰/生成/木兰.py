@@ -1,4 +1,4 @@
-from ast import NodeVisitor, FunctionDef, ClassDef, Name, Attribute
+from ast import NodeVisitor, FunctionDef, ClassDef, Name, Attribute, Call
 
 '''
 注释"研究"的待进一步揣摩
@@ -153,6 +153,10 @@ class 木兰生成器(NodeVisitor):
     def visit_Attribute(self, 节点):
         if isinstance(节点.value, Name) and 节点.value.id == 'self':
             self.编写('$%s' % 节点.attr)
+        elif isinstance(节点.value, Call) and isinstance(节点.value.func, Name) and 节点.value.func.id == 'super':
+            self.编写('super')
+            #if 节点.attr != '__init__':
+            #    self.write('.' + 节点.attr)
         else:
             self.visit(节点.value)
             self.编写('.' + 节点.attr)

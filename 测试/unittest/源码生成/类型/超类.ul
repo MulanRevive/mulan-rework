@@ -3,7 +3,7 @@
 type Animal {
 
   func $Animal() {
-    $name = 'animal'
+    $name = 1
   }
 }
 
@@ -27,7 +27,7 @@ type Person : Animal {
 type Wolf : WildAnimal {
 
   func $Wolf() {
-    super('wowo')
+    super(2)
   }
 }
 println(Person().name)

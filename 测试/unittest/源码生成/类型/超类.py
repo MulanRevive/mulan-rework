@@ -1,6 +1,6 @@
 class Animal:
   def __init__(self):
-    self.name = 'animal'
+    self.name = 1
 
 class WildAnimal:
   def __init__(self, name):
@@ -12,7 +12,7 @@ class Person(Animal):
 
 class Wolf(WildAnimal):
   def __init__(self):
-    super().__init__("wowo")
+    super().__init__(2)
 
 print(Person().name)
 print(Wolf().name)
