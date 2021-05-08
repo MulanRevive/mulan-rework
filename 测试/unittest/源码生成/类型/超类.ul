@@ -5,6 +5,10 @@ type Animal {
   func $Animal() {
     println(1)
   }
+
+  func $run(n) {
+    println(n)
+  }
 }
 
 
@@ -21,6 +25,10 @@ type Person : Animal {
   func $Person() {
     super()
   }
+
+  func $go() {
+    super.run(3)
+  }
 }
 
 
@@ -32,3 +40,4 @@ type Wolf : WildAnimal {
 }
 Person()
 Wolf()
+Person().go()

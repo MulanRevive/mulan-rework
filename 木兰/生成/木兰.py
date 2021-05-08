@@ -149,14 +149,13 @@ class 木兰生成器(NodeVisitor):
         # 研究：为何不 :-1 ？
         self.所有类型 = self.所有类型[:-2]
 
-    # 待补全: super
     def visit_Attribute(self, 节点):
         if isinstance(节点.value, Name) and 节点.value.id == 'self':
             self.编写('$%s' % 节点.attr)
         elif isinstance(节点.value, Call) and isinstance(节点.value.func, Name) and 节点.value.func.id == 'super':
             self.编写('super')
-            #if 节点.attr != '__init__':
-            #    self.write('.' + 节点.attr)
+            if 节点.attr != '__init__':
+                self.编写('.' + 节点.attr)
         else:
             self.visit(节点.value)
             self.编写('.' + 节点.attr)
