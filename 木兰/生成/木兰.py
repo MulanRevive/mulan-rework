@@ -74,7 +74,6 @@ class 木兰生成器(NodeVisitor):
         self.另起一行()
         self.编写('}')
 
-    # 待补全
     def 形参(self, 节点):
         # TODO: 避免重复
         需逗号 = []
@@ -93,10 +92,15 @@ class 木兰生成器(NodeVisitor):
                 self.编写("=")
                 self.visit(默认值)
 
+        # 实际上木兰的变长形参并非用 * 声明，不知此段何用
+        '''
+        if 节点.vararg is not None:
+            写逗号()
+            self.编写('*' + 节点.vararg)
         if 节点.kwarg is not None:
             写逗号()
-            # 实际上木兰的变长形参并非如此声明，不知此何用
             self.编写("**" + 节点.kwarg)
+        '''
 
     def visit_FunctionDef(self, 节点):
         self.另起一行(额外=1)
