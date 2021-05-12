@@ -1,1 +1,2 @@
 (d.__contains__('a'))
+('ab'.__contains__('a') and d.__contains__('ab'))

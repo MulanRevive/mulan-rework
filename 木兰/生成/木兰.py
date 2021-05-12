@@ -209,13 +209,18 @@ class 木兰生成器(NodeVisitor):
     def visit_Compare(self, 节点):
         self.编写('(')
         左边 = 节点.left
+        已开头 = False
         for 操作符, 右边 in zip(节点.ops, 节点.comparators):
+            if 已开头:
+                self.编写(' and ')
             操作符 = 比较操作符[type(操作符)]
             if 'in' == 操作符:
                 self.visit(右边)
                 self.编写('.__contains__(')
                 self.visit(左边)
                 self.编写(')')
+            左边 = 右边
+            已开头 = True
 
         self.编写(')')
 
