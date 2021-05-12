@@ -1,8 +1,12 @@
-from ast import NodeVisitor, FunctionDef, ClassDef, Name, Attribute, Call
+from ast import *
 
 '''
 注释"研究"的待进一步揣摩
 '''
+比较操作符 = {
+    In: 'in'
+}
+
 def 转源码(节点, 缩进量="  "):
     """
     本方法由语法树生成木兰源码，可用于实现 Python 到木兰源码的简单转换工具。
@@ -200,6 +204,20 @@ class 木兰生成器(NodeVisitor):
 
     def visit_Num(self, 节点):
         self.编写(repr(节点.n))
+
+    # 待补完
+    def visit_Compare(self, 节点):
+        self.编写('(')
+        左边 = 节点.left
+        for 操作符, 右边 in zip(节点.ops, 节点.comparators):
+            操作符 = 比较操作符[type(操作符)]
+            if 'in' == 操作符:
+                self.visit(右边)
+                self.编写('.__contains__(')
+                self.visit(左边)
+                self.编写(')')
+
+        self.编写(')')
 
     def visit_Expr(self, 节点):
         self.记录("Expr: " + str(节点))
