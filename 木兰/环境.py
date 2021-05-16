@@ -155,6 +155,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'input': input,
         'reverse': reversed,
         'super': super,
+        'locals': lambda: locals(),
         'int': int,
         'str': str,
         'list': list,

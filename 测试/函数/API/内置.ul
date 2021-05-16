@@ -16,3 +16,4 @@ lst = reverse('abc')
 for i, c in enumerate(lst) {
   print(c)
 }
+print(locals())
