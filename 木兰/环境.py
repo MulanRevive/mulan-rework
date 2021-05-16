@@ -151,6 +151,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'set': set,
         'tuple':lambda *各实参: 各实参,
         'char': chr,
+        'bytes': lambda 文本, 编码='ascii': bytes(文本, encoding=编码),
         'isa': lambda x, 类型: isinstance(x, 类型),
         'max': max,
         'min': min,
