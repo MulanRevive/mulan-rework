@@ -179,6 +179,11 @@ def 创建全局变量(argv=[], 文件名=''):
             elif th.isAlive():
                 th.kill()
 
+    def pip_install(*packages, cmd='install'):
+        """ Trigger a pip command. """
+        import pip._internal
+        return pip._internal.main([cmd, *packages])
+
     def eval_print(expr):
         if expr is None:
             return
@@ -244,6 +249,7 @@ def 创建全局变量(argv=[], 文件名=''):
         '再会': sys.exit,
         'quit': sys.exit,
         'open': open,
+        'install': pip_install,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
