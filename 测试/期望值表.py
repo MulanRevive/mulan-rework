@@ -1,4 +1,5 @@
 from sys import platform
+import datetime
 
 为win系统 = platform == 'win32'
 
@@ -53,20 +54,24 @@ from sys import platform
     "函数/返回多值.ul": b"12", # TODO: 原本元组输出为 1, 2， 而非(1，2)
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12true",
     "函数/API/内置.ul": (
-        b"truefalsea[1]200 a1 b2 ctruefalse32b'ab'12.55cba{}true1.1a 149int211.02.00.01.0"
-        b"2.718281828459045"  # exp(1)
-        b"729.0"  # pow(9, 3)
-        b"0.8414709848078965"  # sin(1)
-        b"0.5403023058681398"  # cos(1)
-        b"1.5574077246549023"  # tan(1)
-        b"1.5707963267948966"  # asin(1)
-        b"1.5707963267948966"  # acos(0)
-        b"0.7853981633974483"  # atan(1)
-        b"16"  # str(time())[:2]
-        b"a"  # spawn
-        b""   # kill
-        b"2021"  # year
-    ),
+        "truefalsea[1]200 a1 b2 ctruefalse32b'ab'12.55cba{{}}true1.1a 149int211.02.00.01.0"
+        "2.718281828459045"  # exp(1)
+        "729.0"  # pow(9, 3)
+        "0.8414709848078965"  # sin(1)
+        "0.5403023058681398"  # cos(1)
+        "1.5574077246549023"  # tan(1)
+        "1.5707963267948966"  # asin(1)
+        "1.5707963267948966"  # acos(0)
+        "0.7853981633974483"  # atan(1)
+        "16"  # str(time())[:2]
+        "a"  # spawn
+        ""   # kill
+        "{}"  # year
+        "{}"  # month
+    ).format(
+        datetime.datetime.now().year,
+        datetime.datetime.now().month,
+    ).encode(),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
     "函数/API/file.ul": b"true",

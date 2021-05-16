@@ -254,6 +254,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'install': pip_install,
         'time': time.time,
         'year': lambda: datetime.now().year,
+        'month': lambda: datetime.now().month,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
