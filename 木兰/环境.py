@@ -157,6 +157,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'super': super,
         'locals': lambda: locals(),
         'bool': bool,
+        'float': float,
         'int': int,
         'str': str,
         'list': list,

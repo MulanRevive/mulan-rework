@@ -18,3 +18,4 @@ for i, c in enumerate(lst) {
 }
 print(locals())
 print(bool(1))
+print(float('1.1'))
