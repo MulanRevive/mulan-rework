@@ -167,6 +167,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'char': chr,
         'ord': ord,
         'bytes': lambda 文本, 编码='ascii': bytes(文本, encoding=编码),
+        'typeof': lambda 对象: 对象.__class__.__name__,
         'isa': lambda x, 类型: isinstance(x, 类型),
         'max': max,
         'min': min,
