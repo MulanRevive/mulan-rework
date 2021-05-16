@@ -161,6 +161,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'int': int,
         'str': str,
         'list': list,
+        'dict': dict,
         'set': set,
         'tuple': lambda *各实参: 各实参,
         'char': chr,
