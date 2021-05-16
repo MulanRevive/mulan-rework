@@ -8,6 +8,40 @@ from pathlib import Path
 from 木兰.分析器.语法分析器 import 语法分析器
 
 
+class Thread(threading.Thread):
+    """
+    A traced thread wrapper.
+    """
+
+    def __init__(self, *args, **kw):
+        threading.Thread.__init__(self, *args, **kw)
+        self.killed = False
+
+    def start(self):
+        self._Thread__run_backup = self.run
+        self.run = self._Thread__run
+        threading.Thread.start(self)
+
+    def __run(self):
+        sys.settrace(self.globaltrace)
+        self._Thread__run_backup()
+        self.run = self._Thread__run_backup
+
+    def globaltrace(self, frame, event, arg):
+        if event == 'call':
+            return self.localtrace
+        return
+
+    def localtrace(self, frame, event, arg):
+        if self.killed:
+            if event == 'line':
+                raise SystemExit
+        return self.localtrace
+
+    def kill(self):
+        self.killed = True
+
+
 def 分析并编译(源码文件名):
     with open(源码文件名, 'r', encoding='utf-8') as 文件:
         源码 = 文件.read()
@@ -133,9 +167,17 @@ def 创建全局变量(argv=[], 文件名=''):
 
     def builtin_spawn(target, *参数列表):
         """ 生成一个新任务 """
-        私有线程 = threading.Thread(target=target, args=参数列表, daemon=True)
+        私有线程 = Thread(target=target, args=参数列表, daemon=True)
         私有线程.start()
         return 私有线程
+
+    def builtin_kill(th):
+        """ 杀死th线程 """
+        if isinstance(th, Thread):
+            if th == threading.currentThread():
+                sys.exit()
+            elif th.isAlive():
+                th.kill()
 
     def eval_print(expr):
         if expr is None:
@@ -197,6 +239,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'acos': math.acos,
         'atan': math.atan,
         'spawn': builtin_spawn,
+        'kill': builtin_kill,
         'self': 内置自身,
         '再会': sys.exit,
         'quit': sys.exit,

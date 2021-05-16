@@ -23,7 +23,7 @@ dic = dict({'a':1})
 for k in dic {
     print(k, dic[k])
 }
-print(ord('好'))
+print(ord('1'))
 print(typeof(1))
 print(ceil(1.1))
 print(floor(1.1))
@@ -41,3 +41,10 @@ print(acos(0))
 print(atan(1))
 func pr(v) { print(v) }
 t = spawn(pr, 'a')
+using time
+func tf() {
+    time.sleep(1000)
+    print('no kill')
+}
+tr = spawn(tf)
+kill(tr)
