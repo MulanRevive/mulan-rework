@@ -70,11 +70,13 @@ import datetime
         "{}"  # month
         "{}"  # day
         "{}"  # hour
+        "{}"  # minute
     ).format(
         datetime.datetime.now().year,
         datetime.datetime.now().month,
         datetime.datetime.now().day,
         datetime.datetime.now().hour,
+        datetime.datetime.now().minute,
     ).encode(),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
