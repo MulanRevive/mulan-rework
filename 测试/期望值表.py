@@ -56,6 +56,7 @@ from sys import platform
         b"truefalsea[1]200 a1 b2 ctruefalse32b'ab'12.55cba{}true1.1a 122909int211.02.00.01.0"
         b"2.718281828459045"  # exp(1)
         b"729.0"  # pow(9, 3)
+        b"0.8414709848078965"  # sin(1)
     ),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",

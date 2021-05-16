@@ -184,6 +184,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'log10': math.log10,
         'exp': math.exp,
         'pow': math.pow,
+        'sin': math.sin,
         'self': 内置自身,
         '再会': sys.exit,
         'quit': sys.exit,
