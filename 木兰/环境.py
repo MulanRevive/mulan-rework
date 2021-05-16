@@ -180,6 +180,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'floor': math.floor,
         'fabs': math.fabs,
         'sqrt': math.sqrt,
+        'log': math.log,
         'self': 内置自身,
         '再会': sys.exit,
         'quit': sys.exit,
