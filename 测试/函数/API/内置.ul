@@ -39,6 +39,7 @@ print(tan(1))
 print(asin(1))
 print(acos(0))
 print(atan(1))
+print(str(time())[:2])
 func pr(v) { print(v) }
 t = spawn(pr, 'a')
 using time

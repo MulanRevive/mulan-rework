@@ -2,6 +2,7 @@ import imp
 import math
 import os
 import sys
+import time
 import threading
 from pathlib import Path
 
@@ -176,7 +177,7 @@ def 创建全局变量(argv=[], 文件名=''):
         if isinstance(th, Thread):
             if th == threading.currentThread():
                 sys.exit()
-            elif th.isAlive():
+            elif th.is_alive():
                 th.kill()
 
     def pip_install(*packages, cmd='install'):
@@ -250,6 +251,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'quit': sys.exit,
         'open': open,
         'install': pip_install,
+        'time': time.time,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
