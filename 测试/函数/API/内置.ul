@@ -25,3 +25,4 @@ for k in dic {
 }
 print(ord('好'))
 print(typeof(1))
+print(ceil(1.1))
