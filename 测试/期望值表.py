@@ -72,6 +72,7 @@ import datetime
         "{}"  # hour
         "{}"  # minute
         "{}"  # second
+        "{}"  # microsecond
     ).format(
         datetime.datetime.now().year,
         datetime.datetime.now().month,
@@ -79,6 +80,7 @@ import datetime
         datetime.datetime.now().hour,
         datetime.datetime.now().minute,
         datetime.datetime.now().second,
+        datetime.datetime.now().microsecond,
     ).encode(),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
