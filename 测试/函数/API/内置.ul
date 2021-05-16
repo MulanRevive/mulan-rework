@@ -17,3 +17,4 @@ for i, c in enumerate(lst) {
   print(c)
 }
 print(locals())
+print(bool(1))
