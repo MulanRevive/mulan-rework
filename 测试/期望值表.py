@@ -65,6 +65,7 @@ from sys import platform
         b"16"  # str(time())[:2]
         b"a"  # spawn
         b""   # kill
+        b"2021"  # year
     ),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",

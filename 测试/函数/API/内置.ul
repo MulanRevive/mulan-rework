@@ -49,3 +49,4 @@ func tf() {
 }
 tr = spawn(tf)
 kill(tr)
+print(year())

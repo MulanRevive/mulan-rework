@@ -4,6 +4,7 @@ import os
 import sys
 import time
 import threading
+from datetime import datetime
 from pathlib import Path
 
 from 木兰.分析器.语法分析器 import 语法分析器
@@ -252,6 +253,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'open': open,
         'install': pip_install,
         'time': time.time,
+        'year': lambda: datetime.now().year,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
