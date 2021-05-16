@@ -263,6 +263,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'sleep': time.sleep,
         'delay': lambda 毫秒数: time.sleep(毫秒数 / 1000),
         'delayMicroseconds': lambda 微秒数: time.sleep(微秒数 / 1000000),
+        'PI': math.pi,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
