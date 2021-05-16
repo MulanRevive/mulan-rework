@@ -260,6 +260,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'minute': lambda: datetime.now().minute,
         'second': lambda: datetime.now().second,
         'microsecond': lambda: datetime.now().microsecond,
+        'sleep': time.sleep,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
