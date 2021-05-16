@@ -1,4 +1,8 @@
-import math, sys, imp, os, threading
+import imp
+import math
+import os
+import sys
+import threading
 from pathlib import Path
 
 from 木兰.分析器.语法分析器 import 语法分析器
@@ -12,6 +16,7 @@ def 分析并编译(源码文件名):
         节点 = 分析器.分析(源码=源码, 源码文件=源码文件名)
         return compile(节点, 源码文件名, 'exec')
 
+
 def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
     木兰源码路径 = str(Path(*(名称.split(".")))) + '.ul'
     可执行码 = 分析并编译(木兰源码路径)
@@ -21,7 +26,7 @@ def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
     # TODO: 研究何用
     所有模块 = []
     后段 = 名称
-    模块名 = lambda 名称: 所有模块[-1].__name__ + '.' + 名称 if 所有模块 else ""
+    模块名 = lambda 模块名称: 所有模块[-1].__name__ + '.' + 模块名称 if 所有模块 else ""
 
     点位 = 0
     while 点位 != -1:
@@ -53,6 +58,7 @@ def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
 
     return 顶层
 
+
 def 内置扩展(内置项):
     from inspect import isclass
     for k, v in __builtins__.items():
@@ -61,18 +67,20 @@ def 内置扩展(内置项):
 
     return 内置项
 
+
 def __内置_除(a, b):
     if isinstance(a, int):
         if isinstance(b, int):
             return math.floor(a / b)
     return a / b
 
+
 def __内置_求余(a, b):
     # TODO: 不解为何要在 a b 为整数时特殊处理
     return a % b
 
-def 创建全局变量(argv=[], 文件名=''):
 
+def 创建全局变量(argv=[], 文件名=''):
     def 转字符串(x):
 
         def 容器转为字符串(容器, 始='', 末=''):
@@ -138,18 +146,18 @@ def 创建全局变量(argv=[], 文件名=''):
         'print': 自定义输出,
         'println': lambda *各物件: 自定义输出(*各物件, **{'终止符': '\n'}),
         'assert': 本地断言,
-        'enumerate':enumerate,
         'len': len,
+        'enumerate': enumerate,
         'all': all,
         'any': any,
         'range': range,
-        'input':input,
-        'super':super,
+        'input': input,
+        'super': super,
         'int': int,
         'str': str,
         'list': list,
         'set': set,
-        'tuple':lambda *各实参: 各实参,
+        'tuple': lambda *各实参: 各实参,
         'char': chr,
         'bytes': lambda 文本, 编码='ascii': bytes(文本, encoding=编码),
         'isa': lambda x, 类型: isinstance(x, 类型),
@@ -157,13 +165,13 @@ def 创建全局变量(argv=[], 文件名=''):
         'min': min,
         'map': map,
         'filter': filter,
-        'zip':zip,
+        'zip': zip,
         'staticmethod': staticmethod,
-        'property':property,
-        'self':内置自身,
-        '再会':sys.exit,
-        'quit':sys.exit,
-        'open':open,
+        'property': property,
+        'self': 内置自身,
+        '再会': sys.exit,
+        'quit': sys.exit,
+        'open': open,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
