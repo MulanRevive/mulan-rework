@@ -151,6 +151,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'all': all,
         'any': any,
         'range': range,
+        'round': round,
         'input': input,
         'super': super,
         'int': int,
