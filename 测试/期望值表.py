@@ -71,7 +71,7 @@ import datetime
         "{}"  # day
         "{}"  # hour
         "{}"  # minute
-        "{}"  # second
+        # "{}"  # second
         # "{}"  # microsecond
         "3.141592653589793"  # PI
     ).format(
@@ -80,7 +80,7 @@ import datetime
         datetime.datetime.now().day,
         datetime.datetime.now().hour,
         datetime.datetime.now().minute,
-        datetime.datetime.now().second,
+        # datetime.datetime.now().second,
         # datetime.datetime.now().microsecond,
     ).encode(),
     "函数/API/文件.ul": b"hi",
