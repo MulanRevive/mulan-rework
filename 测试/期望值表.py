@@ -61,6 +61,7 @@ from sys import platform
         b"1.5574077246549023"  # tan(1)
         b"1.5707963267948966"  # asin(1)
         b"1.5707963267948966"  # acos(0)
+        b"0.7853981633974483"  # atan(1)
     ),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
