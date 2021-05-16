@@ -131,6 +131,12 @@ def 创建全局变量(argv=[], 文件名=''):
         """ 当前任务 ID """
         return threading.currentThread()
 
+    def builtin_spawn(target, *参数列表):
+        """ 生成一个新任务 """
+        私有线程 = threading.Thread(target=target, args=参数列表, daemon=True)
+        私有线程.start()
+        return 私有线程
+
     def eval_print(expr):
         if expr is None:
             return
@@ -190,6 +196,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'asin': math.asin,
         'acos': math.acos,
         'atan': math.atan,
+        'spawn': builtin_spawn,
         'self': 内置自身,
         '再会': sys.exit,
         'quit': sys.exit,
