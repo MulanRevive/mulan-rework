@@ -68,9 +68,11 @@ import datetime
         ""   # kill
         "{}"  # year
         "{}"  # month
+        "{}"  # day
     ).format(
         datetime.datetime.now().year,
         datetime.datetime.now().month,
+        datetime.datetime.now().day,
     ).encode(),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",

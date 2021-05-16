@@ -255,6 +255,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'time': time.time,
         'year': lambda: datetime.now().year,
         'month': lambda: datetime.now().month,
+        'day': lambda: datetime.now().day,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
