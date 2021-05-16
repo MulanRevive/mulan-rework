@@ -258,6 +258,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'day': lambda: datetime.now().day,
         'hour': lambda: datetime.now().hour,
         'minute': lambda: datetime.now().minute,
+        'second': lambda: datetime.now().second,
         'ARGV': argv,
         '__builtins__': 内置扩展({
             '__import__': 自定义导入,
