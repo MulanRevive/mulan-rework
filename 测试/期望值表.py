@@ -123,8 +123,8 @@ from sys import platform
     "类型/超类.ul": b"animalwowo",
     "类型/返回值属性.ul": b"ok",
 
-    "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc' if not 为win系统 else b'ok\r\n\t\\"\\natruetruecc',
-    "字符串/单引号.ul": b"ok\n\t\\'\\n" if not 为win系统 else b"ok\r\n\t\\'\\n",
+    "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc',
+    "字符串/单引号.ul": b"ok\n\t\\'\\n",
     "字符串/相关方法.ul": b"1hi[fish]",
     "字符串/插值.ul": b"b3b3o44ta3a44t`a3a",
 

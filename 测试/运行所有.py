@@ -31,6 +31,10 @@ if shutil.which(可执行文件) is None:
     "引用/引用木兰多个.ul", "引用/引用本地包内木兰.ul", "引用/引用本地包内木兰某内容.ul",
     "算法/排序/冒泡.ul", "算法/排序/插入.ul", "算法/排序/快速.ul",
     "运算/综合.ul"])
+if 为win系统:
+    期望值["字符串/双引号.ul"] = b'ok\r\n\t\\"\\natruetruecc'
+    期望值["字符串/单引号.ul"] = b"ok\r\n\t\\'\\n"
+
 # 参考：https://stackoverflow.com/questions/748028/how-to-get-output-of-exe-in-python-script
 for 文件 in 期望值:
     源码路径 = 路径 + 文件

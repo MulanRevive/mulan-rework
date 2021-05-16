@@ -19,6 +19,8 @@ def 运行木兰代码(源码文件):
 
     # 参考： https://stackoverflow.com/questions/3906232/python-get-the-print-output-in-an-exec-statement
     原标准输出 = sys.stdout
+
+    # 默认换行符为 \n，见 https://docs.python.org/zh-cn/3.7/library/io.html#io.StringIO
     重定向输出 = sys.stdout = StringIO()
 
     # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
