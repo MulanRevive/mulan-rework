@@ -177,6 +177,7 @@ def 创建全局变量(argv=[], 文件名=''):
         'staticmethod': staticmethod,
         'property': property,
         'ceil': math.ceil,
+        'floor': math.floor,
         'self': 内置自身,
         '再会': sys.exit,
         'quit': sys.exit,
