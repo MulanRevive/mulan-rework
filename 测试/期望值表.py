@@ -57,6 +57,7 @@ from sys import platform
         b"2.718281828459045"  # exp(1)
         b"729.0"  # pow(9, 3)
         b"0.8414709848078965"  # sin(1)
+        b"0.5403023058681398"  # cos(1)
     ),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
