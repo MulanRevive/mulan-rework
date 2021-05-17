@@ -10,13 +10,13 @@ from pathlib import Path
 from 木兰.分析器.语法分析器 import 语法分析器
 
 
-class 线程包装器(threading.Thread):
+class 线程(threading.Thread):
     """
     跟踪线程包装器。
     """
 
-    def __init__(类自身, *参数, **关键字):
-        threading.Thread.__init__(类自身, args=参数, kwargs=关键字)
+    def __init__(类自身, *args, **kw):
+        threading.Thread.__init__(类自身, *args, **kw)
         类自身.已杀死 = False
 
     def start(类自身):
@@ -168,14 +168,14 @@ def 创建全局变量(argv=[], 文件名=''):
         return threading.currentThread()
 
     def 生成新任务(任务名, *参数列表):
-        """ 生成一个新任务 """
-        私有线程 = 线程包装器(target=任务名, 参数=参数列表, daemon=True)
+
+        # 待研究：各参数作用
+        私有线程 = 线程(target=任务名, args=参数列表, daemon=True)
         私有线程.start()
         return 私有线程
 
     def 杀死任务(任务线程):
-        """ 杀死th线程 """
-        if isinstance(任务线程, 线程包装器):
+        if isinstance(任务线程, 线程):
             if 任务线程 == threading.currentThread():
                 sys.exit()
             elif 任务线程.is_alive():
