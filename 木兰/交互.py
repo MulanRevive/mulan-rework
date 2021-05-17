@@ -143,6 +143,8 @@ def 开始交互(提示符1='> ', 提示符2='>> ', 全局变量=None):
         # TODO: 何时会用
         全局变量 = 创建全局变量(文件名='<STDIN>')
     全局变量['详情'] = lambda : print('\n'.join([' %s (%s)' % (k, v.__class__.__name__) for k, v in 全局变量.items() if k != '__builtins__' if k != '___']))
+    全局变量['globals'] = lambda: 全局变量['详情']()
     全局变量['你好'] = lambda *args: print('\n'.join(介绍)) if not args else print()
+    全局变量['help'] = lambda: 全局变量['你好']()
     交互(提示符1, 提示符2, 全局变量).cmdloop("木兰向您问好\n更多信息请说'你好'")
     sys.exit(0)

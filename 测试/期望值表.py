@@ -1,4 +1,5 @@
 from sys import platform
+import datetime
 
 为win系统 = platform == 'win32'
 
@@ -52,7 +53,35 @@ from sys import platform
     "函数/map.ul": b"[1, 4, 9]",
     "函数/返回多值.ul": b"12", # TODO: 原本元组输出为 1, 2， 而非(1，2)
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12true",
-    "函数/API/内置.ul": b"truefalsea[1]200 a1 b2 ctruefalse32b'ab'",
+    "函数/API/内置.ul": (
+        "truefalsea[1]200 a1 b2 ctruefalse32b'ab'12.55cba{{}}true1.1a 149int211.02.00.01.0"
+        "2.718281828459045"  # exp(1)
+        "729.0"  # pow(9, 3)
+        # 不同 python3.7小版本的值不同，如 3.7.9 cos(1) 0.5403023058681397 3.7.4 为 0.5403023058681398。因此使用特殊角度规避
+        "sin(0):0.0"
+        "cos(0):1.0"
+        "tan(0):0.0"
+        "asin(0):0.0"
+        "acos(1):0.0"
+        "atan(0):0.0"
+        "16"  # str(time())[:2]
+        "a"  # spawn
+        ""   # kill
+        "{}"  # year
+        "{}"  # month
+        "{}"  # day
+        "{}"  # hour
+        # 当原始可执行文件运行测试时间过长，常导致开始测试时刻的分钟数值与运行到此测试的分钟数值不同
+        "function"  # typeof(minute)
+        "function"  # typeof(second)
+        "function"  # typeof(microsecond)
+        "3.141592653589793"  # PI
+    ).format(
+        datetime.datetime.now().year,
+        datetime.datetime.now().month,
+        datetime.datetime.now().day,
+        datetime.datetime.now().hour,
+    ).encode(),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
     "函数/API/file.ul": b"true",
