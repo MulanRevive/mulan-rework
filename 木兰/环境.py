@@ -10,38 +10,38 @@ from pathlib import Path
 from 木兰.分析器.语法分析器 import 语法分析器
 
 
-class Thread(threading.Thread):
+class 线程包装器(threading.Thread):
     """
     跟踪线程包装器。
     """
 
-    def __init__(self, *args, **kw):
-        threading.Thread.__init__(self, *args, **kw)
-        self.killed = False
+    def __init__(类自身, *参数, **关键字):
+        threading.Thread.__init__(类自身, args=参数, kwargs=关键字)
+        类自身.已杀死 = False
 
-    def start(self):
-        self._Thread__run_backup = self.run
-        self.run = self._Thread__run
-        threading.Thread.start(self)
+    def start(类自身):
+        类自身._线程__运行_backup = 类自身.run
+        类自身.run = 类自身._线程__运行
+        threading.Thread.start(类自身)
 
-    def __run(self):
-        sys.settrace(self.globaltrace)
-        self._Thread__run_backup()
-        self.run = self._Thread__run_backup
+    def __运行(类自身):
+        sys.settrace(类自身.全局跟踪)
+        类自身._线程__运行_backup()
+        类自身.run = 类自身._线程__运行_backup
 
-    def globaltrace(self, frame, event, arg):
-        if event == 'call':
-            return self.localtrace
+    def 全局跟踪(类自身, 框架, 事件, 参数):
+        if 事件 == 'call':
+            return 类自身.本地跟踪
         return
 
-    def localtrace(self, frame, event, arg):
-        if self.killed:
-            if event == 'line':
+    def 本地跟踪(类自身, 框架, 事件, 参数):
+        if 类自身.已杀死:
+            if 事件 == 'line':
                 raise SystemExit
-        return self.localtrace
+        return 类自身.本地跟踪
 
-    def kill(self):
-        self.killed = True
+    def 杀死(类自身):
+        类自身.已杀死 = True
 
 
 def 分析并编译(源码文件名):
@@ -169,7 +169,7 @@ def 创建全局变量(argv=[], 文件名=''):
 
     def 生成新任务(任务名, *参数列表):
         """ 生成一个新任务 """
-        私有线程 = Thread(target=任务名, args=参数列表, daemon=True)
+        私有线程 = 线程包装器(target=任务名, 参数=参数列表, daemon=True)
         私有线程.start()
         return 私有线程
 
@@ -179,12 +179,11 @@ def 创建全局变量(argv=[], 文件名=''):
             if 任务线程 == threading.currentThread():
                 sys.exit()
             elif 任务线程.is_alive():
-                任务线程.kill()
+                任务线程.杀死()
 
-    def pip_install(*packages, cmd='install'):
-        """ Trigger a pip command. """
+    def 用pip安装(*包, 命令='install'):
         import pip._internal
-        return pip._internal.main([cmd, *packages])
+        return pip._internal.main([命令, *包])
 
     def eval_print(expr):
         if expr is None:
@@ -251,7 +250,7 @@ def 创建全局变量(argv=[], 文件名=''):
         '再会': sys.exit,
         'quit': sys.exit,
         'open': open,
-        'install': pip_install,
+        'install': 用pip安装,
         'time': time.time,
         'year': lambda: datetime.now().year,
         'month': lambda: datetime.now().month,

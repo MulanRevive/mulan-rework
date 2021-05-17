@@ -33,7 +33,6 @@ print(log(1))
 print(log10(10))
 print(exp(1))
 print(pow(9, 3))
-// 不同 python3.7小版本的值不同，如 3.7.9 cos(1) 0.5403023058681397 3.7.4 为 0.5403023058681398。因此使用特殊角度规避
 print('sin(0):' + str(sin(0)))
 print('cos(0):' + str(cos(0)))
 print('tan(0):' + str(tan(0)))
