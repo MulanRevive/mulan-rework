@@ -12,7 +12,7 @@ from 木兰.分析器.语法分析器 import 语法分析器
 
 class Thread(threading.Thread):
     """
-    A traced thread wrapper.
+    跟踪线程包装器。
     """
 
     def __init__(self, *args, **kw):
@@ -167,19 +167,19 @@ def 创建全局变量(argv=[], 文件名=''):
         """ 当前任务 ID """
         return threading.currentThread()
 
-    def builtin_spawn(target, *参数列表):
+    def 生成新任务(任务名, *参数列表):
         """ 生成一个新任务 """
-        私有线程 = Thread(target=target, args=参数列表, daemon=True)
+        私有线程 = Thread(target=任务名, args=参数列表, daemon=True)
         私有线程.start()
         return 私有线程
 
-    def builtin_kill(th):
+    def 杀死任务(任务线程):
         """ 杀死th线程 """
-        if isinstance(th, Thread):
-            if th == threading.currentThread():
+        if isinstance(任务线程, Thread):
+            if 任务线程 == threading.currentThread():
                 sys.exit()
-            elif th.is_alive():
-                th.kill()
+            elif 任务线程.is_alive():
+                任务线程.kill()
 
     def pip_install(*packages, cmd='install'):
         """ Trigger a pip command. """
@@ -245,8 +245,8 @@ def 创建全局变量(argv=[], 文件名=''):
         'asin': math.asin,
         'acos': math.acos,
         'atan': math.atan,
-        'spawn': builtin_spawn,
-        'kill': builtin_kill,
+        'spawn': 生成新任务,
+        'kill': 杀死任务,
         'self': 内置自身,
         '再会': sys.exit,
         'quit': sys.exit,
