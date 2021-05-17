@@ -71,7 +71,8 @@ import datetime
         "{}"  # month
         "{}"  # day
         "{}"  # hour
-        "{}"  # minute
+        # 当原始可执行文件运行测试时间过长，常导致开始测试时刻的分钟数值与运行到此测试的分钟数值不同
+        "function"  # typeof(minute)
         "function"  # typeof(second)
         "function"  # typeof(microsecond)
         "3.141592653589793"  # PI
@@ -80,7 +81,6 @@ import datetime
         datetime.datetime.now().month,
         datetime.datetime.now().day,
         datetime.datetime.now().hour,
-        datetime.datetime.now().minute,
     ).encode(),
     "函数/API/文件.ul": b"hi",
     "函数/API/self.ul": b"true",
