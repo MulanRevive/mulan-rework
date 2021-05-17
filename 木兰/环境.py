@@ -9,39 +9,39 @@ from pathlib import Path
 
 from 木兰.分析器.语法分析器 import 语法分析器
 
-
+# 参考：https://docs.python.org/3.7/library/threading.html#thread-objects
 class 线程(threading.Thread):
     """
     跟踪线程包装器。
     """
 
-    def __init__(类自身, *args, **kw):
-        threading.Thread.__init__(类自身, *args, **kw)
-        类自身.已杀死 = False
+    def __init__(自身, *args, **kw):
+        threading.Thread.__init__(自身, *args, **kw)
+        自身.已亡 = False
 
-    def start(类自身):
-        类自身._线程__运行_backup = 类自身.run
-        类自身.run = 类自身._线程__运行
-        threading.Thread.start(类自身)
+    def start(自身):
+        自身._线程__运行_backup = 自身.run
+        自身.run = 自身._线程__运行
+        threading.Thread.start(自身)
 
-    def __运行(类自身):
-        sys.settrace(类自身.全局跟踪)
-        类自身._线程__运行_backup()
-        类自身.run = 类自身._线程__运行_backup
+    def __运行(自身):
+        sys.settrace(自身.全局跟踪)
+        自身._线程__运行_backup()
+        自身.run = 自身._线程__运行_backup
 
-    def 全局跟踪(类自身, 框架, 事件, 参数):
+    def 全局跟踪(自身, 栈, 事件, 参数):
         if 事件 == 'call':
-            return 类自身.本地跟踪
+            return 自身.本地跟踪
         return
 
-    def 本地跟踪(类自身, 框架, 事件, 参数):
-        if 类自身.已杀死:
+    def 本地跟踪(自身, 栈, 事件, 参数):
+        if 自身.已亡:
             if 事件 == 'line':
                 raise SystemExit
-        return 类自身.本地跟踪
+        return 自身.本地跟踪
 
-    def 杀死(类自身):
-        类自身.已杀死 = True
+    def 杀死(自身):
+        自身.已亡 = True
 
 
 def 分析并编译(源码文件名):
