@@ -175,7 +175,7 @@ def 创建全局变量(argv=[], 文件名=''):
 
     def 杀死任务(任务线程):
         """ 杀死th线程 """
-        if isinstance(任务线程, Thread):
+        if isinstance(任务线程, 线程包装器):
             if 任务线程 == threading.currentThread():
                 sys.exit()
             elif 任务线程.is_alive():
