@@ -57,12 +57,12 @@ import datetime
         "truefalsea[1]200 a1 b2 ctruefalse32b'ab'12.55cba{{}}true1.1a 149int211.02.00.01.0"
         "2.718281828459045"  # exp(1)
         "729.0"  # pow(9, 3)
-        "0.8414709848078965"  # sin(1)
-        "0.5403023058681398"  # cos(1)
-        "1.5574077246549023"  # tan(1)
-        "1.5707963267948966"  # asin(1)
-        "1.5707963267948966"  # acos(0)
-        "0.7853981633974483"  # atan(1)
+        "sin(0):0.0"  # sin(0)
+        "cos(0):1.0"  # cos(0)
+        "tan(0):0.0"  # tan(0)
+        "asin(0):0.0"  # asin(0)
+        "acos(1):0.0"  # acos(1)
+        "atan(0):0.0"  # atan(0)
         "16"  # str(time())[:2]
         "a"  # spawn
         ""   # kill
@@ -71,8 +71,8 @@ import datetime
         "{}"  # day
         "{}"  # hour
         "{}"  # minute
-        # "{}"  # second
-        # "{}"  # microsecond
+        "function"  # typeof(second)
+        "function"  # typeof(microsecond)
         "3.141592653589793"  # PI
     ).format(
         datetime.datetime.now().year,
