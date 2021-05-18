@@ -109,7 +109,7 @@ $ 木兰 测试/错误处理/引用模块.ul
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 
 木兰语言部分依赖的第三方 Python 包：
-- [rply](https://pypi.org/project/rply/)
+- [rply-ulang](https://pypi.org/project/rply-ulang/)
 
 ### 本地运行
 

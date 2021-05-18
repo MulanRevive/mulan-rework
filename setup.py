@@ -6,7 +6,7 @@ with open("README.md", encoding="utf-8", mode="r") as readme:
 setuptools.setup(
     name="ulang",
     # 木兰/__init__.py 中保持一致
-    version="0.0.17.4",
+    version="0.0.18",
     license="GNU GPLv3",
     author="吴烜",
     author_email="mulanrevive@gmail.com",
@@ -28,7 +28,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-        'rply',
+        'rply-ulang',
     ],
     python_requires="== 3.7.*"
 )
