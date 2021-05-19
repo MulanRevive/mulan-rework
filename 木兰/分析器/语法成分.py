@@ -1,5 +1,6 @@
 from enum import Enum, unique
 
+
 @unique
 class 语法(Enum):
     # 语法名称, 英文为原代码中对应名称. 按定义的先后顺序
