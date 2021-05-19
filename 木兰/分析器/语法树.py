@@ -20,12 +20,19 @@ class 语法树:
         elif 类型 == 语法.数:
             节点 = ast.Num(n=值)
         elif 类型 == 语法.二元表达式:
-            if isinstance(运算符, ast.And) or isinstance(运算符, ast.Or):
+            # 通过类名方式简化if语句
+            运算符名 = 运算符.__class__.__name__
+            if 运算符名 in ('And', 'Or'):
+                # if isinstance(运算符, ast.And) or isinstance(运算符, ast.Or):
                 节点 = ast.BoolOp(op=运算符, values=[前项, 后项])
-            elif isinstance(运算符, ast.Add) or isinstance(运算符, ast.Sub) or isinstance(运算符, ast.Mult) or isinstance(运算符, ast.Pow) or isinstance(运算符, ast.Mod):
+            elif 运算符名 in ('Add', 'Sub', 'Mult', 'Pow', 'Mod', 'LShift', 'RShift'):
+                # elif isinstance(运算符, ast.Add) or isinstance(运算符, ast.Sub) or isinstance(运算符, ast.Mult) \
+                #         or isinstance(运算符, ast.Pow) or isinstance(运算符, ast.Mod) or isinstance(运算符, ast.LShift)\
+                #         or isinstance(运算符, ast.RShift):
                 节点 = ast.BinOp(left=左, op=运算符, right=右)
             else:
-                # TODO: 为何比较符和后项在数组中?
+                # DONE: 为何比较符和后项在数组中?
+                # https://docs.python.org/zh-cn/3/library/ast.html#ast.Compare 函数定义的参数在数组中
                 节点 = ast.Compare(前项, [运算符], [后项])
         elif 类型 == 语法.名称:
             节点 = ast.Name(id=标识, ctx=上下文)

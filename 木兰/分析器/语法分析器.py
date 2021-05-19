@@ -28,7 +28,8 @@ class 语法分析器:
             ('left', [连词_或]),
             ('left', [连词_且]),
             # nonassoc 参考: http://www.dabeaz.com/ply/ply.html
-            # non-associativity in the precedence table. This would be used when you don't want operations to chain together
+            # non-associativity in the precedence table.
+            # This would be used when you don't want operations to chain together
             ('nonassoc', [大于, 小于, 大于等于, 小于等于, 严格不等于, 严格等于]),
             ('left', [不等于, 等于]),
             ('nonassoc', [连词_每隔]),
@@ -37,7 +38,8 @@ class 语法分析器:
             ('left', [星号, 除, 求余]),
             ('left', [非]),
             ('right', [乘方]),
-
+            ('right', [左移]),
+            ('right', [右移]),
             # 原来在 点点 和 加减之间，不知为何。既然测试能过，先放在最高，以观后效。
             ('nonassoc', [前小括号]),
         ]
@@ -408,6 +410,8 @@ class 语法分析器:
     @分析器母机.production(语法.二元表达式.成分(语法.表达式, 减, 语法.表达式))
     @分析器母机.production(语法.二元表达式.成分(语法.表达式, 星号, 语法.表达式))
     @分析器母机.production(语法.二元表达式.成分(语法.表达式, 乘方, 语法.表达式))
+    @分析器母机.production(语法.二元表达式.成分(语法.表达式, 左移, 语法.表达式))
+    @分析器母机.production(语法.二元表达式.成分(语法.表达式, 右移, 语法.表达式))
     def 二元表达式(self, 片段):
         左 = 片段[0]
         右 = 片段[2]
@@ -416,7 +420,9 @@ class 语法分析器:
             加: ast.Add(),
             减: ast.Sub(),
             星号: ast.Mult(),
-            乘方: ast.Pow()
+            乘方: ast.Pow(),
+            左移: ast.LShift(),
+            右移: ast.RShift(),
         }
         if 运算符 in 对照表:
             python运算 = 对照表[运算符]
