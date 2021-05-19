@@ -11,6 +11,7 @@ from 木兰.功用.调试辅助 import 语法树相关
 
 # 木兰不支持 compile, exec, 因此不改写为木兰代码
 def 运行木兰代码(源码文件):
+    源码文件 = str(Path(源码文件))
     with open(源码文件, 'r', encoding='utf-8') as f:
         源码 = f.read()
 
