@@ -25,7 +25,7 @@ class 语法树:
             运算符名 = 运算符.__class__.__name__
             if 运算符名 in ('And', 'Or'):
                 节点 = ast.BoolOp(op=运算符, values=[前项, 后项])
-            elif 运算符名 in ('Add', 'Sub', 'Mult', 'Pow', 'Mod', 'LShift', 'RShift'):
+            elif 运算符名 in ('Add', 'Sub', 'Mult', 'Pow', 'Mod', 'LShift', 'RShift', 'BitAnd', 'BitOr'):
                 节点 = ast.BinOp(left=左, op=运算符, right=右)
             else:
                 # DONE: 为何比较符和后项在数组中?
