@@ -227,7 +227,10 @@ class 木兰生成器(NodeVisitor):
     def visit_Expr(self, 节点):
         self.记录("Expr: " + str(节点))
         self.另起一行()
-        self.visit(节点.value)
+        if isinstance(节点.value, Str):
+            self.编写('/* %s */' % 节点.value.s)
+        else:
+            self.visit(节点.value)
 
     def visit_arguments(self, 节点):
         self.形参(节点)
