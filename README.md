@@ -124,6 +124,7 @@ $ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.uni
 ```
 为检验[与原始木兰可执行文件功能一致](https://zhuanlan.zhihu.com/p/230155471)，在 Windows 下将 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 置于项目根目录后如下运行；其他系统下，会对从 PyPI 安装的版本进行测试：
 ```
+$ python -m unittest 测试.unittest.原始可执行文件
 $ python 测试/运行所有.py
 ```
 ## 许可证
