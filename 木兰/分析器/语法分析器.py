@@ -32,9 +32,9 @@ class 语法分析器:
             # non-associativity in the precedence table.
             # This would be used when you don't want operations to chain together
             ('left', [位_左移, 位_右移]),   # python语法中这四个操作要优于比较 木兰中低
-            ('left', [位_与, 位_或]),
             ('nonassoc', [大于, 小于, 大于等于, 小于等于, 严格不等于, 严格等于]),
             ('left', [不等于, 等于]),
+            ('left', [位_与, 位_或]),  # 位与和或高于比较
             ('nonassoc', [连词_每隔]),
             ('nonassoc', [点点, 点点小于]),
             ('left', [加, 减]),
