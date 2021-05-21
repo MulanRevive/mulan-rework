@@ -104,7 +104,6 @@ class 交互(cmd.Cmd):
                     节点 = self.分析器.分析('___=(%s);__print__(___)' % self.声明, '【标准输入】')
                 except Exception:
                     节点 = self.分析器.分析(self.声明, '【标准输入】')
-
                 可执行码 = compile(节点, '【标准输入】', 'exec')
                 exec(可执行码, self.全局变量)
             except SystemExit:

@@ -51,6 +51,10 @@ import rply, re
 大于等于 = '>='
 小于等于 = '<='
 箭头 = '->'
+位_左移 = '<<'
+位_右移 = '>>'
+位_与 = '&'
+位_或 = '|'
 大于 = '>'
 小于 = '<'
 符号_赋值 = '='
@@ -84,6 +88,10 @@ import rply, re
     严格不等于,
     等于,
     不等于,
+    位_左移,
+    位_右移,
+    位_与,
+    位_或,
     大于,
     小于,
     大于等于,
@@ -144,19 +152,19 @@ import rply, re
 分词器母机.add(小数, r'\d+\.\d+')
 分词器母机.add(整数, r'\d+')
 分词器母机.add(双引号字符串, r'(")((?<!\\)\\\1|.)*?\1')
-分词器母机.add(单引号字符串, r"(')((?<!\\)\\\1|.)*?\1") # \' 之前不能有 \
-分词器母机.add(前大括号, r'{\r*\n*') # TODO: 何用？ , flags=(re.DOTALL)
+分词器母机.add(单引号字符串, r"(')((?<!\\)\\\1|.)*?\1")  # \' 之前不能有 \
+分词器母机.add(前大括号, r'{\r*\n*')  # TODO: 何用？ , flags=(re.DOTALL)
 # TODO: 参考[rply 测试用例](https://github.com/alex/rply/blob/19a9e08c486b2723a2e2378df6edb6a26e2df4a5/tests/test_lexer.py#L106)
 # 不知在正则表达式中无`.`时此 flag 有何用
-分词器母机.add(后大括号, r'\r*\n*}') # , flags=(re.DOTALL)
+分词器母机.add(后大括号, r'\r*\n*}')  # , flags=(re.DOTALL)
 分词器母机.add(名词_空, r'\bnil\b')
 分词器母机.add(名词_真, r'\btrue\b')
 分词器母机.add(名词_假, r'\bfalse\b')
 分词器母机.add(连词_且, r'\band\b')
 分词器母机.add(连词_或, r'\bor\b')
 分词器母机.add(连词_如果, r'\bif\b')
-分词器母机.add(连词_否则如果, r'\r*\n*\s*elif\s*\r*\n*') # TODO: 何用？ , flags=(re.DOTALL)
-分词器母机.add(连词_否则, r'\r*\n*\s*else\s*\r*\n*') # , flags=(re.DOTALL)
+分词器母机.add(连词_否则如果, r'\r*\n*\s*elif\s*\r*\n*')  # TODO: 何用？ , flags=(re.DOTALL)
+分词器母机.add(连词_否则, r'\r*\n*\s*else\s*\r*\n*')  # , flags=(re.DOTALL)
 分词器母机.add(连词_每当, r'\bwhile\b')
 分词器母机.add(动词_循环, r'\bloop\b')
 分词器母机.add(连词_对, r'\bfor\b')
@@ -168,7 +176,7 @@ import rply, re
 分词器母机.add(动词_引用, r'\busing\b')
 分词器母机.add(连词_于, r'\bin\b')
 分词器母机.add(动词_试试, r'\btry\b')
-分词器母机.add(动词_接手, r'\r*\n*\s*catch\s*\r*\n*') # , flags=(re.DOTALL)
+分词器母机.add(动词_接手, r'\r*\n*\s*catch\s*\r*\n*')  # , flags=(re.DOTALL)
 分词器母机.add(动词_抛出, r'\bthrow\b')
 分词器母机.add(名词_操作符, r'\boperator\b')
 分词器母机.add(连词_每隔, r'\bby\b')
@@ -191,6 +199,10 @@ import rply, re
 分词器母机.add(大于等于, '>=')
 分词器母机.add(小于等于, '<=')
 分词器母机.add(箭头, '->')
+分词器母机.add(位_左移, '<<')
+分词器母机.add(位_右移, '>>')
+分词器母机.add(位_与, r'&')
+分词器母机.add(位_或, r'\|')
 分词器母机.add(大于, '>')
 分词器母机.add(小于, '<')
 分词器母机.add(符号_赋值, '=')
@@ -209,7 +221,7 @@ import rply, re
 分词器母机.add(冒号, ':')
 分词器母机.add(取反, '~')
 分词器母机.add(换行, r'\n')
-分词器母机.ignore('[ \t]+') # TODO: \r 何用? 也许和 windows 换行有关
+分词器母机.ignore('[ \t]+')  # TODO: \r 何用? 也许和 windows 换行有关
 分词器母机.ignore('//[^\n]*')
 分词器母机.ignore('/\\*.*?\\*/', flags=(re.DOTALL))
 

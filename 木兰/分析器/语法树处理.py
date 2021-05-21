@@ -19,16 +19,18 @@ class NameFixPass(ast.NodeTransformer):
             函数.name = 函数.name.replace('$', '')
             if 函数.name == self.类[(-1)]:
                 函数.name = '__init__'
-            函数.args.args.insert(0, ast.arg(arg='self',
-                                             annotation=None,
-                                             lineno=(函数.lineno),
-                                             col_offset=(函数.col_offset)))
+            函数.args.args.insert(0, ast.arg(
+                arg='self',
+                annotation=None,
+                lineno=(函数.lineno),
+                col_offset=(函数.col_offset)))
         elif self.类[(-1)]:
             if not 函数.args.args or 函数.args.args[0].arg != 'self':
-                decorator = ast.Name(id='staticmethod',
-                                     ctx=(ast.Load()),
-                                     lineno=(函数.lineno),
-                                     col_offset=(函数.col_offset))
+                decorator = ast.Name(
+                    id='staticmethod',
+                    ctx=(ast.Load()),
+                    lineno=(函数.lineno),
+                    col_offset=(函数.col_offset))
                 函数.decorator_list.append(decorator)
         self.类.append(None)
         函数 = self.generic_visit(函数)
@@ -46,23 +48,26 @@ class NameFixPass(ast.NodeTransformer):
         函数 = 调用.func
         if isinstance(函数, ast.Name):
             if 函数.id == 'super' and len(调用.args) > 0:
-                函数 = ast.Call(func=函数,
-                  args=[],
-                  keywords=[],
-                  starargs=None,
-                  kwargs=None,
-                  lineno=(函数.lineno),
-                  col_offset=(函数.col_offset))
-                调用.func = ast.Attribute(value=函数,
-                  attr='__init__',
-                  ctx=(ast.Load()),
-                  lineno=(函数.lineno),
-                  col_offset=(函数.col_offset))
+                函数 = ast.Call(
+                    func=函数,
+                    args=[],
+                    keywords=[],
+                    starargs=None,
+                    kwargs=None,
+                    lineno=(函数.lineno),
+                    col_offset=(函数.col_offset))
+                调用.func = ast.Attribute(
+                    value=函数,
+                    attr='__init__',
+                    ctx=(ast.Load()),
+                    lineno=(函数.lineno),
+                    col_offset=(函数.col_offset))
 
                 # 为解决 super() 报错：ValueError: None disallowed in expression list
                 if len(调用.args) == 1 and 调用.args[0] is None:
                     调用.args = []
         return 调用
+
 
 class AnnoFuncInsertPass(ast.NodeTransformer):
     """
