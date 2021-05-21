@@ -31,12 +31,12 @@ class 语法分析器:
             # nonassoc 参考: http://www.dabeaz.com/ply/ply.html
             # non-associativity in the precedence table.
             # This would be used when you don't want operations to chain together
-            ('left', [位_左移, 位_右移]),   # python语法中这四个操作要优于比较 木兰中低
+            ('left', [位_左移, 位_右移]),
             ('nonassoc', [大于, 小于, 大于等于, 小于等于, 严格不等于, 严格等于]),
             ('left', [不等于, 等于]),
             ('nonassoc', [连词_每隔]),
             ('nonassoc', [点点, 点点小于]),
-            ('left', [位_与, 位_或]),  # 位与和或高于比较
+            ('left', [位_与, 位_或]),
             ('left', [加, 减]),
             ('left', [星号, 除, 求余]),
             ('left', [非]),
