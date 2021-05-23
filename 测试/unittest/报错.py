@@ -5,6 +5,8 @@ from 木兰.分析器.错误 import 语法错误
 from 木兰.功用.反馈信息 import *
 from 测试.unittest.功用 import *
 
+from pathlib import Path
+
 class test所有(unittest.TestCase):
 
     def test_运行前报错(self):
@@ -104,7 +106,7 @@ class test所有(unittest.TestCase):
     def test_层级(self):
         报错 = 运行木兰代码("测试/错误处理/引用模块.ul")
         self.assertEqual(报错[0], 报错_列表索引)
-        self.assertEqual(报错[1], "“测试/错误处理/下标越界函数.ul”第2行：print([][0])")
+        self.assertEqual(报错[1], f"“{Path('测试/错误处理/下标越界函数.ul')}”第2行：print([][0])")
         self.assertEqual(报错[2], 报错_层级)
         self.assertEqual(报错[3], "见第3行：a()")
 
@@ -114,11 +116,11 @@ class test所有(unittest.TestCase):
         self.assertEqual(报错[3], "见第7行：输出(加(2))")
 
         报错 = 运行木兰代码("测试/错误处理/引用问题模块.ul")
-        self.assertEqual(报错[1], "“测试/错误处理/无此变量.ul”第1行：a")
+        self.assertEqual(报错[1], f"“{Path('测试/错误处理/无此变量.ul')}”第1行：a")
         self.assertEqual(报错[2], 报错_层级)
         self.assertEqual(报错[6], "见第1行：using * in 测试.错误处理.无此变量") # 2 6 行之间为木兰源码
 
         报错 = 运行木兰代码("测试/错误处理/循环引用/a.ul")
         self.assertEqual(报错[0], 报错_递归) # 间隔为 ast.py 与木兰源码
-        self.assertEqual(报错[19], "“测试/错误处理/循环引用/b.ul”第1行：using * in 测试.错误处理.循环引用.a")
+        self.assertEqual(报错[19], f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a")
         self.assertEqual(报错[23], "见第1行：using * in 测试.错误处理.循环引用.b")
