@@ -23,6 +23,7 @@ class 语法分析器:
     分析器母机 = ParserGenerator(
         规则,
         precedence=[
+            ('nonassoc', [动词_生成]),
             ('nonassoc', [名词_超类]),
             ('right', [箭头]),
             ('right', [问号, 冒号]),
@@ -213,6 +214,7 @@ class 语法分析器:
     @分析器母机.production(语法.声明.成分(语法.试试声明))
     @分析器母机.production(语法.声明.成分(语法.抛出声明))
     @分析器母机.production(语法.声明.成分(语法.返回声明))
+    @分析器母机.production(语法.声明.成分(语法.生成声明))
     def 声明(self, 片段):
         return 片段[0]
 
@@ -336,8 +338,18 @@ class 语法分析器:
                 片段=片段)
         return 语法树.新节点(语法.表达式, 值=片段[0], 片段=片段)
 
-    @分析器母机.production(语法.返回声明.成分(动词_返回))
+    @分析器母机.production(语法.生成声明.成分(动词_生成))
+    @分析器母机.production(语法.生成声明.成分(动词_生成, 语法.各表达式))
+    def 生成(self, 片段):
+        值 = 片段[1] if len(片段) == 2 else None
+        return 语法树.新节点(
+            语法.生成声明,
+            值=值,
+            片段=片段
+        )
+
     @分析器母机.production(语法.返回声明.成分(动词_返回, 语法.各表达式))
+    @分析器母机.production(语法.返回声明.成分(动词_返回))
     def 返回(self, 片段):
         值 = None
         if len(片段) == 2:

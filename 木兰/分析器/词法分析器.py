@@ -20,6 +20,7 @@ import rply, re
 连词_每当 = 'while'
 动词_循环 = 'loop'
 连词_对 = 'for'
+动词_生成 = 'yield'
 动词_返回 = 'return'
 动词_终止 = 'break'
 动词_跳过 = 'continue'
@@ -110,6 +111,7 @@ import rply, re
     动词_终止,
     动词_跳过,
     名词_函数,
+    动词_生成,
     动词_返回,
     问号,
     冒号,
@@ -168,6 +170,7 @@ import rply, re
 分词器母机.add(连词_每当, r'\bwhile\b')
 分词器母机.add(动词_循环, r'\bloop\b')
 分词器母机.add(连词_对, r'\bfor\b')
+分词器母机.add(动词_生成, r'\byield\b')
 分词器母机.add(动词_返回, r'\breturn\b')
 分词器母机.add(动词_终止, r'\bbreak\b')
 分词器母机.add(动词_跳过, r'\bcontinue\b')
