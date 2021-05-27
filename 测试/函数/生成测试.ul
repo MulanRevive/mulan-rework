@@ -8,3 +8,5 @@ y = t()
 print(y.__next__())
 print(y.__next__())
 print(y.__next__())
+func a { yield }
+print(a().__next__())
