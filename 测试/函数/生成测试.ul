@@ -1,0 +1,10 @@
+func t() {
+  yield 3
+  yield 2
+  yield 1
+  return 0
+}
+y = t()
+print(y.__next__())
+print(y.__next__())
+print(y.__next__())

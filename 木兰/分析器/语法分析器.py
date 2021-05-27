@@ -323,18 +323,21 @@ class 语法分析器:
         return '%s.%s' % (片段[0], 片段[2].id)
 
     @分析器母机.production(语法.表达式声明.成分(语法.表达式前缀))
+    @分析器母机.production(语法.表达式声明.成分(语法.生成声明))
     def 表达式声明(self, 片段):
         if 语法分析器.调试:
             print("表达式声明")
         if not isinstance(片段[0], ast.Call):
             # TODO：下面两个似乎不需要
-            # if not isinstance(片段[0], ast.Yield):
-            # if not isinstance(片段[0], ast.Str):
-            片段[0] = 语法树.新节点(
-                语法.调用, 函数=片段[0],
-                参数=[],
-                关键词=[],
-                片段=片段)
+            if not isinstance(片段[0], ast.Yield):
+                # if not isinstance(片段[0], ast.Str):
+                片段[0] = 语法树.新节点(
+                    语法.调用,
+                    函数=片段[0],
+                    参数=[],
+                    关键词=[],
+                    片段=片段
+                )
         return 语法树.新节点(语法.表达式, 值=片段[0], 片段=片段)
 
     @分析器母机.production(语法.生成声明.成分(动词_生成))
@@ -824,7 +827,6 @@ class 语法分析器:
     @分析器母机.production(语法.表达式.成分(语法.表达式前缀))
     @分析器母机.production(语法.表达式.成分(语法.首要表达式))
     @分析器母机.production(语法.表达式.成分(语法.lambda表达式))
-    @分析器母机.production(语法.表达式.成分(语法.生成声明))
     @分析器母机.production(语法.表达式.成分(语法.三元表达式))
     @分析器母机.production(语法.表达式.成分(语法.数), precedence=等于)
     @分析器母机.production(语法.表达式.成分(语法.常量))
