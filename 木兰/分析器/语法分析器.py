@@ -323,7 +323,7 @@ class 语法分析器:
 
     @分析器母机.production(语法.表达式声明.成分(语法.表达式前缀))
     @分析器母机.production(语法.表达式声明.成分(语法.生成表达式))
-    def 表达式声明(self, 片段):
+    def 生成表达式(self, 片段):
         if 语法分析器.调试:
             print("表达式声明")
         if not isinstance(片段[0], ast.Call):
