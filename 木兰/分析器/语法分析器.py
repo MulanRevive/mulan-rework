@@ -23,8 +23,7 @@ class 语法分析器:
     分析器母机 = ParserGenerator(
         规则,
         precedence=[
-            ('nonassoc', [动词_生成]),
-            ('nonassoc', [名词_超类]),
+            ('nonassoc', [动词_生成, 名词_超类]),
             ('right', [箭头]),
             ('right', [问号, 冒号]),
             ('left', [连词_或]),
