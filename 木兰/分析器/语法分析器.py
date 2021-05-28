@@ -23,7 +23,7 @@ class 语法分析器:
     分析器母机 = ParserGenerator(
         规则,
         precedence=[
-            ('nonassoc', [名词_超类]),
+            ('nonassoc', [动词_生成, 名词_超类]),
             ('right', [箭头]),
             ('right', [问号, 冒号]),
             ('left', [连词_或]),
@@ -322,22 +322,35 @@ class 语法分析器:
         return '%s.%s' % (片段[0], 片段[2].id)
 
     @分析器母机.production(语法.表达式声明.成分(语法.表达式前缀))
+    @分析器母机.production(语法.表达式声明.成分(语法.生成表达式))
     def 表达式声明(self, 片段):
         if 语法分析器.调试:
             print("表达式声明")
         if not isinstance(片段[0], ast.Call):
             # TODO：下面两个似乎不需要
-            # if not isinstance(片段[0], ast.Yield):
-            # if not isinstance(片段[0], ast.Str):
-            片段[0] = 语法树.新节点(
-                语法.调用, 函数=片段[0],
-                参数=[],
-                关键词=[],
-                片段=片段)
+            if not isinstance(片段[0], ast.Yield):
+                # if not isinstance(片段[0], ast.Str):
+                片段[0] = 语法树.新节点(
+                    语法.调用,
+                    函数=片段[0],
+                    参数=[],
+                    关键词=[],
+                    片段=片段
+                )
         return 语法树.新节点(语法.表达式, 值=片段[0], 片段=片段)
 
-    @分析器母机.production(语法.返回声明.成分(动词_返回))
+    @分析器母机.production(语法.生成表达式.成分(动词_生成))
+    @分析器母机.production(语法.生成表达式.成分(动词_生成, 语法.表达式))
+    def 生成表达式(self, 片段):
+        值 = 片段[1] if len(片段) == 2 else None
+        return 语法树.新节点(
+            语法.生成表达式,
+            值=值,
+            片段=片段
+        )
+
     @分析器母机.production(语法.返回声明.成分(动词_返回, 语法.各表达式))
+    @分析器母机.production(语法.返回声明.成分(动词_返回))
     def 返回(self, 片段):
         值 = None
         if len(片段) == 2:
@@ -818,6 +831,7 @@ class 语法分析器:
     @分析器母机.production(语法.表达式.成分(语法.常量))
     # TODO 待参透：等于 的优先级在 连词_每隔 下一位
     @分析器母机.production(语法.表达式.成分(语法.范围表达式), precedence=等于)
+    @分析器母机.production(语法.表达式.成分(语法.生成表达式))
     def 表达式(self, 片段):
         if 语法分析器.调试:
             print("表达式")

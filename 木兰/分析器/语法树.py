@@ -62,6 +62,8 @@ class 语法树:
             )
             if 返回:
                 节点.returns = 返回
+        elif 类型 == 语法.生成表达式:
+            节点 = ast.Yield(value=值)
         elif 类型 == 语法.返回声明:
             节点 = ast.Return(value=值)
         elif 类型 == 语法.引用声明:

@@ -30,6 +30,7 @@ import rply, re
 动词_试试 = 'try'
 动词_接手 = 'catch'
 动词_抛出 = 'throw'
+动词_生成 = 'yield'
 名词_操作符 = 'operator'
 连词_每隔 = 'by'
 形容词_外部 = 'extern'
@@ -126,6 +127,7 @@ import rply, re
     双引号字符串,
     单引号字符串,
     连词_对,
+    动词_生成,
     点点,
     点点小于,
     分号,
@@ -179,6 +181,7 @@ import rply, re
 分词器母机.add(动词_接手, r'\r*\n*\s*catch\s*\r*\n*')  # , flags=(re.DOTALL)
 分词器母机.add(动词_抛出, r'\bthrow\b')
 分词器母机.add(名词_操作符, r'\boperator\b')
+分词器母机.add(动词_生成, r'\byield\b')
 分词器母机.add(连词_每隔, r'\bby\b')
 分词器母机.add(形容词_外部, r'\bextern\b')
 分词器母机.add(名词_超类, r'\bsuper\b')

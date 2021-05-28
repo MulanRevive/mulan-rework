@@ -24,6 +24,7 @@ class 语法(Enum):
     模块名 = 'module_names'
     表达式声明 = 'expr_stmt'
     表达式前缀 = 'prefix_expr'
+    生成表达式 = 'yiele_expr'
     赋值 = 'assignment'
     外部声明 = 'declaration'
     增量赋值 = 'aug(ment)_assign'

@@ -53,6 +53,7 @@ import datetime
     "函数/map.ul": b"[1, 4, 9]",
     "函数/返回多值.ul": b"12", # TODO: 原本元组输出为 1, 2， 而非(1，2)
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12true",
+    "函数/生成.ul": b"3211nilnil",
     "函数/API/内置.ul": (
         "truefalsea[1]200 a1 b2 ctruefalse32b'ab'12.55cba{{}}true1.1a 149int211.02.00.01.0"
         "2.718281828459045"  # exp(1)
