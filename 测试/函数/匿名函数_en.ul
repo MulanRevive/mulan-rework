@@ -22,3 +22,5 @@ type shape {
 print(func (length) : shape {
   return shape()
 }(1) != nil)
+func add(n) { return ()->n+1 }
+print(add(2)())
