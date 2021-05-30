@@ -16,3 +16,13 @@ func a1() {
 y = a1()
 print(y.__next__())
 print(y.__next__())
+
+func echo(n) {
+  loop {
+    n = yield n == nil ? 0 : 2n
+  }
+}
+g = echo(1)
+print(g.__next__())
+print(g.__next__())
+print(g.send(2))
