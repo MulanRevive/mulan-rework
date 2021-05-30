@@ -18,6 +18,9 @@ import datetime
     "运算/赋值增量.ul": b"21",
     "运算/一元操作.ul": b"2-1-2",
     "运算/赋值多项.ul": b"2112123",
+    # 类型只是注释，并无法取到，只给检查器检查变量类型使用
+    # 参见：https://www.python.org/dev/peps/pep-0526/#where-annotations-aren-t-allowed
+    "运算/类型赋值.ul": b"2int",
     "运算/其他.ul": b"821640132243488false123",
     "运算/综合.ul": b"10",
 

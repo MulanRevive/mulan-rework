@@ -1,0 +1,3 @@
+a:str=2
+print(a)
+print(typeof(a))

@@ -39,6 +39,13 @@ class 语法树:
             节点 = ast.Assign([变量], 值)
         elif 类型 == 语法.增量赋值:
             节点 = ast.AugAssign(变量, 运算符, 值)
+        elif 类型 == 语法.类型赋值:
+            节点 = ast.AnnAssign(
+                target=变量,
+                annotation=标注,
+                value=值,
+                simple=1,
+            )
         elif 类型 == 语法.条件声明:
             节点 = ast.If(test=条件, body=主体, orelse=否则)
         elif 类型 == 语法.每当声明:
