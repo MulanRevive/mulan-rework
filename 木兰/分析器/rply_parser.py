@@ -28,7 +28,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 '''
 # 摘自 rply 源码, commit 6e16262dc6d434fc467eed83ed31ca764ba01a34
-from rply.errors import ParsingError
+from rply.报错 import ParsingError
 
 
 class LRParser(object):
@@ -37,7 +37,7 @@ class LRParser(object):
         self.error_handler = lrparser.error_handler
 
     def parse(self, tokenizer, state=None):
-        from rply.token import Token
+        from rply.词 import Token
 
         lookahead = None
         lookaheadstack = []
@@ -97,7 +97,7 @@ class LRParser(object):
 
     def _reduce_production(self, t, symstack, statestack, state):
         # reduce a symbol on the stack and emit a production
-        p = self.lr_table.grammar.productions[-t]
+        p = self.lr_table.grammar.各规则[-t]
         pname = p.name
         plen = p.getlength()
         start = len(symstack) + (-plen - 1)

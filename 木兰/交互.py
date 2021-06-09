@@ -1,5 +1,5 @@
 import sys, cmd
-from rply.errors import LexingError
+from rply.报错 import LexingError
 
 from 木兰.分析器.词法分析器 import *
 from 木兰.分析器.语法分析器 import 语法分析器

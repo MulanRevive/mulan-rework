@@ -1,6 +1,6 @@
 from enum import Enum, unique
 from rply import ParserGenerator
-from rply.errors import LexingError
+from rply.报错 import LexingError
 from 木兰.分析器.rply_parser import LRParser
 from 木兰.分析器.语法树 import *
 from 木兰.分析器.错误 import 语法错误, 词法错误
