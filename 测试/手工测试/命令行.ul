@@ -1,4 +1,4 @@
-using Cmd in cmd; using exit in sys; using 随机范围数 in 随机数
+using Cmd in cmd; using 随机范围数 in 随机数
 
 type 猜数字 : Cmd {
   {
@@ -13,7 +13,7 @@ type 猜数字 : Cmd {
   }
 
   func $比较(数) {
-    if 数 == $想的 { println("中了!"); exit() }
+    if 数 == $想的 { println("中了!"); 再会() }
     else {
       println("太" + (数 > $想的 ? "大" : "小") + "了!")
       println("不过接近咯") if $接近了()
@@ -21,7 +21,7 @@ type 猜数字 : Cmd {
   }
 
   func $接近了 {
-    最近 = min(map(数 -> { 差 = 数 - $想的; return 差 > 0 ? 差 : -差 }, $历史))
+    最近 = min(map(数 -> { 差 = 数 - $想的; return fabs(差) }, $历史))
     { $至今最近 = 最近; return true } if $至今最近 > 最近
   }
 }
