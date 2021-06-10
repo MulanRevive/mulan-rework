@@ -10,31 +10,11 @@
 
 [悬赏完成之前](https://zhuanlan.zhihu.com/p/224600854)，将努力向[重现「木兰」编程语言的目标](https://gitee.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)迈进。系列技术文章集结在[知乎专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
 
-## 运行
-
-***！必需 Python 3.7 ！源码文件需 UTF-8 编码***
-
-通过 `pip install ulang` 安装木兰。
-
-### 命令行交互环境
-
-```
-$ 木兰
-木兰向您问好
-更多信息请说'你好'
-> 和 = 0
-> for 数 in 1..10 {
->> 和 += 数
->> }
-> print(和)
-55
-```
-
-### IDE 辅助
+## IDE 辅助
 
 [VS Code 语法高亮插件](https://marketplace.visualstudio.com/items?itemName=CodeInChinese.ulang)：
 
-![vsc截图](https://gitee.com/MulanRevive/bounty/raw/master/%E8%BF%9B%E5%B1%95%E5%B0%8F%E7%BB%93/%E6%88%AA%E5%9B%BE/2021-01-20_%E4%B8%80%E5%B2%81.png)
+![vsc截图](https://gitee.com/MulanRevive/ide-extension-vscode/raw/master/%E6%88%AA%E5%9B%BE/2021-01-20_%E4%B8%80%E5%B2%81.png)
 
 【原型】[自带在线编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器)：
 
@@ -42,13 +22,7 @@ $ 木兰
 
 ### 运行木兰源码文件
 
-使用`.ul`后缀才可被引用
-```
-$ 木兰 测试/运算/四则运算.ul
-4
-```
-
-下面 [例程](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/手工测试/草蟒_海龟.ul) 调用了 [草蟒](https://www.oschina.net/p/grasspy) 的中文 API：
+`$ 木兰 测试/手工测试/草蟒_海龟.ul` 运行如下调用了 [草蟒](https://www.oschina.net/p/grasspy) 中文 API 的 [例程](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/手工测试/草蟒_海龟.ul)：
 ```javascript
 using * in 海龟
 
@@ -82,21 +56,39 @@ $ 木兰 测试/错误处理/引用模块.ul
 
 ## 参考例程[在此](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试)
 
-其中[实用](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/实用)为较接近实用的部分。另外[木兰代码编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器)也用木兰代码编写。
+其中 [实用](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/实用) 为较接近实用的部分。另外 [木兰代码编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器) 也用木兰代码编写。
 
-所有例程演示的语法可用原始的木兰可执行文件 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 检验。***如发现有异烦请告知，定将[同样礼谢](https://gitee.com/MulanRevive/bounty)。***
-
-### 新手入门
-
-如果无编程经验，请入[此门](https://gitee.com/MulanRevive/mulan-rework/tree/master/文档/用户手册/编程新手/1猜数字.md)。
+所有例程演示的语法可用原始的木兰可执行文件 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 检验。***如发现有异烦请告知，定将 [同样礼谢](https://gitee.com/MulanRevive/bounty)。***
 
 ## 功能说明
 
-随着逐渐缩小[与原版木兰的差距](https://gitee.com/MulanRevive/mulan-rework/issues/I1SEU5)，将补充[语言语法规则](文档/语法说明.md)。用户手册[尚待更新](https://gitee.com/MulanRevive/mulan-rework/issues/I1U36D)。为调试方便，报错等等反馈信息会[逐渐中文化](https://zhuanlan.zhihu.com/p/148065426)。
+随着逐渐缩小 [与原版木兰的差距](https://gitee.com/MulanRevive/mulan-rework/issues/I1SEU5)，将完善 [语法说明](文档/语法说明.md)。用户手册 [尚待更新](https://gitee.com/MulanRevive/mulan-rework/issues/I1U36D)。为调试方便，报错等等反馈信息会[逐渐中文化](https://zhuanlan.zhihu.com/p/148065426)。
 
-交互环境功能说明[在此](https://gitee.com/MulanRevive/mulan-rework/tree/master/文档/功能/交互环境.md)。
+### 试用发布版
 
-## 开发
+***必需 Python 3.7，源码文件需 UTF-8 编码***，`pip install ulang` 安装木兰。
+
+### 命令行交互环境
+
+```
+$ 木兰
+木兰向您问好
+更多信息请说'你好'
+> 和 = 0
+> for 数 in 1..10 {
+>> 和 += 数
+>> }
+> 和
+55
+```
+
+功能说明 [在此](https://gitee.com/MulanRevive/mulan-rework/tree/master/文档/功能/交互环境.md)。
+
+### 新手入门
+
+无编程经验不打紧，[请入此门](https://gitee.com/MulanRevive/mulan-rework/tree/master/文档/用户手册/编程新手/1猜数字.md)。
+
+## 参与开发
 
 ### 实现简介
 
