@@ -1,5 +1,5 @@
-from rply import LexerGenerator
-import rply, re
+from rply import 分词器母机
+import re
 
 # 顺序与词法规则添加顺序一致. 值不为中文的是关键词.
 
@@ -149,7 +149,7 @@ import rply, re
     动词_接手,
 ]
 
-分词器母机 = LexerGenerator()
+分词器母机 = 分词器母机()
 
 分词器母机.add(小数, r'\d+\.\d+')
 分词器母机.add(整数, r'\d+')

@@ -1,6 +1,5 @@
-from enum import Enum, unique
-from rply import ParserGenerator
-from rply.报错 import LexingError
+from rply import 语法分析器母机
+from rply.报错 import 分词报错
 from 木兰.分析器.rply_parser import LRParser
 from 木兰.分析器.语法树 import *
 from 木兰.分析器.错误 import 语法错误, 词法错误
@@ -20,7 +19,7 @@ class 语法分析器:
     # TODO: 改进可视化 parse 过程(各个语法规则的顺序), 方便调试
     调试 = False
 
-    分析器母机 = ParserGenerator(
+    分析器母机 = 语法分析器母机(
         规则,
         precedence=[
             ('nonassoc', [动词_生成, 名词_超类]),
@@ -277,7 +276,7 @@ class 语法分析器:
     @分析器母机.production(语法.引用声明.成分(动词_引用, 星号, 连词_于, 语法.模块位置))
     def 引用于(self, 片段):
         模块, 层 = 片段[-1], 0
-        if isinstance(片段[-1], Token):
+        if isinstance(片段[-1], 词):
             模块 = None
             层 = 1 if 片段[-1].getstr() == '.' else 2
         节点 = 语法树.从模块导入(
@@ -630,9 +629,9 @@ class 语法分析器:
     @分析器母机.production(语法.片.成分(冒号))
     def 片表示(self, 片段):
         下限, 上限 = 片段[0], 片段[-1]
-        if isinstance(下限, Token):
+        if isinstance(下限, 词):
             下限 = None
-        if isinstance(上限, Token):
+        if isinstance(上限, 词):
             上限 = None
         return 语法树.片(下限, 上限, 片段)
 
@@ -1129,7 +1128,7 @@ class 语法分析器:
             各词 = self.分词器.lex(源码)
             # self.查看(各词)
             节点 = self.分析器.parse(各词, state=self)
-        except LexingError as e:
+        except 分词报错 as e:
             raise 词法错误(
                 异常=e,
                 文件名=源码文件,

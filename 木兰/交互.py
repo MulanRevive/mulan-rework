@@ -1,5 +1,5 @@
 import sys, cmd
-from rply.报错 import LexingError
+from rply.报错 import 分词报错
 
 from 木兰.分析器.词法分析器 import *
 from 木兰.分析器.语法分析器 import 语法分析器
@@ -93,7 +93,7 @@ class 交互(cmd.Cmd):
             try:
                 if not self.括号已配对():
                     return
-            except LexingError as e:
+            except 分词报错 as e:
                 错误 = 词法错误(异常=e,
                     文件名='【标准输入】',
                     源码=self.声明)

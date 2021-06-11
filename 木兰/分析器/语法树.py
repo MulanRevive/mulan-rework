@@ -1,7 +1,7 @@
 import ast
 
-from rply.token import SourcePosition
-from rply import Token
+from rply.词 import 字符位置
+from rply import 词
 
 from 木兰.分析器.语法成分 import *
 
@@ -235,22 +235,22 @@ class 语法树:
         if isinstance(片段, list):
             if len(片段) > 0:
                 片段 = 片段[0]
-        if isinstance(片段, Token):
+        if isinstance(片段, 词):
             if 片段.gettokentype() == '$end':
                 return 语法树.取末位()
             return 片段.getsourcepos()
         # Constant 也是 ast.expr
         if isinstance(片段, ast.stmt) or isinstance(片段, ast.expr):
-            # TODO: 之前没 import SourcePosition 时, 编译/运行未报错! 需解决
-            return SourcePosition(0, 片段.lineno, 片段.col_offset)
-        return SourcePosition(0, 0, 0)
+            # TODO: 之前没 import 字符位置 时, 编译/运行未报错! 需解决
+            return 字符位置(0, 片段.lineno, 片段.col_offset)
+        return 字符位置(0, 0, 0)
 
     @staticmethod
     def 取末位():
         idx = -1
         行号 = len(语法树.源码)
         列号 = len(语法树.源码[(-1)])
-        return SourcePosition(idx, 行号, 列号)
+        return 字符位置(idx, 行号, 列号)
 
     @staticmethod
     def 取行号(片段):
