@@ -44,7 +44,7 @@ class test语法树(unittest.TestCase):
             self.assertEqual(ast.dump(节点, True, True), 期望值[文件], f"\"{文件}\"出错")
 
     def 分词(self, 源码):
-        return 分词器.lex(源码)
+        return 分词器.分词(源码)
 
     def 取子节点(self, 节点, 子节点名, 索引 = -1):
         for 子节点 in ast.iter_fields(节点):
