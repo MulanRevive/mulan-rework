@@ -1072,7 +1072,7 @@ class 语法分析器:
             属性=标识.replace('$', ''),
             片段=片段)
 
-    @分析器母机.error
+    @分析器母机.报错
     def error_handler(self, 词):
         if 词.getstr() == '\n':
             return

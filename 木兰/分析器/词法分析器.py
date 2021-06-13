@@ -156,7 +156,7 @@ import re
 分词器母机.添了(双引号字符串, r'(")((?<!\\)\\\1|.)*?\1')
 分词器母机.添了(单引号字符串, r"(')((?<!\\)\\\1|.)*?\1")  # \' 之前不能有 \
 分词器母机.添了(前大括号, r'{\r*\n*')  # TODO: 何用？ , flags=(re.DOTALL)
-# TODO: 参考[rply 测试用例](https://github.com/alex/rply/blob/19a9e08c486b2723a2e2378df6edb6a26e2df4a5/tests/test_lexer.py#L106)
+# TODO: 参考[rply 测试用例](https://gitee.com/zhishi/rply/blob/58750291ecbebe631f047d6aef209415a0d82865/tests/test_%E5%88%86%E8%AF%8D%E5%99%A8.py#L106)
 # 不知在正则表达式中无`.`时此 flag 有何用
 分词器母机.添了(后大括号, r'\r*\n*}')  # , flags=(re.DOTALL)
 分词器母机.添了(名词_空, r'\bnil\b')
