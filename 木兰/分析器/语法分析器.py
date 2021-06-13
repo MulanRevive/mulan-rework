@@ -1,6 +1,5 @@
 from rply import 语法分析器母机
 from rply.报错 import 分词报错
-from 木兰.分析器.rply_parser import LRParser
 from 木兰.分析器.语法树 import *
 from 木兰.分析器.错误 import 语法错误, 词法错误
 
@@ -1112,7 +1111,7 @@ class 语法分析器:
             ],
             片段=各实参)
 
-    分析器 = LRParser(分析器母机.产出())
+    分析器 = 分析器母机.产出()
 
     def __init__(self, 分词器=分词器):
         self.分词器 = 分词器
@@ -1127,7 +1126,7 @@ class 语法分析器:
         try:
             各词 = self.分词器.分词(源码)
             # self.查看(各词)
-            节点 = self.分析器.parse(各词, state=self)
+            节点 = self.分析器.分析(各词, state=self)
         except 分词报错 as e:
             raise 词法错误(
                 异常=e,
