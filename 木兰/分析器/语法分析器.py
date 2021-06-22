@@ -1073,7 +1073,7 @@ class 语法分析器:
             片段=片段)
 
     @分析器母机.报错
-    def error_handler(self, 词):
+    def 错误处理(self, 词):
         if 词.getstr() == '\n':
             return
         # TODO: 最好取到语法信息(上下文)
