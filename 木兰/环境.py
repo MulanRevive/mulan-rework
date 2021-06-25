@@ -119,12 +119,15 @@ def __内置_求余(a, b):
 def 创建全局变量(argv=[], 文件名=''):
     def 转字符串(x):
 
-        def 容器转为字符串(容器, 始='', 末=''):
+        def 容器转为字符串(容器, 始='', 末='', 格式=None):
             字符串 = 始
             for 序号, 该项 in enumerate(容器):
                 if 序号:
                     字符串 += ', '
-                字符串 += 转字符串(该项)
+                if 格式 is None:
+                    字符串 += 转字符串(该项)
+                else:
+                    字符串 += 格式(容器, 该项)
 
             字符串 += 末
             return 字符串
@@ -137,6 +140,8 @@ def 创建全局变量(argv=[], 文件名=''):
             return 容器转为字符串(x, '[', ']')
         if isinstance(x, tuple):
             return 容器转为字符串(x)
+        if isinstance(x, dict):
+            return 容器转为字符串(x, '{', '}', lambda 容器, 键: '%s: %s' % (键, 容器[键]))
         return str(x)
 
     def 自定义输出(*各物件, 分隔符=' ', 终止符='', 文件=sys.stdout, flush=False):

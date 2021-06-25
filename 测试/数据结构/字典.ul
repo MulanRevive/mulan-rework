@@ -10,3 +10,5 @@ d = {'a' : 1, 'b' : 2}
 print(d['a'])
 for k, v in d.items() { print('`k``v`') }
 print(d.pop('a'))
+print({1 : 'a'})
+print({1:['a','b']})
