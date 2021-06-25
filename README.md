@@ -1,4 +1,4 @@
-[![Gitee Go 所有测试](https://gitee.com/MulanRevive/mulan-rework/badge/giteego.svg?name=所有测试&id=13267)](https://gitee.com/MulanRevive/dashboard/projects/MulanRevive/mulan-rework/gitee_go/13267?branch=master)
+[![Gitee Go 所有测试](https://gitee.com/MulanRevive/mulan-rework/badge/giteego.svg?name=所有测试&id=mulan-rework)](https://gitee.com/MulanRevive/dashboard/projects/MulanRevive/mulan-rework/gitee_go/mulan-rework?branch=master)
 
 ## 前言
 
@@ -96,7 +96,7 @@ $ 木兰
 
 新手开发者请看[开发流程与项目结构简介](文档/开发上手.md)。
 
-使用 Python 3.7 的最新小版本。 Mac 和 [Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3) 下全部测试通过；windows 下测试[大多数通过](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP)。如使用 3.8，语法树测试将失败。
+使用 Python 3.7 的最新小版本。Mac、[Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3)、[Windows](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP) 下全部测试通过。如使用 3.8，语法树测试将失败。
 
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 
