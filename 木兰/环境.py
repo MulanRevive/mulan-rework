@@ -142,6 +142,8 @@ def 创建全局变量(argv=[], 文件名=''):
             return 容器转为字符串(x)
         if isinstance(x, dict):
             return 容器转为字符串(x, '{', '}', lambda 容器, 键: '%s: %s' % (键, 容器[键]))
+        if isinstance(x, set):
+            return 容器转为字符串(x, '{', '}')
         return str(x)
 
     def 自定义输出(*各物件, 分隔符=' ', 终止符='', 文件=sys.stdout, flush=False):
