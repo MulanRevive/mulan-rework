@@ -23,6 +23,7 @@ import datetime
     "运算/类型赋值.ul": b"2int",
     "运算/其他.ul": b"821640132243488false123",
     "运算/综合.ul": b"10",
+    "运算/井号.ul": b"2",
 
     # TODO: 加上 `(2<1)!=nil and`
     "运算/空.ul": b"truetrue",
