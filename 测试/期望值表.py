@@ -28,6 +28,8 @@ import datetime
     # TODO: 加上 `(2<1)!=nil and`
     "运算/空.ul": b"truetrue",
 
+    "优先级/运算.ul": b"true64range(-2, 9, 4)range(-1, 7)1range(-1, 2)falserange(-1, 10)",
+
     "流程控制/条件.ul": b"31",
     "流程控制/条件否则如果.ul": b"2",
     "流程控制/条件否则.ul": b"4",
@@ -160,7 +162,7 @@ import datetime
     "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc',
     "字符串/单引号.ul": b"ok\n\t\\'\\n",
     "字符串/相关方法.ul": b"1hi[fish]",
-    "字符串/插值.ul": b"b3b3o44ta3a44t`a3a",
+    "字符串/插值.ul": b"b3b3o44ta3a44t`a3a`a3a```",
 
     "数据结构/范围.ul": b"range(0, 3)range(0, 3)range(0, 2)range(-1, 5, 2)range(4, -2, -2)02",
     "数据结构/列表.ul": b"[][2][2, 4, 6][[1], [2]]",

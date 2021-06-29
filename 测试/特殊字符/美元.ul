@@ -1,4 +1,4 @@
-// keywords
+// $ + keyword can be identifier name
 $while, $if = 2, 3
 print($while + $if)
 $t1 = 6
