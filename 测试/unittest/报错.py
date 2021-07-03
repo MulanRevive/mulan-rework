@@ -101,7 +101,7 @@ class test所有(unittest.TestCase):
         except 语法错误 as e:
             self.assertEqual(e.信息, "分词时没认出这个词 \"`\"")
             self.assertEqual(e.行号, 3)
-            self.assertEqual(e.列号, 6) # 应该为 1, 在rply 提问: https://github.com/alex/rply/pull/95#issuecomment-729513800
+            self.assertEqual(e.列号, 1)
 
     def test_层级(self):
         报错 = 运行木兰代码("测试/错误处理/引用模块.ul")
