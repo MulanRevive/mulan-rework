@@ -1105,9 +1105,8 @@ class 语法分析器:
                 raise 语法错误(
                     信息='需要一个表达式指定默认值',
                     文件名=self.文件名,
-                    # TODO: 修复这里！
-                    行号=arg.lineno,
-                    列号=arg.col_offset,
+                    行号=参数.lineno,
+                    列号=参数.col_offset,
                     源码=self.源码)
 
         return 形参

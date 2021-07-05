@@ -98,7 +98,7 @@ import datetime
     "函数/指定形参类型.ul": b"hi Mulan1",
     # "函数/变长参数.ul": b"1 2 3",
 
-    "特殊字符/多行.ul": b"23", # TODO: 如果末尾加空行, 报错 rply.errors.ParsingError: (None, None)
+    "特殊字符/多行.ul": b"23",
     "特殊字符/块.ul": b"2",
     "特殊字符/块多行.ul": b"3",
     "特殊字符/空格.ul": b"2",
