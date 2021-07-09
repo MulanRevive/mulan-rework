@@ -1102,14 +1102,14 @@ class 语法分析器:
             源码=self.源码)
 
     def 形参合法化(self, 形参):
-        带默认值 = False
+        带默认值参数 = None
         for 参数 in 形参.args:
             if hasattr(参数, 'default') and 参数.default:
-                带默认值 = True
+                带默认值参数 = 参数
                 形参.defaults.append(参数.default)
-            elif 带默认值:
+            elif 带默认值参数:
                 raise 语法错误(
-                    信息='需要一个表达式指定默认值',
+                    信息='参数“' + 参数.arg + '”之前的“' + 带默认值参数.arg + '”有默认值，它也需要一个表达式指定默认值',
                     文件名=self.文件名,
                     行号=参数.lineno,
                     列号=参数.col_offset,
