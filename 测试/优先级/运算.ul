@@ -1,8 +1,8 @@
-长 = 6
-宽 = 2
-print(长 == 3宽)
-print(2^3宽)
-print(-1 宽..4 宽 by 2 宽)
+height = 6
+width = 2
+print(height == 3width)
+print(2^3width)
+print(-1 width..4 width by 2 width)
 print(-1..6)
 print(-1 ? 1 : 2..true ? 6 : 5)
 print(-1..true)
