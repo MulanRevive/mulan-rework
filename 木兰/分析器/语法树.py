@@ -59,7 +59,7 @@ class 语法树:
         elif 类型 == 语法.lambda形参 or 类型 == 语法.形参:
             节点 = ast.arg(arg=参数, annotation=标注)
         elif 类型 == 语法.形参列表:
-            节点 = ast.arguments(args=参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+            节点 = ast.arguments(args=参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, posonlyargs=[], kwarg=None)
         elif 类型 == 语法.函数:
             节点 = ast.FunctionDef(
                 name=名称,
