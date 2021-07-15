@@ -1,8 +1,6 @@
 [![Gitee Go 所有测试](https://gitee.com/MulanRevive/mulan-rework/badge/giteego.svg?name=所有测试&id=mulan-rework)](https://gitee.com/MulanRevive/dashboard/projects/MulanRevive/mulan-rework/gitee_go/mulan-rework?branch=master)
-
 [![木兰在线版](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgitee.com%2FMulanRevive%2Fmulan-rework/HEAD)
 
-在Terminal中输入“木兰”运行
 
 ## 前言
 
@@ -87,6 +85,10 @@ $ 木兰
 ```
 
 功能说明 [在此](https://gitee.com/MulanRevive/mulan-rework/tree/master/文档/功能/交互环境.md)。
+
+### binder 在线环境
+
+New -> Terminal 打开命令行，同样输入“木兰”运行
 
 ### 新手入门
 
