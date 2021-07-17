@@ -4,7 +4,8 @@ from ast import *
 注释"研究"的待进一步揣摩
 '''
 比较操作符 = {
-    In: 'in'
+    In: 'in',
+    GtE: '>=',
 }
 
 def 转源码(节点, 缩进量="  "):
@@ -219,6 +220,10 @@ class 木兰生成器(NodeVisitor):
                 self.编写('.__contains__(')
                 self.visit(左边)
                 self.编写(')')
+            else:
+                self.visit(左边)
+                self.编写(' %s ' % 操作符)
+                self.visit(右边)
             左边 = 右边
             已开头 = True
 
