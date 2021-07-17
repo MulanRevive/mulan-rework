@@ -3,6 +3,10 @@ from ast import *
 '''
 注释"研究"的待进一步揣摩
 '''
+二元操作符 = {
+    Add: '+',
+    Sub: '-',
+}
 比较操作符 = {
     In: 'in',
     GtE: '>=',
@@ -226,6 +230,11 @@ class 木兰生成器(NodeVisitor):
 
     def visit_Num(self, 节点):
         self.编写(repr(节点.n))
+
+    def visit_BinOp(self, 节点):
+        self.visit(节点.left)
+        self.编写(' %s ' % 二元操作符[type(节点.op)])
+        self.visit(节点.right)
 
     # 待补完
     def visit_Compare(self, 节点):
