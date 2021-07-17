@@ -7,6 +7,10 @@ from ast import *
     Add: '+',
     Sub: '-',
 }
+布尔操作符 = {
+    And: 'and',
+    Or: 'or',
+}
 比较操作符 = {
     In: 'in',
     GtE: '>=',
@@ -262,6 +266,15 @@ class 木兰生成器(NodeVisitor):
         self.visit(节点.left)
         self.编写(' %s ' % 二元操作符[type(节点.op)])
         self.visit(节点.right)
+
+    def visit_BoolOp(self, 节点):
+        self.编写('(')
+        for 索引, 值 in enumerate(节点.values):
+            if 索引:
+                self.编写(' %s ' % 布尔操作符[type(节点.op)])
+            self.visit(值)
+
+        self.编写(')')
 
     # 待补完
     def visit_Compare(self, 节点):
