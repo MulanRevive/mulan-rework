@@ -237,6 +237,21 @@ class 木兰生成器(NodeVisitor):
     def visit_Num(self, 节点):
         self.编写(repr(节点.n))
 
+    def 序列(左括号, 右括号):
+
+        def visit(self, 节点):
+            self.编写(左括号)
+            for 索引, 项 in enumerate(节点.elts):
+                if 索引:
+                    self.编写(', ')
+                self.visit(项)
+
+            self.编写(右括号)
+
+        return visit
+
+    visit_List = 序列('[', ']')
+
     def visit_BinOp(self, 节点):
         self.visit(节点.left)
         self.编写(' %s ' % 二元操作符[type(节点.op)])
