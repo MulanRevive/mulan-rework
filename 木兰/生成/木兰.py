@@ -250,6 +250,12 @@ class 木兰生成器(NodeVisitor):
 
         self.编写(')')
 
+    def visit_Subscript(self, 节点):
+        self.visit(节点.value)
+        self.编写('[')
+        self.visit(节点.slice)
+        self.编写(']')
+
     def visit_Expr(self, 节点):
         self.记录("Expr: " + str(节点))
         self.另起一行()
