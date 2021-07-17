@@ -189,6 +189,12 @@ class 木兰生成器(NodeVisitor):
         self.visit(节点.iter)
         self.主体(节点.body)
 
+    def visit_While(self, 节点):
+        self.另起一行(节点)
+        self.编写('while ')
+        self.visit(节点.test)
+        self.主体(节点.body)
+
     def visit_Attribute(self, 节点):
         if isinstance(节点.value, Name) and 节点.value.id == 'self':
             self.编写('$%s' % 节点.attr)
