@@ -159,6 +159,14 @@ class 木兰生成器(NodeVisitor):
         # 研究：为何不 :-1 ？
         self.所有类型 = self.所有类型[:-2]
 
+    def visit_For(self, 节点):
+        self.另起一行(节点)
+        self.编写('for ')
+        self.visit(节点.target)
+        self.编写(' in ')
+        self.visit(节点.iter)
+        self.主体(节点.body)
+
     def visit_Attribute(self, 节点):
         if isinstance(节点.value, Name) and 节点.value.id == 'self':
             self.编写('$%s' % 节点.attr)
