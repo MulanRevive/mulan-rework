@@ -96,6 +96,12 @@ class 木兰生成器(NodeVisitor):
         self.编写(' = ')
         self.visit(节点.value)
 
+    def visit_AugAssign(self, 节点):
+        self.另起一行(节点)
+        self.visit(节点.target)
+        self.编写(' ' +  二元操作符[type(节点.op)] + '= ')
+        self.visit(节点.value)
+
     def 形参(self, 节点):
         # TODO: 避免重复
         需逗号 = []
