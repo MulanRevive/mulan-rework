@@ -6,6 +6,7 @@ from ast import *
 比较操作符 = {
     In: 'in',
     GtE: '>=',
+    Gt: '>',
 }
 
 def 转源码(节点, 缩进量="  "):
