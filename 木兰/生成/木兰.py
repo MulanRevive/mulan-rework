@@ -80,6 +80,18 @@ class 木兰生成器(NodeVisitor):
         self.另起一行()
         self.编写('}')
 
+    def visit_Assign(self, 节点):
+        self.另起一行(节点)
+
+        # TODO: 为何 a, b = 1, 2 尚不支持？现生成 ab = 12
+        for 索引, 目标 in enumerate(节点.targets):
+            if 索引 > 0:
+                self.编写(', ')
+            self.visit(目标)
+
+        self.编写(' = ')
+        self.visit(节点.value)
+
     def 形参(self, 节点):
         # TODO: 避免重复
         需逗号 = []
