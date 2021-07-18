@@ -185,6 +185,13 @@ class 木兰生成器(NodeVisitor):
         # 研究：为何不 :-1 ？
         self.所有类型 = self.所有类型[:-2]
 
+    def visit_If(self, 节点):
+        self.另起一行(节点)
+        self.编写('if ')
+        self.visit(节点.test)
+        self.主体(节点.body)
+        # TODO: else 等
+
     def visit_For(self, 节点):
         self.另起一行(节点)
         self.编写('for ')
@@ -198,6 +205,17 @@ class 木兰生成器(NodeVisitor):
         self.编写('while ')
         self.visit(节点.test)
         self.主体(节点.body)
+
+    def visit_Tuple(self, 节点):
+        if isinstance(节点.ctx, Load):
+            self.编写('tuple(')
+        for 索引, 元素 in enumerate(节点.elts):
+            if 索引:
+                self.编写(', ')
+            self.visit(元素)
+
+        if isinstance(节点.ctx, Load):
+            self.编写(')')
 
     def visit_Attribute(self, 节点):
         if isinstance(节点.value, Name) and 节点.value.id == 'self':
