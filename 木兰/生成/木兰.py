@@ -313,6 +313,14 @@ class 木兰生成器(NodeVisitor):
         else:
             self.visit(节点.value)
 
+    def visit_NameConstant(self, 节点):
+        if 节点.value == None:
+            self.编写('nil')
+        elif 节点.value:
+            self.编写('true')
+        else:
+            self.编写('false')
+
     def visit_arguments(self, 节点):
         self.形参(节点)
 
