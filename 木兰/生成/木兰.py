@@ -26,6 +26,7 @@ def 转源码(节点, 缩进量="  "):
     生成器.visit(节点)
     return "".join(生成器.结果)
 
+# TODO: 将各 visit_ 方法名中文化（方法赋值）
 class 木兰生成器(NodeVisitor):
 
     def __init__(self, 缩进量, 头部=None):
@@ -91,10 +92,10 @@ class 木兰生成器(NodeVisitor):
     def visit_Assign(self, 节点):
         self.另起一行(节点)
 
-        # TODO: 为何 a, b = 1, 2 尚不支持？现生成 ab = 12
         for 索引, 目标 in enumerate(节点.targets):
-            if 索引 > 0:
-                self.编写(', ')
+            # TODO: 下面何用？
+            #if 索引 > 0:
+            #    self.编写(', ')
             self.visit(目标)
 
         self.编写(' = ')
