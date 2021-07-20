@@ -1,4 +1,4 @@
-using Cmd in cmd; using exit in sys; using randrange in random
+using Cmd in cmd; using randrange in random
 
 type GuessNumber : Cmd {
   {
@@ -13,7 +13,7 @@ type GuessNumber : Cmd {
   }
 
   func $compare(n) {
-    if n == $numberInMind { println("Bingo!"); exit() }
+    if n == $numberInMind { println("Bingo!"); quit() }
     else {
       println("Too " + (n > $numberInMind ? "large" : "small") + "!")
       println("Getting close though") if $gettingCloser()
@@ -21,7 +21,7 @@ type GuessNumber : Cmd {
   }
 
   func $gettingCloser {
-    minDiff = min(map(n -> { diff = n - $numberInMind; return diff > 0 ? diff : -diff }, $history))
+    minDiff = min(map(n -> { diff = n - $numberInMind; return fabs(diff) }, $history))
     { $closestDiffSoFar = minDiff; return true } if $closestDiffSoFar > minDiff
   }
 }
