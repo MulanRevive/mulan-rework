@@ -1,0 +1,8 @@
+if 1 {
+} elif 0 {
+  println(2)
+} elif 2 {
+  println(3)
+} else {
+  println(5)
+}

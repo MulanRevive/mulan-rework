@@ -191,7 +191,19 @@ class 木兰生成器(NodeVisitor):
         self.编写('if ')
         self.visit(节点.test)
         self.主体(节点.body)
-        # TODO: else 等
+        while True:
+            否则 = 节点.orelse
+            if len(否则) == 0:
+                break
+            elif len(否则) == 1 and isinstance(否则[0], If):
+                节点 = 否则[0]
+                self.编写(' elif ')
+                self.visit(节点.test)
+                self.主体(节点.body)
+            else:
+                self.编写(' else')
+                self.主体(否则)
+                break
 
     def visit_For(self, 节点):
         self.另起一行(节点)
