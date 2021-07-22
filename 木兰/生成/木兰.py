@@ -12,6 +12,7 @@ from ast import *
     Or: 'or',
 }
 比较操作符 = {
+    Lt: '<',
     In: 'in',
     GtE: '>=',
     Gt: '>',
@@ -335,6 +336,18 @@ class 木兰生成器(NodeVisitor):
         self.编写('[')
         self.visit(节点.slice)
         self.编写(']')
+
+    def visit_Import(self, node):
+        self.另起一行(node)
+        self.编写('using ')
+        for 索引, 包 in enumerate(node.names):
+            if 索引:
+                self.编写(', ')
+            self.编写(包.name)
+
+        # TODO: 下两行何用？
+        #for 包 in node.names:
+        #    self.visit(包)
 
     def visit_Expr(self, 节点):
         self.记录("Expr: " + str(节点))

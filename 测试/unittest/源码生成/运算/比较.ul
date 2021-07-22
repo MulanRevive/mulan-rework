@@ -2,5 +2,6 @@
 ('ab'.__contains__('a') and d.__contains__('ab'))
 (a >= 0)
 (a > 0)
+(a < 0)
 (a and b)
 (a or b)
