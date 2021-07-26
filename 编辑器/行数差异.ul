@@ -2,14 +2,11 @@ using DeepDiff in deepdiff
 using Path in pathlib
 using json
 
-func 读取行数数据(文件名) {
-  文件 = open(文件名, 'r', encoding="utf-8")
-  数据 = json.load(文件)
-  文件.close()
-  return 数据
+func 读取(文件名) {
+  try 文件 = open(文件名, 'r', encoding="utf-8") { return json.load(文件) }
 }
 
-旧行数, 新行数 = 读取行数数据('临时/行数统计_0718.json'), 读取行数数据('临时/行数统计_0724.json')
+旧行数, 新行数 = 读取('临时/行数统计_0718.json'), 读取('临时/行数统计_0725.json')
 
 func 取总行数(各文件行数) {
   各类型行数 = {'py':0, 'ul':0}
@@ -29,20 +26,16 @@ func 取目录下行数(各文件行数, 目录, 类型) {
   return 行数
 }
 
-旧总行数 = 取总行数(旧行数)
-新总行数 = 取总行数(新行数)
-println(旧总行数)
-println(新总行数)
+旧总行数, 新总行数 = 取总行数(旧行数), 取总行数(新行数)
 
 println('-----------\n\n### ***附：[木兰重现项目](https://gitee.com/MulanRevive/mulan-rework) 代码量统计***\n\n主要部分的代码行数统计与修改之处：上次->现在。')
-println('- 木兰代码量 `旧总行数["ul"]` -> `新总行数["ul"]`')
+println('- 木兰 `旧总行数["ul"]` -> `新总行数["ul"]`')
 
-编辑器旧行数 = 取目录下行数(旧行数, '编辑器', 'ul')
-编辑器新行数 = 取目录下行数(新行数, '编辑器', 'ul')
+编辑器旧行数, 编辑器新行数 = 取目录下行数(旧行数, '编辑器', 'ul'), 取目录下行数(新行数, '编辑器', 'ul')
 println('  - 木兰测试用例、一些实用小程序如井字棋：' + str(旧总行数["ul"] - 编辑器旧行数) + ' -> ' + str(新总行数["ul"] - 编辑器新行数))
 println('  - 运行环境、行数统计：' + str(编辑器旧行数) + ' -> ' + str(编辑器新行数))
 
-println('- Python 代码量（木兰实现、测试框架、语法树生成木兰中的 Python 测试代码）： `旧总行数["py"]` -> `新总行数["py"]`')
+println('- Python（实现、测试框架，py转木兰的测试用例） `旧总行数["py"]` -> `新总行数["py"]`')
 
 差异概要 = DeepDiff(旧行数, 新行数)
 所有新添 = list(map(n->str(n), 差异概要['dictionary_item_added']))
