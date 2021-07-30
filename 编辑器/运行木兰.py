@@ -5,9 +5,7 @@ from pathlib import Path
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.语法分析器 import 语法分析器
 from 木兰.环境 import 创建全局变量
-from 木兰.交互 import 开始交互
 from 木兰.功用.反馈信息 import 中文化
-from 木兰.功用.调试辅助 import 语法树相关
 
 # 木兰不支持 compile, exec, 因此不改写为木兰代码
 def 运行木兰代码(源码文件):

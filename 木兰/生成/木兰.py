@@ -349,6 +349,23 @@ class 木兰生成器(NodeVisitor):
         #for 包 in node.names:
         #    self.visit(包)
 
+    def visit_ImportFrom(self, node):
+        self.另起一行(node)
+        self.编写('using ')
+        for 索引, 包 in enumerate(node.names):
+            if 索引:
+                self.编写(', ')
+            self.编写(包.name)
+
+        if node.module:
+            self.编写(' in %s%s' % ('.' * node.level, node.module))
+        else:
+            self.编写(' in %s' % ('.' * node.level))
+
+        # TODO: 下两行何用？
+        #for item in node.names:
+        #    self.visit(item)
+
     def visit_Expr(self, 节点):
         self.记录("Expr: " + str(节点))
         self.另起一行()

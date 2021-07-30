@@ -1,5 +1,3 @@
-from math import *
-
 def 插入排序(数列):
   for i in range(1, len(数列)):
     挑出 = 数列[i]
