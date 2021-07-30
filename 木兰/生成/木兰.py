@@ -6,12 +6,14 @@ from ast import *
 二元操作符 = {
     Add: '+',
     Sub: '-',
+    Div: '/',
 }
 布尔操作符 = {
     And: 'and',
     Or: 'or',
 }
 比较操作符 = {
+    Eq: '==',
     Lt: '<',
     In: 'in',
     GtE: '>=',
@@ -365,6 +367,13 @@ class 木兰生成器(NodeVisitor):
         # TODO: 下两行何用？
         #for item in node.names:
         #    self.visit(item)
+
+    def visit_IfExp(self, 节点):
+        self.visit(节点.test)
+        self.编写(' ? ')
+        self.visit(节点.body)
+        self.编写(' : ')
+        self.visit(节点.orelse)
 
     def visit_Expr(self, 节点):
         self.记录("Expr: " + str(节点))

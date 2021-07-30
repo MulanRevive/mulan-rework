@@ -1,22 +1,20 @@
-using sys, cmd, random
+using sys, cmd
+using 随机范围数 in 随机数
 
 
 type 猜数字 : cmd.Cmd {
    {
     intro, prompt = tuple('我想了个 100 之内的数，猜猜是几？', '请猜吧: ')
-    想的 = random.randrange(100)
+    想的 = 随机范围数(1000) / 10
   }
 
   func $default(行) {
     数 = int(行)
-    if (数 > $想的) {
-      println('太大了!')
-    } elif (数 < $想的) {
-      println('太小了!')
-    } else {
+    if (数 == $想的) {
       println('中了!')
       sys.exit()
     }
+    println((数 > $想的) ? '太大了!' : '太小了!')
   }
 }
 猜数字().cmdloop()
