@@ -1,0 +1,8 @@
+
+func a() {
+  return
+}
+
+func b() {
+  return 1
+}

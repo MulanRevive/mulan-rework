@@ -7,6 +7,7 @@ from ast import *
     Add: '+',
     Sub: '-',
     Div: '/',
+    FloorDiv: '/',
 }
 布尔操作符 = {
     And: 'and',
@@ -233,6 +234,22 @@ class 木兰生成器(NodeVisitor):
         if isinstance(节点.ctx, Load):
             self.编写(')')
 
+    def visit_Try(self, 节点):
+        self.另起一行(节点)
+        self.编写('try')
+        self.主体(节点.body)
+        for handler in 节点.handlers:
+            self.visit(handler)
+
+        # TODO: final
+
+    def visit_Return(self, 节点):
+        self.另起一行(节点)
+        self.编写('return')
+        if 节点.value is not None:
+            self.编写(' ')
+            self.visit(节点.value)
+
     def visit_Attribute(self, 节点):
         if isinstance(节点.value, Name) and 节点.value.id == 'self':
             self.编写('$%s' % 节点.attr)
@@ -390,6 +407,19 @@ class 木兰生成器(NodeVisitor):
             self.编写('true')
         else:
             self.编写('false')
+
+    def visit_ExceptHandler(self, 节点):
+        self.另起一行(节点)
+        self.编写('catch ')
+        if 节点.name is not None:
+            # 此处原为 self.visit(节点.name)，会报错 AttributeError: 'str' object has no attribute '_fields'
+            self.编写(节点.name)
+        else:
+            self.编写('__')
+        if 节点.type is not None:
+            self.编写(' : ')
+            self.visit(节点.type)
+        self.主体(节点.body)
 
     def visit_arguments(self, 节点):
         self.形参(节点)

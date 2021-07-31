@@ -9,7 +9,17 @@ type 猜数字 : cmd.Cmd {
   }
 
   func $default(行) {
-    数 = int(行)
+    try {
+      数 = int(行)
+    }
+    catch 例外 : ValueError {
+      println(行 + ' 不是数，请再试')
+      return
+    }
+    $比较(数)
+  }
+
+  func $比较(数) {
     if (数 == $想的) {
       println('中了!')
       sys.exit()
