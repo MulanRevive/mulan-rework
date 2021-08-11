@@ -6,6 +6,7 @@ from ast import *
 二元操作符 = {
     Add: '+',
     Sub: '-',
+    Mult: '*',
     Div: '/',
     FloorDiv: '/',
 }
