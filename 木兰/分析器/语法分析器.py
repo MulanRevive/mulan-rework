@@ -473,11 +473,12 @@ class 语法分析器:
             位_左移: ast.LShift(),
             位_右移: ast.RShift(),
             位_与: ast.BitAnd(),
-            位_或: ast.BitOr(),
+            '|': ast.BitOr(),
         }
         if 运算符 in 对照表:
             python运算 = 对照表[运算符]
         else:
+            print("运算符 '" + 运算符 + "' 无法识别")
             breakpoint()
         return 语法树.新节点(语法.二元表达式, 左=左, 运算符=python运算, 右=右, 片段=片段)
 
