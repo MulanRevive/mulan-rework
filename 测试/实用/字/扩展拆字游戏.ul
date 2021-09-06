@@ -29,15 +29,11 @@ func 取字(包含偏旁, 排除偏旁) {
     字型, 部分 = 拆字[字]['字型'], 拆字[字]['部分']
 
     for 偏旁 in 包含偏旁 {
-      if 部分[0] == 偏旁 {
-        偏旁位置 = 0
-      } elif 部分[1] == 偏旁 {
-        偏旁位置 = 1
-      } else {
+      try {
+        偏旁位置 = 部分.index(偏旁)
+      } catch e : ValueError {
         continue
       }
-      // TODO: 需要 catch ValueError
-      // 偏旁位置 = 部分.index(偏旁)
       if 偏旁位置 >= 0 {
         部首位置 = 1 - 偏旁位置
       }

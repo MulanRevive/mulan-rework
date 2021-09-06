@@ -326,8 +326,8 @@ class 语法分析器:
         if 语法分析器.调试:
             print("表达式声明")
         if not isinstance(片段[0], ast.Call):
-            # TODO：下面两个似乎不需要
             if not isinstance(片段[0], ast.Yield):
+                # TODO：待补上
                 # if not isinstance(片段[0], ast.Str):
                 片段[0] = 语法树.新节点(
                     语法.调用,

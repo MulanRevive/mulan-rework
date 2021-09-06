@@ -1,2 +1,2 @@
-print(!nil)
+print((2<1)!=nil and !nil)
 print(![])

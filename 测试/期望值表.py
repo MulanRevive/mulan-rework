@@ -25,8 +25,6 @@ import datetime
     "运算/综合.ul": b"10",
     "运算/井号.ul": b"2",
     "运算/运算换行加.ul": b"3",
-
-    # TODO: 加上 `(2<1)!=nil and`
     "运算/空.ul": b"truetrue",
 
     "优先级/运算.ul": b"true64range(-2, 9, 4)range(-1, 7)1range(-1, 2)falserange(-1, 10)",
@@ -58,7 +56,7 @@ import datetime
     "函数/无返回.ul": b"2nil",
     "函数/过滤.ul": b"[10]",
     "函数/map.ul": b"[1, 4, 9]",
-    "函数/返回多值.ul": b"12", # TODO: 原本元组输出为 1, 2， 而非(1，2)
+    "函数/返回多值.ul": b"12",
     "函数/匿名函数.ul": b"[1][1][3][3][1, 4]12true",
     "函数/生成.ul": b"3211nilnil204",
     "函数/API/内置.ul": (

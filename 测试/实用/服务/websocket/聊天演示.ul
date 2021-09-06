@@ -91,11 +91,11 @@ type 聊天渠道 : tornado.websocket.WebSocketHandler {
   func 广播(消息) {
     logging.info("发到%d个接收端", len(聊天渠道.接收端))
     for 某接收端 in 聊天渠道.接收端 {
-      // TODO: try catch 尚待重现
-      //try:
-      某接收端.write_message(消息)
-      //except:
-      //    logging.error("Error sending message", exc_info=True)
+      try {
+        某接收端.write_message(消息)
+      } catch e {
+        logging.error("发送消息出错", exc_info=True)
+      }
     }
   }
 
