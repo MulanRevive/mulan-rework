@@ -27,7 +27,7 @@ class 语法(Enum):
     生成表达式 = 'yiele_expr'
     赋值 = 'assignment'
     外部声明 = 'declaration'
-    增量赋值 = 'aug(ment)_assign'
+    运算赋值 = 'aug_assign'
     类型赋值 = 'anno_assign'
     返回声明 = 'return_stmt'
     终止声明 = 'break_stmt'

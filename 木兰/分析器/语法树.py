@@ -37,7 +37,7 @@ class 语法树:
             节点 = ast.Call(func=函数, args=参数, keywords=关键词)
         elif 类型 == 语法.赋值:
             节点 = ast.Assign([变量], 值)
-        elif 类型 == 语法.增量赋值:
+        elif 类型 == 语法.运算赋值:
             节点 = ast.AugAssign(变量, 运算符, 值)
         elif 类型 == 语法.类型赋值:
             节点 = ast.AnnAssign(
