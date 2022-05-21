@@ -77,6 +77,7 @@ def 中(argv=None):
 
     if 生成python代码:
         print(python.代码生成器('    ').得到源码(节点))
+        return
 
     if 语法树:
         print(ast.dump(节点, True, True))

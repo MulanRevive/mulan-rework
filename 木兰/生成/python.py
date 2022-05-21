@@ -94,7 +94,7 @@ class 代码生成器(NodeVisitor):
         逗号需求 = False
 
         def 写入逗号():
-            global 逗号需求
+            nonlocal 逗号需求
             if 逗号需求:
                 self.写入结果(', ')
             else:
@@ -209,7 +209,7 @@ class 代码生成器(NodeVisitor):
                 paren_or_comma()
                 self.写入结果(keyword.arg + '=')
                 self.visit(keyword.value)
-
+            '''
             if node.starargs is not None:
                 paren_or_comma()
                 self.写入结果('*')
@@ -218,6 +218,8 @@ class 代码生成器(NodeVisitor):
                 paren_or_comma()
                 self.写入结果('**')
                 self.visit(node.kwargs)
+            '''
+
         self.写入结果(have_args and '):' or ':')
         self.处理块(node.body)
 
