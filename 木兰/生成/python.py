@@ -451,10 +451,9 @@ class 代码生成器(NodeVisitor):
         self.写入结果('(')
         idx = -1
         for idx, item in enumerate(node.elts):
-            if idx:
+            if idx % 2:
                 self.写入结果(', ')
-            else:
-                self.visit(item)
+            self.visit(item)
 
         self.写入结果(idx and ')' or ',)')
 
@@ -462,10 +461,9 @@ class 代码生成器(NodeVisitor):
         def visit(self, node):
             self.写入结果(left)
             for idx, item in enumerate(node.elts):
-                if idx:
+                if idx % 2:
                     self.写入结果(', ')
-                else:
-                    self.visit(item)
+                self.visit(item)
             self.写入结果(right)
         return visit
 

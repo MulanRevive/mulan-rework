@@ -14,7 +14,7 @@ from json import dump, load as json_load
 from subprocess import Popen, PIPE
 
 
-ORIGINAL_MULAN_CMD = 'C:\\C:\\ulang-0.2.2.exe --dump-python'
+ORIGINAL_MULAN_CMD = 'C:\\ulang-0.2.2.exe --dump-python'
 
 
 def make_all_ul_source_json():
@@ -39,8 +39,9 @@ def gen_result_by_mulan_now_codegen(source_dict: Dict[str, str], output=False):
     result_dict = {}
 
     for path, source in source_dict.items():
-
-        print('-----------\ngenerating...: %s' % path)
+        
+        if output:
+            print('-----------\ngenerating...: %s' % path)
 
         try:
             parser = 语法分析器(tokenizer)
@@ -51,7 +52,8 @@ def gen_result_by_mulan_now_codegen(source_dict: Dict[str, str], output=False):
             if output:
                 print(result)
         except 语法错误 as e:
-            print(str(e))
+            if output:
+                print(str(e))
     
     dump(result_dict, open('./mulan2py/codegen_now_result.json', 'w'))
     return result_dict
@@ -69,7 +71,8 @@ def gen_result_by_original_mulan(mulan_cmd: str, source_dict: Dict[str, str]):
 
         print(result, err.decode('gbk'))
         
-        if err.decode('gbk').startswith('SyntaxError'):
+        if err.decode('gbk').startswith('SyntaxError') or \
+                err.decode('gbk').startswith('UnicodeDecodeError'):
             continue
 
         result_dict[path] = result
