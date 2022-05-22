@@ -76,7 +76,7 @@ def 中(argv=None):
     节点 = 分析器.分析(源码, 源码文件)
 
     if 生成python代码:
-        print(python.代码生成器('    ').得到源码(节点))
+        print(python.代码生成器().得到源码(节点))
         return
 
     if 语法树:

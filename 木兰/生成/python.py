@@ -67,7 +67,7 @@ from ast import *
 
 
 class 代码生成器(NodeVisitor):
-    def __init__(self, 缩进):
+    def __init__(self, 缩进='  '):
         self.代码结果 = []
         self.缩进 = 缩进
         self.缩进计数器 = 0
@@ -76,7 +76,7 @@ class 代码生成器(NodeVisitor):
     def 写入结果(self, x):
         if self.新行数量:
             if self.代码结果:
-                self.代码结果.append('\n' * self.新行数量)
+                self.代码结果.append('\r\n' * self.新行数量)
             self.代码结果.append(self.缩进 * self.缩进计数器)
             self.新行数量 = 0
         self.代码结果.append(x)
@@ -632,5 +632,5 @@ class 代码生成器(NodeVisitor):
 
     def 得到源码(self, node):
         self.visit(node)
-        self.代码结果.insert(0, 'import sys\nfrom math import *\nARGV = sys.argv[1:]\n')
-        return ''.join(self.代码结果)
+        self.代码结果.insert(0, 'import sys\r\nfrom math import *\r\nARGV = sys.argv[1:]\r\n')
+        return ''.join(self.代码结果) + '\r\n'
