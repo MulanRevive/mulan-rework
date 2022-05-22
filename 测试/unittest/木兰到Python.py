@@ -90,7 +90,7 @@ def compare(original_result: Dict[str, str],
         if path in original_result and path in now_result:
             res = original_result[path] == now_result[path]
             print('comparing %s: %s' % (path, res))
-            if res:
+            if not res:
                 print('----original:\n%s' % repr(original_result[path]))
                 print('----now:\n%s' % repr(now_result[path]))
             
