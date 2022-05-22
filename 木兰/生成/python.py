@@ -4,38 +4,45 @@
 from ast import *
 
 
-二元运算符映射表 = {}
-二元运算符映射表[Add] = '+'
-二元运算符映射表[Sub] = '-'
-二元运算符映射表[Mult] = '*'
-二元运算符映射表[Div] = '/'
-二元运算符映射表[Mod] = '%'
-二元运算符映射表[Pow] = '**'
-二元运算符映射表[LShift] = '<<'
-二元运算符映射表[RShift] = '>>'
-二元运算符映射表[BitOr] = '|'
-二元运算符映射表[BitXor] = '^'
-二元运算符映射表[BitAnd] = '&'
-二元运算符映射表[FloorDiv] = '//'
-布尔运算符映射表 = {}
-布尔运算符映射表[And] = 'and'
-布尔运算符映射表[Or] = 'or'
-比较运算符映射表 = {}
-比较运算符映射表[Eq] = '=='
-比较运算符映射表[NotEq] = '!='
-比较运算符映射表[Lt] = '<'
-比较运算符映射表[LtE] = '<='
-比较运算符映射表[Gt] = '>'
-比较运算符映射表[GtE] = '>='
-比较运算符映射表[Is] = 'is'
-比较运算符映射表[IsNot] = 'is not'
-比较运算符映射表[In] = 'in'
-比较运算符映射表[NotIn] = 'not in'
-一元运算符映射表 = {}
-一元运算符映射表[Invert] = '~'
-一元运算符映射表[Not] = 'not'
-一元运算符映射表[UAdd] = '+'
-一元运算符映射表[USub] = '-'
+二元运算符映射表 = {
+    Add: '+',
+    Sub: '-',
+    Mult: '*',
+    Div: '/',
+    Mod: '%',
+    Pow: '**',
+    LShift: '<<',
+    RShift: '>>',
+    BitOr: '|',
+    BitXor: '^',
+    BitAnd: '&',
+    FloorDiv: '//'
+}
+
+布尔运算符映射表 = {
+    And: 'and',
+    Or: 'or',
+}
+
+比较运算符映射表 = {
+    Eq: '==',
+    NotEq: '!=',
+    Lt: '<',
+    LtE: '<=',
+    Gt: '>',
+    GtE: '>=',
+    Is: 'is',
+    IsNot: 'is not',
+    In: 'in',
+    NotIn: 'not in',
+}
+
+一元运算符映射表 = {
+    Invert: '~',
+    Not: 'not',
+    UAdd: '+',
+    USub: '-',
+}
 
 
 木兰预置函数映射表 = {
@@ -116,7 +123,7 @@ class 代码生成器(NodeVisitor):
             写入逗号()
             self.写入结果('**' + node.kwarg.arg)
 
-    def decorators(self, node):
+    def 处理装饰器(self, node):
         for decorator in node.decorator_list:
             self.插入新行(decorator)
             self.写入结果('@')
@@ -179,7 +186,7 @@ class 代码生成器(NodeVisitor):
 
     def visit_FunctionDef(self, node):
         self.插入新行(extra=1)
-        self.decorators(node)
+        self.处理装饰器(node)
         self.插入新行(node)
         self.写入结果('def %s(' % node.name)
         self.visit(node.args)
@@ -197,7 +204,7 @@ class 代码生成器(NodeVisitor):
                 self.写入结果('(')
 
         self.插入新行(extra=2)
-        self.decorators(node)
+        self.处理装饰器(node)
         self.插入新行(node)
         self.写入结果('class %s' % node.name)
         for base in node.bases:

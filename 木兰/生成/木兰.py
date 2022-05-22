@@ -3,23 +3,44 @@ from ast import *
 '''
 注释"研究"的待进一步揣摩
 '''
-二元操作符 = {
+二元运算符映射表 = {
     Add: '+',
     Sub: '-',
     Mult: '*',
     Div: '/',
-    FloorDiv: '/',
+    Mod: '%',
+    Pow: '**',
+    LShift: '<<',
+    RShift: '>>',
+    BitOr: '|',
+    BitXor: '^',
+    BitAnd: '&',
+    FloorDiv: '//'
 }
-布尔操作符 = {
+
+布尔运算符映射表 = {
     And: 'and',
     Or: 'or',
 }
-比较操作符 = {
+
+比较运算符映射表 = {
     Eq: '==',
+    NotEq: '!=',
     Lt: '<',
-    In: 'in',
-    GtE: '>=',
+    LtE: '<=',
     Gt: '>',
+    GtE: '>=',
+    Is: 'is',
+    IsNot: 'is not',
+    In: 'in',
+    NotIn: 'not in',
+}
+
+一元运算符映射表 = {
+    Invert: '~',
+    Not: 'not',
+    UAdd: '+',
+    USub: '-',
 }
 
 def 转源码(节点, 缩进量="  "):
@@ -109,7 +130,7 @@ class 木兰生成器(NodeVisitor):
     def visit_AugAssign(self, 节点):
         self.另起一行(节点)
         self.visit(节点.target)
-        self.编写(' ' +  二元操作符[type(节点.op)] + '= ')
+        self.编写(' ' +  二元运算符映射表[type(节点.op)] + '= ')
         self.visit(节点.value)
 
     def 形参(self, 节点):
@@ -316,14 +337,14 @@ class 木兰生成器(NodeVisitor):
 
     def visit_BinOp(self, 节点):
         self.visit(节点.left)
-        self.编写(' %s ' % 二元操作符[type(节点.op)])
+        self.编写(' %s ' % 二元运算符映射表[type(节点.op)])
         self.visit(节点.right)
 
     def visit_BoolOp(self, 节点):
         self.编写('(')
         for 索引, 值 in enumerate(节点.values):
             if 索引:
-                self.编写(' %s ' % 布尔操作符[type(节点.op)])
+                self.编写(' %s ' % 布尔运算符映射表[type(节点.op)])
             self.visit(值)
 
         self.编写(')')
@@ -336,7 +357,7 @@ class 木兰生成器(NodeVisitor):
         for 操作符, 右边 in zip(节点.ops, 节点.comparators):
             if 已开头:
                 self.编写(' and ')
-            操作符 = 比较操作符[type(操作符)]
+            操作符 = 比较运算符映射表[type(操作符)]
             if 'in' == 操作符:
                 self.visit(右边)
                 self.编写('.__contains__(')
