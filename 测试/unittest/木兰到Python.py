@@ -24,7 +24,7 @@ def make_all_ul_source_json():
         for filename in files:
             if filename[-3:] == '.ul':
                 p = join(cur_dir, filename)
-                with open(p) as f:
+                with open(p, encoding='UTF-8') as f:
                     cont = f.read()
                     cont_dict[p] = cont
 
@@ -96,10 +96,11 @@ def compare(original_result: Dict[str, str],
             
 
 def main():
+    make_all_ul_source_json()
     gen_result_by_mulan_now_codegen(read_mulan_test_source_json())
-    # gen_result_by_original_mulan(ORIGINAL_MULAN_CMD, read_mulan_test_source_json())
+    gen_result_by_original_mulan(ORIGINAL_MULAN_CMD, read_mulan_test_source_json())
 
-    if 1:
+    if 0:
         original_result = json_load(open('mulan2py\\original_mulan_result.json', 'r'))
         now_result = json_load(open('mulan2py\\codegen_now_result.json', 'r'))
         source_dict = read_mulan_test_source_json()
