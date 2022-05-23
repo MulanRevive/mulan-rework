@@ -1,6 +1,5 @@
 
-from . import codegen
-
+import codegen
 import ast
 
 
@@ -40,6 +39,33 @@ class 代码生成器(codegen.SourceGenerator):
     def visit_arg(self, arg):
         super().write(arg.arg)
 
+    def visit_ClassDef(self, node):
+        have_args = []
+
+        def paren_or_comma():
+            if have_args:
+                self.write(', ')
+            else:
+                have_args.append(True)
+                self.write('(')
+
+        self.newline(extra=2)
+        self.decorators(node)
+        self.newline(node)
+        self.write('class %s' % node.name)
+
+        for base in node.bases:
+            paren_or_comma()
+            self.visit(base)
+
+        if hasattr(node, 'keywords'):
+            for keyword in node.keywords:
+                paren_or_comma()
+                self.write(keyword.arg + '=')
+                self.visit(keyword.value)
+        self.write(have_args and '):' or ':')
+        self.body(node.body)
+
     def visit_AnnAssign(self, node):
         self.newline(node)
         self.visit(node.target)
@@ -66,7 +92,25 @@ class 代码生成器(codegen.SourceGenerator):
         if isinstance(node.func, ast.Name):
             if node.func.id in 木兰预置函数映射表:
                 node.func.id = 木兰预置函数映射表[node.func.id]
-        super().visit_Call(node)
+        
+        want_comma = []
+        
+        def write_comma():
+            if want_comma:
+                self.write(', ')
+            else:
+                want_comma.append(True)
+
+        self.visit(node.func)
+        self.write('(')
+        for arg in node.args:
+            write_comma()
+            self.visit(arg)
+        for keyword in node.keywords:
+            write_comma()
+            self.write(keyword.arg + '=')
+            self.visit(keyword.value)
+        self.write(')')
 
     def visit_With(self, node):
         self.newline(node)
