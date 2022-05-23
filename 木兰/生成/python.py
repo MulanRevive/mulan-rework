@@ -135,7 +135,7 @@ class 代码生成器(codegen.SourceGenerator):
         self.visit(node)
 
         self.result.insert(
-            0, 'import sys\nfrom math import *\nARGV = sys.argv[1:]\n')
+            0, 'import sys\r\nfrom math import *\r\nARGV = sys.argv[1:]\r\n')
         
-        return ''.join(self.result)
+        return ''.join(self.result) + '\r\n'
 

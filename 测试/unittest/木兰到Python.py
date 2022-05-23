@@ -93,19 +93,23 @@ def compare(original_result: Dict[str, str],
             if not res:
                 print('----original:\n%s' % repr(original_result[path]))
                 print('----now:\n%s' % repr(now_result[path]))
-            
+
+
+def _adopt_origin_result_dict(result):
+    return {x.replace('\\', '/'): v for x, v in result.items()}
+
 
 def main():
     make_all_ul_source_json()
     gen_result_by_mulan_now_codegen(read_mulan_test_source_json())
-    gen_result_by_original_mulan(ORIGINAL_MULAN_CMD, read_mulan_test_source_json())
+    # gen_result_by_original_mulan(ORIGINAL_MULAN_CMD, read_mulan_test_source_json())
 
-    if 0:
-        original_result = json_load(open('mulan2py\\original_mulan_result.json', 'r'))
-        now_result = json_load(open('mulan2py\\codegen_now_result.json', 'r'))
+    if 1:
+        original_result = json_load(open('mulan2py/original_mulan_result.json', 'r'))
+        now_result = json_load(open('mulan2py/codegen_now_result.json', 'r'))
         source_dict = read_mulan_test_source_json()
 
-        compare(original_result, now_result, source_dict)
+        compare(_adopt_origin_result_dict(original_result), now_result, source_dict)
 
 
 if __name__ == '__main__':
