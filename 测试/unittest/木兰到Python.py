@@ -14,10 +14,10 @@ from json import dump, load as json_load
 from subprocess import Popen, PIPE
 
 
-ORIGINAL_MULAN_CMD = 'C:\\ulang-0.2.2.exe --dump-python'
+木兰原始文件执行命令 = 'C:\\ulang-0.2.2.exe --dump-python'
 
 
-def make_all_ul_source_json():
+def 生成测试用例json文件():
     cont_dict = {}
 
     for cur_dir, dirs, files in walk('./源码生成', ):
@@ -31,88 +31,87 @@ def make_all_ul_source_json():
     dump(cont_dict, open('mulan2py/sources.json', 'w'))
 
 
-def read_mulan_test_source_json() -> Dict[str, str]:
+def 读取测试用例json() -> Dict[str, str]:
     return json_load(open('mulan2py/sources.json', 'r'))
 
 
-def gen_result_by_mulan_now_codegen(source_dict: Dict[str, str], output=False):
-    result_dict = {}
+def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出log=False):
+    结果 = {}
 
-    for path, source in source_dict.items():
-        
-        if output:
-            print('-----------\ngenerating...: %s' % path)
+    for 路径, 源码 in source_dict.items():
+        if 输出log:
+            print('-----------\ngenerating...: %s' % 路径)
 
         try:
-            parser = 语法分析器(tokenizer)
-            node = parser.分析(source, path)
-            codegen = CodegenNow()
-            result = codegen.得到源码(node)
-            result_dict[path] = result
-            if output:
-                print(result)
+            语法分析器 = 语法分析器(tokenizer)
+            节点 = 语法分析器.分析(源码, 路径)
+            代码生成器 = CodegenNow()
+            源码结果 = 代码生成器.得到源码(节点)
+            结果[路径] = 源码结果
+            if 输出log:
+                print(源码结果)
         except 语法错误 as e:
-            if output:
+            if 输出log:
                 print(str(e))
     
-    dump(result_dict, open('./mulan2py/codegen_now_result.json', 'w'))
-    return result_dict
+    dump(结果, open('./mulan2py/codegen_now_result.json', 'w'))
+    return 结果
 
 
-def gen_result_by_original_mulan(mulan_cmd: str, source_dict: Dict[str, str]):
-    result_dict = {}
+def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字典: Dict[str, str]):
+    结果 = {}
 
-    for path, source in source_dict.items():
-        proc = Popen('%s %s' % (mulan_cmd, path), stdout=PIPE, stderr=PIPE)
-        out, err = proc.communicate()
+    for 路径, source in 源码字典.items():
+        进程 = Popen('%s %s' % (原始木兰执行命令, 路径), stdout=PIPE, stderr=PIPE)
+        输出流, 错误输出流 = 进程.communicate()
 
-        print('---generating: %s' % path)
-        result = out.decode()
+        print('---generating: %s' % 路径)
+        原始木兰输出结果 = 输出流.decode()
 
-        print(result, err.decode('gbk'))
+        print(原始木兰输出结果, 错误输出流.decode('gbk'))
         
-        if err.decode('gbk').startswith('SyntaxError') or \
-                err.decode('gbk').startswith('UnicodeDecodeError'):
+        if 错误输出流.decode('gbk').startswith('SyntaxError') or \
+                错误输出流.decode('gbk').startswith('UnicodeDecodeError'):
             continue
 
-        result_dict[path] = result
+        结果[路径] = 原始木兰输出结果
 
-    print('generation finished!')
+    print('原始木兰输出结果生成完毕!')
     
-    dump(result_dict, open('mulan2py\\original_mulan_result.json', 'w'))
-    return result_dict
+    dump(结果, open('mulan2py\\original_mulan_result.json', 'w'))
+    return 结果
 
 
-def compare(original_result: Dict[str, str], 
-        now_result: Dict[str, str], source_dict: Dict[str, str]) -> bool:
+def 比较结果(原始木兰输出结果: Dict[str, str], 
+        当前木兰输出结果: Dict[str, str], 源码字典: Dict[str, str]) -> bool:
     
-    for path in source_dict.keys():
-        if path in original_result and path in now_result:
-            res = original_result[path] == now_result[path]
-            print('comparing %s: %s' % (path, res))
-            if not res:
-                print('----original:\n%s' % repr(original_result[path]))
-                print('----now:\n%s' % repr(now_result[path]))
+    for 路径 in 源码字典.keys():
+        if 路径 in 原始木兰输出结果 and 路径 in 当前木兰输出结果:
+            比较的结果 = 原始木兰输出结果[路径] == 当前木兰输出结果[路径]
+            print('comparing %s: %s' % (路径, 比较的结果))
+            if not 比较的结果:
+                print('----original:\n%s' % repr(原始木兰输出结果[路径]))
+                print('----now:\n%s' % repr(当前木兰输出结果[路径]))
 
 
-def _adopt_origin_result_dict(result):
+def _转换Windows路径到Linux路径(result):
     return {x.replace('\\', '/'): v for x, v in result.items()}
 
 
-def main():
-    make_all_ul_source_json()
-    gen_result_by_mulan_now_codegen(read_mulan_test_source_json())
+def 主函数():
+    生成测试用例json文件()
+    生成当前木兰codegen的测试结果(读取测试用例json())
     # gen_result_by_original_mulan(ORIGINAL_MULAN_CMD, read_mulan_test_source_json())
 
     if 1:
-        original_result = json_load(open('mulan2py/original_mulan_result.json', 'r'))
-        now_result = json_load(open('mulan2py/codegen_now_result.json', 'r'))
-        source_dict = read_mulan_test_source_json()
+        原始木兰输出结果 = json_load(open('mulan2py/original_mulan_result.json', 'r'))
+        当前木兰输出结果 = json_load(open('mulan2py/codegen_now_result.json', 'r'))
+        测试用例的源码 = 读取测试用例json()
 
         # original_result = _adopt_origin_result_dict(original_result)
 
-        compare(original_result, now_result, source_dict)
+        比较结果(原始木兰输出结果, 当前木兰输出结果, 测试用例的源码)
 
 
 if __name__ == '__main__':
-    main()
+    主函数()
