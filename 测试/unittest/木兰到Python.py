@@ -109,7 +109,9 @@ def main():
         now_result = json_load(open('mulan2py/codegen_now_result.json', 'r'))
         source_dict = read_mulan_test_source_json()
 
-        compare(_adopt_origin_result_dict(original_result), now_result, source_dict)
+        # original_result = _adopt_origin_result_dict(original_result)
+
+        compare(original_result, now_result, source_dict)
 
 
 if __name__ == '__main__':

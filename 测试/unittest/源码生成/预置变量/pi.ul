@@ -1,1 +1,2 @@
-println('pi * 2 = %s' % (pi + PI))
+a = pi
+b = PI
