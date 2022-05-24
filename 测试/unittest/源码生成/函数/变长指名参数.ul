@@ -1,0 +1,13 @@
+func a(**kwargs) {
+    print(kwargs)
+}
+
+func b(*args) {
+    print(args)
+}
+
+a(k1="v1", k2="v2")
+b(3, 4)
+
+a(**{a: 1, b: 2})
+b(*(1, 2))
