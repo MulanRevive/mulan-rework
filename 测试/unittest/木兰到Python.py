@@ -43,8 +43,8 @@ def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出
             print('-----------\ngenerating...: %s' % 路径)
 
         try:
-            语法分析器 = 语法分析器(tokenizer)
-            节点 = 语法分析器.分析(源码, 路径)
+            语法分析器_ = 语法分析器(tokenizer)
+            节点 = 语法分析器_.分析(源码, 路径)
             代码生成器 = CodegenNow()
             源码结果 = 代码生成器.得到源码(节点)
             结果[路径] = 源码结果
