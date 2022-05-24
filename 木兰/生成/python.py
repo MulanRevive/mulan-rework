@@ -94,7 +94,6 @@ class 代码生成器(codegen.SourceGenerator):
                 node.func.id = 木兰预置函数映射表[node.func.id]
         
         want_comma = []
-        
         def write_comma():
             if want_comma:
                 self.write(', ')
