@@ -28,154 +28,155 @@ class 代码生成器(codegen.SourceGenerator):
     def __init__(self):
         super().__init__('  ', False)
 
-    def write(self, x):
+    def write(self, 内容):
         if self.new_lines:
             if self.result:
                 self.result.append('\r\n' * self.new_lines)
             self.result.append(self.indent_with * self.indentation)
             self.new_lines = 0
-        self.result.append(x)
+        self.result.append(内容)
 
-    def visit_arg(self, arg):
-        super().write(arg.arg)
+    def visit_arg(self, 参数节点):
+        super().write(参数节点.arg)
 
-    def visit_ClassDef(self, node):
-        have_args = []
+    def visit_ClassDef(self, 节点):
+        有形式参数 = []
 
-        def paren_or_comma():
-            if have_args:
+        def 得到括号或逗号():
+            nonlocal 有形式参数
+            if 有形式参数:
                 self.write(', ')
             else:
-                have_args.append(True)
+                有形式参数.append(True)
                 self.write('(')
 
         self.newline(extra=2)
-        self.decorators(node)
-        self.newline(node)
-        self.write('class %s' % node.name)
+        self.decorators(节点)
+        self.newline(节点)
+        self.write('class %s' % 节点.name)
 
-        for base in node.bases:
-            paren_or_comma()
-            self.visit(base)
+        for 基类 in 节点.bases:
+            得到括号或逗号()
+            self.visit(基类)
 
-        if hasattr(node, 'keywords'):
-            for keyword in node.keywords:
-                paren_or_comma()
-                self.write(keyword.arg + '=')
-                self.visit(keyword.value)
-        self.write(have_args and '):' or ':')
-        self.body(node.body)
+        if hasattr(节点, 'keywords'):
+            for 关键字参数 in 节点.keywords:
+                得到括号或逗号()
+                self.write(关键字参数.arg + '=')
+                self.visit(关键字参数.value)
+        self.write(有形式参数 and '):' or ':')
+        self.body(节点.body)
 
-    def visit_AnnAssign(self, node):
-        self.newline(node)
-        self.visit(node.target)
+    def visit_AnnAssign(self, 节点):
+        self.newline(节点)
+        self.visit(节点.target)
         self.write(' : ')
-        self.visit(node.annotation)
+        self.visit(节点.annotation)
         self.write(' = ')
-        self.visit(node.value)
+        self.visit(节点.value)
 
-    def visit_Name(self, node):
-        if node.id == 'PI':
+    def visit_Name(self, 节点):
+        if 节点.id == 'PI':
             self.write('pi')
         else:
-            super().visit_Name(node)
+            super().visit_Name(节点)
 
-    def visit_NameConstant(self, node):
-        if node.value == None:
+    def visit_NameConstant(self, 节点):
+        if 节点.value == None:
             self.write('None')
-        elif node.value:
+        elif 节点.value:
             self.write('True')
         else:
             self.write('False')
 
-    def visit_Call(self, node):
-        if isinstance(node.func, ast.Name):
-            if node.func.id in 木兰预置函数映射表:
-                node.func.id = 木兰预置函数映射表[node.func.id]
+    def visit_Call(self, 节点):
+        if isinstance(节点.func, ast.Name):
+            if 节点.func.id in 木兰预置函数映射表:
+                节点.func.id = 木兰预置函数映射表[节点.func.id]
         
-        want_comma = []
-        def write_comma():
-            if want_comma:
+        需要逗号 = []
+        def 写逗号至结果():
+            if 需要逗号:
                 self.write(', ')
             else:
-                want_comma.append(True)
+                需要逗号.append(True)
 
-        self.visit(node.func)
+        self.visit(节点.func)
         self.write('(')
-        for arg in node.args:
-            write_comma()
-            self.visit(arg)
-        for keyword in node.keywords:
-            write_comma()
-            self.write(keyword.arg + '=')
-            self.visit(keyword.value)
+        for 参数节点 in 节点.args:
+            写逗号至结果()
+            self.visit(参数节点)
+        for 关键字参数节点 in 节点.keywords:
+            写逗号至结果()
+            self.write(关键字参数节点.arg + '=')
+            self.visit(关键字参数节点.value)
         self.write(')')
 
-    def visit_With(self, node):
-        self.newline(node)
+    def visit_With(self, 节点):
+        self.newline(节点)
         self.write('with ')
 
-        for idx, item in enumerate(node.items):
-            if idx > 0:
+        for 索引, 项 in enumerate(节点.items):
+            if 索引 > 0:
                 self.write(', ')
-            self.visit(item)
+            self.visit(项)
 
         self.write(':')
-        self.body(node.body)
+        self.body(节点.body)
 
-    def visit_ExtSlice(self, node):
-        for idx, s in enumerate(node.dims):
-            if idx != 0:
+    def visit_ExtSlice(self, 节点):
+        for 索引, 切片项 in enumerate(节点.dims):
+            if 索引 != 0:
                 self.write(', ')
-            self.visit(s)
+            self.visit(切片项)
 
-    def visit_withitem(self, node):
-        self.visit(node.context_expr)
+    def visit_withitem(self, 节点):
+        self.visit(节点.context_expr)
         
-        if node.optional_vars is not None:
+        if 节点.optional_vars is not None:
             self.write(' as ')
-            self.visit(node.optional_vars)
+            self.visit(节点.optional_vars)
 
-    def visit_ImportFrom(self, node):
-        self.newline(node)
-        if node.module:
-            self.write('from %s%s import ' % ('.' * node.level, node.module))
+    def visit_ImportFrom(self, 节点):
+        self.newline(节点)
+        if 节点.module:
+            self.write('from %s%s import ' % ('.' * 节点.level, 节点.module))
         else:
-            self.write('from %s import ' % ('.' * node.level))
+            self.write('from %s import ' % ('.' * 节点.level))
 
-        for idx, item in enumerate(node.names):
-            if idx:
+        for 索引, 项 in enumerate(节点.names):
+            if 索引:
                 self.write(', ')
-            self.visit(item)
+            self.visit(项)
 
-    def signature(self, node):
-        want_comma = []
+    def signature(self, 节点):
+        需要逗号 = []
 
-        def write_comma():
-            if want_comma:
+        def 写逗号至结果():
+            if 需要逗号:
                 self.write(', ')
             else:
-                want_comma.append(True)
+                需要逗号.append(True)
 
-        padding = [None] * (len(node.args) - len(node.defaults))
+        对齐辅助列表 = [None] * (len(节点.args) - len(节点.defaults))
 
-        for arg, default in zip(node.args, padding + node.defaults):
-            write_comma()
-            self.visit(arg)
-            if default is not None:
+        for 参数, 默认项 in zip(节点.args, 对齐辅助列表 + 节点.defaults):
+            写逗号至结果()
+            self.visit(参数)
+            if 默认项 is not None:
                 self.write('=')
-                self.visit(default)
+                self.visit(默认项)
 
-        if node.vararg is not None:
-            write_comma()
-            self.write('*' + node.vararg.arg)
+        if 节点.vararg is not None:
+            写逗号至结果()
+            self.write('*' + 节点.vararg.arg)
 
-        if node.kwarg is not None:
-            write_comma()
-            self.write('**' + node.kwarg.arg)
+        if 节点.kwarg is not None:
+            写逗号至结果()
+            self.write('**' + 节点.kwarg.arg)
 
-    def 得到源码(self, node):
-        self.visit(node)
+    def 得到源码(self, 节点):
+        self.visit(节点)
 
         self.result.insert(
             0, 'import sys\r\nfrom math import *\r\nARGV = sys.argv[1:]\r\n')
