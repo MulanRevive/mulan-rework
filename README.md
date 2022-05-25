@@ -1,7 +1,6 @@
 [![Gitee Go 所有测试](https://gitee.com/MulanRevive/mulan-rework/badge/giteego.svg?name=所有测试&id=mulan-rework)](https://gitee.com/MulanRevive/dashboard/projects/MulanRevive/mulan-rework/gitee_go/mulan-rework?branch=master)
 [![木兰在线版](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgitee.com%2FMulanRevive%2Fmulan-rework/HEAD)
 
-
 ## 前言
 
 没错，这就是那个木兰。
@@ -25,6 +24,7 @@
 ### 运行木兰源码文件
 
 `$ 木兰 测试/手工测试/草蟒_海龟.ul` 运行如下调用了 [草蟒](https://www.oschina.net/p/grasspy) 中文 API 的 [例程](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/手工测试/草蟒_海龟.ul)：
+
 ```javascript
 using * in 海龟
 
@@ -41,13 +41,16 @@ for 转角 in 0..4 {
 ### 中文报错信息
 
 交互环境中仅提示出错所在位置简要信息：
+
 ```
 > func a(n) { return n1+1 }
 > func b(n) { print(n) }
 > b(a(2))
  😰 请先定义'n1'再使用, 见第1行
 ```
+
 运行源码时，可见调用各层的详细信息。如果错误发生在其他文件，可见文件名：
+
 ```
 $ 木兰 测试/错误处理/引用模块.ul
  😰 取列表内容时，索引超出范围
@@ -107,6 +110,7 @@ New -> Terminal 打开命令行，同样输入“木兰”运行
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 
 木兰语言部分依赖的第三方 Python 包：
+
 - [rply-ulang](https://pypi.org/project/rply-ulang/)
 
 ### 本地运行
@@ -118,6 +122,7 @@ $ python -m 木兰
 ### 运行测试
 
 1. 重现项目自身测试
+
 ```
 $ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.报错 测试.unittest.生成
 ```
@@ -127,15 +132,29 @@ $ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.uni
 以下为检验[与原始木兰可执行文件功能一致](https://zhuanlan.zhihu.com/p/230155471)，在 Windows 下需将 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 置于项目根目录。
 
 以下测试语法相关用例。windows 以外其他系统下，会对从 PyPI 安装的版本进行测试：
+
 ```
 $ python 测试/运行所有.py
 ```
+
 以下测试源码生成相关用例：
+
 ```
 $ python -m unittest 测试.unittest.原始可执行文件
 ```
+
+以下操作对木兰转换成Python的代码分析器进行测试：
+
+为检验[与原始木兰可执行文件功能一致](https://zhuanlan.zhihu.com/p/230155471)，在 Windows 下需将 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 置于项目根目录。
+
+在项目根目录下执行：
+```
+$ python 测试/unittest/木兰到Python.py
+```
+
 ## 许可证
 
 GNU GPLv3
 
 ## [版本历史介绍](CHANGELOG.md)
+
