@@ -101,7 +101,7 @@ def _转换Windows路径到Linux路径(result):
 def 主函数():
     生成测试用例json文件()
     生成当前木兰codegen的测试结果(读取测试用例json())
-    # gen_result_by_original_mulan(ORIGINAL_MULAN_CMD, read_mulan_test_source_json())
+    生成原始木兰的测试结果(木兰原始文件执行命令, 读取测试用例json())
 
     if 1:
         原始木兰输出结果 = json_load(open('测试/unittest/mulan2py/original_mulan_result.json', 'r'))
