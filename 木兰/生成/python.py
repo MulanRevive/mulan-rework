@@ -28,14 +28,6 @@ class 代码生成器(codegen.SourceGenerator):
     def __init__(self):
         super().__init__('  ', False)
 
-    def write(self, 内容):
-        if self.new_lines:
-            if self.result:
-                self.result.append('\r\n' * self.new_lines)
-            self.result.append(self.indent_with * self.indentation)
-            self.new_lines = 0
-        self.result.append(内容)
-
     def visit_arg(self, 参数节点):
         super().write(参数节点.arg)
 
@@ -179,7 +171,7 @@ class 代码生成器(codegen.SourceGenerator):
         self.visit(节点)
 
         self.result.insert(
-            0, 'import sys\r\nfrom math import *\r\nARGV = sys.argv[1:]\r\n')
+            0, 'import sys\nfrom math import *\nARGV = sys.argv[1:]\n')
         
-        return ''.join(self.result) + '\r\n'
+        return ''.join(self.result)
 
