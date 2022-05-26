@@ -73,7 +73,7 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
                 错误输出流.decode('gbk').startswith('UnicodeDecodeError'):
             continue
 
-        结果[路径] = 原始木兰输出结果
+        结果[路径] = 原始木兰输出结果.replace('\r\n', '\n')
 
     print('原始木兰输出结果生成完毕!')
     
