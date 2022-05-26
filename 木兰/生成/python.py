@@ -39,6 +39,12 @@ class 代码生成器(codegen.SourceGenerator):
         self.write(' = ')
         self.visit(节点.value)
 
+    def visit_Call(self, 节点):
+        if isinstance(节点.func, ast.Name):
+            if 节点.func.id in 木兰预置函数映射表:
+                节点.func.id = 木兰预置函数映射表[节点.func.id]
+        super().visit_Call(节点)
+
     def visit_ExtSlice(self, 节点):
         for 索引, 切片项 in enumerate(节点.dims):
             if 索引 != 0:
@@ -115,12 +121,6 @@ class 代码生成器(codegen.SourceGenerator):
 
         self.write(':')
         self.body(节点.body)
-
-    def visit_Call(self, 节点):
-        if isinstance(节点.func, ast.Name):
-            if 节点.func.id in 木兰预置函数映射表:
-                节点.func.id = 木兰预置函数映射表[节点.func.id]
-        super().visit_Call(node)
 
     def 得到源码(self, 节点):
         self.visit(节点)
