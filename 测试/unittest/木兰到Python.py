@@ -97,7 +97,7 @@ def _转换Windows路径到Linux路径(result):
     return {x.replace('\\', '/'): v for x, v in result.items()}
 
 
-class PythonCodegenTest(TestCase):
+class 木兰到Python测试(TestCase):
     def test(self):
         生成测试用例json文件()
         生成当前木兰codegen的测试结果(读取测试用例json())
