@@ -62,34 +62,6 @@ class 代码生成器(codegen.SourceGenerator):
             self.visit(关键字参数节点.value)
         self.write(')')
 
-    def visit_ClassDef(self, 节点):
-        有形式参数 = []
-
-        def 得到括号或逗号():
-            nonlocal 有形式参数
-            if 有形式参数:
-                self.write(', ')
-            else:
-                有形式参数.append(True)
-                self.write('(')
-
-        self.newline(extra=2)
-        self.decorators(节点)
-        self.newline(节点)
-        self.write('class %s' % 节点.name)
-
-        for 基类 in 节点.bases:
-            得到括号或逗号()
-            self.visit(基类)
-
-        if hasattr(节点, 'keywords'):
-            for 关键字参数 in 节点.keywords:
-                得到括号或逗号()
-                self.write(关键字参数.arg + '=')
-                self.visit(关键字参数.value)
-        self.write(有形式参数 and '):' or ':')
-        self.body(节点.body)
-
     def visit_ExtSlice(self, 节点):
         for 索引, 切片项 in enumerate(节点.dims):
             if 索引 != 0:
