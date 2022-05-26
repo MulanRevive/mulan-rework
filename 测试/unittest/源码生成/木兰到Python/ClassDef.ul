@@ -1,0 +1,15 @@
+type Animal {
+  {}
+}
+
+type Creature {
+  {}
+} 
+
+type Person : Animal {
+  {}
+}
+
+type Person : Animal, Creature {
+  {}
+}
