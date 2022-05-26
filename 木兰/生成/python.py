@@ -39,29 +39,6 @@ class 代码生成器(codegen.SourceGenerator):
         self.write(' = ')
         self.visit(节点.value)
 
-    def visit_Call(self, 节点):
-        if isinstance(节点.func, ast.Name):
-            if 节点.func.id in 木兰预置函数映射表:
-                节点.func.id = 木兰预置函数映射表[节点.func.id]
-        
-        需要逗号 = []
-        def 写逗号至结果():
-            if 需要逗号:
-                self.write(', ')
-            else:
-                需要逗号.append(True)
-
-        self.visit(节点.func)
-        self.write('(')
-        for 参数节点 in 节点.args:
-            写逗号至结果()
-            self.visit(参数节点)
-        for 关键字参数节点 in 节点.keywords:
-            写逗号至结果()
-            self.write(关键字参数节点.arg + '=')
-            self.visit(关键字参数节点.value)
-        self.write(')')
-
     def visit_ExtSlice(self, 节点):
         for 索引, 切片项 in enumerate(节点.dims):
             if 索引 != 0:
