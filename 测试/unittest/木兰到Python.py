@@ -8,10 +8,9 @@ from os import walk
 from os.path import join
 
 from typing import Dict
-
 from json import dump, load as json_load
-
 from subprocess import Popen, PIPE
+from unittest import TestCase
 
 
 木兰原始文件执行命令 = 'ulang-0.2.2.exe --dump-python'
@@ -98,20 +97,18 @@ def _转换Windows路径到Linux路径(result):
     return {x.replace('\\', '/'): v for x, v in result.items()}
 
 
-def 主函数():
-    生成测试用例json文件()
-    生成当前木兰codegen的测试结果(读取测试用例json())
-    生成原始木兰的测试结果(木兰原始文件执行命令, 读取测试用例json())
+class PythonCodegenTest(TestCase):
+    def test(self):
+        生成测试用例json文件()
+        生成当前木兰codegen的测试结果(读取测试用例json())
+        生成原始木兰的测试结果(木兰原始文件执行命令, 读取测试用例json())
 
-    if 1:
-        原始木兰输出结果 = json_load(open('测试/unittest/original_mulan_result.json', 'r'))
-        当前木兰输出结果 = json_load(open('测试/unittest/codegen_now_result.json', 'r'))
-        测试用例的源码 = 读取测试用例json()
+        if 1:
+            原始木兰输出结果 = json_load(open('测试/unittest/original_mulan_result.json', 'r'))
+            当前木兰输出结果 = json_load(open('测试/unittest/codegen_now_result.json', 'r'))
+            测试用例的源码 = 读取测试用例json()
 
-        # original_result = _adopt_origin_result_dict(original_result)
+            # original_result = _adopt_origin_result_dict(original_result)
 
-        比较结果(原始木兰输出结果, 当前木兰输出结果, 测试用例的源码)
+            比较结果(原始木兰输出结果, 当前木兰输出结果, 测试用例的源码)
 
-
-if __name__ == '__main__':
-    主函数()
