@@ -28,11 +28,11 @@ def 生成测试用例json文件():
                     cont = f.read()
                     cont_dict[p] = cont
 
-    dump(cont_dict, open('测试/unittest/mulan2py/sources.json', 'w'))
+    dump(cont_dict, open('测试/unittest/sources.json', 'w'))
 
 
 def 读取测试用例json() -> Dict[str, str]:
-    return json_load(open('测试/unittest/mulan2py/sources.json', 'r'))
+    return json_load(open('测试/unittest/sources.json', 'r'))
 
 
 def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出log=False):
@@ -54,7 +54,7 @@ def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出
             if 输出log:
                 print(str(e))
     
-    dump(结果, open('测试/unittest/mulan2py/codegen_now_result.json', 'w'))
+    dump(结果, open('测试/unittest/codegen_now_result.json', 'w'))
     return 结果
 
 
@@ -78,7 +78,7 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
 
     print('原始木兰输出结果生成完毕!')
     
-    dump(结果, open('测试/unittest/mulan2py/original_mulan_result.json', 'w'))
+    dump(结果, open('测试/unittest/original_mulan_result.json', 'w'))
     return 结果
 
 
@@ -104,8 +104,8 @@ def 主函数():
     生成原始木兰的测试结果(木兰原始文件执行命令, 读取测试用例json())
 
     if 1:
-        原始木兰输出结果 = json_load(open('测试/unittest/mulan2py/original_mulan_result.json', 'r'))
-        当前木兰输出结果 = json_load(open('测试/unittest/mulan2py/codegen_now_result.json', 'r'))
+        原始木兰输出结果 = json_load(open('测试/unittest/original_mulan_result.json', 'r'))
+        当前木兰输出结果 = json_load(open('测试/unittest/codegen_now_result.json', 'r'))
         测试用例的源码 = 读取测试用例json()
 
         # original_result = _adopt_origin_result_dict(original_result)

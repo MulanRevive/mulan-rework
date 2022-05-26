@@ -121,3 +121,6 @@ ulgen.py
 编辑器/事件.log
 编辑器/*.db
 ulang-0.2.2.exe
+codegen_now_result.json
+original_mulan_result.json
+sources.json
