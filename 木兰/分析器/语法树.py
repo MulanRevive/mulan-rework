@@ -83,7 +83,9 @@ class 语法树:
                 bases=各基准类,
                 keywords=[],
                 body=主体,
-                decorator_list=[]
+                decorator_list=[],
+                starargs=None,
+                kwargs=None  # 如果不加此两项，在从语法树生成class源码时报错
             )
         elif 类型 == 语法.字符串:
             节点 = ast.Str(值)
