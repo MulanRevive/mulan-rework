@@ -35,7 +35,7 @@ def 读取测试用例json() -> Dict[str, str]:
         return json_load(f)
 
 
-def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出log=False):
+def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出log=True):
     结果 = {}
 
     for 路径, 源码 in source_dict.items():
@@ -71,7 +71,7 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
 
         print(原始木兰输出结果, 错误输出流.decode('gbk'))
         
-        if 错误输出流.decode('gbk').startswith('SyntaxError') or \
+        if 错误输出流.decode('utf-8').startswith('SyntaxError') or \
                 错误输出流.decode('gbk').startswith('UnicodeDecodeError'):
             continue
 
@@ -94,8 +94,10 @@ class 木兰到Python测试(TestCase):
         生成当前木兰codegen的测试结果(读取测试用例json())
         生成原始木兰的测试结果(木兰原始文件执行命令, 读取测试用例json())
 
-        原始木兰输出结果 = json_load(open('测试/unittest/original_mulan_result.json', 'r'))
-        当前木兰输出结果 = json_load(open('测试/unittest/codegen_now_result.json', 'r'))
+        with open('测试/unittest/original_mulan_result.json', 'r') as f:
+            原始木兰输出结果 = json_load(f)
+        with open('测试/unittest/codegen_now_result.json', 'r') as f:
+            当前木兰输出结果 = json_load(f)
         源码字典 = 读取测试用例json()
 
         # original_result = _adopt_origin_result_dict(original_result)
