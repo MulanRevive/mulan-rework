@@ -31,7 +31,8 @@ def 生成测试用例json文件():
 
 
 def 读取测试用例json() -> Dict[str, str]:
-    return json_load(open('测试/unittest/sources.json', 'r'))
+    with open('测试/unittest/sources.json', 'r') as f:
+        return json_load(f)
 
 
 def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出log=False):
@@ -52,8 +53,9 @@ def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出
         except 语法错误 as e:
             if 输出log:
                 print(str(e))
-    
-    dump(结果, open('测试/unittest/codegen_now_result.json', 'w'))
+
+    with open('测试/unittest/codegen_now_result.json', 'w') as f:
+        dump(结果, f)
     return 结果
 
 
@@ -77,7 +79,8 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
 
     print('原始木兰输出结果生成完毕!')
     
-    dump(结果, open('测试/unittest/original_mulan_result.json', 'w'))
+    with open('测试/unittest/original_mulan_result.json', 'w') as f:
+        dump(结果, f)
     return 结果
 
 
