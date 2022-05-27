@@ -1,6 +1,6 @@
 
-with a {}
+try a = b {}
 
-with open(b) {}
+try a {}
 
-with a, b {}
+try a, b = c {}
