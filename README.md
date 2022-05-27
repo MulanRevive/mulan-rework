@@ -145,14 +145,8 @@ $ python -m unittest 测试.unittest.原始可执行文件
 
 以下操作对木兰转换成Python的代码分析器进行测试：
 
-执行测试前，请确保已经安装好木兰：
 ```
-$ python setup.py install
-```
-
-在项目根目录下执行：
-```
-$ python 测试/unittest/木兰到Python.py
+$ python -m unittest 测试.unittest.木兰到Python
 ```
 
 ## 许可证
