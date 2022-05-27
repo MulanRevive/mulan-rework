@@ -2,5 +2,3 @@
 try a = b {}
 
 try a {}
-
-try a, b = c {}
