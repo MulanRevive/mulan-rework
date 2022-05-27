@@ -19,7 +19,7 @@ from unittest import TestCase
 def 生成测试用例json文件():
     cont_dict = {}
 
-    for cur_dir, dirs, files in walk('测试/unittest/木兰到Python', ):
+    for cur_dir, dirs, files in walk('测试/unittest/源码生成/木兰到Python', ):
         for filename in files:
             if filename[-3:] == '.ul':
                 p = join(cur_dir, filename)
@@ -111,4 +111,3 @@ class 木兰到Python测试(TestCase):
             # original_result = _adopt_origin_result_dict(original_result)
 
             比较结果(原始木兰输出结果, 当前木兰输出结果, 测试用例的源码)
-
