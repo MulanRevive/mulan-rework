@@ -1,0 +1,6 @@
+
+with a {}
+
+with open(b) {}
+
+with a, b {}
