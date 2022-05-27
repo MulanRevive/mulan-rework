@@ -19,7 +19,7 @@ from unittest import TestCase
 def 生成测试用例json文件():
     cont_dict = {}
 
-    for cur_dir, dirs, files in walk('测试/unittest/源码生成', ):
+    for cur_dir, dirs, files in walk('测试/unittest/木兰到Python', ):
         for filename in files:
             if filename[-3:] == '.ul':
                 p = join(cur_dir, filename)
