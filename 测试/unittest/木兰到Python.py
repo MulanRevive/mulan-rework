@@ -23,7 +23,8 @@ def 生成测试用例json文件():
         for filename in files:
             if filename[-3:] == '.ul':
                 p = join(cur_dir, filename)
-                with open(p, encoding='UTF-8') as f:
+                print('loading %s...' % p)
+                with open(p,) as f:
                     cont = f.read()
                     cont_dict[p] = cont
 
@@ -71,7 +72,7 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
 
         print(原始木兰输出结果, 错误输出流.decode('gbk'))
         
-        if 错误输出流.decode('utf-8').startswith('SyntaxError') or \
+        if 错误输出流.decode('gbk').startswith('SyntaxError') or \
                 错误输出流.decode('gbk').startswith('UnicodeDecodeError'):
             continue
 
