@@ -25,7 +25,8 @@ def 生成测试用例json文件():
 
     for cur_dir, dirs, files in walk('测试/unittest/源码生成/木兰到Python', ):
         for filename in files:
-            if filename[-3:] == '.ul' and '失效' not in filename:
+            if filename[-3:] == '.ul' and '失效' not in filename and  \
+                    filename not in 原始木兰无法运行:
                 p = join(cur_dir, filename)
                 print('加载文件 %s...' % p)
                 with open(p,) as f:
@@ -107,7 +108,7 @@ class 木兰到Python测试(TestCase):
 
         for 路径 in 源码字典.keys():
             if 路径 in 原始木兰输出结果 and 路径 in 当前木兰输出结果:
-                print('比较' %s' % 路径)
+                print('比较 %s' % 路径)
                 self.assertEqual(
                     原始木兰输出结果[路径], 当前木兰输出结果[路径], "输出与原始木兰不一致：\n%s%s" % 
                         ('----原始木兰输出结果:\n%s' % repr(原始木兰输出结果[路径]),
