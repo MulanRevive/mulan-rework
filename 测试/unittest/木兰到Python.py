@@ -25,7 +25,7 @@ def 生成测试用例json文件():
 
     for cur_dir, dirs, files in walk('测试/unittest/源码生成/木兰到Python', ):
         for filename in files:
-            if filename[-3:] == '.ul' and '失效' not in filename and  \
+            if filename[-3:] == '.ul' and '待解决' not in filename and  \
                     filename not in 原始木兰无法运行:
                 p = join(cur_dir, filename)
                 print('加载文件 %s...' % p)
