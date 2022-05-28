@@ -32,8 +32,8 @@ def 生成测试用例json文件():
                 with open(p,) as f:
                     cont = f.read()
                     cont_dict[p] = cont
-
-    dump(cont_dict, open('测试/unittest/测试源码表.json', 'w'))
+    with  open('测试/unittest/测试源码表.json', 'w') as f:
+        dump(cont_dict, f)
 
 
 def 读取测试用例json() -> Dict[str, str]:
