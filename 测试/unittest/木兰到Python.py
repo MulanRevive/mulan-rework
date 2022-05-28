@@ -27,16 +27,16 @@ def 生成测试用例json文件():
         for filename in files:
             if filename[-3:] == '.ul' and '失效' not in filename:
                 p = join(cur_dir, filename)
-                print('loading %s...' % p)
+                print('加载文件 %s...' % p)
                 with open(p,) as f:
                     cont = f.read()
                     cont_dict[p] = cont
 
-    dump(cont_dict, open('测试/unittest/sources.json', 'w'))
+    dump(cont_dict, open('测试/unittest/测试源码表.json', 'w'))
 
 
 def 读取测试用例json() -> Dict[str, str]:
-    with open('测试/unittest/sources.json', 'r') as f:
+    with open('测试/unittest/测试源码表.json', 'r') as f:
         return json_load(f)
 
 
@@ -45,7 +45,7 @@ def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出
 
     for 路径, 源码 in source_dict.items():
         if 输出log:
-            print('-----------\ngenerating...: %s' % 路径)
+            print('-----------\n生成中...: %s' % 路径)
 
         try:
             语法分析器_ = 语法分析器(tokenizer)
@@ -58,7 +58,7 @@ def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出
         except 语法错误 as e:
             print(str(e))
 
-    with open('测试/unittest/codegen_now_result.json', 'w') as f:
+    with open('测试/unittest/当前木兰输出结果.json', 'w') as f:
         dump(结果, f)
     return 结果
 
@@ -75,10 +75,7 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
         进程 = Popen('%s %s' % (原始木兰执行命令, 路径), stdout=PIPE, stderr=PIPE)
         输出流, 错误输出流 = 进程.communicate()
 
-        # print('---generating: %s' % 路径)
         原始木兰输出结果 = 输出流.decode()
-
-        # print(原始木兰输出结果, 错误输出流.decode('gbk'))
         
         if 错误输出流.decode('gbk').startswith('SyntaxError') or \
                 错误输出流.decode('gbk').startswith('UnicodeDecodeError'):
@@ -91,13 +88,9 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
     # print('原始木兰输出结果生成完毕!')
     print()  # 换行
     
-    with open('测试/unittest/original_mulan_result.json', 'w') as f:
+    with open('测试/unittest/原始木兰输出结果.json', 'w') as f:
         dump(结果, f)
     return 结果
-
-
-def _转换Windows路径到Linux路径(result):
-    return {x.replace('\\', '/'): v for x, v in result.items()}
 
 
 class 木兰到Python测试(TestCase):
@@ -106,19 +99,17 @@ class 木兰到Python测试(TestCase):
         生成当前木兰codegen的测试结果(读取测试用例json())
         生成原始木兰的测试结果(木兰原始文件执行命令, 读取测试用例json())
 
-        with open('测试/unittest/original_mulan_result.json', 'r') as f:
+        with open('测试/unittest/原始木兰输出结果.json', 'r') as f:
             原始木兰输出结果 = json_load(f)
-        with open('测试/unittest/codegen_now_result.json', 'r') as f:
+        with open('测试/unittest/当前木兰输出结果.json', 'r') as f:
             当前木兰输出结果 = json_load(f)
         源码字典 = 读取测试用例json()
 
-        # original_result = _adopt_origin_result_dict(original_result)
-
         for 路径 in 源码字典.keys():
             if 路径 in 原始木兰输出结果 and 路径 in 当前木兰输出结果:
-                print('comparing %s' % 路径)
+                print('比较' %s' % 路径)
                 self.assertEqual(
                     原始木兰输出结果[路径], 当前木兰输出结果[路径], "输出与原始木兰不一致：\n%s%s" % 
-                        ('----original:\n%s' % repr(原始木兰输出结果[路径]),
-                         '----now:\n%s' % repr(当前木兰输出结果[路径]),
+                        ('----原始木兰输出结果:\n%s' % repr(原始木兰输出结果[路径]),
+                         '----当前木兰输出结果:\n%s' % repr(当前木兰输出结果[路径]),
                         ))

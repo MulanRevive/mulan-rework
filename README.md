@@ -143,7 +143,7 @@ $ python 测试/运行所有.py
 $ python -m unittest 测试.unittest.原始可执行文件
 ```
 
-以下操作对木兰转换成Python的代码分析器进行测试：
+以下测试木兰源码转换为 Python：
 
 ```
 $ python -m unittest 测试.unittest.木兰到Python
@@ -154,4 +154,3 @@ $ python -m unittest 测试.unittest.木兰到Python
 GNU GPLv3
 
 ## [版本历史介绍](CHANGELOG.md)
-

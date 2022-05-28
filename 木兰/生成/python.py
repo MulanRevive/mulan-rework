@@ -63,6 +63,12 @@ class 代码生成器(codegen.SourceGenerator):
                 self.write(', ')
             self.visit(项)
 
+    def visit_Name(self, 节点):
+        if 节点.id == 'PI':
+            self.write('pi')
+        else:
+            super().visit_Name(节点)
+
     def visit_NameConstant(self, 节点):
         if 节点.value == None:
             self.write('None')
@@ -71,11 +77,24 @@ class 代码生成器(codegen.SourceGenerator):
         else:
             self.write('False')
 
-    def visit_Name(self, 节点):
-        if 节点.id == 'PI':
-            self.write('pi')
-        else:
-            super().visit_Name(节点)
+    def visit_withitem(self, 节点):
+        self.visit(节点.context_expr)
+        
+        if 节点.optional_vars is not None:
+            self.write(' as ')
+            self.visit(节点.optional_vars)
+
+    def visit_With(self, 节点):
+        self.newline(节点)
+        self.write('with ')
+
+        for 索引, 项 in enumerate(节点.items):
+            if 索引 > 0:
+                self.write(', ')
+            self.visit(项)
+
+        self.write(':')
+        self.body(节点.body)
 
     def signature(self, 节点):
         需要逗号 = []
@@ -102,25 +121,6 @@ class 代码生成器(codegen.SourceGenerator):
         if 节点.kwarg is not None:
             写逗号至结果()
             self.write('**' + 节点.kwarg.arg)
-
-    def visit_withitem(self, 节点):
-        self.visit(节点.context_expr)
-        
-        if 节点.optional_vars is not None:
-            self.write(' as ')
-            self.visit(节点.optional_vars)
-
-    def visit_With(self, 节点):
-        self.newline(节点)
-        self.write('with ')
-
-        for 索引, 项 in enumerate(节点.items):
-            if 索引 > 0:
-                self.write(', ')
-            self.visit(项)
-
-        self.write(':')
-        self.body(节点.body)
 
     def 得到源码(self, 节点):
         self.visit(节点)
