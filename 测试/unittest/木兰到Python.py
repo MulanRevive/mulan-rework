@@ -25,14 +25,16 @@ def 生成测试用例json文件():
 
     for cur_dir, dirs, files in walk('测试/unittest/源码生成/木兰到Python', ):
         for filename in files:
-            if filename[-3:] == '.ul' and '失效' not in filename:
+            if filename[-3:] == '.ul' and '失效' not in filename and  \
+                    filename not in 原始木兰无法运行:
                 p = join(cur_dir, filename)
                 print('loading %s...' % p)
-                with open(p,) as f:
+                with open(p, encoding='utf-8') as f:
                     cont = f.read()
                     cont_dict[p] = cont
-
-    dump(cont_dict, open('测试/unittest/sources.json', 'w'))
+    
+    with  open('测试/unittest/sources.json', 'w') as f:
+        dump(cont_dict,f)
 
 
 def 读取测试用例json() -> Dict[str, str]:
@@ -79,6 +81,8 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
         原始木兰输出结果 = 输出流.decode()
 
         # print(原始木兰输出结果, 错误输出流.decode('gbk'))
+
+        计数 += 1
         
         if 错误输出流.decode('gbk').startswith('SyntaxError') or \
                 错误输出流.decode('gbk').startswith('UnicodeDecodeError'):
