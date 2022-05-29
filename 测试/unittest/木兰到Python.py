@@ -21,19 +21,19 @@ from unittest import TestCase
 
 
 def 生成测试用例json文件():
-    cont_dict = {}
+    源码表 = {}
 
-    for cur_dir, dirs, files in walk('测试/unittest/源码生成/木兰到Python', ):
-        for filename in files:
-            if filename[-3:] == '.ul' and '待解决' not in filename and  \
-                    filename not in 原始木兰无法运行:
-                p = join(cur_dir, filename)
+    for 当前目录, 各文件夹, 各文件 in walk('测试/unittest/源码生成/木兰到Python', ):
+        for 文件名 in 各文件:
+            if 文件名[-3:] == '.ul' and '待解决' not in 文件名 and  \
+                    文件名 not in 原始木兰无法运行:
+                p = join(当前目录, 文件名)
                 print('加载文件 %s...' % p)
                 with open(p) as f:
                     cont = f.read()
-                    cont_dict[p] = cont
+                    源码表[p] = cont
     with  open('测试/unittest/测试源码表.json', 'w') as f:
-        dump(cont_dict, f)
+        dump(源码表, f)
 
 
 def 读取测试用例json() -> Dict[str, str]:
@@ -59,8 +59,8 @@ def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出
         except 语法错误 as e:
             print(str(e))
 
-    with open('测试/unittest/当前木兰输出结果.json', 'w') as f:
-        dump(结果, f)
+    with open('测试/unittest/当前木兰输出结果.json', 'w') as 文件:
+        dump(结果, 文件)
     return 结果
 
 
@@ -86,11 +86,10 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
 
         print('\r进度: （%s/%s）' % (计数, 源码字典长度), end='')
 
-    # print('原始木兰输出结果生成完毕!')
     print()  # 换行
     
-    with open('测试/unittest/原始木兰输出结果.json', 'w') as f:
-        dump(结果, f)
+    with open('测试/unittest/原始木兰输出结果.json', 'w') as 文件:
+        dump(结果, 文件)
     return 结果
 
 
