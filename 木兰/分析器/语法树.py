@@ -34,7 +34,11 @@ class 语法树:
         elif 类型 == 语法.名称:
             节点 = ast.Name(id=标识, ctx=上下文)
         elif 类型 == 语法.调用:
-            节点 = ast.Call(func=函数, args=参数, keywords=关键词)
+            节点 = ast.Call(
+                func=函数, args=参数, keywords=关键词,
+                starargs=None,
+                kwargs=None  # 如果不加此两项，在从语法树生成函数调用源码时报错
+                )
         elif 类型 == 语法.赋值:
             节点 = ast.Assign([变量], 值)
         elif 类型 == 语法.运算赋值:
@@ -83,7 +87,9 @@ class 语法树:
                 bases=各基准类,
                 keywords=[],
                 body=主体,
-                decorator_list=[]
+                decorator_list=[],
+                starargs=None,
+                kwargs=None  # 如果不加此两项，在从语法树生成class源码时报错
             )
         elif 类型 == 语法.字符串:
             节点 = ast.Str(值)

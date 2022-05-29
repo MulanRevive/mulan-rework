@@ -29,6 +29,7 @@ setuptools.setup(
     ],
     install_requires=[
         'rply-ulang',
+        'codegen',
     ],
     python_requires="== 3.7.*"
 )

@@ -1,0 +1,3 @@
+using b in a
+using b, c in a
+using b in .

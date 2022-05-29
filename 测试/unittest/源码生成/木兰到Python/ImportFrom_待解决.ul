@@ -1,0 +1,5 @@
+// using b in ..   // 此语句当前的木兰语法分析报错：
+/*
+文件 "测试/unittest/源码生成/木兰到Python\ImportFrom.ul", 第4行, 第12列, 没认出这个词 ".."
+using b in ?..
+*/

@@ -4,7 +4,7 @@ import os, sys, getopt
 import ast
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.语法分析器 import 语法分析器
-from 木兰.生成 import 木兰
+from 木兰.生成 import 木兰, python
 from 木兰.环境 import 创建全局变量
 from 木兰.交互 import 开始交互
 from 木兰.功用.反馈信息 import 反馈信息
@@ -31,7 +31,7 @@ def 中(argv=None):
             [
                 "语法树",
                 "python变木兰",
-                '版本'])
+                '版本', 'dump-python'])
     except getopt.GetoptError as e:
         try:
             sys.stderr.write(str(e) + '\n')
@@ -43,6 +43,7 @@ def 中(argv=None):
     版本 = False
     python变木兰 = False
     语法树 = False
+    生成python代码 = False
     for 某项, 值 in 选项:
         if 某项 in ('-版', '--版本'):
             版本 = True
@@ -50,6 +51,8 @@ def 中(argv=None):
             python变木兰 = True
         elif 某项 in ("-树", "--语法树"):
             语法树 = True
+        elif 某项 == '--dump-python':
+            生成python代码 = True
 
     if 版本:
         from 木兰 import __版本__
@@ -71,6 +74,10 @@ def 中(argv=None):
 
     分析器 = 语法分析器(分词器)
     节点 = 分析器.分析(源码, 源码文件)
+
+    if 生成python代码:
+        print(python.代码生成器().得到源码(节点))
+        return
 
     if 语法树:
         print(ast.dump(节点, True, True))
