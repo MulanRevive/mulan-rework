@@ -29,7 +29,7 @@ def 生成测试用例json文件():
                     filename not in 原始木兰无法运行:
                 p = join(cur_dir, filename)
                 print('加载文件 %s...' % p)
-                with open(p,) as f:
+                with open(p) as f:
                     cont = f.read()
                     cont_dict[p] = cont
     with  open('测试/unittest/测试源码表.json', 'w') as f:
