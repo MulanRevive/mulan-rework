@@ -27,3 +27,7 @@ print(a())
 s = (length:int) -> length*length
 print(s(2))
 print(list(filter((n:int) -> n>0, [1,-1])))
+v = (long:int, wide:int, high:int) -> long*wide*high
+print(v(2, 3, 4))
+V = (long, wide, high) -> long*wide*high
+print(V(3, 4, 5))
