@@ -22,3 +22,5 @@ type shape {
 print(func (length) : shape {
   return shape()
 }(1) != nil)
+a = () -> 3
+print(a())

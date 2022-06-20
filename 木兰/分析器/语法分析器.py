@@ -748,6 +748,7 @@ class 语法分析器:
         return self.调用(超类节点)
 
     @分析器母机.语法规则(语法.lambda形参.成分(语法.名称))
+    @分析器母机.语法规则(语法.lambda形参.成分(前小括号, 后小括号))
     def lambda形参(self, 片段):
         if isinstance(片段[0], ast.Name):
             args = 语法树.新节点(
@@ -759,6 +760,8 @@ class 语法分析器:
                 片段=片段)
             args.args = [arg]
             return args
+        if len(片段) == 2:
+            return self.形参列表()
 
         # TODO：添加测试
         raise SyntaxError(

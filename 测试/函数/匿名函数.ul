@@ -22,3 +22,5 @@ type 形状 {
 print(func (边长) : 形状 {
   return 形状()
 }(1) != nil)
+a = () -> 3
+print(a())
