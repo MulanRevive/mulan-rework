@@ -24,3 +24,6 @@ print(func (length) : shape {
 }(1) != nil)
 a = () -> 3
 print(a())
+s = (length:int) -> length*length
+print(s(2))
+print(list(filter((n:int) -> n>0, [1,-1])))

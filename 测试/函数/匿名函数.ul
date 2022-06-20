@@ -24,3 +24,6 @@ print(func (边长) : 形状 {
 }(1) != nil)
 a = () -> 3
 print(a())
+正方形面积 = (边长:int) -> 边长*边长
+print(正方形面积(2))
+print(list(filter((n:int) -> n>0, [1,-1])))
