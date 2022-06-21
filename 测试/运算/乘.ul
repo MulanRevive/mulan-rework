@@ -3,4 +3,5 @@ print(2*3)
 宽 = 3
 print(3长 + 4 宽)
 print(6/2(1+2))
-print(2(长:int))
+正方形边长 = 2
+print(4(正方形边长:int))

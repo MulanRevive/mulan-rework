@@ -3,4 +3,5 @@ length = 2
 width = 3
 print(3length + 4 width)
 print(6/2(1+2))
-print(2(length:int))
+long = 2
+print(4(long:int))
