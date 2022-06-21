@@ -1,2 +1,5 @@
 a=2
 print(a)
+a = 3; b = 4; c = (a,b)
+print(typeof(c))
+print(c)

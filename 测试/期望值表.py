@@ -13,7 +13,7 @@ import datetime
     "运算/加小数.ul": b"5.0",
     "运算/除小数.ul": b"2.0",
     "运算/比较.ul": b"2222222222222",
-    "运算/赋值.ul": b"2",
+    "运算/赋值.ul": b"2tuple3, 4",
     "运算/赋值两次.ul": b"6",
     "运算/赋值增量.ul": b"21",
     "运算/赋值运算.ul": b"82410239",
@@ -21,7 +21,7 @@ import datetime
     "运算/赋值多项.ul": b"2112123",
     # 类型只是注释，并无法取到，只给检查器检查变量类型使用
     # 参见：https://www.python.org/dev/peps/pep-0526/#where-annotations-aren-t-allowed
-    "运算/类型赋值.ul": b"2int",
+    "运算/类型赋值.ul": b"2inttuple",
     "运算/其他.ul": b"821640132243488false123",
     "运算/综合.ul": b"10",
     "运算/井号.ul": b"2",
