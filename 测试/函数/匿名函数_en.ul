@@ -31,3 +31,7 @@ v = (long:int, wide:int, high:int) -> long*wide*high
 print(v(2, 3, 4))
 V = (long, wide, high) -> long*wide*high
 print(V(3, 4, 5))
+S = (wide, high:int) -> wide*high
+print(S(2, 3))
+S = (long:int, high) -> long*high/2
+print(S(3, 4))

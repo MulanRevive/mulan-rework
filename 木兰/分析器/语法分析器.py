@@ -418,11 +418,6 @@ class 语法分析器:
         if 语法分析器.调试:
             print("赋值")
         片段[0].ctx = ast.Store()
-
-        '''
-        TODO： 下面只在首要表达式可表示形参后有效，对应语法 primary_expr : ( name : type_name ) ，见 #I3TIKJ
-        对应测试： a = 3; b = 4; c = (a,b); print(typeof(c)) => tuple
-        '''
         片段[2] = self.转换为多项(片段[2])
         return 语法树.新节点(
             语法.赋值,
@@ -671,8 +666,7 @@ class 语法分析器:
         if 片段[-3].getstr() == 逗号:
             形参列表.args += 片段[-2].args
             形参列表.vararg = 片段[-2].vararg
-        return 形参列表
-        # return self.形参合法化(形参列表)
+        return self.形参合法化(形参列表)
 
     @分析器母机.语法规则(语法.表达式前缀.成分(语法.调用))
     @分析器母机.语法规则(语法.表达式前缀.成分(语法.变量))
