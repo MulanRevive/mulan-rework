@@ -770,9 +770,10 @@ class 语法分析器:
                 片段=片段)
             args.args = [arg]
             return args
+        if isinstance(片段[0], ast.arguments):
+            return 片段[0]
         if len(片段) == 2:
             return self.形参列表()
-        return 片段[0]
 
         # TODO：添加测试
         raise SyntaxError(
