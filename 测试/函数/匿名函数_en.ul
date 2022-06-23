@@ -22,3 +22,17 @@ type shape {
 print(func (length) : shape {
   return shape()
 }(1) != nil)
+a = () -> 3
+print(a())
+s = (length:int) -> length*length
+print(s(2))
+print(list(filter((n:int) -> n>0, [1,-1])))
+v = (long:int, wide:int, high:int) -> long*wide*high
+print(v(2, 3, 4))
+v = (long, wide, high) -> long*wide*high
+print(v(3, 4, 5))
+s = (wide, high:int) -> wide*high
+print(s(2, 3))
+s = (long:int, high=3) -> long*high/2
+print(s(3, 4))
+print(s(4))
