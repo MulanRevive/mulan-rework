@@ -1,0 +1,4 @@
+func varargs(...) {
+    print(__varargs__)
+}
+varargs(1, 2, 3)
