@@ -2,3 +2,5 @@ func varargs(...) {
     print(__varargs__)
 }
 varargs(1, 2, 3)
+varargs = (a, b=3, ...) -> a*b*__varargs__
+print(len(varargs(1, 2, 3, 4)))
