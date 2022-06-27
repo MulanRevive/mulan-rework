@@ -757,18 +757,26 @@ class 语法分析器:
         return self.调用(超类节点)
 
     @分析器母机.语法规则(语法.lambda形参.成分(语法.名称))
+    @分析器母机.语法规则(语法.lambda形参.成分(语法.可变参数表达式))
     @分析器母机.语法规则(语法.lambda形参.成分(语法.首要表达式))
     @分析器母机.语法规则(语法.lambda形参.成分(前小括号, 后小括号))
     def lambda形参(self, 片段):
+        if isinstance(片段[0], ast.Starred):
+            片段[0] = 片段[0].value
         if isinstance(片段[0], ast.Name):
             args = 语法树.新节点(
-                语法.形参列表, 参数=[],
+                语法.形参列表,
+                参数=[],
                 片段=片段)
             arg = 语法树.新节点(
-                语法.lambda形参, 参数=片段[0].id,
+                语法.lambda形参,
+                参数=片段[0].id,
                 标注=None,
                 片段=片段)
-            args.args = [arg]
+            if 片段[0].id != '__varargs__':
+                args.args = [arg]
+            else:
+                args.vararg = arg
             return args
         if isinstance(片段[0], ast.arguments):
             return 片段[0]

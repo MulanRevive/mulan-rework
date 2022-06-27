@@ -8,3 +8,7 @@ func echo(...) {
     print(...)
 }
 echo(1, 2, 3)
+a = (...) -> typeof(...)
+print(a('string'))
+b = (...) -> max(...)
+print(b(3, 1, 2))
