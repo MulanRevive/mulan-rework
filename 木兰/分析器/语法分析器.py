@@ -773,7 +773,7 @@ class 语法分析器:
                 参数=片段[0].id,
                 标注=None,
                 片段=片段)
-            if 片段[0].id != '__varargs__':
+            if 片段[0].id != '__varargs_mulan__':
                 args.args = [arg]
             else:
                 args.vararg = arg
@@ -937,7 +937,7 @@ class 语法分析器:
     def 可变参数(self, 片段):
         return 语法树.新节点(
             语法.名称,
-            标识='__varargs__',
+            标识='__varargs_mulan__',
             上下文=ast.Load(),
             片段=片段)
 
@@ -1029,7 +1029,7 @@ class 语法分析器:
         各形参 = 片段[0] if len(片段) == 3 else self.形参列表()
         各形参.vararg = 语法树.新节点(
             语法.形参,
-            参数='__varargs__',
+            参数='__varargs_mulan__',
             标注=None,
             片段=片段[-1])
         return 各形参
