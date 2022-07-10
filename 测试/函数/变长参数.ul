@@ -8,7 +8,7 @@ type Test {
 }
 可变形参(1, 2.3, '3', Test())
 可变形参 = (a, b=3, ...) -> a*b*__varargs__
-print(len(可变形参(1, 2, 3, 4)))
+print(可变形参(1, 2, 3, 4))
 func 回复(...) {
     print(...)
 }

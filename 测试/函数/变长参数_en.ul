@@ -8,7 +8,7 @@ type Test {
 }
 varargs(1, 2.3, '3', Test())
 varargs = (a, b=3, ...) -> a*b*__varargs__
-print(len(varargs(1, 2, 3, 4)))
+print(varargs(1, 2, 3, 4))
 func echo(...) {
     print(...)
 }
