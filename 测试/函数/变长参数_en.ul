@@ -25,3 +25,8 @@ func sum(...){
 print(sum(2, 2, 3))
 varargs = (a, b=3, ...) -> a*b*sum(...)
 print(varargs(1, 2, 3, 4))
+func a(...) {
+    __varargs__ = tuple('ha', 'ha')
+    print(...)
+}
+a(2, 3, 3, 3)
