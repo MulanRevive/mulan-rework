@@ -96,7 +96,7 @@ import datetime
     "函数/指名参数.ul": b"466",
     "函数/指定返回类型.ul": b"Mulan1",
     "函数/指定形参类型.ul": b"hi Mulan1",
-    "函数/变长参数.ul": b"intfloatstrTest1 2 3str3714haha",
+    "函数/若干形参.ul": b"intfloatstrTest1 2 3str3714haha",
 
     "特殊字符/多行.ul": b"23",
     "特殊字符/块.ul": b"2",

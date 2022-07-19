@@ -53,7 +53,7 @@ class 语法(Enum):
     三元表达式 = 'ternary_expr'
     首要表达式 = 'primary_expr'
     范围表达式 = 'range_expr'
-    可变参数表达式 = 'varargs_expr'
+    若干形参表达式 = 'varargs_expr'
     调用 = 'call'
     超类 = 'super'
     lambda形参 = 'lambda_param',
