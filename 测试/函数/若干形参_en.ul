@@ -1,0 +1,32 @@
+func varargs(...) {
+    for v : ... {
+        print(typeof(v))
+    }
+}
+type Test {
+    {}
+}
+varargs(1, 2.3, '3', Test())
+func echo(...) {
+    print(...)
+}
+echo(1, 2, 3)
+a = (...) -> typeof(...)
+print(a('string'))
+b = (...) -> max(...)
+print(b(3, 1, 2))
+func sum(...){
+    val = 0
+    for v in ... {
+        val += v
+    }
+    return val
+}
+print(sum(2, 2, 3))
+varargs = (a, b=3, ...) -> a*b*sum(...)
+print(varargs(1, 2, 3, 4))
+func a(...) {
+    __varargs__ = tuple('ha', 'ha')
+    print(...)
+}
+a(2, 3, 3, 3)

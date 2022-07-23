@@ -75,6 +75,8 @@ class 语法树:
                 节点.returns = 返回
         elif 类型 == 语法.生成表达式:
             节点 = ast.Yield(value=值)
+        elif 类型 == 语法.若干形参表达式:
+            节点 = ast.Starred(value=值, ctx=上下文)
         elif 类型 == 语法.返回声明:
             节点 = ast.Return(value=值)
         elif 类型 == 语法.引用声明:
