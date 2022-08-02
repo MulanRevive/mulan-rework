@@ -5,6 +5,7 @@ from pathlib import Path
 原始木兰未过 = {
     Path("测试/unittest/源码生成/函数/变长指名参数.py"): "TypeError: can only concatenate str (not \"arg\") to str",
     Path("测试/unittest/源码生成/类型/属性.py"): "NameError: name 'decorator_list' is not defined",
+    Path("测试/unittest/源码生成/流程控制/try.py"): "AttributeError: 'str' object has no attribute '_fields'",
 }
 
 python源码表 = {}
