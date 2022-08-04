@@ -5,7 +5,7 @@ import unittest
 import subprocess
 from sys import platform
 
-from 测试.unittest.生成 import *
+from 测试.unittest.Python到木兰 import *
 
 from 测试.unittest.生成源码表 import 木兰源码表
 
