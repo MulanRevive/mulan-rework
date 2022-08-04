@@ -124,7 +124,7 @@ $ python -m 木兰
 1. 重现项目自身测试
 
 ```
-$ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.报错 测试.unittest.生成
+$ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.报错 测试.unittest.Python到木兰
 ```
 
 2. 原始木兰可执行文件测试

@@ -5,7 +5,7 @@ import unittest
 import subprocess
 from sys import platform
 
-from 测试.unittest.生成 import *
+from 测试.unittest.Python到木兰 import *
 
 from 测试.unittest.生成源码表 import 木兰源码表
 
@@ -14,7 +14,7 @@ from 测试.unittest.生成源码表 import 木兰源码表
 
 class test所有(unittest.TestCase):
 
-    def test_生成(self):
+    def test_python到木兰(self):
         for python路径 in 木兰源码表:
             木兰源码 = 木兰源码表[python路径]
 
