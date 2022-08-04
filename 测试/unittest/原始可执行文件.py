@@ -16,7 +16,6 @@ class test所有(unittest.TestCase):
 
     def test_python到木兰(self):
         for python路径 in 木兰源码表:
-            print(python路径)
             木兰源码 = 木兰源码表[python路径]
 
             进程 = subprocess.Popen([原始可执行文件, '-s', python路径], stdout=subprocess.PIPE)
