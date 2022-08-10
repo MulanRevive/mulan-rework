@@ -1,0 +1,34 @@
+version: '1.0'
+name: pipeline-20220810
+displayName: pipeline-20220810
+triggers:
+  trigger: auto
+  push:
+    branches:
+      precise:
+        - 流水线
+stages:
+  - name: stage-90b4d25e
+    displayName: 测试所有
+    strategy: naturally
+    trigger: auto
+    executor: []
+    steps:
+      - step: build@python
+        name: build_python
+        displayName: Python 构建
+        pythonVersion: '3.7'
+        commands:
+          - pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+          - '# 可以使用pip下载依赖'
+          - '# pip install --user -r requirements.txt'
+          - python -m pip install --user rply-ulang
+          - python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.报错 测试.unittest.Python到木兰
+        artifacts:
+          - name: BUILD_ARTIFACT
+            path:
+              - ./
+        caches: []
+        notify: []
+        strategy:
+          retry: '0'
