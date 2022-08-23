@@ -1,4 +1,3 @@
-[![Gitee Go 所有测试](https://gitee.com/MulanRevive/mulan-rework/badge/giteego.svg?name=所有测试&id=mulan-rework)](https://gitee.com/MulanRevive/dashboard/projects/MulanRevive/mulan-rework/gitee_go/mulan-rework?branch=master)
 [![木兰在线版](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgitee.com%2FMulanRevive%2Fmulan-rework/HEAD)
 
 ## 前言
