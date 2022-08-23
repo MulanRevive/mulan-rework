@@ -1,6 +1,6 @@
 version: '1.0'
 name: pipeline-20220810
-displayName: 所有测试
+displayName: 所有测试1
 triggers:
   trigger: auto
   push:
@@ -9,14 +9,14 @@ triggers:
         - master
 stages:
   - name: stage-90b4d25e
-    displayName: 测试所有
+    displayName: 测试所有2
     strategy: naturally
     trigger: auto
     executor: []
     steps:
       - step: build@python
         name: build_python
-        displayName: Python 构建
+        displayName: Python 构建3
         pythonVersion: '3.7'
         commands:
           - pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
