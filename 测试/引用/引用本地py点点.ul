@@ -1,0 +1,5 @@
+// 点点语法
+// 原语言报错为: KeyError: "'__name__' not in globals"
+// 本实现为: （>﹏<）字典中不存在此键："'__name__' not in globals"，见第1行
+using * in ..
+talk()
