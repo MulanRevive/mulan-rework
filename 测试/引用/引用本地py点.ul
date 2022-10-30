@@ -1,2 +1,3 @@
-using * in .
+using * in testmulan.packdot.module_dot
+
 talk()
