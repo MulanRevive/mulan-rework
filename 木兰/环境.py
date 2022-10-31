@@ -6,7 +6,7 @@ import time
 import threading
 from datetime import datetime
 from pathlib import Path
-import warnings
+
 from 木兰.分析器.语法分析器 import 语法分析器
 
 # 参考：https://docs.python.org/3.7/library/threading.html#thread-objects
@@ -165,8 +165,6 @@ def 创建全局变量(argv=[], 文件名=''):
         try:
             return 加载木兰模块(名称, 全局, 源自, 目录相对层次)
         except FileNotFoundError:
-            # 否则运行测试时报警告：木兰/环境.py:169: ImportWarning: can't resolve package from __spec__ or __package__, falling back on __name__ and __path__
-            warnings.simplefilter('ignore', ImportWarning)
             return __import__(名称, 全局, 本地, 源自, 目录相对层次)
         except Exception as 例外:
             raise 例外
