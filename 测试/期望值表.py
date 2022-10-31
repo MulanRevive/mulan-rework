@@ -116,11 +116,6 @@ import datetime
     "引用/引用本地多py.ul": b"23",
     "引用/引用本地py全部内容.ul": b"32",
 
-    # TODO： 深究 python 中 'from . import *'的含义。参考：
-    # https://stackoverflow.com/questions/57774193/what-does-from-dot-import-asterisk-do-in-python-3
-    # https://blog.csdn.net/nigelyq/article/details/78930330
-    # "引用/引用本地py点.ul": b"2",
-
     # TODO: 引用 python 标准库, 第三方库
     "引用/引用标准py_math.ul": b"5",
     "引用/引用标准py_random.ul": b"true",
