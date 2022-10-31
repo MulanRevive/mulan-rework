@@ -1,5 +1,3 @@
-import ast
-
 from rply import 语法分析器母机
 from rply.报错 import 分词报错
 from 木兰.分析器.语法树 import *
@@ -279,20 +277,14 @@ class 语法分析器:
     @分析器母机.语法规则(语法.引用声明.成分(动词_引用, 星号, 连词_于, 语法.模块位置))
     def 引用于(self, 片段):
         模块, 层 = 片段[-1], 0
-        节点 = 语法树.从模块导入(
+        if isinstance(片段[-1], 词):
+            模块 = None
+            层 = 1 if 片段[-1].getstr() == '.' else 2
+        return 语法树.从模块导入(
             模块=模块,
-            各名称=[],
+            各名称=片段[1] if isinstance(片段[1], list) else [语法树.别名(名称=星号, 别名=None, 片段=片段[1])],
             位置=层,
             片段=片段)
-        if isinstance(片段[1], list):
-            节点.names += 片段[1]
-        else:
-            节点.names.append(
-                语法树.别名(
-                    名称=星号,
-                    别名=None,
-                    片段=片段[1]))
-        return 节点
 
     @分析器母机.语法规则(语法.引用声明.成分(动词_引用, 语法.各模块名))
     def 引用声明(self, 片段):
