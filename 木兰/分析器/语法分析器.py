@@ -10,6 +10,7 @@ from 木兰.分析器.语法成分 import *
 from 木兰.功用.常用 import *
 from copy import deepcopy
 
+
 """
 LR(1) 将木兰源码分析后生成 Python 语法树
 """
@@ -743,10 +744,21 @@ class 语法分析器:
             关键词=关键词,
             片段=片段)
 
-    # TODO: 补全 SUPER
     @分析器母机.语法规则(语法.调用.成分(语法.超类))
+    @分析器母机.语法规则(语法.调用.成分(语法.表达式前缀, 点, 语法.超类))
     def 调用超类(self, 片段):
-        return 片段[0]
+        if len(片段) == 1:
+            return 片段[0]
+        属性 = ast.Attribute(
+            value=(片段[0]),
+            attr='super',
+            ctx=(ast.Load()),
+            lineno=语法树.取行号(片段),
+            col_offset=语法树.取列号(片段)
+        )
+        片段[2].func = 属性
+        ast.dump(属性)
+        return 片段[2]
 
     @分析器母机.语法规则(语法.超类.成分(名词_超类, 语法.实参部分))
     @分析器母机.语法规则(语法.超类.成分(名词_超类))
