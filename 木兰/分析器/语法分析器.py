@@ -749,15 +749,12 @@ class 语法分析器:
     def 调用超类(self, 片段):
         if len(片段) == 1:
             return 片段[0]
-        属性 = ast.Attribute(
-            value=(片段[0]),
-            attr='super',
-            ctx=(ast.Load()),
-            lineno=语法树.取行号(片段),
-            col_offset=语法树.取列号(片段)
+        属性 = 语法树.属性(
+            值=(片段[0]),
+            属性=名词_超类,
+            片段=片段
         )
         片段[2].func = 属性
-        ast.dump(属性)
         return 片段[2]
 
     @分析器母机.语法规则(语法.超类.成分(名词_超类, 语法.实参部分))
