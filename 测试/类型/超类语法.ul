@@ -1,8 +1,4 @@
-type Animal {
-  func $Animal {
-    $name = 'animal'
-  }
-}
+type Animal { { } }
 type Person : Animal {
   func $Person {
     super.__init__()
@@ -10,8 +6,4 @@ type Person : Animal {
 }
 p = Person()
 v = p.super
-v = p.super()
-v = p.super(None)
-list.super
-list.super()
-list.super(None)
+Person.super(Nona)
