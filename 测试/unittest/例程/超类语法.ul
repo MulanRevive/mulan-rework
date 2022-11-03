@@ -1,5 +1,4 @@
-type Animal {}
-type Person : Animal {
+type Person : list {
   func $Person {
     super.__init__()
   }
