@@ -1,4 +1,4 @@
-type Animal { { } }
+type Animal {}
 type Person : Animal {
   func $Person {
     super.__init__()
@@ -6,4 +6,4 @@ type Person : Animal {
 }
 p = Person()
 v = p.super
-Person.super(Nona)
+Person.super(None)

@@ -10,7 +10,6 @@ from 木兰.分析器.语法成分 import *
 from 木兰.功用.常用 import *
 from copy import deepcopy
 
-
 """
 LR(1) 将木兰源码分析后生成 Python 语法树
 """
