@@ -1,0 +1,8 @@
+type Person : list {
+  func $Person {
+    super.__init__()
+  }
+}
+p = Person()
+v = p.super
+Person.super(None)
