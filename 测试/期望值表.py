@@ -155,6 +155,7 @@ import datetime
     "类型/操作符/定义操作符.ul": b"31true",
     "类型/超类.ul": b"animalwowo",
     "类型/返回值属性.ul": b"ok",
+    "类型/在类型内定义类型.ul": b"Animal.Child",
 
     "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc',
     "字符串/单引号.ul": b"ok\n\t\\'\\n",

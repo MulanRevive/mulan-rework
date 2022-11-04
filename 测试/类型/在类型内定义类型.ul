@@ -1,0 +1,15 @@
+type Animal {
+    type Child {
+        func $Child(name) {
+            $name = name
+        }
+    }
+    func getChildName() {
+        c = Animal.Child('Animal.Child').name
+        return c
+    }
+}
+
+p = Animal()
+print(p.getChildName())
+
