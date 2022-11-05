@@ -27,6 +27,7 @@ import datetime
     "运算/井号.ul": b"2",
     "运算/运算换行加.ul": b"3",
     "运算/空.ul": b"truetrue",
+    "运算/十六进制数.ul": b"445",
 
     "优先级/运算.ul": b"true64range(-2, 9, 4)range(-1, 7)1range(-1, 2)falserange(-1, 10)",
 

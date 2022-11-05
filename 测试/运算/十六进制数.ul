@@ -1,0 +1,2 @@
+n = 12 + 0x1F + 0X1a + 0xab + 0XCD
+print(n)
