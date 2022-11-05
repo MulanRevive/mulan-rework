@@ -27,6 +27,7 @@ import datetime
     "运算/井号.ul": b"2",
     "运算/运算换行加.ul": b"3",
     "运算/空.ul": b"truetrue",
+    "运算/十六进制数.ul": b"445",
 
     "优先级/运算.ul": b"true64range(-2, 9, 4)range(-1, 7)1range(-1, 2)falserange(-1, 10)",
 
@@ -156,7 +157,6 @@ import datetime
     "类型/超类.ul": b"animalwowo",
     "类型/返回值属性.ul": b"ok",
     "类型/在类型内定义类型.ul": b"Animal.Child",
-    "类型/十六进制数.ul": b"445",
 
     "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc',
     "字符串/单引号.ul": b"ok\n\t\\'\\n",
