@@ -61,6 +61,7 @@ class 语法(Enum):
     lambda表达式 = 'lambda_expr',
     匿名函数 = 'lambda_func'
     类型名称 = 'type_name'
+    类型列表 = 'type_list'
     实参部分 = 'arguments'
     各名称 = 'names'
     各实参 = 'args'
