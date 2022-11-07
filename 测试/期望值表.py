@@ -158,6 +158,7 @@ import datetime
     "类型/超类.ul": b"animalwowo",
     "类型/返回值属性.ul": b"ok",
     "类型/在类型内定义类型.ul": b"Animal.Child",
+    "类型/复杂类型注解.ul": b"2",
 
     "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc',
     "字符串/单引号.ul": b"ok\n\t\\'\\n",
