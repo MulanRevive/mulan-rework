@@ -1,0 +1,5 @@
+func hello(a : tuple [ int ]) : int [ float, list [ str ], dict ] {
+  print(a)
+}
+a : list [ int ] = 2
+hello(a)

@@ -1,0 +1,3 @@
+func hello(p : int) : int [ float, list [ str ], dict ] {
+  return p
+}
