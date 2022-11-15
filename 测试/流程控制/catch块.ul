@@ -1,0 +1,5 @@
+try {
+  print(int('x'))
+} catch {
+  print('v')
+}
