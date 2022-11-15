@@ -37,6 +37,7 @@ class 语法(Enum):
     顺便处理 = 'withitem'
     各接手声明 = 'catch_stmts'
     接手声明 = 'catch_stmt'
+    善后声明 = 'final_stmt'
     表达式 = 'expr'
     各表达式前缀 = 'prefix_exprs'
     片 = 'slice'

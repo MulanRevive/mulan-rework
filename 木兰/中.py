@@ -100,3 +100,5 @@ def 中(argv=None):
                 del e
     except SyntaxError as 语法错误:
         sys.stderr.write(f"语法错误: {语法错误}\n")
+    except TypeError as 类型错误:
+        sys.stderr.write(f"类型错误: {类型错误}\n")
