@@ -1,0 +1,10 @@
+try f=open('__init__.py', 'r') {
+  print(len(f.read()))
+  print([][int('0')])
+} catch e : ValueError {
+  print('v')
+} catch e : IndexError {
+  print('i')
+} finally {
+  print('f')
+}
