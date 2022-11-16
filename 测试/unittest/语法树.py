@@ -46,7 +46,11 @@ class test语法树(unittest.TestCase):
         for 文件 in 期望值:
             源码路径 = 路径 + 文件
             节点 = 读源码生成树(源码路径)
-            self.assertEqual(ast.dump(节点, True, True), 期望值[文件], f"\"{文件}\"出错")
+            self.assertEqual(
+                ast.dump(节点, True, True).replace('Pass( lineno', 'Pass(lineno'),
+                期望值[文件].replace('Pass( lineno', 'Pass(lineno'),
+                f"\"{文件}\"出错"
+            )
 
     def 分词(self, 源码):
         return 分词器.分词(源码)
