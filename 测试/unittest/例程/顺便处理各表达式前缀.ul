@@ -1,34 +1,13 @@
 try a,b=c {}
-// 估计是想实现a,b=f1(),f2()这样的语法，但是没有实现，语法是这样写，不过后面没有实现。
-// 会报不认表达式中的逗号  f1()✋,f2()
-// 我改成下面这样，能实现a,b=f1(),f2()这种语法，不过这个不在我们预计之内，而且原语言也没有这种写法。
-//
-//     @分析器母机.语法规则(语法.顺便处理.成分(语法.各表达式前缀, 符号_赋值, 语法.各表达式))
-//     @分析器母机.语法规则(语法.顺便处理.成分(语法.表达式前缀, 符号_赋值, 语法.表达式))
-//     @分析器母机.语法规则(语法.顺便处理.成分(语法.表达式))
-//     def 顺便处理(self, 片段):
-//         if len(片段) == 1:
-//             各处理项 = [语法树.顺便处理项(上下文表达式=片段[-1], 可选变量=None, 片段=片段)]
-//         if len(片段) == 3:
-//             各处理项 = []
-//             if isinstance(片段[0], list):
-//                 for 序号 in range(len(片段[0])):
-//                     处理项 = 语法树.顺便处理项(上下文表达式=片段[-1][序号], 可选变量=None, 片段=片段)
-//                     片段[0][序号].ctx = ast.Store()
-//                     处理项.optional_vars = 片段[0][序号]
-//                     各处理项.append(处理项)
-//             else:
-//                 处理项 = 语法树.顺便处理项(上下文表达式=片段[(-1)], 可选变量=None, 片段=片段)
-//                 片段[0].ctx = ast.Store()
-//                 处理项.optional_vars = 片段[0]
-//                 各处理项.append(处理项)
-//         return 各处理项
-//
-//     @分析器母机.语法规则(语法.试试声明.成分(动词_试试, 语法.顺便处理, 语法.块))
-//     def 试试声明_顺便处理(self, 片段):
-//         return 语法树.顺便(各项=片段[1], 主体=片段[2], 片段=片段)
-//
-// 下面是例子：
-//
-// try a,b = open('__main__.py', 'r'), open('__init__.py', 'r') {print(a, b)}
-// <_io.TextIOWrapper name='__main__.py' mode='r' encoding='cp936'> <_io.TextIOWrapper name='__init__.py' mode='r' encoding='cp936'>>
+/*
+原语言报错如下：
+try a,b=c {}
+ValueError: expression must have Store context but has Load instead
+讲一下这句报错要表达的意思，
+try a,b=c {} 的语法树如下：
+Module(body=[With(items=[withitem(context_expr=Name(id='c', ctx=Load(), lineno=1, col_offset=9),
+ptional_vars=Tuple(elts=[Name(id='a', ctx=Load(), lineno=1, col_offset=5), Name(id='b', ctx=Load(),
+lineno=1, col_offset=7)], ctx=Store(), lineno=1, col_offset=5))], body=[Pass( lineno=1, col_offset=11)],
+lineno=1, col_offset=1)])
+上面的报错是说，ptional_vars属性中elts列表中需要ctx为Store但是当前为Load,所以报错。
+*/
