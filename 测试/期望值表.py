@@ -48,6 +48,7 @@ import datetime
     "流程控制/catch名称.ul": b"list index out of range",
     "流程控制/catch块.ul": b'v',
     "流程控制/试试顺便善后.ul": b'0f',
+    "流程控制/try_withitem_finally.ul": b"nofile",
 
     "函数/无参数.ul": b"223", # 最后无4是因为返回了函数, 而非它的返回值
     "函数/单参数.ul": b"2",

@@ -1,0 +1,9 @@
+try {
+    try f=open('nofile', 'r') {
+      print(len(f))
+    } finally {
+      print('f')
+    }
+} catch FileNotFoundError {
+    print('nofile')
+}
