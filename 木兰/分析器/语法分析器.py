@@ -251,8 +251,7 @@ class 语法分析器:
                 片段=片段
             )
             顺便处理.body = [试着处理]
-            if not isinstance(片段[-1][0], ast.ExceptHandler):
-                试着处理.finalbody = 片段[-1]
+            试着处理.finalbody = 片段[-1]
         return 顺便处理
 
     @分析器母机.语法规则(语法.试试声明.成分(动词_试试, 语法.块, 语法.各接手声明))
