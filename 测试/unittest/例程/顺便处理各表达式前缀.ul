@@ -1,0 +1,13 @@
+try a,b=c {}
+/*
+原语言报错如下：
+try a,b=c {}
+ValueError: expression must have Store context but has Load instead
+讲一下这句报错要表达的意思，
+try a,b=c {} 的语法树如下：
+Module(body=[With(items=[withitem(context_expr=Name(id='c', ctx=Load(), lineno=1, col_offset=9),
+ptional_vars=Tuple(elts=[Name(id='a', ctx=Load(), lineno=1, col_offset=5), Name(id='b', ctx=Load(),
+lineno=1, col_offset=7)], ctx=Store(), lineno=1, col_offset=5))], body=[Pass( lineno=1, col_offset=11)],
+lineno=1, col_offset=1)])
+上面的报错是说，ptional_vars属性中elts列表中需要ctx为Store但是当前为Load,所以报错。
+*/

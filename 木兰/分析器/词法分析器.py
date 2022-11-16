@@ -31,6 +31,7 @@ import re
 动词_试试 = 'try'
 动词_接手 = 'catch'
 动词_抛出 = 'throw'
+动词_善后 = 'finally'
 动词_生成 = 'yield'
 名词_操作符 = 'operator'
 连词_每隔 = 'by'
@@ -168,6 +169,7 @@ import re
     取反,
     动词_抛出,
     动词_接手,
+    动词_善后,
     井号,
 ]
 
@@ -203,7 +205,7 @@ import re
 分词器母机.添了(连词_于, r'\bin\b')
 分词器母机.添了(动词_试试, r'\btry\b')
 分词器母机.添了(动词_接手, r'\r*\n*\s*catch\s*\r*\n*')
-# TODO: finally
+分词器母机.添了(动词_善后, r'\r*\n*\s*finally\s*\r*\n*')
 分词器母机.添了(动词_抛出, r'\bthrow\b')
 分词器母机.添了(名词_操作符, r'\boperator\b')
 分词器母机.添了(动词_生成, r'\byield\b')

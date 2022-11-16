@@ -1,0 +1,21 @@
+try {} finally {}
+/*
+逆向里代码如下，出现的问题就是语法为try_stmt : TRY block final_stmt时try_stmt处理就会把handlers设置成block，其实就是语法出错了
+因为要保持与原语言一致，所以我们的程序也不能增加实现，比如在加上try_stmt函数中如果len(p)为2时handlers设置为[]这样就可以正确处理
+    @pg_.production('try_stmt : TRY block catch_stmts')
+    def try_stmt(self, p):
+        return ast.Try(body=(p[1]),
+          handlers=(p[(-1)]),
+          orelse=[],
+          finalbody=[],
+          lineno=(self.getlineno(p)),
+          col_offset=(self.getcolno(p)))
+
+    @pg_.production('try_stmt : TRY block catch_stmts final_stmt')
+    @pg_.production('try_stmt : TRY block final_stmt')
+    def try_stmt_with_final(self, p):
+        try_stmt = self.try_stmt(p[:-1])
+        try_stmt.finalbody = p[(-1)]
+        return try_stmt
+当前执行时会 报类型错误: expected some sort of excepthandler, but got <_ast.Pass object at 0x...> 错误
+*/

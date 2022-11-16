@@ -1,0 +1,5 @@
+try f=open("__init__.py") {
+  print(len(f.read()))
+} finally {
+  print('f')
+}
