@@ -46,7 +46,13 @@ class test语法树(unittest.TestCase):
         for 文件 in 期望值:
             源码路径 = 路径 + 文件
             节点 = 读源码生成树(源码路径)
-            self.assertEqual(ast.dump(节点, True, True), 期望值[文件], f"\"{文件}\"出错")
+            # 已知3.7.4版本python中ast.Pass生成的语法树多一个空格，高版本没有，下方代码清除测试用例产生的空格与木兰生成的对照中的这
+            # 个多余空格，保证在高版本中也可以测试通过。
+            self.assertEqual(
+                ast.dump(节点, True, True).replace('Pass( lineno', 'Pass(lineno'),
+                期望值[文件].replace('Pass( lineno', 'Pass(lineno'),
+                f"\"{文件}\"出错"
+            )
 
     def 分词(self, 源码):
         return 分词器.分词(源码)
