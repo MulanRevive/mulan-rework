@@ -71,7 +71,6 @@ def 中(argv=None):
         语法树节点 = ast.parse(源码, 源码文件)
         print(木兰.转换(语法树节点))
         return
-    # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
     try:
         分析器 = 语法分析器(分词器)
         节点 = 分析器.分析(源码, 源码文件)
@@ -84,7 +83,7 @@ def 中(argv=None):
             print(ast.dump(节点, True, True))
             # print(语法树相关.格式化节点(节点, 1))
             return
-
+        # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
         可执行码 = compile(节点, 源码文件, 'exec')
 
         环境变量 = 创建全局变量(文件名=源码文件)

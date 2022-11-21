@@ -3,8 +3,5 @@ type Person {
         return a + b
     }
 
-    func $Person(name) {
-        self.name = name
-        self.items = [1,2,3,4]
-    }
+    func $Person() { }
 }
