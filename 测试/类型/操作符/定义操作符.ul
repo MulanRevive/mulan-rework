@@ -3,6 +3,11 @@ type Person {
         return Person(self.name + a.name)
     }
 
+    operator += (a) {
+        self.name += a.name
+        return self
+    }
+
     operator - (a) {
         return Person(self.name - a.name)
     }
@@ -22,3 +27,5 @@ print(huaMulan.name)
 huaMulan = mulan - hua
 print(huaMulan.name)
 print(Person(1) == Person(1))
+huaMulan += hua
+print(huaMulan.name)

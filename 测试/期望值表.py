@@ -159,12 +159,11 @@ import datetime
     "类型/应变属性.ul": b"343",
     "类型/继承.ul": b"1",
     "类型/继承于调用.ul": b"1",
-    "类型/操作符/定义操作符.ul": b"31true",
+    "类型/操作符/定义操作符.ul": b"31true2",
     "类型/超类.ul": b"animalwowo",
     "类型/返回值属性.ul": b"ok",
     "类型/在类型内定义类型.ul": b"Animal.Child",
     "类型/复杂类型注解.ul": b"2",
-    "类型/操作符/重载增量赋值.ul": b"3",
 
     "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc',
     "字符串/单引号.ul": b"ok\n\t\\'\\n",
