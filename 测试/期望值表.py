@@ -164,6 +164,7 @@ import datetime
     "类型/返回值属性.ul": b"ok",
     "类型/在类型内定义类型.ul": b"Animal.Child",
     "类型/复杂类型注解.ul": b"2",
+    "类型/操作符/重载增量赋值.ul": b"3",
 
     "字符串/双引号.ul": b'ok\n\t\\"\\natruetruecc',
     "字符串/单引号.ul": b"ok\n\t\\'\\n",
