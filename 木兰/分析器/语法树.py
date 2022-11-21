@@ -100,7 +100,8 @@ class 语法树:
         elif 类型 == 语法.一元表达式:
             节点 = ast.UnaryOp(op=运算符, operand=值)
 
-        if 片段:
+        # 操作数为空列表时会有问题 所以改为不为空
+        if 片段 is not None:
             节点.lineno = 语法树.取行号(片段)
             节点.col_offset = 语法树.取列号(片段)
         return 节点
