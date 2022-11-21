@@ -16,11 +16,23 @@ type Person {
         return self.name == a.name
     }
 
+    operator [ ] (a) {
+        return self.items[a]
+    }
+
+    operator [ ] (a, b) {
+        self.items[a + 1] = b
+        return self.items
+    }
+
     func $Person(name) {
         self.name = name
+        self.items = [1,2,3,4]
     }
 }
 hua = Person(1)
+hua[0] = 3
+print(hua[:])
 mulan = Person(2)
 huaMulan = hua + mulan
 print(huaMulan.name)

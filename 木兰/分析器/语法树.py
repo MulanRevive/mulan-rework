@@ -232,6 +232,16 @@ class 语法树:
             lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段)
         )
 
+    @staticmethod
+    def 语法错误(信息, 文件名, 源码, 片段):
+        return SyntaxError(
+            message=信息,
+            filename=文件名,
+            lineno=语法树.取行号(片段),
+            col_offset=语法树.取列号(片段),
+            source=源码
+        )
+
     '''
     不同于 python3 的语法树中, col_offset 是从 0 开始:
     >>> ast.dump(ast.parse("2+3"), True, True)
