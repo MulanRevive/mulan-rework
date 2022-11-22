@@ -83,6 +83,11 @@ type Person {
         return Person(self.name ^ a)
     }
 
+    operator ^= (a) {
+        self.name ^= a
+        return self
+    }
+
     operator - {
         return Person(-self.name)
     }
@@ -141,4 +146,7 @@ huaMulan = Person(8)
 huaMulan %= 5
 print(huaMulan.name)
 huaMulan = Person(2) ^ 2
+print(huaMulan.name)
+huaMulan = Person(2)
+huaMulan ^= 2
 print(huaMulan.name)
