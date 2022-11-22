@@ -43,6 +43,10 @@ type Person {
         return self
     }
 
+    operator >> (a) {
+        return Person(self.name >> a)
+    }
+
     operator - {
         return Person(-self.name)
     }
@@ -80,3 +84,5 @@ print(huaMulan.name)
 print(#huaMulan)
 hua <<= 1
 print(hua.name)
+huaMulan = hua >> 1
+print(huaMulan.name)
