@@ -34,11 +34,19 @@ type Person {
         return Person(self.name << a)
     }
 
+    operator << a {
+        return Person(self.name << a)
+    }
+
     operator - {
         return Person(-self.name)
     }
 
     operator # () {
+        return len(self.items)
+    }
+
+    operator # {
         return len(self.items)
     }
 
