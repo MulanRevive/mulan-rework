@@ -1,0 +1,6 @@
+type Person {
+    {}
+    operator - () {
+        return -1
+    }
+}

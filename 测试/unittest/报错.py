@@ -25,6 +25,7 @@ class test所有(unittest.TestCase):
             "测试/错误处理/不可见字符.ul": "分词时没认出这个词 \"\x08\"",
             "测试/错误处理/形参默认值不全.ul": "参数“y”之前的“x”有默认值，它也需要一个表达式指定默认值",
             "测试/错误处理/两参数重载.ul": "param number mismatched for the operator",
+            "测试/错误处理/重载减空小括号.ul": "没认出这个词 \")\"",
         }
         for 文件 in 对应报错:
             try:
