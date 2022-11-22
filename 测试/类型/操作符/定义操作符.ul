@@ -31,7 +31,7 @@ type Person {
     }
 
     operator << (a) {
-        return Person(self.name << a)
+        return Person(self.name << a + 1)
     }
 
     operator << a {
@@ -43,7 +43,7 @@ type Person {
     }
 
     operator # () {
-        return len(self.items)
+        return len(self.items) + 1
     }
 
     operator # {
