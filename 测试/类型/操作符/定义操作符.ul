@@ -8,10 +8,9 @@ type Person {
         return self
     }
 
-    /* 报错 没认出这个词 "标识符"，也许是与 operator - () 规则冲突
     operator - (a) {
         return Person(self.name - a.name)
-    } */
+    }
 
     operator -= (a) {
         self.name -= a.name
@@ -35,8 +34,7 @@ type Person {
         return Person(self.name << a)
     }
 
-    // 验证语法，原语言会服错 unexpected token ")"
-    operator - () {
+    operator - {
         return Person(-self.name)
     }
 
@@ -51,8 +49,8 @@ print(hua[:])
 mulan = Person(2)
 huaMulan = hua + mulan
 print(huaMulan.name)
-//huaMulan = mulan - hua
-//print(huaMulan.name)
+huaMulan = mulan - hua
+print(huaMulan.name)
 print(Person(1) == Person(1))
 huaMulan += hua
 print(huaMulan.name)
