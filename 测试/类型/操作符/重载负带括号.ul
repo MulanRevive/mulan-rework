@@ -1,0 +1,26 @@
+type Person1 {
+    // 原语法并不支持这种语法会报错，此处只做语法验证
+    operator - () {
+        return Person1(-self.name)
+    }
+
+    func $Person1(name) {
+        self.name = name
+    }
+}
+
+type Person2 {
+    operator - {
+        return Person2(-self.name)
+    }
+
+    func $Person2(name) {
+        self.name = name
+    }
+}
+hua = Person1(1)
+nhua = -hua
+print(nhua.name)
+hua = Person2(1)
+nhua = -hua
+print(nhua.name)
