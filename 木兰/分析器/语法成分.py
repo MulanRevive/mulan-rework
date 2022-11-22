@@ -19,6 +19,7 @@ class 语法(Enum):
     操作数 = 'op_arg'
     无操作数 = 'op_none'
     二元操作符 = 'bin_op'
+    一元操作符 = 'uop'
     模块位置 = 'module_name_'
     引用声明 = 'using_stmt'
     各模块名 = 'module_name'

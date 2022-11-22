@@ -38,6 +38,10 @@ type Person {
         return Person(-self.name)
     }
 
+    operator # () {
+        return len(self.items)
+    }
+
     func $Person(name) {
         self.name = name
         self.items = [1,2,3,4]
@@ -60,3 +64,4 @@ huaMulan = hua << 1
 print(huaMulan.name)
 huaMulan = -hua
 print(huaMulan.name)
+print(#huaMulan)
