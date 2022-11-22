@@ -88,6 +88,10 @@ type Person {
         return self
     }
 
+    operator > (a) {
+        return self.name > a.name
+    }
+
     operator - {
         return Person(-self.name)
     }
@@ -150,3 +154,4 @@ print(huaMulan.name)
 huaMulan = Person(2)
 huaMulan ^= 2
 print(huaMulan.name)
+print(Person(2) > Person(1))
