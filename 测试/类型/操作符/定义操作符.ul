@@ -96,6 +96,10 @@ type Person {
         return self.name >= a.name
     }
 
+    operator < (a) {
+        return self.name < a.name
+    }
+
     operator - {
         return Person(-self.name)
     }
@@ -160,3 +164,4 @@ huaMulan ^= 2
 print(huaMulan.name)
 print(Person(2) > Person(1))
 print(Person(1) >= Person(2))
+print(Person(1) < Person(2))
