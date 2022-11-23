@@ -1,4 +1,4 @@
-from rply import 语法分析器母机, Token
+from rply import 语法分析器母机
 from rply.报错 import 分词报错
 from 木兰.分析器.语法树 import *
 from 木兰.分析器.错误 import 语法错误, 词法错误
@@ -180,7 +180,7 @@ class 语法分析器:
     @分析器母机.语法规则(语法.操作符.成分(名词_操作符, 语法.一元操作符, 语法.无操作数, 语法.块))
     @分析器母机.语法规则(语法.操作符.成分(名词_操作符, 减, 语法.无操作数, 语法.块))
     def 操作符(self, 片段):
-        if isinstance(片段[1], Token):
+        if isinstance(片段[1], 词):
             片段[1] = '__neg__'
         return 语法树.新节点(
             语法.函数,
