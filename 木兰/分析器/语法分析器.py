@@ -193,7 +193,7 @@ class 语法分析器:
     def 设置项(self, 片段):
         if 片段[1] != '__getitem__':
             raise 语法错误(
-                信息='param number mismatched for the operator',
+                信息='双参数仅对 [] 有效，详见《操作符》文档',
                 文件名=self.文件名,
                 行号=语法树.取行号(片段[1]),
                 列号=语法树.取列号(片段[1]),
