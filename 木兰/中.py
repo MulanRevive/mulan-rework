@@ -88,17 +88,17 @@ def 中(argv=None):
 
         环境变量 = 创建全局变量(文件名=源码文件)
 
-        try:
-            exec(可执行码, 环境变量)
-        except Exception as e:
-            try:
-                sys.stderr.write('%s\n' % 反馈信息(e, 源码文件))
-            finally:
-                e = None
-                del e
+        exec(可执行码, 环境变量)
+
     except SyntaxError as 语法错误:
         sys.stderr.write(f"语法错误: {语法错误}\n")
     except TypeError as 类型错误:
         sys.stderr.write(f"类型错误: {类型错误}\n")
     except ValueError as 语法错误:
         sys.stderr.write(f"语法错误: {语法错误}\n")
+    except Exception as e:
+        try:
+            sys.stderr.write('%s\n' % 反馈信息(e, 源码文件))
+        finally:
+            e = None
+            del e
