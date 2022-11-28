@@ -71,34 +71,34 @@ def 中(argv=None):
         语法树节点 = ast.parse(源码, 源码文件)
         print(木兰.转换(语法树节点))
         return
-
-    分析器 = 语法分析器(分词器)
-    节点 = 分析器.分析(源码, 源码文件)
-
-    if 生成python代码:
-        print(python.代码生成器().得到源码(节点))
-        return
-
-    if 语法树:
-        print(ast.dump(节点, True, True))
-        # print(语法树相关.格式化节点(节点, 1))
-        return
-
-    # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
     try:
+        分析器 = 语法分析器(分词器)
+        节点 = 分析器.分析(源码, 源码文件)
+
+        if 生成python代码:
+            print(python.代码生成器().得到源码(节点))
+            return
+
+        if 语法树:
+            print(ast.dump(节点, True, True))
+            # print(语法树相关.格式化节点(节点, 1))
+            return
+        # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
         可执行码 = compile(节点, 源码文件, 'exec')
 
         环境变量 = 创建全局变量(文件名=源码文件)
 
-        try:
-            exec(可执行码, 环境变量)
-        except Exception as e:
-            try:
-                sys.stderr.write('%s\n' % 反馈信息(e, 源码文件))
-            finally:
-                e = None
-                del e
+        exec(可执行码, 环境变量)
+
     except SyntaxError as 语法错误:
         sys.stderr.write(f"语法错误: {语法错误}\n")
     except TypeError as 类型错误:
         sys.stderr.write(f"类型错误: {类型错误}\n")
+    except ValueError as 语法错误:
+        sys.stderr.write(f"语法错误: {语法错误}\n")
+    except Exception as e:
+        try:
+            sys.stderr.write('%s\n' % 反馈信息(e, 源码文件))
+        finally:
+            e = None
+            del e

@@ -1,0 +1,7 @@
+type Person {
+    operator + (a, b) {
+        return a + b
+    }
+
+    func $Person() { }
+}
