@@ -1,4 +1,4 @@
-name: pipeline-20220810
+name: 基本测试
 run-name: 所有测试
 
 on: [push]
