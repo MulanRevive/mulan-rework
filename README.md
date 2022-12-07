@@ -1,4 +1,5 @@
 [![木兰在线版](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/git/https%3A%2F%2Fgitee.com%2FMulanRevive%2Fmulan-rework/HEAD)
+[![所有测试](https://github.com/MulanRevive/mulan-rework/actions/workflows/pipeline-20220810.yml/badge.svg?event=workflow_run)](https://github.com/MulanRevive/mulan-rework/actions/workflows/pipeline-20220810.yml)
 
 ## 前言
 
