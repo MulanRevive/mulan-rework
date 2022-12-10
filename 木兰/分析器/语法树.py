@@ -38,7 +38,7 @@ class 语法树:
                 func=函数, args=参数, keywords=关键词,
                 starargs=None,
                 kwargs=None  # 如果不加此两项，在从语法树生成函数调用源码时报错
-                )
+            )
         elif 类型 == 语法.赋值:
             节点 = ast.Assign([变量], 值)
         elif 类型 == 语法.运算赋值:
@@ -100,8 +100,8 @@ class 语法树:
         elif 类型 == 语法.一元表达式:
             节点 = ast.UnaryOp(op=运算符, operand=值)
 
-        # 操作数为空列表时会有问题 所以改为不为空
-        if 片段 is not None:
+        # 操作数为空列表时会有问题 所以改为不为空 判断"节点"是否已定义
+        if '节点' in locals() and 片段 is not None:
             节点.lineno = 语法树.取行号(片段)
             节点.col_offset = 语法树.取列号(片段)
         return 节点
@@ -236,7 +236,8 @@ class 语法树:
     '''
     不同于 python3 的语法树中, col_offset 是从 0 开始:
     >>> ast.dump(ast.parse("2+3"), True, True)
-    'Module(body=[Expr(value=BinOp(left=Num(n=2, lineno=1, col_offset=0), op=Add(), right=Num(n=3, lineno=1, col_offset=2), lineno=1, col_offset=0), lineno=1, col_offset=0)])'
+    'Module(body=[Expr(value=BinOp(left=Num(n=2, lineno=1, col_offset=0), op=Add(), 
+    right=Num(n=3, lineno=1, col_offset=2), lineno=1, col_offset=0), lineno=1, col_offset=0)])'
     '''
 
     @staticmethod
