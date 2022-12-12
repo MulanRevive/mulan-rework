@@ -509,16 +509,13 @@ class 语法分析器:
             或赋值: ast.BitOr(),
             乘方赋值: ast.Pow(),
         }
-        if 运算符 in 对照表:
-            python运算 = 对照表[运算符]
+        python运算 = 对照表[运算符]
 
-            # 否则报错：
-            # ValueError: expression must have Store context but has Load instead
-            片段[0].ctx = ast.Store()
+        # 否则报错：
+        # ValueError: expression must have Store context but has Load instead
+        片段[0].ctx = ast.Store()
 
-            return 语法树.新节点(语法.运算赋值, 变量=片段[0], 运算符=python运算, 值=片段[2], 片段=片段)
-        else:
-            return None
+        return 语法树.新节点(语法.运算赋值, 变量=片段[0], 运算符=python运算, 值=片段[2], 片段=片段)
 
     @分析器母机.语法规则(语法.运算赋值.成分(语法.表达式前缀, 除法赋值, 语法.表达式))
     @分析器母机.语法规则(语法.运算赋值.成分(语法.表达式前缀, 求余赋值, 语法.表达式))
@@ -1332,15 +1329,15 @@ class 语法分析器:
             片段=片段)
 
     @分析器母机.报错
-    def 错误处理(self, 参数词):
-        if 参数词.getstr() == '\n':
+    def 错误处理(self, 问题词):
+        if 问题词.getstr() == '\n':
             return
         # TODO: 最好取到语法信息(上下文)
         raise 语法错误(
-            信息=('没认出这个词 "%s"' % 参数词.gettokentype()),
+            信息=('没认出这个词 "%s"' % 问题词.gettokentype()),
             文件名=self.文件名,
-            行号=语法树.取行号(参数词),
-            列号=语法树.取列号(参数词),
+            行号=语法树.取行号(问题词),
+            列号=语法树.取列号(问题词),
             源码=self.源码)
 
     def 形参合法化(self, 形参):
@@ -1372,8 +1369,8 @@ class 语法分析器:
 
     分析器 = 分析器母机.产出()
 
-    def __init__(self, 参数分词器=分词器):
-        self.分词器 = 参数分词器
+    def __init__(self, 内置分词器=分词器):
+        self.分词器 = 内置分词器
         self.文件名 = ''
         self.匿名函数 = {}
         self.源码 = None
