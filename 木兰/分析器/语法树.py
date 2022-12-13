@@ -38,7 +38,7 @@ class 语法树:
                 func=函数, args=参数, keywords=关键词,
                 starargs=None,
                 kwargs=None  # 如果不加此两项，在从语法树生成函数调用源码时报错
-                )
+            )
         elif 类型 == 语法.赋值:
             节点 = ast.Assign([变量], 值)
         elif 类型 == 语法.运算赋值:
@@ -236,7 +236,8 @@ class 语法树:
     '''
     不同于 python3 的语法树中, col_offset 是从 0 开始:
     >>> ast.dump(ast.parse("2+3"), True, True)
-    'Module(body=[Expr(value=BinOp(left=Num(n=2, lineno=1, col_offset=0), op=Add(), right=Num(n=3, lineno=1, col_offset=2), lineno=1, col_offset=0), lineno=1, col_offset=0)])'
+    'Module(body=[Expr(value=BinOp(left=Num(n=2, lineno=1, col_offset=0), op=Add(), 
+    right=Num(n=3, lineno=1, col_offset=2), lineno=1, col_offset=0), lineno=1, col_offset=0)])'
     '''
 
     @staticmethod
