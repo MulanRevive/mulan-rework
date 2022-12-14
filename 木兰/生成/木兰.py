@@ -22,6 +22,7 @@ from ast import *
     Gt: '>',
 }
 
+
 def 转源码(节点, 缩进量="  "):
     """
     本方法由语法树生成木兰源码，可用于实现 Python 到木兰源码的简单转换工具。
@@ -30,6 +31,7 @@ def 转源码(节点, 缩进量="  "):
     生成器 = 木兰生成器(缩进量, 头部=自述)
     生成器.visit(节点)
     return "".join(生成器.结果)
+
 
 # TODO: 将各 visit_ 方法名中文化（方法赋值）
 class 木兰生成器(NodeVisitor):
@@ -99,7 +101,7 @@ class 木兰生成器(NodeVisitor):
 
         for 索引, 目标 in enumerate(节点.targets):
             # TODO: 下面何用？
-            #if 索引 > 0:
+            # if 索引 > 0:
             #    self.编写(', ')
             self.visit(目标)
 
@@ -109,7 +111,7 @@ class 木兰生成器(NodeVisitor):
     def visit_AugAssign(self, 节点):
         self.另起一行(节点)
         self.visit(节点.target)
-        self.编写(' ' +  二元操作符[type(节点.op)] + '= ')
+        self.编写(' ' + 二元操作符[type(节点.op)] + '= ')
         self.visit(节点.value)
 
     def 形参(self, 节点):
@@ -366,7 +368,7 @@ class 木兰生成器(NodeVisitor):
             self.编写(包.name)
 
         # TODO: 下两行何用？
-        #for 包 in node.names:
+        # for 包 in node.names:
         #    self.visit(包)
 
     def visit_ImportFrom(self, node):
@@ -383,7 +385,7 @@ class 木兰生成器(NodeVisitor):
             self.编写(' in %s' % ('.' * node.level))
 
         # TODO: 下两行何用？
-        #for item in node.names:
+        # for item in node.names:
         #    self.visit(item)
 
     def visit_IfExp(self, 节点):
@@ -402,7 +404,7 @@ class 木兰生成器(NodeVisitor):
             self.visit(节点.value)
 
     def visit_NameConstant(self, 节点):
-        if 节点.value == None:
+        if 节点.value is None:
             self.编写('nil')
         elif 节点.value:
             self.编写('true')
@@ -427,6 +429,7 @@ class 木兰生成器(NodeVisitor):
 
     def visit_arg(self, 节点):
         self.编写(节点.arg)
+
 
 def 转换(节点):
     return 转源码(节点)

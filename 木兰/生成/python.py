@@ -1,7 +1,5 @@
-
 import codegen
 import ast
-
 
 木兰预置函数映射表 = {
     'println': 'print',
@@ -70,7 +68,7 @@ class 代码生成器(codegen.SourceGenerator):
             super().visit_Name(节点)
 
     def visit_NameConstant(self, 节点):
-        if 节点.value == None:
+        if 节点.value is None:
             self.write('None')
         elif 节点.value:
             self.write('True')
@@ -79,7 +77,7 @@ class 代码生成器(codegen.SourceGenerator):
 
     def visit_withitem(self, 节点):
         self.visit(节点.context_expr)
-        
+
         if 节点.optional_vars is not None:
             self.write(' as ')
             self.visit(节点.optional_vars)
@@ -127,6 +125,5 @@ class 代码生成器(codegen.SourceGenerator):
 
         self.result.insert(
             0, 'import sys\nfrom math import *\nARGV = sys.argv[1:]\n')
-        
-        return ''.join(self.result)
 
+        return ''.join(self.result)

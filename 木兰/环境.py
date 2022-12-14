@@ -9,6 +9,7 @@ from pathlib import Path
 
 from 木兰.分析器.语法分析器 import 语法分析器
 
+
 # 参考：https://docs.python.org/3.7/library/threading.html#thread-objects
 class 线程(threading.Thread):
     """
