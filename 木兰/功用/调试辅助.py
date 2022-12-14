@@ -1,7 +1,9 @@
 import ast
 
+
 class 语法树相关:
 
+    @staticmethod
     def 格式化节点(节点, 层次):
         缩进 = "  "
         输出 = ""
@@ -15,8 +17,8 @@ class 语法树相关:
         elif isinstance(节点, str):
             输出 += "'" + 节点 + "'"
         else:
-            if 节点 == None:
-              return 输出 + "None"
+            if 节点 is None:
+                return 输出 + "None"
             输出 += type(节点).__name__ + "("
             属性个数 = 0
             for 属性 in ast.iter_fields(节点):
@@ -30,6 +32,7 @@ class 语法树相关:
                 return 输出 + ")"
             return 输出 + "\n" + 缩进 * (层次 - 1) + ")"
         return 输出
+
 
 '''
 TODO:

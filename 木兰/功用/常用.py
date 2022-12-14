@@ -1,4 +1,6 @@
-import random, string
+import random
+import string
+
 
 def 随机文本(长度=20):
     字母 = string.ascii_letters

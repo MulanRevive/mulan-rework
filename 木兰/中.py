@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 
-import os, sys, getopt
 import ast
+import getopt
+import os
+import sys
+
+from 木兰.交互 import 开始交互
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.语法分析器 import 语法分析器
-from 木兰.生成 import 木兰, python
-from 木兰.环境 import 创建全局变量
-from 木兰.交互 import 开始交互
 from 木兰.功用.反馈信息 import 反馈信息
-from 木兰.功用.调试辅助 import 语法树相关
+from 木兰.环境 import 创建全局变量
+from 木兰.生成 import 木兰, python
+
 
 def 用途(程序):
     介绍 = '''使用方法: %s 源码文件
@@ -19,6 +22,7 @@ def 用途(程序):
 '''
     sys.stderr.write(介绍 % os.path.basename(程序))
     sys.exit(-1)
+
 
 def 中(argv=None):
     if argv is None:
@@ -31,7 +35,10 @@ def 中(argv=None):
             [
                 "语法树",
                 "python变木兰",
-                '版本', 'dump-python'])
+                '版本',
+                'dump-python'
+            ]
+        )
     except getopt.GetoptError as e:
         try:
             sys.stderr.write(str(e) + '\n')

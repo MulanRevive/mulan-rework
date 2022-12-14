@@ -1,11 +1,14 @@
-import sys, cmd
+import cmd
+import sys
+
 from rply.报错 import 分词报错
 
 from 木兰.分析器.词法分析器 import *
 from 木兰.分析器.语法分析器 import 语法分析器
-from 木兰.环境 import 创建全局变量
+from 木兰.分析器.错误 import 词法错误
 from 木兰.功用.反馈信息 import 反馈信息
-from 木兰.分析器.错误 import 语法错误, 词法错误
+from 木兰.环境 import 创建全局变量
+
 
 # TODO: 更多测试
 def 括号已配对(源码):
@@ -13,7 +16,7 @@ def 括号已配对(源码):
         名词_操作符, 名词_函数, 名词_类型, 名词_应变属性,
         连词_对, 动词_循环, 连词_每当,
         连词_如果, 连词_否则如果, 连词_否则,
-        动词_试试, 动词_接手, # 'FINALLY'
+        动词_试试, 动词_接手,  # 'FINALLY'
     }
     未配对之和 = 0
     未闭合的个数 = 0
@@ -55,12 +58,11 @@ def 括号已配对(源码):
 
 
 def input_swallowing_interrupt(_input):
-
     def _input_swallowing_interrupt(*args):
         try:
             return _input(*args)
         except KeyboardInterrupt:
-            # TODO: 何用？
+            # 当按Ctrl+C退出时，输出^C
             print('^C')
             return '\n'
 
@@ -95,8 +97,8 @@ class 交互(cmd.Cmd):
                     return
             except 分词报错 as e:
                 错误 = 词法错误(异常=e,
-                    文件名='【标准输入】',
-                    源码=self.声明)
+                                文件名='【标准输入】',
+                                源码=self.声明)
                 sys.stderr.write('%s\n' % 反馈信息(错误))
                 self.声明 = ''
             try:
@@ -125,7 +127,7 @@ class 交互(cmd.Cmd):
         原始输入函数 = cmd.__builtins__['input']
         cmd.__builtins__['input'] = input_swallowing_interrupt(原始输入函数)
         try:
-            (super().cmdloop)(*args, **kwargs)
+            super().cmdloop(*args, **kwargs)
         finally:
             cmd.__builtins__['input'] = 原始输入函数
 
@@ -135,13 +137,14 @@ def 开始交互(提示符1='> ', 提示符2='>> ', 全局变量=None):
     简易的木兰交互环境
     """
     介绍 = [
-     '\t详情: 列出内置功能',
-     '\t再会: 结束对话',
-     '\t你好: 显示这段']
+        '\t详情: 列出内置功能',
+        '\t再会: 结束对话',
+        '\t你好: 显示这段']
     if not 全局变量:
         # TODO: 何时会用
         全局变量 = 创建全局变量(文件名='<STDIN>')
-    全局变量['详情'] = lambda : print('\n'.join([' %s (%s)' % (k, v.__class__.__name__) for k, v in 全局变量.items() if k != '__builtins__' if k != '___']))
+    全局变量['详情'] = lambda: print('\n'.join(
+        [' %s (%s)' % (k, v.__class__.__name__) for k, v in 全局变量.items() if k != '__builtins__' if k != '___']))
     全局变量['globals'] = lambda: 全局变量['详情']()
     全局变量['你好'] = lambda *args: print('\n'.join(介绍)) if not args else print()
     全局变量['help'] = lambda: 全局变量['你好']()
