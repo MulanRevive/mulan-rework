@@ -96,9 +96,10 @@ class 交互(cmd.Cmd):
                 if not self.括号已配对():
                     return
             except 分词报错 as e:
-                错误 = 词法错误(异常=e,
-                                文件名='【标准输入】',
-                                源码=self.声明)
+                错误 = 词法错误(
+                    异常=e,
+                    文件名='【标准输入】',
+                    源码=self.声明)
                 sys.stderr.write('%s\n' % 反馈信息(错误))
                 self.声明 = ''
             try:

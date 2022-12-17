@@ -1,4 +1,7 @@
-import ast, re, sys, traceback
+import ast
+import re
+import sys
+import traceback
 from pathlib import Path
 
 from 木兰.分析器.词法分析器 import 分词器
@@ -33,16 +36,15 @@ def 中文化(例外, 源码文件=None):
     行信息 = 提取(各层)
     if len(行信息) > 0:
         关键 = 取关键信息(提示(类型, 原信息), 行信息[0])
-    各行.append(关键)  # TODO 当行信息长度为0时会出错
-    for 行号, 行 in enumerate(行信息, start=1):
-        if 源码文件 is None and 行.文件名 == "【标准输入】":
-            return [关键 + f"，见第{行.行号}行"]
-        else:
-            # 在第二层前显示
-            if 行号 == 2:
-                各行.append(报错_层级)
-
-            各行.append(("见" if 行.文件名 == 源码文件 else f"“{行.文件名}”") + f"第{行.行号}行：{行.内容}")
+        各行.append(关键)
+        for 行号, 行 in enumerate(行信息, start=1):
+            if 源码文件 is None and 行.文件名 == "【标准输入】":
+                return [关键 + f"，见第{行.行号}行"]
+            else:
+                # 在第二层前显示
+                if 行号 == 2:
+                    各行.append(报错_层级)
+                各行.append(("见" if 行.文件名 == 源码文件 else f"“{行.文件名}”") + f"第{行.行号}行：{行.内容}")
     return 各行
 
 

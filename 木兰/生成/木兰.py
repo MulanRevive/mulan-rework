@@ -302,7 +302,6 @@ class 木兰生成器(NodeVisitor):
         self.编写(repr(节点.n))
 
     def 序列(左括号, 右括号):
-
         def visit(self, 节点):
             self.编写(左括号)
             for 索引, 项 in enumerate(节点.elts):
