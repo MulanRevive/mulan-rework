@@ -22,6 +22,7 @@ def 用途(程序):
  --交互          -交   以交互式审查脚本
  --python变木兰, -兰   将 Python 源码转换为木兰源码
  --木兰变python  -p    将木兰源码转换为 Python 源码
+ --生成字节码     -码   将木兰源码转换为 donsok 字节码 (实验性)
  --调试          -调   使用 Pdb 环境调试代码
  --显示回溯       -溯   显示异常的栈回溯信息
  --语法树,       -树   语法树信息
@@ -38,12 +39,13 @@ def 中(argv=None):
     try:
         选项, 参数 = getopt.getopt(
             argv[1:],
-            '兰版树',
+            '兰版树码',
             [
                 "语法树",
                 "python变木兰",
                 '版本',
-                'dump-python'
+                'dump-python',
+                '生成字节码'
             ]
         )
     except getopt.GetoptError as e:
@@ -58,6 +60,7 @@ def 中(argv=None):
     python变木兰 = False
     语法树 = False
     生成python代码 = False
+    生成字节码 = False
     for 某项, 值 in 选项:
         if 某项 in ('-版', '--版本'):
             版本 = True
@@ -67,6 +70,8 @@ def 中(argv=None):
             语法树 = True
         elif 某项 == '--dump-python':
             生成python代码 = True
+        elif 某项 in ('--生成字节码', '-码'):
+            生成字节码 = True
 
     if 版本:
         from 木兰 import __版本__
@@ -97,6 +102,12 @@ def 中(argv=None):
             print(ast.dump(节点, True, True))
             # print(语法树相关.格式化节点(节点, 1))
             return
+
+        if 生成字节码:
+            from pygen.compiler import Compiler
+            print(Compiler().compile(节点, 源码文件).dump())
+            return
+
         # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
         可执行码 = compile(节点, 源码文件, 'exec')
 
@@ -110,6 +121,8 @@ def 中(argv=None):
         sys.stderr.write(f"类型错误: {类型错误}\n")
     except ValueError as 语法错误:
         sys.stderr.write(f"语法错误: {语法错误}\n")
+    except ModuleNotFoundError as 模块错误:
+        sys.stderr.write(f"依赖库 {模块错误.name} 未找到")
     except Exception as e:
         try:
             sys.stderr.write('%s\n' % 反馈信息(e, 源码文件))
