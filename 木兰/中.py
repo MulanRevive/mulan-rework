@@ -45,7 +45,8 @@ def 中(argv=None):
                 "python变木兰",
                 '版本',
                 'dump-python',
-                '生成字节码'
+                '生成字节码',
+                '调试'
             ]
         )
     except getopt.GetoptError as e:
@@ -61,6 +62,7 @@ def 中(argv=None):
     语法树 = False
     生成python代码 = False
     生成字节码 = False
+    调试 = False
     for 某项, 值 in 选项:
         if 某项 in ('-版', '--版本'):
             版本 = True
@@ -72,6 +74,8 @@ def 中(argv=None):
             生成python代码 = True
         elif 某项 in ('--生成字节码', '-码'):
             生成字节码 = True
+        elif 某项 in ('--调试', '-调'):
+            调试 = True
 
     if 版本:
         from 木兰 import __版本__
@@ -116,7 +120,17 @@ def 中(argv=None):
 
         环境变量 = 创建全局变量(文件名=源码文件)
 
-        exec(可执行码, 环境变量)
+        if 调试:
+            from pdb import run as Pdb运行, Restart as Pdb重新运行
+            while True:
+                try:
+                    Pdb运行(可执行码, 环境变量, None)
+                except Pdb重新运行:
+                    pass
+                else:
+                    break
+        else:
+            exec(可执行码, 环境变量)
 
     except SyntaxError as 语法错误:
         sys.stderr.write(f"语法错误: {语法错误}\n")
