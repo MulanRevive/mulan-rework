@@ -104,8 +104,11 @@ def 中(argv=None):
             return
 
         if 生成字节码:
-            from pygen.compiler import Compiler
-            print(Compiler().compile(节点, 源码文件).dump())
+            try:
+                from pygen.compiler import Compiler
+                print(Compiler().compile(节点, 源码文件).dump())
+            except ModuleNotFoundError as 模块错误:
+                sys.stderr.write(f"依赖库 {模块错误.name} 未找到")
             return
 
         # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
@@ -121,8 +124,6 @@ def 中(argv=None):
         sys.stderr.write(f"类型错误: {类型错误}\n")
     except ValueError as 语法错误:
         sys.stderr.write(f"语法错误: {语法错误}\n")
-    except ModuleNotFoundError as 模块错误:
-        sys.stderr.write(f"依赖库 {模块错误.name} 未找到")
     except Exception as e:
         try:
             sys.stderr.write('%s\n' % 反馈信息(e, 源码文件))
