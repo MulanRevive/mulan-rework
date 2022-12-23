@@ -39,7 +39,7 @@ def 中(argv=None):
     try:
         选项, 参数 = getopt.getopt(
             argv[1:],
-            '兰版树码',
+            '版助反交兰p码调溯树执',
             [
                 "语法树",
                 "python变木兰",
