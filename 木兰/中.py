@@ -46,7 +46,8 @@ def 中(argv=None):
                 '版本',
                 'dump-python',
                 '生成字节码',
-                '调试'
+                '调试',
+                '反编译'
             ]
         )
     except getopt.GetoptError as e:
@@ -63,6 +64,7 @@ def 中(argv=None):
     生成python代码 = False
     生成字节码 = False
     调试 = False
+    反编译 = False
     for 某项, 值 in 选项:
         if 某项 in ('-版', '--版本'):
             版本 = True
@@ -76,6 +78,8 @@ def 中(argv=None):
             生成字节码 = True
         elif 某项 in ('--调试', '-调'):
             调试 = True
+        elif 某项 in ('--反编译', '-反'):
+            反编译 = True
 
     if 版本:
         from 木兰 import __版本__
@@ -118,6 +122,11 @@ def 中(argv=None):
         # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
         可执行码 = compile(节点, 源码文件, 'exec')
 
+        if 反编译:
+            from dis import dis
+            dis(可执行码)
+            return
+
         环境变量 = 创建全局变量(文件名=源码文件)
 
         if 调试:
@@ -129,6 +138,7 @@ def 中(argv=None):
                     pass
                 else:
                     break
+
         else:
             exec(可执行码, 环境变量)
 
