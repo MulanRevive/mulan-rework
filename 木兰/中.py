@@ -47,7 +47,8 @@ def 中(argv=None):
                 'dump-python',
                 '生成字节码',
                 '调试',
-                '反编译'
+                '反编译',
+                '执行代码='
             ]
         )
     except getopt.GetoptError as e:
@@ -65,6 +66,7 @@ def 中(argv=None):
     生成字节码 = False
     调试 = False
     反编译 = False
+    从命令行执行 = False
     for 某项, 值 in 选项:
         if 某项 in ('-版', '--版本'):
             版本 = True
@@ -80,6 +82,10 @@ def 中(argv=None):
             调试 = True
         elif 某项 in ('--反编译', '-反'):
             反编译 = True
+        elif 某项 in ('--执行代码', '-执'):
+            从命令行执行 = True
+            源码文件 = '<命令行>'
+            源码 = 值
 
     if 版本:
         from 木兰 import __版本__
@@ -89,10 +95,11 @@ def 中(argv=None):
     if len(sys.argv) == 1:
         sys.exit(开始交互())
 
-    if len(参数) > 0:
-        源码文件 = 参数[0]
-    with open(源码文件, 'r', encoding='utf-8') as f:
-        源码 = f.read()
+    if not 从命令行执行:
+        if len(参数) > 0:
+            源码文件 = 参数[0]
+        with open(源码文件, 'r', encoding='utf-8') as f:
+            源码 = f.read()
 
     if python变木兰:
         语法树节点 = ast.parse(源码, 源码文件)
