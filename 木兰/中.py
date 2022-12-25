@@ -48,7 +48,8 @@ def 中(argv=None):
                 '生成字节码',
                 '调试',
                 '反编译',
-                '执行代码='
+                '执行代码=',
+                '显示回溯',
             ]
         )
     except getopt.GetoptError as e:
@@ -67,6 +68,7 @@ def 中(argv=None):
     调试 = False
     反编译 = False
     从命令行执行 = False
+    显示回溯 = False
     for 某项, 值 in 选项:
         if 某项 in ('-版', '--版本'):
             版本 = True
@@ -82,6 +84,8 @@ def 中(argv=None):
             调试 = True
         elif 某项 in ('--反编译', '-反'):
             反编译 = True
+        elif 某项 in ('--显示回溯', '-溯'):
+            显示回溯 = True
         elif 某项 in ('--执行代码', '-执'):
             从命令行执行 = True
             源码文件 = '<命令行>'
@@ -149,15 +153,15 @@ def 中(argv=None):
         else:
             exec(可执行码, 环境变量)
 
-    except SyntaxError as 语法错误:
-        sys.stderr.write(f"语法错误: {语法错误}\n")
-    except TypeError as 类型错误:
-        sys.stderr.write(f"类型错误: {类型错误}\n")
-    except ValueError as 语法错误:
-        sys.stderr.write(f"语法错误: {语法错误}\n")
     except Exception as e:
-        try:
+        if 显示回溯:
+            raise
+
+        if isinstance(e, SyntaxError):
+            sys.stderr.write(f"语法错误: {e}\n")
+        elif isinstance(e, TypeError):
+            sys.stderr.write(f"类型错误: {e}\n")
+        elif isinstance(e, ValueError):
+            sys.stderr.write(f"语法错误: {e}\n")
+        else:
             sys.stderr.write('%s\n' % 反馈信息(e, 源码文件))
-        finally:
-            e = None
-            del e
