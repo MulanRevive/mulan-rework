@@ -51,6 +51,7 @@ def 中(argv=None):
                 '执行代码=',
                 '显示回溯',
                 '帮助',
+                '交互',
             ]
         )
     except getopt.GetoptError as e:
@@ -70,6 +71,7 @@ def 中(argv=None):
     反编译 = False
     从命令行执行 = False
     显示回溯 = False
+    交互 = False
     for 某项, 值 in 选项:
         if 某项 in ('-版', '--版本'):
             版本 = True
@@ -89,6 +91,8 @@ def 中(argv=None):
             显示回溯 = True
         elif 某项 in ('--帮助', '-助'):
             用途(argv[0])
+        elif 某项 in ('--交互', '-交'):
+            交互 = True
         elif 某项 in ('--执行代码', '-执'):
             从命令行执行 = True
             源码文件 = '<命令行>'
@@ -155,6 +159,9 @@ def 中(argv=None):
 
         else:
             exec(可执行码, 环境变量)
+
+        if 交互:
+            sys.exit(开始交互(全局变量=环境变量))
 
     except Exception as e:
         if 显示回溯:
