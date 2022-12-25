@@ -44,12 +44,13 @@ def 中(argv=None):
                 "语法树",
                 "python变木兰",
                 '版本',
-                'dump-python',
+                '木兰变python',
                 '生成字节码',
                 '调试',
                 '反编译',
                 '执行代码=',
                 '显示回溯',
+                '帮助',
             ]
         )
     except getopt.GetoptError as e:
@@ -76,7 +77,7 @@ def 中(argv=None):
             python变木兰 = True
         elif 某项 in ("-树", "--语法树"):
             语法树 = True
-        elif 某项 == '--dump-python':
+        elif 某项 in ('--木兰变python', '-p'):
             生成python代码 = True
         elif 某项 in ('--生成字节码', '-码'):
             生成字节码 = True
@@ -86,6 +87,8 @@ def 中(argv=None):
             反编译 = True
         elif 某项 in ('--显示回溯', '-溯'):
             显示回溯 = True
+        elif 某项 in ('--帮助', '-助'):
+            用途(argv[0])
         elif 某项 in ('--执行代码', '-执'):
             从命令行执行 = True
             源码文件 = '<命令行>'
@@ -126,7 +129,7 @@ def 中(argv=None):
             try:
                 from pygen.compiler import Compiler
                 print(Compiler().compile(节点, 源码文件).dump())
-            except ModuleNotFoundError as 模块错误:
+            except ModuleNotFoundError as _:
                 sys.stderr.write(f"依赖库 pygen 未找到")
             return
 
