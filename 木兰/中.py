@@ -63,6 +63,7 @@ def 中(argv=None):
             e = None
             del e
 
+    源码文件 = None
     版本 = False
     python变木兰 = False
     语法树 = False
@@ -70,7 +71,7 @@ def 中(argv=None):
     生成字节码 = False
     调试 = False
     反编译 = False
-    从命令行执行 = False
+    命令行执行码 = None
     显示回溯 = False
     交互 = False
     for 选项, 值 in 所有选项:
@@ -95,9 +96,7 @@ def 中(argv=None):
         elif 选项 in ('--交互', '-交'):
             交互 = True
         elif 选项 in ('--执行代码', '-执'):
-            从命令行执行 = True
-            源码文件 = '<命令行>'
-            源码 = 值
+            命令行执行码 = 值
 
     if 版本:
         from 木兰 import __版本__
@@ -107,19 +106,36 @@ def 中(argv=None):
     if len(sys.argv) == 1:
         sys.exit(开始交互())
 
-    if not 从命令行执行:
+    if 源码文件 is None:
         if len(参数) > 0:
             源码文件 = 参数[0]
-        with open(源码文件, 'r', encoding='utf-8') as f:
-            源码 = f.read()
 
-    if python变木兰:
-        语法树节点 = ast.parse(源码, 源码文件)
-        print(木兰.转换(语法树节点))
-        return
+    if 源码文件 is None:
+        if len(参数) == 1:
+            sys.exit(开始交互())
+        else:
+            if not 命令行执行码:
+                用途(argv[0])
     try:
+        源码 = None
+
+        if 命令行执行码:
+            源码 = 命令行执行码
+            源码文件 = '<命令行>'
+        elif 源码文件 == '-':
+                源码 = sys.stdin.read()
+                源码文件 = '<标准输入流>'
+        else:
+            with open(源码文件, 'r') as 源码文件对象:
+                源码 = 源码文件对象.read()
+
         分析器 = 语法分析器(分词器)
         节点 = 分析器.分析(源码, 源码文件)
+
+        if python变木兰:
+            语法树节点 = ast.parse(源码, 源码文件)
+            print(木兰.转换(语法树节点))
+            return
 
         if 生成python代码:
             print(python.代码生成器().得到源码(节点))
