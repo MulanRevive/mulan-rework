@@ -17,17 +17,17 @@ def 用途(程序):
     介绍 = '''使用方法: %s 源码文件
     
 选项：
- --版本　　　　　　 -版　　显示版本
- --帮助　　　　　　 -助　　显示帮助信息
- --反编译　　　　　 -反　　反编译 Python 代码
- --交互　　　　　　 -交　　以交互式审查脚本
- --python变木兰　　 -兰　　将 Python 源码转换为木兰源码
+ --语法树　　　　　 -树　　语法树信息
  --木兰变python　　 -p 　　将木兰源码转换为 Python 源码
  --生成字节码　　　 -码　　将木兰源码转换为 donsok 字节码 (实验性)
+ --python变木兰　　 -兰　　将 Python 源码转换为木兰源码
  --调试　　　　　　 -调　　使用 Pdb 环境调试代码
- --显示回溯　　　　 -溯　　显示异常的栈回溯信息
- --语法树　　　　　 -树　　语法树信息
+ --交互　　　　　　 -交　　以交互式审查脚本
+ --反编译　　　　　 -反　　反编译 Python 代码
  --执行代码=<代码>　-执　　执行来自命令行参数的代码
+ --显示回溯　　　　 -溯　　显示异常的栈回溯信息
+ --版本　　　　　　 -版　　显示版本
+ --帮助　　　　　　 -助　　显示帮助信息
 '''
     sys.stderr.write(介绍 % os.path.basename(程序))
     sys.exit(-1)
@@ -38,7 +38,7 @@ def 中(argv=None):
         argv = sys.argv
 
     try:
-        选项, 参数 = getopt.getopt(
+        所有选项, 参数 = getopt.getopt(
             argv[1:],
             '版助反交兰p码调溯树执',
             [
@@ -73,28 +73,28 @@ def 中(argv=None):
     从命令行执行 = False
     显示回溯 = False
     交互 = False
-    for 某项, 值 in 选项:
-        if 某项 in ('-版', '--版本'):
+    for 选项, 值 in 所有选项:
+        if 选项 in ('-版', '--版本'):
             版本 = True
-        elif 某项 in ("-兰", "--python变木兰"):
+        elif 选项 in ("-兰", "--python变木兰"):
             python变木兰 = True
-        elif 某项 in ("-树", "--语法树"):
+        elif 选项 in ("-树", "--语法树"):
             语法树 = True
-        elif 某项 in ('--木兰变python', '-p'):
+        elif 选项 in ('--木兰变python', '-p'):
             生成python代码 = True
-        elif 某项 in ('--生成字节码', '-码'):
+        elif 选项 in ('--生成字节码', '-码'):
             生成字节码 = True
-        elif 某项 in ('--调试', '-调'):
+        elif 选项 in ('--调试', '-调'):
             调试 = True
-        elif 某项 in ('--反编译', '-反'):
+        elif 选项 in ('--反编译', '-反'):
             反编译 = True
-        elif 某项 in ('--显示回溯', '-溯'):
+        elif 选项 in ('--显示回溯', '-溯'):
             显示回溯 = True
-        elif 某项 in ('--帮助', '-助'):
+        elif 选项 in ('--帮助', '-助'):
             用途(argv[0])
-        elif 某项 in ('--交互', '-交'):
+        elif 选项 in ('--交互', '-交'):
             交互 = True
-        elif 某项 in ('--执行代码', '-执'):
+        elif 选项 in ('--执行代码', '-执'):
             从命令行执行 = True
             源码文件 = '<命令行>'
             源码 = 值
