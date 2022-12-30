@@ -126,7 +126,7 @@ def 中(argv=None):
                 源码 = sys.stdin.read()
                 源码文件 = '<标准输入流>'
         else:
-            with open(源码文件, 'r') as 源码文件对象:
+            with open(源码文件, encoding='UTF-8') as 源码文件对象:
                 源码 = 源码文件对象.read()
 
         分析器 = 语法分析器(分词器)
