@@ -5,6 +5,8 @@ import getopt
 import os
 import sys
 
+from sys import argv
+
 from 木兰.交互 import 开始交互
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.语法分析器 import 语法分析器
@@ -33,13 +35,13 @@ def 用途(程序):
     sys.exit(-1)
 
 
-def 中(argv=None):
-    if argv is None:
-        argv = sys.argv
+def 中(命令行各分段=None):
+    if 命令行各分段 is None:
+        命令行各分段 = argv
 
     try:
         所有选项, 参数 = getopt.getopt(
-            argv[1:],
+            命令行各分段[1:],
             '版助反交兰p码调溯树执',
             [
                 "语法树",
@@ -58,7 +60,7 @@ def 中(argv=None):
     except getopt.GetoptError as e:
         try:
             sys.stderr.write(str(e) + '\n')
-            用途(argv[0])
+            用途(命令行各分段[0])
         finally:
             e = None
             del e
@@ -92,7 +94,7 @@ def 中(argv=None):
         elif 选项 in ('--显示回溯', '-溯'):
             显示回溯 = True
         elif 选项 in ('--帮助', '-助'):
-            用途(argv[0])
+            用途(命令行各分段[0])
         elif 选项 in ('--交互', '-交'):
             交互 = True
         elif 选项 in ('--执行代码', '-执'):
@@ -103,7 +105,7 @@ def 中(argv=None):
         sys.stderr.write('%s\n' % __版本__)
         sys.exit()
 
-    if len(sys.argv) == 1:
+    if len(argv) == 1:
         sys.exit(开始交互())
 
     if 源码文件 is None:
@@ -111,7 +113,7 @@ def 中(argv=None):
             源码文件 = 参数[0]
         else:
             if not 命令行执行码:
-                用途(argv[0])
+                用途(命令行各分段[0])
     try:
         源码 = None
 
