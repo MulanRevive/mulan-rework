@@ -109,10 +109,6 @@ def 中(argv=None):
     if 源码文件 is None:
         if len(参数) > 0:
             源码文件 = 参数[0]
-
-    if 源码文件 is None:
-        if len(参数) == 1:
-            sys.exit(开始交互())
         else:
             if not 命令行执行码:
                 用途(argv[0])
