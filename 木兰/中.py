@@ -23,7 +23,7 @@ def 用途(程序):
  --python变木兰　　 -兰　　将 Python 源码转换为木兰源码
  --调试　　　　　　 -调　　使用 Pdb 环境调试代码
  --交互　　　　　　 -交　　以交互式审查脚本
- --反编译　　　　　 -反　　反编译 Python 代码
+ --反汇编　　　　　 -反　　反汇编 Python 代码
  --执行代码=<代码>　-执　　执行来自命令行参数的代码
  --显示回溯　　　　 -溯　　显示异常的栈回溯信息
  --版本　　　　　　 -版　　显示版本
@@ -48,7 +48,7 @@ def 中(argv=None):
                 '木兰变python',
                 '生成字节码',
                 '调试',
-                '反编译',
+                '反汇编',
                 '执行代码=',
                 '显示回溯',
                 '帮助',
@@ -70,7 +70,7 @@ def 中(argv=None):
     生成python代码 = False
     生成字节码 = False
     调试 = False
-    反编译 = False
+    反汇编 = False
     命令行执行码 = None
     显示回溯 = False
     交互 = False
@@ -87,8 +87,8 @@ def 中(argv=None):
             生成字节码 = True
         elif 选项 in ('--调试', '-调'):
             调试 = True
-        elif 选项 in ('--反编译', '-反'):
-            反编译 = True
+        elif 选项 in ('--反汇编', '-反'):
+            反汇编 = True
         elif 选项 in ('--显示回溯', '-溯'):
             显示回溯 = True
         elif 选项 in ('--帮助', '-助'):
@@ -153,7 +153,7 @@ def 中(argv=None):
         # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
         可执行码 = compile(节点, 源码文件, 'exec')
 
-        if 反编译:
+        if 反汇编:
             from dis import dis
             dis(可执行码)
             return
