@@ -121,8 +121,8 @@ def 中(命令行各分段=None):
             源码 = 命令行执行码
             源码文件 = '<命令行>'
         elif 源码文件 == '-':
-                源码 = sys.stdin.read()
-                源码文件 = '<标准输入流>'
+            源码 = sys.stdin.read()
+            源码文件 = '<标准输入流>'
         else:
             with open(源码文件, encoding='UTF-8') as 源码文件对象:
                 源码 = 源码文件对象.read()
