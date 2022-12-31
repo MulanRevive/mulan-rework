@@ -131,6 +131,10 @@ def 中(命令行各分段=None):
             with open(源码文件, encoding='UTF-8') as 源码文件对象:
                 源码 = 源码文件对象.read()
 
+        if not 源码:
+            sys.stderr.write('文件 %s 为空！' % 源码文件)
+            sys.exit(-1)
+
         if 生成单词:
             单词流 = 分词器.分词(源码)
             for 单词 in 单词流:
