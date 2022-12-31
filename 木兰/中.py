@@ -137,13 +137,13 @@ def 中(命令行各分段=None):
                 print(单词.gettokentype(), end=' ')
             return
 
-        分析器 = 语法分析器(分词器)
-        节点 = 分析器.分析(源码, 源码文件)
-
         if python变木兰:
             语法树节点 = ast.parse(源码, 源码文件)
             print(木兰.转换(语法树节点))
             return
+
+        分析器 = 语法分析器(分词器)
+        节点 = 分析器.分析(源码, 源码文件)
 
         if 生成python代码:
             print(python.代码生成器().得到源码(节点))
