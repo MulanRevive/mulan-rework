@@ -42,7 +42,7 @@ def 中(命令行各分段=None):
     try:
         所有选项, 参数 = getopt.getopt(
             命令行各分段[1:],
-            '版助反交兰p码调溯树执',
+            '版助反交兰p码调溯树执词',
             [
                 "语法树",
                 "python变木兰",
@@ -55,6 +55,7 @@ def 中(命令行各分段=None):
                 '显示回溯',
                 '帮助',
                 '交互',
+                '生成单词',
             ]
         )
     except getopt.GetoptError as e:
@@ -76,6 +77,7 @@ def 中(命令行各分段=None):
     命令行执行码 = None
     显示回溯 = False
     交互 = False
+    生成单词 = False
     for 选项, 值 in 所有选项:
         if 选项 in ('-版', '--版本'):
             版本 = True
@@ -99,6 +101,8 @@ def 中(命令行各分段=None):
             交互 = True
         elif 选项 in ('--执行代码', '-执'):
             命令行执行码 = 值
+        elif 选项 in ('--生成单词', '-词'):
+            生成单词 = True
 
     if 版本:
         from 木兰 import __版本__
@@ -126,6 +130,12 @@ def 中(命令行各分段=None):
         else:
             with open(源码文件, encoding='UTF-8') as 源码文件对象:
                 源码 = 源码文件对象.read()
+
+        if 生成单词:
+            单词流 = 分词器.分词(源码)
+            for 单词 in 单词流:
+                print(单词.gettokentype(), end=' ')
+            return
 
         分析器 = 语法分析器(分词器)
         节点 = 分析器.分析(源码, 源码文件)
