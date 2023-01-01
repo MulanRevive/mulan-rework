@@ -25,7 +25,7 @@ def 用途(程序):
  --python变木兰　　 -兰　　将 Python 源码转换为木兰源码
  --调试　　　　　　 -调　　使用 Pdb 环境调试代码
  --交互　　　　　　 -交　　以交互式审查脚本
- --反汇编　　　　　 -反　　反汇编 Python 代码
+ --反汇编　　　　　 -反　　将生成的 Python 字节码反汇编
  --执行代码=<代码>　-执　　执行来自命令行参数的代码
  --显示回溯　　　　 -溯　　显示异常的栈回溯信息
  --版本　　　　　　 -版　　显示版本
@@ -55,7 +55,7 @@ def 中(命令行各分段=None):
                 '显示回溯',
                 '帮助',
                 '交互',
-                '生成单词',
+                '显示分词',
             ]
         )
     except getopt.GetoptError as e:
@@ -77,7 +77,7 @@ def 中(命令行各分段=None):
     命令行执行码 = None
     显示回溯 = False
     交互 = False
-    生成单词 = False
+    显示分词 = False
     for 选项, 值 in 所有选项:
         if 选项 in ('-版', '--版本'):
             版本 = True
@@ -101,15 +101,15 @@ def 中(命令行各分段=None):
             交互 = True
         elif 选项 in ('--执行代码', '-执'):
             命令行执行码 = 值
-        elif 选项 in ('--生成单词', '-词'):
-            生成单词 = True
+        elif 选项 in ('--显示分词', '-词'):
+            显示分词 = True
 
     if 版本:
         from 木兰 import __版本__
         sys.stderr.write('%s\n' % __版本__)
         sys.exit()
 
-    if len(argv) == 1:
+    if len(命令行各分段) == 1:
         sys.exit(开始交互())
 
     if 源码文件 is None:
@@ -135,10 +135,10 @@ def 中(命令行各分段=None):
             sys.stderr.write('文件 %s 为空！' % 源码文件)
             sys.exit(-1)
 
-        if 生成单词:
-            单词流 = 分词器.分词(源码)
-            for 单词 in 单词流:
-                print(单词.gettokentype(), end=' ')
+        if 显示分词:
+            各词 = 分词器.分词(源码)
+            for 词 in 各词:
+                print(词.gettokentype(), end=' ')
             return
 
         if python变木兰:
