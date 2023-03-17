@@ -9,7 +9,7 @@
 
 ## 目标
 
-[悬赏完成之前](https://zhuanlan.zhihu.com/p/224600854)，将努力向[重现「木兰」编程语言的目标](https://gitee.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)迈进。系列技术文章集结在[知乎专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新。
+[悬赏完成之前](https://zhuanlan.zhihu.com/p/224600854)，将努力向[重现「木兰」编程语言的目标](https://gitee.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)迈进。系列技术文章集结在[知乎专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新，部分文章将发到 [国产语言论坛木兰主题](https://zh-lang.osanswer.net/c/mulan/10)。
 
 ## IDE 辅助
 
@@ -63,7 +63,7 @@ $ 木兰 测试/错误处理/引用模块.ul
 
 其中 [实用](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/实用) 为较接近实用的部分。另外 [木兰代码编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器) 也用木兰代码编写。
 
-所有例程演示的语法可用原始的木兰可执行文件 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 检验。***如发现有异烦请告知，定将 [同样礼谢](https://gitee.com/MulanRevive/bounty)。***
+所有例程演示的语法可用原始的木兰可执行文件 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 检验。***如发现有异烦请告知，[长期悬赏在此](https://gitee.com/MulanRevive/mulan-rework/issues/I6B8GO)。***
 
 ## 功能说明
 
@@ -105,7 +105,7 @@ New -> Terminal 打开命令行，同样输入“木兰”运行
 
 新手开发者请看[开发流程与项目结构简介](文档/开发上手.md)。
 
-使用 Python 3.7 的最新小版本。Mac、[Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3)、[Windows](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP) 下全部测试通过。如使用 3.8，语法树测试将失败。
+使用 Python 3.7 的最新小版本。Mac、[Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3)、[Windows](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP) 下全部测试通过。欢迎参与 [添加对 Python 3.8 的支持](https://gitee.com/MulanRevive/mulan-rework/issues/I6EGV4)。
 
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 
