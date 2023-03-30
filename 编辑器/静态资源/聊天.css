@@ -10,7 +10,7 @@
   margin: 20px;
   overflow: auto;
   white-space: pre-wrap;
-  width: 700px;
+  width: calc(100% - 580px);
 }
 
 /* 置于顶部理由: 1) 详情内容多在顶部, 左右扫视方便. 2) 便于添加补全 */
