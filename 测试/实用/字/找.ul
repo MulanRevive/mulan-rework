@@ -1,0 +1,33 @@
+// 数据中, 部首 礻为"示"
+// 数据来源：http://git.chise.org/gitweb/?p=chise/ids.git;a=blob_plain;f=IDS-UCS-Basic.txt;hb=HEAD
+源数据 = open("测试/实用/字/字形测试.txt", 'rt', encoding="utf-8")
+所有行 = 源数据.read().split("\n")
+源数据.close()
+
+拆字 = {:}
+for 行 in 所有行 {
+  字段 = 行.split("\t")
+
+  // TODO: 暂时只考察两部分构成的字
+  continue if len(字段) != 3
+  字 = 字段[1]
+  信息 = 字段[2]
+  if 字 != 信息 {
+    字型 = 信息[0]
+    部分 = []
+    都为常用字 = true
+    for i in 1..<len(信息) {
+      部分.append(信息[i])
+    }
+    拆字[字] = {"字型": 字型, "部分": 部分}
+  }
+}
+
+func 一个(部分){
+  return '墨'
+}
+
+print(拆字)
+print(一个('土'))
+print(一个('黑'))
+// print(一个('黑').一个('土')) 设想中的 API 链式调用
