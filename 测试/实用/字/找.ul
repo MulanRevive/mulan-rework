@@ -1,21 +1,25 @@
+using 为常用字 in 测试.实用.通用.库_常用字
+
+// 仅在常用字中找符合要求的
+
 // 数据中, 部首 礻为"示"
 // 数据来源：http://git.chise.org/gitweb/?p=chise/ids.git;a=blob_plain;f=IDS-UCS-Basic.txt;hb=HEAD
-源数据 = open("测试/实用/字/字形测试.txt", 'rt', encoding="utf-8")
+源数据 = open("测试/实用/字/IDS-UCS-Basic.txt", 'rt', encoding="utf-8")
 所有行 = 源数据.read().split("\n")
 源数据.close()
 
+// 字典格式：字的字型与各部分
 拆字 = {:}
 for 行 in 所有行 {
   字段 = 行.split("\t")
 
-  // TODO: 暂时只考察两部分构成的字
+  // 待做: 现只考察两部分构成的字
   continue if len(字段) != 3
   字 = 字段[1]
   信息 = 字段[2]
   if 字 != 信息 {
     字型 = 信息[0]
     部分 = []
-    都为常用字 = true
     for i in 1..<len(信息) {
       部分.append(信息[i])
     }
@@ -24,10 +28,23 @@ for 行 in 所有行 {
 }
 
 func 一个(部分){
-  return '墨'
+  所有字 = []
+  for 字 in 拆字 {
+    所有字.append(字) if 拆字[字]['部分'].__contains__(部分) and 为常用字(字)
+  }
+  return 所有字
 }
 
-print(拆字)
-print(一个('土'))
-print(一个('黑'))
+func 左边(部分){
+  不限位置 = 一个(部分)
+  所有字 = []
+  for 字 in 不限位置 {
+    所有字.append(字) if 拆字[字]['字型'] == '⿰' and 拆字[字]['部分'][0] == 部分
+  }
+  return 所有字
+}
+
+// print(拆字)
+println(一个('木'))
+println(左边('木'))
 // print(一个('黑').一个('土')) 设想中的 API 链式调用
