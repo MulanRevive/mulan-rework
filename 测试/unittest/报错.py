@@ -3,6 +3,7 @@ import unittest
 from 编辑器.运行木兰 import 运行木兰代码
 from 木兰.分析器.错误 import 语法错误
 from 木兰.功用.反馈信息 import *
+from 木兰.共享 import python3版本号
 from 测试.unittest.功用 import *
 
 from pathlib import Path
@@ -124,6 +125,12 @@ class test所有(unittest.TestCase):
         self.assertEqual(报错[6], "见第1行：using * in 测试.错误处理.无此变量") # 2 6 行之间为木兰源码
 
         报错 = 运行木兰代码("测试/错误处理/循环引用/a.ul")
+        
         self.assertEqual(报错[0], 报错_递归) # 间隔为 ast.py 与木兰源码
-        self.assertEqual(报错[19], f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a")
-        self.assertEqual(报错[23], "见第1行：using * in 测试.错误处理.循环引用.b")
+
+        if python3版本号 == 8:
+            self.assertEqual(报错[22], f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a")
+            self.assertEqual(报错[26], "见第1行：using * in 测试.错误处理.循环引用.b")
+        else:
+            self.assertEqual(报错[19], f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a")
+            self.assertEqual(报错[23], "见第1行：using * in 测试.错误处理.循环引用.b")

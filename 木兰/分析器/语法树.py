@@ -3,6 +3,7 @@ import ast
 from rply.词 import 字符位置
 from rply import 词
 
+from 木兰.共享 import python3版本号
 from 木兰.分析器.语法成分 import *
 
 
@@ -19,7 +20,10 @@ class 语法树:
         elif 类型 == 语法.表达式:
             节点 = ast.Expr(value=值)
         elif 类型 == 语法.数:
-            节点 = ast.Num(n=值)
+            if python3版本号 >= 8:
+                节点 = ast.Constant(n=值)
+            else:
+                节点 = ast.Num(n=值)
         elif 类型 == 语法.二元表达式:
             # 通过类名方式简化if语句
             运算符名 = 运算符.__class__.__name__
@@ -63,7 +67,10 @@ class 语法树:
         elif 类型 == 语法.lambda形参 or 类型 == 语法.形参:
             节点 = ast.arg(arg=参数, annotation=标注)
         elif 类型 == 语法.形参列表:
-            节点 = ast.arguments(args=参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+            if python3版本号 >= 8:
+                节点 = ast.arguments(args=参数, posonlyargs=[], kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
+            else:
+                节点 = ast.arguments(args=参数, kwonlyargs=[], kw_defaults=[], defaults=[], vararg=None, kwarg=None)
         elif 类型 == 语法.函数:
             节点 = ast.FunctionDef(
                 name=名称,
@@ -94,7 +101,10 @@ class 语法树:
                 kwargs=None  # 如果不加此两项，在从语法树生成class源码时报错
             )
         elif 类型 == 语法.字符串:
-            节点 = ast.Str(值)
+            if python3版本号 >= 8:
+                节点 = ast.Constant(值)
+            else:
+                节点 = ast.Str(值)
         elif 类型 == 语法.外部声明:
             节点 = ast.Global(names=名称)
         elif 类型 == 语法.一元表达式:
@@ -126,8 +136,11 @@ class 语法树:
 
     @staticmethod
     def 常量(值, 片段):
-        return ast.NameConstant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
-
+        if python3版本号 >= 8:
+            return ast.Constant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+        else:
+            return ast.NameConstant(value=值, lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))
+        
     @staticmethod
     def 空转(片段):
         return ast.Pass(lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段))

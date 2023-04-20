@@ -352,6 +352,22 @@ class 木兰生成器(NodeVisitor):
 
         self.编写(')')
 
+    # 在 Python3.8 中 Num, Str, NameConstant 节点
+    # 统一被 Constant 节点代替，所以使用一个
+    # visit_Constant 方法来统一处理三个情况
+    def visit_Constant(self, 节点):
+        if isinstance(节点, Num):
+            self.编写(repr(节点.n))
+        elif isinstance(节点, NameConstant):
+            if 节点.value is None:
+                self.编写('nil')
+            elif 节点.value:
+                self.编写('true')
+            else:
+                self.编写('false')
+        elif isinstance(节点, Str):
+            self.编写(repr(节点.s))
+
     def visit_Subscript(self, 节点):
         self.visit(节点.value)
         self.编写('[')
