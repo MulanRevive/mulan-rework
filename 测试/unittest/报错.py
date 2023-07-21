@@ -53,7 +53,7 @@ class test所有(unittest.TestCase):
             "测试/错误处理/模块无属性.ul": "AttributeError：module 'TypeDef' has no attribute 'a'",
             "测试/错误处理/死递归.ul": 报错_递归,
             "测试/错误处理/类型定义中使用本类型.ul": "请先定义‘Person’再使用",
-            "测试/错误处理/调用非静态方法.ul": "TypeError：getAge() missing 1 required positional argument: 'self'",
+            "测试/错误处理/调用非静态方法.ul": "类型错误：getAge() missing 1 required positional argument: 'self'",
             "测试/错误处理/重复引用_绝对路径1.ul": "AttributeError：module 'test' has no attribute 'TypeDef'",
             "测试/错误处理/重复引用_绝对路径2.ul": "AttributeError：module 'test' has no attribute 'Instance1'",
             "测试/错误处理/空误作数组.ul": "空变量不支持按索引取项，看看‘a’",
@@ -61,7 +61,7 @@ class test所有(unittest.TestCase):
             "测试/错误处理/函数误作数组.ul": "函数不支持按索引取项，看看‘a’",
             "测试/错误处理/真误作数组.ul": "真假变量不支持按索引取项，看看‘a’",
             "测试/错误处理/真误作数组_部分解析.ul": "真假变量不支持按索引取项",
-            "测试/错误处理/无法调用.ul": "TypeError：'int' object is not callable",
+            "测试/错误处理/无法调用.ul": "类型错误：'int' object is not callable",
             "测试/错误处理/异常十六进制数.ul": "请先定义‘xg’再使用",
         }
         for 文件 in 对应报错:
@@ -69,14 +69,15 @@ class test所有(unittest.TestCase):
             self.assertEqual(报错[0], 对应报错[文件], 文件)
 
         单层报错 = {
-            "测试/错误处理/catch2.ul": "语法错误: default 'except:' must be last (catch2.ul, line 2)\n",
-            "测试/错误处理/函数外return.ul": "语法错误: 'return' outside function (函数外return.ul, line 2)\n",
+            "测试/错误处理/catch2.ul": "语法错误：default 'except:' must be last (catch2.ul, line 2)",
+            "测试/错误处理/函数外return.ul": "语法错误：'return' outside function (函数外return.ul, line 2)",
         }
         for 文件 in 单层报错:
-            self.assertEqual(运行木兰代码(文件), 单层报错[文件], 文件)
+            报错 = 运行木兰代码(文件)
+            self.assertEqual(报错[0], 单层报错[文件], 文件)
 
         报错 = 运行木兰代码("测试/错误处理/误用函数.ul")
-        self.assertEqual(报错[0], "TypeError：'function' object cannot be interpreted as an integer")
+        self.assertEqual(报错[0], "类型错误：'function' object cannot be interpreted as an integer")
 
         # TODO: 需捕获此错误
         try:
