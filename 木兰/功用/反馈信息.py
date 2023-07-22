@@ -154,6 +154,7 @@ def 提示(类型, 原信息):
         匹配 = re.search(无法取项, 原信息)
         if 匹配:
             return f'{类型中文化(匹配.group(1))}{报错_按索引取项}'
+        return "类型错误：" + 原信息
     elif 类型 == 'IndexError' and 原信息 == "list index out of range":
         return 报错_列表索引
     elif 类型 == 'AttributeError':
@@ -173,6 +174,8 @@ def 提示(类型, 原信息):
             原信息)
     elif 类型 == 'ModuleNotFoundError':
         return re.sub(r"No module named '(.*)'", r"没找到模块：‘\1’", 原信息)
+    elif 类型 == 'SyntaxError' or 类型 == '语法错误':
+        return "语法错误：" + 原信息
     return 类型 + "：" + 原信息
 
 

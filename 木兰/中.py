@@ -195,12 +195,5 @@ def 中(命令行各分段=None):
     except Exception as e:
         if 显示回溯:
             raise
-
-        if isinstance(e, SyntaxError):
-            sys.stderr.write(f"语法错误: {e}\n")
-        elif isinstance(e, TypeError):
-            sys.stderr.write(f"类型错误: {e}\n")
-        elif isinstance(e, ValueError):
-            sys.stderr.write(f"语法错误: {e}\n")
         else:
             sys.stderr.write('%s\n' % 反馈信息(e, 源码文件))
