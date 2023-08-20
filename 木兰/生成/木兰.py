@@ -16,6 +16,7 @@ from ast import *
 }
 比较操作符 = {
     Eq: '==',
+    LtE: "<=",
     Lt: '<',
     In: 'in',
     GtE: '>=',
