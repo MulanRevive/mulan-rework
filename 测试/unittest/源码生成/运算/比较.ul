@@ -1,4 +1,5 @@
 (d.__contains__('a'))
+(!d.__contains__('a'))
 ('ab'.__contains__('a') and d.__contains__('ab'))
 (a == b)
 (a >= 0)

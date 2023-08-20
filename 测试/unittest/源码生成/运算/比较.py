@@ -1,4 +1,5 @@
 'a' in d
+'a' not in d
 'a' in 'ab' in d
 a == b
 a >= 0

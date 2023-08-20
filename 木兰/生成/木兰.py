@@ -19,6 +19,7 @@ from ast import *
     LtE: "<=",
     Lt: '<',
     In: 'in',
+    NotIn: "not in",
     GtE: '>=',
     Gt: '>',
 }
@@ -339,7 +340,9 @@ class 木兰生成器(NodeVisitor):
             if 已开头:
                 self.编写(' and ')
             操作符 = 比较操作符[type(操作符)]
-            if 'in' == 操作符:
+            if 'in' in 操作符:
+                if "not" in 操作符:
+                    self.编写("!")
                 self.visit(右边)
                 self.编写('.__contains__(')
                 self.visit(左边)
