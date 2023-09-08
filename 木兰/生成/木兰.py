@@ -105,9 +105,8 @@ class 木兰生成器(NodeVisitor):
         self.另起一行(节点)
 
         for 索引, 目标 in enumerate(节点.targets):
-            # TODO: 下面何用？
-            # if 索引 > 0:
-            #    self.编写(', ')
+            if 索引 > 0:
+                self.编写(', ')
             self.visit(目标)
 
         self.编写(' = ')
