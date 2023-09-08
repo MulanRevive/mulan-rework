@@ -17,6 +17,8 @@ from ast import *
 比较操作符 = {
     Eq: '==',
     NotEq: '!=',
+    Is: '===',
+    IsNot: '!==',
     LtE: "<=",
     Lt: '<',
     In: 'in',
