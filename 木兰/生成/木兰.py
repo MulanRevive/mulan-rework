@@ -3,6 +3,9 @@ from ast import *
 '''
 注释"研究"的待进一步揣摩
 '''
+一元操作符 = {
+    Not: '!'
+}
 二元操作符 = {
     Add: '+',
     Sub: '-',
@@ -333,7 +336,6 @@ class 木兰生成器(NodeVisitor):
 
         self.编写(')')
 
-    # 待补完
     def visit_Compare(self, 节点):
         self.编写('(')
         左边 = 节点.left
@@ -373,6 +375,13 @@ class 木兰生成器(NodeVisitor):
                 self.编写('false')
         elif isinstance(节点, Str):
             self.编写(repr(节点.s))
+
+    def visit_UnaryOp(self, 节点):
+        self.编写("(")
+        操作符 = 一元操作符[type(节点.op)]
+        self.编写(操作符)
+        self.visit(节点.operand)
+        self.编写(")")
 
     def visit_Subscript(self, 节点):
         self.visit(节点.value)

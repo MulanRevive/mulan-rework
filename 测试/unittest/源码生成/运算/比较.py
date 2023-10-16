@@ -11,3 +11,4 @@ a <= 0
 a < 0
 a and b
 a or b
+not a
