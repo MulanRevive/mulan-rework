@@ -4,7 +4,8 @@ from ast import *
 注释"研究"的待进一步揣摩
 '''
 一元操作符 = {
-    Not: '!'
+    Not: '!',
+    USub: '-',
 }
 二元操作符 = {
     Add: '+',
@@ -12,6 +13,7 @@ from ast import *
     Mult: '*',
     Div: '/',
     FloorDiv: '/',
+    Mod: '%',
 }
 布尔操作符 = {
     And: 'and',
