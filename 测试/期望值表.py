@@ -78,7 +78,7 @@ import datetime
         "asin(0):0.0"
         "acos(1):0.0"
         "atan(0):0.0"
-        "16"  # str(time())[:2]
+        "17"  # str(time())[:2]，会随时间戳值的增长而失败
         "a"  # spawn
         ""   # kill
         "{}"  # year
