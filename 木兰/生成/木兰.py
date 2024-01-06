@@ -391,6 +391,11 @@ class 木兰生成器(NodeVisitor):
         self.visit(节点.slice)
         self.编写(']')
 
+    def visit_Slice(self, 节点):
+        self.编写(':')
+        if 节点.upper is not None:
+            self.visit(节点.upper)
+
     def visit_Import(self, node):
         self.另起一行(node)
         self.编写('using ')
