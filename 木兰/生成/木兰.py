@@ -392,6 +392,8 @@ class 木兰生成器(NodeVisitor):
         self.编写(']')
 
     def visit_Slice(self, 节点):
+        if 节点.lower is not None:
+            self.visit(节点.lower)
         self.编写(':')
         if 节点.upper is not None:
             self.visit(节点.upper)
