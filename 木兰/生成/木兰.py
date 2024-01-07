@@ -324,6 +324,11 @@ class 木兰生成器(NodeVisitor):
 
     visit_List = 序列('[', ']')
 
+    def visit_Dict(self, 节点):
+        self.编写('{')
+        self.编写(':')
+        self.编写('}')
+
     def visit_BinOp(self, 节点):
         self.visit(节点.left)
         self.编写(' %s ' % 二元操作符[type(节点.op)])
