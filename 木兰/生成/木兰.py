@@ -326,7 +326,15 @@ class 木兰生成器(NodeVisitor):
 
     def visit_Dict(self, 节点):
         self.编写('{')
-        self.编写(':')
+        为空 = True
+        for 序号, (键, 值) in enumerate(zip(节点.keys, 节点.values)):
+            为空 = False
+            self.visit(键)
+            self.编写(': ')
+            self.visit(值)
+
+        if 为空:
+            self.编写(':')
         self.编写('}')
 
     def visit_BinOp(self, 节点):
