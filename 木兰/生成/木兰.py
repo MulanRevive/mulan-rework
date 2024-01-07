@@ -329,6 +329,8 @@ class 木兰生成器(NodeVisitor):
         为空 = True
         for 序号, (键, 值) in enumerate(zip(节点.keys, 节点.values)):
             为空 = False
+            if 序号:
+                self.编写(', ')
             self.visit(键)
             self.编写(': ')
             self.visit(值)
