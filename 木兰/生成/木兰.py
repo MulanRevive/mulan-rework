@@ -14,6 +14,7 @@ from ast import *
     Div: '/',
     FloorDiv: '/',
     Mod: '%',
+    Pow: '^',
 }
 布尔操作符 = {
     And: 'and',
