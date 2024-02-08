@@ -458,6 +458,11 @@ class 木兰生成器(NodeVisitor):
         else:
             self.visit(节点.value)
 
+    def visit_FormattedValue(self, 节点):
+        self.编写('str(')
+        self.visit(节点.value)
+        self.编写(')')
+
     def visit_NameConstant(self, 节点):
         if 节点.value is None:
             self.编写('nil')
