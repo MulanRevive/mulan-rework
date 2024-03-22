@@ -860,7 +860,14 @@ class 语法分析器:
             if 键 is None:
                 各参数.append(值)
             else:
-                关键词.append(ast.keyword(arg=键, value=值))
+                关键词.append(
+                    ast.keyword(
+                        arg=键,
+                        value=值,
+                        lineno=语法树.取行号(片段),
+                        col_offset=语法树.取列号(片段)
+                    )
+                )
 
         return 语法树.新节点(
             语法.调用,

@@ -129,9 +129,13 @@ class test所有(unittest.TestCase):
         
         self.assertEqual(报错[0], 报错_递归) # 间隔为 ast.py 与木兰源码
 
-        if python3版本号 == 8:
-            self.assertEqual(报错[22], f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a")
-            self.assertEqual(报错[26], "见第1行：using * in 测试.错误处理.循环引用.b")
+        报错内容1 = f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a"
+        报错内容2 = "见第1行：using * in 测试.错误处理.循环引用.b"
+        if python3版本号 == 7:
+            self.assertEqual(报错[19], 报错内容1)
+            self.assertEqual(报错[23], 报错内容2)
+        elif 8 <= python3版本号 <= 9:
+            self.assertEqual(报错[22], 报错内容1)
+            self.assertEqual(报错[26], 报错内容2)
         else:
-            self.assertEqual(报错[19], f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a")
-            self.assertEqual(报错[23], "见第1行：using * in 测试.错误处理.循环引用.b")
+            self.fail("请使用 Python 3.7 ~ 3.9 版本运行此测试")
