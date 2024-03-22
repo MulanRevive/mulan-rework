@@ -1,0 +1,74 @@
+# Python 3.9 支持
+
+## 支持情况测试
+
+测试平台： Ubuntu 20.04.3 LTS AMD64 (WSL 1)
+用于进行测试的 Python 版本详细信息：
+
+```plaintext
+Python 3.9.19 (main, Mar 20 2024, 18:08:17) [GCC 9.4.0] on linux
+```
+
+运行重现项目自身测试的结果与 Python 3.8 下的测试结果完全相同，包括警告信息。
+
+## 命令行参数行为对比测试
+
+使用`py3.8支持.md`文件中给出的`反汇编测试.ul`运行`木兰 --反汇编 反汇编测试.ul`，结果如下：
+
+```plaintext
+  1           0 LOAD_CONST               0 (0)
+              2 STORE_NAME               0 (i)
+
+  3     >>    4 LOAD_NAME                0 (i)
+              6 LOAD_CONST               1 (10)
+              8 COMPARE_OP               1 (<=)
+             10 POP_JUMP_IF_FALSE       80
+
+  4          12 LOAD_NAME                0 (i)
+             14 LOAD_CONST               2 (1)
+             16 INPLACE_ADD
+             18 STORE_NAME               0 (i)
+
+  6          20 SETUP_FINALLY           18 (to 40)
+
+  7          22 LOAD_NAME                1 (__rem__)
+             24 LOAD_NAME                0 (i)
+             26 LOAD_CONST               3 (2)
+             28 CALL_FUNCTION            2
+             30 POP_JUMP_IF_FALSE       36
+
+  8          32 POP_BLOCK
+             34 JUMP_ABSOLUTE            4
+        >>   36 POP_BLOCK
+             38 JUMP_FORWARD            30 (to 70)
+
+ 10     >>   40 POP_TOP
+             42 STORE_NAME               2 (Exception)
+             44 POP_TOP
+             46 SETUP_FINALLY           12 (to 60)
+             48 POP_BLOCK
+             50 POP_EXCEPT
+             52 LOAD_CONST               4 (None)
+             54 STORE_NAME               2 (Exception)
+             56 DELETE_NAME              2 (Exception)
+             58 JUMP_FORWARD            10 (to 70)
+        >>   60 LOAD_CONST               4 (None)
+             62 STORE_NAME               2 (Exception)
+             64 DELETE_NAME              2 (Exception)
+             66 RERAISE
+             68 RERAISE
+
+ 12     >>   70 LOAD_NAME                3 (println)
+             72 LOAD_NAME                0 (i)
+             74 CALL_FUNCTION            1
+             76 POP_TOP
+             78 JUMP_ABSOLUTE            4
+        >>   80 LOAD_CONST               4 (None)
+             82 RETURN_VALUE
+```
+
+其中新出现了`RERAISE`操作码，关于其具体的作用以及其它差别，可以参考 [dis --- Python 字节码反汇编器 — Python 3.9.18 文档](https://docs.python.org/zh-cn/3.9/library/dis.html#opcode-RERAISE)。
+
+### 语法树节点差异
+
+Python 3.9 中，函数调用时的[关键字参数](https://docs.python.org/zh-cn/3.9/glossary.html#term-argument)必须提供`lineno`与`col_offset`属性，否则会出现形如如下的异常：`类型错误：required field "lineno" missing from keyword`。
