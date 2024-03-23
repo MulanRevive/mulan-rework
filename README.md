@@ -129,57 +129,28 @@ $ python -m 木兰
 
 ```terminal
 $ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.报错 测试.unittest.Python到木兰
-........
-----------------------------------------------------------------------
-Ran 12 tests in 2.000s
-
-OK
 ```
 
 2. 原始木兰可执行文件测试
 
 以下为检验[与原始木兰可执行文件功能一致](https://zhuanlan.zhihu.com/p/230155471)，在 Windows 下需将 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 置于项目根目录。
 
-以下测试语法相关用例。Windows 以外其他系统下，会对从 PyPI 安装的版本进行测试：
+以下测试语法相关用例。Windows 系统下会使用 木兰原始可执行文件（`ulang-0.2.2.exe`）测试，其他系统下则会使用 Python 安装的`木兰`进行测试：
 
 ```terminal
 $ python 测试/运行所有.py
-通过： 运算/加.ul
-……
-通过： 算法/排序/快速.ul
-===================
-！全部通过！
-本测试针对木兰原始可执行文件与重现项目的发布版。在此之前先运行`测试/unittest`下的集成测试。
 ```
 
 以下测试源码生成相关用例：
 
 ```terminal
 $ python -m unittest 测试.unittest.原始可执行文件
-.
-----------------------------------------------------------------------
-Ran 1 test in 53.000s
-
-OK
 ```
 
 以下测试木兰源码转换为 Python：
 
 ```terminal
 $ python -m unittest 测试.unittest.木兰到Python
-加载文件 测试/unittest/源码生成/木兰到Python\AnnAssign.ul...
-……
-加载文件 测试/unittest/源码生成/木兰到Python\输出nil.ul...
-得到原始木兰生成结果中...
-进度: （0/11）
-比较 测试/unittest/源码生成/木兰到Python\AnnAssign.ul
-……
-比较 测试/unittest/源码生成/木兰到Python\输出nil.ul
-.
-----------------------------------------------------------------------
-Ran 1 test in 12.000s
-
-OK
 ```
 
 ## 许可证
