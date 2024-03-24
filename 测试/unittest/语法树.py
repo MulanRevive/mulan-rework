@@ -42,6 +42,7 @@ class test语法树(unittest.TestCase):
             "指定函数类型.ul": r"Module(body=[FunctionDef(name='hello', args=arguments(args=[arg(arg='p', annotation=Name(id='int', ctx=Load(), lineno=1, col_offset=16), lineno=1, col_offset=12)], vararg=None, kwonlyargs=[], kw_defaults=[], kwarg=None, defaults=[]), body=[Return(value=Name(id='p', ctx=Load(), lineno=2, col_offset=10), lineno=2, col_offset=3)], decorator_list=[], returns=Name(id='int', ctx=Load(), lineno=1, col_offset=23), lineno=1, col_offset=1)])",
             "顺便处理各表达式前缀.ul": r"Module(body=[With(items=[withitem(context_expr=Name(id='c', ctx=Load(), lineno=1, col_offset=9), optional_vars=Tuple(elts=[Name(id='a', ctx=Load(), lineno=1, col_offset=5), Name(id='b', ctx=Load(), lineno=1, col_offset=7)], ctx=Store(), lineno=1, col_offset=5))], body=[Pass( lineno=1, col_offset=11)], lineno=1, col_offset=1)])",
             "善后.ul": r"Module(body=[Try(body=[Pass( lineno=1, col_offset=5)], handlers=[Pass( lineno=1, col_offset=5)], orelse=[], finalbody=[Pass( lineno=1, col_offset=16)], lineno=1, col_offset=1)])",
+            "关键字参数.ul": r"Module(body=[Expr(value=Call(func=Name(id='f', ctx=Load(), lineno=1, col_offset=1), args=[], keywords=[keyword(arg='x', value=Num(n=1, lineno=1, col_offset=5))], lineno=1, col_offset=1), lineno=1, col_offset=1)])",
         }
 
         期望值_3_8 = {
@@ -56,6 +57,7 @@ class test语法树(unittest.TestCase):
             "指定函数类型.ul": r"Module(body=[FunctionDef(name='hello', args=arguments(posonlyargs=[], args=[arg(arg='p', annotation=Name(id='int', ctx=Load(), lineno=1, col_offset=16), lineno=1, col_offset=12)], vararg=None, kwonlyargs=[], kw_defaults=[], kwarg=None, defaults=[]), body=[Return(value=Name(id='p', ctx=Load(), lineno=2, col_offset=10), lineno=2, col_offset=3)], decorator_list=[], returns=Name(id='int', ctx=Load(), lineno=1, col_offset=23), lineno=1, col_offset=1)], type_ignores=[])",
             "顺便处理各表达式前缀.ul": r"Module(body=[With(items=[withitem(context_expr=Name(id='c', ctx=Load(), lineno=1, col_offset=9), optional_vars=Tuple(elts=[Name(id='a', ctx=Load(), lineno=1, col_offset=5), Name(id='b', ctx=Load(), lineno=1, col_offset=7)], ctx=Store(), lineno=1, col_offset=5))], body=[Pass(lineno=1, col_offset=11)], lineno=1, col_offset=1)], type_ignores=[])",
             "善后.ul": r"Module(body=[Try(body=[Pass(lineno=1, col_offset=5)], handlers=[Pass(lineno=1, col_offset=5)], orelse=[], finalbody=[Pass(lineno=1, col_offset=16)], lineno=1, col_offset=1)], type_ignores=[])",
+            "关键字参数.ul": r"Module(body=[Expr(value=Call(func=Name(id='f', ctx=Load(), lineno=1, col_offset=1), args=[], keywords=[keyword(arg='x', value=Constant(value=1, lineno=1, col_offset=5), lineno=1, col_offset=1)], lineno=1, col_offset=1), lineno=1, col_offset=1)], type_ignores=[])",
         }
 
         期望值_3_9 = 期望值_3_8.copy()
