@@ -127,8 +127,8 @@ $ python -m 木兰
 
 1. 重现项目自身测试
 
-```terminal
-$ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.报错 测试.unittest.Python到木兰
+```shell
+python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.unittest.所有用例 测试.unittest.报错 测试.unittest.Python到木兰
 ```
 
 2. 原始木兰可执行文件测试
@@ -137,20 +137,20 @@ $ python -m unittest 测试.unittest.交互 测试.unittest.语法树 测试.uni
 
 以下测试语法相关用例。Windows 系统下会使用 木兰原始可执行文件（`ulang-0.2.2.exe`）测试，其他系统下则会使用 Python 安装的`木兰`进行测试：
 
-```terminal
-$ python 测试/运行所有.py
+```shell
+python 测试/运行所有.py
 ```
 
 以下测试源码生成相关用例：
 
-```terminal
-$ python -m unittest 测试.unittest.原始可执行文件
+```shell
+python -m unittest 测试.unittest.原始可执行文件
 ```
 
 以下测试木兰源码转换为 Python：
 
-```terminal
-$ python -m unittest 测试.unittest.木兰到Python
+```shell
+python -m unittest 测试.unittest.木兰到Python
 ```
 
 ## 许可证
