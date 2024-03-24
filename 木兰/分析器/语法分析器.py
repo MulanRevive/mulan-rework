@@ -860,7 +860,12 @@ class 语法分析器:
             if 键 is None:
                 各参数.append(值)
             else:
-                关键词.append(ast.keyword(arg=键, value=值))
+                位置参数 = {}
+                if python3版本号 >= 8:
+                    位置参数.update(
+                        lineno=语法树.取行号(片段), col_offset=语法树.取列号(片段)
+                    )
+                关键词.append(ast.keyword(arg=键, value=值, **位置参数))
 
         return 语法树.新节点(
             语法.调用,
