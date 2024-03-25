@@ -1,0 +1,38 @@
+[project]
+name = "ulang"
+authors = [
+    {name = "吴烜", email = "mulanrevive@gmail.com"},
+]
+description = "木兰编程语言重现"
+readme = "README.md"
+requires-python = ">=3.7,<3.10"
+license = {text = "GNU GPLv3"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "rply-ulang",
+    "codegen",
+]
+dynamic = ["version"]
+
+[tool.setuptools]
+packages = ["木兰"]
+
+[project.scripts]
+"木兰" = "木兰.中:中"
+
+[project.urls]
+Homepage = "https://www.oschina.net/p/mulan-rework"
+Source = "https://gitee.com/MulanRevive/mulan-rework"
+Changelog = "https://gitee.com/MulanRevive/mulan-rework#版本历史介绍"
+
+[tool.setuptools.dynamic]
+# 在`木兰/__init__.py`中修改版本号即可
+version = {attr = "木兰.__版本__"}
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
