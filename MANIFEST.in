@@ -1,0 +1,7 @@
+# 从发布的源码包中排除部分文件
+# https://setuptools.pypa.io/en/latest/userguide/miscellaneous.html#controlling-files-in-the-distribution
+
+prune .github
+prune .vscode
+prune .workflow
+exclude test* *.ul
