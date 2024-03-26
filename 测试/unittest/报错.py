@@ -64,6 +64,11 @@ class test所有(unittest.TestCase):
             "测试/错误处理/无法调用.ul": "类型错误：'int' object is not callable",
             "测试/错误处理/异常十六进制数.ul": "请先定义‘xg’再使用",
         }
+        if python3版本号 >= 10:
+            对应报错["测试/错误处理/调用非静态方法.ul"] = (
+                "类型错误：Person.getAge() missing 1 required positional argument: 'self'"
+            )
+
         for 文件 in 对应报错:
             报错 = 运行木兰代码(文件)
             self.assertEqual(报错[0], 对应报错[文件], 文件)
@@ -72,6 +77,11 @@ class test所有(unittest.TestCase):
             "测试/错误处理/catch2.ul": "语法错误：default 'except:' must be last (catch2.ul, line 2)",
             "测试/错误处理/函数外return.ul": "语法错误：'return' outside function (函数外return.ul, line 2)",
         }
+        if python3版本号 >= 10:
+            单层报错["测试/错误处理/catch2.ul"] = (
+                "语法错误：default 'except:' must be last (catch2.ul, line 3)"
+            )
+
         for 文件 in 单层报错:
             报错 = 运行木兰代码(文件)
             self.assertEqual(报错[0], 单层报错[文件], 文件)
@@ -134,8 +144,8 @@ class test所有(unittest.TestCase):
         if python3版本号 == 7:
             self.assertEqual(报错[19], 报错内容1)
             self.assertEqual(报错[23], 报错内容2)
-        elif 8 <= python3版本号 <= 9:
+        elif 8 <= python3版本号 <= 10:
             self.assertEqual(报错[22], 报错内容1)
             self.assertEqual(报错[26], 报错内容2)
         else:
-            self.fail("请使用 Python 3.7 ~ 3.9 版本运行此测试")
+            self.fail("请使用 Python 3.7 ~ 3.10 版本运行此测试")
