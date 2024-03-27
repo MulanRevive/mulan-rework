@@ -6,6 +6,7 @@ from pathlib import Path
 
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.语法分析器 import 语法分析器
+from 木兰.共享 import python3版本号
 
 运行时木兰路径 = str(Path("site-packages/木兰/"))
 
@@ -15,6 +16,7 @@ from 木兰.分析器.语法分析器 import 语法分析器
 报错_递归 = "递归过深。请确认: 1、的确需要递归 2、递归的收敛正确"
 报错_按索引取项 = "不支持按索引取项"
 报错_无属性 = "没有属性"
+报错_enter = "需要添加此属性：__enter__"
 参考_enter = "\n参考：https://stackoverflow.com/questions/1984325/explaining-pythons-enter-and-exit"
 
 
@@ -140,26 +142,39 @@ def 提示(类型, 原信息):
     elif 类型 == 'RecursionError':
         return 报错_递归
     elif 类型 == 'UnboundLocalError':
+        if python3版本号 <= 10:
+            模式 =r"local variable '(.*)' referenced before assignment"
+        else:
+            模式 = r"cannot access local variable '(.*)' where it is not associated with a value"
         return re.sub(
-            r"local variable '(.*)' referenced before assignment",
+            模式,
             r"请先对本地变量‘\1’赋值再引用",
             原信息)
     elif 类型 == 'KeyError':
         return "字典中不存在此键：" + 原信息
     elif 类型 == 'TypeError':
+        # 字符串拼接
         模式 = r'can only concatenate str \(not "(.*)"\) to str'
-        无法取项 = "'(.*)' object is not subscriptable"
         if re.match(模式, 原信息):
             return re.sub(模式, r'字符串只能拼接字符串，请将“\1”先用 str() 转换', 原信息)
-        匹配 = re.search(无法取项, 原信息)
+        # 按索引取项
+        模式 = "'(.*)' object is not subscriptable"
+        匹配 = re.search(模式, 原信息)
         if 匹配:
-            return f'{类型中文化(匹配.group(1))}{报错_按索引取项}'
+            return f"{类型中文化(匹配.group(1))}{报错_按索引取项}"
+        if python3版本号 >= 11:
+            # 未实现 __enter__ （上下文管理器）
+            模式 = "'(.*)' object does not support the context manager protocol"
+            匹配 = re.search(模式, 原信息)
+            if 匹配:
+                return f"{报错_enter}{参考_enter}"
+        # 其它类型错误
         return "类型错误：" + 原信息
     elif 类型 == 'IndexError' and 原信息 == "list index out of range":
         return 报错_列表索引
     elif 类型 == 'AttributeError':
         信息 = "需要添加此属性：" + 原信息
-        if 原信息 == "__enter__":
+        if python3版本号 <= 10 and 原信息 == "__enter__":
             信息 += 参考_enter
             return 信息
 

@@ -141,11 +141,15 @@ class test所有(unittest.TestCase):
 
         报错内容1 = f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a"
         报错内容2 = "见第1行：using * in 测试.错误处理.循环引用.b"
+        # pprint(list(enumerate(报错))[:40])
         if python3版本号 == 7:
             self.assertEqual(报错[19], 报错内容1)
             self.assertEqual(报错[23], 报错内容2)
         elif 8 <= python3版本号 <= 10:
             self.assertEqual(报错[22], 报错内容1)
             self.assertEqual(报错[26], 报错内容2)
+        elif 11 <= python3版本号:
+            self.assertEqual(报错[23], 报错内容1)
+            self.assertEqual(报错[27], 报错内容2)
         else:
-            self.fail("请使用 Python 3.7 ~ 3.10 版本运行此测试")
+            self.fail("请使用 Python 3.7 ~ 3.11 版本运行此测试")
