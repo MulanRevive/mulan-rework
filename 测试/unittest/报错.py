@@ -141,7 +141,7 @@ class test所有(unittest.TestCase):
 
         报错内容1 = f"“{Path('测试/错误处理/循环引用/b.ul')}”第1行：using * in 测试.错误处理.循环引用.a"
         报错内容2 = "见第1行：using * in 测试.错误处理.循环引用.b"
-        # pprint(list(enumerate(报错))[:40])
+
         if python3版本号 == 7:
             self.assertEqual(报错[19], 报错内容1)
             self.assertEqual(报错[23], 报错内容2)

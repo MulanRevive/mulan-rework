@@ -16,7 +16,8 @@ from 木兰.共享 import python3版本号
 报错_递归 = "递归过深。请确认: 1、的确需要递归 2、递归的收敛正确"
 报错_按索引取项 = "不支持按索引取项"
 报错_无属性 = "没有属性"
-报错_enter = "需要添加此属性：__enter__"
+报错_需要添加属性 = "需要添加此属性："
+enter_方法名 = "__enter__"
 参考_enter = "\n参考：https://stackoverflow.com/questions/1984325/explaining-pythons-enter-and-exit"
 
 
@@ -167,14 +168,14 @@ def 提示(类型, 原信息):
             模式 = "'(.*)' object does not support the context manager protocol"
             匹配 = re.search(模式, 原信息)
             if 匹配:
-                return f"{报错_enter}{参考_enter}"
+                return f"{报错_需要添加属性}{enter_方法名}{参考_enter}"
         # 其它类型错误
         return "类型错误：" + 原信息
     elif 类型 == 'IndexError' and 原信息 == "list index out of range":
         return 报错_列表索引
     elif 类型 == 'AttributeError':
-        信息 = "需要添加此属性：" + 原信息
-        if python3版本号 <= 10 and 原信息 == "__enter__":
+        信息 = 报错_需要添加属性 + 原信息
+        if python3版本号 <= 10 and 原信息 == enter_方法名:
             信息 += 参考_enter
             return 信息
 
