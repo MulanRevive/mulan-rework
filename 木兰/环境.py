@@ -175,7 +175,7 @@ def 创建全局变量(argv=[], 文件名=''):
 
     def 内置自身():
         """ 当前任务 ID """
-        return threading.currentThread()
+        return threading.current_thread()
 
     def 生成新任务(任务名, *参数列表):
 
@@ -186,7 +186,7 @@ def 创建全局变量(argv=[], 文件名=''):
 
     def 杀死任务(任务线程):
         if isinstance(任务线程, 线程):
-            if 任务线程 == threading.currentThread():
+            if 任务线程 == threading.current_thread():
                 sys.exit()
             elif 任务线程.is_alive():
                 任务线程.杀死()
