@@ -21,7 +21,7 @@ class 语法树:
             节点 = ast.Expr(value=值)
         elif 类型 == 语法.数:
             if python3版本号 >= 8:
-                节点 = ast.Constant(n=值)
+                节点 = ast.Constant(value=值)
             else:
                 节点 = ast.Num(n=值)
         elif 类型 == 语法.二元表达式:
