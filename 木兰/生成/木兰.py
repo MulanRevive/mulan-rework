@@ -1,4 +1,5 @@
 from ast import *
+from 木兰.共享 import python3版本号
 
 '''
 注释"研究"的待进一步揣摩
@@ -382,17 +383,30 @@ class 木兰生成器(NodeVisitor):
     # 统一被 Constant 节点代替，所以使用一个
     # visit_Constant 方法来统一处理三个情况
     def visit_Constant(self, 节点):
-        if isinstance(节点, Num):
-            self.编写(repr(节点.n))
-        elif isinstance(节点, NameConstant):
-            if 节点.value is None:
+        if python3版本号 >= 8:
+            节点值 = 节点.value
+            if 节点值 is None:
                 self.编写('nil')
-            elif 节点.value:
-                self.编写('true')
-            else:
-                self.编写('false')
-        elif isinstance(节点, Str):
-            self.编写(repr(节点.s))
+            elif isinstance(节点值, bool):
+                # bool 判断必须在 int 之前，因为 bool 是 int 的子类
+                if 节点值:
+                    self.编写('true')
+                else:
+                    self.编写('false')
+            elif isinstance(节点值, str) or isinstance(节点值, int) or isinstance(节点值, float):
+                self.编写(repr(节点值))
+        else:
+            if isinstance(节点, Num):
+                self.编写(repr(节点.n))
+            elif isinstance(节点, NameConstant):
+                if 节点.value is None:
+                    self.编写('nil')
+                elif 节点.value:
+                    self.编写('true')
+                else:
+                    self.编写('false')
+            elif isinstance(节点, Str):
+                self.编写(repr(节点.s))
 
     def visit_UnaryOp(self, 节点):
         self.编写("(")
@@ -453,10 +467,17 @@ class 木兰生成器(NodeVisitor):
     def visit_Expr(self, 节点):
         self.记录("Expr: " + str(节点))
         self.另起一行()
-        if isinstance(节点.value, Str):
-            self.编写('/* %s */' % 节点.value.s)
+        节点值 = 节点.value
+        if (
+            python3版本号 >= 8
+            and isinstance(节点值, Constant)
+            and isinstance(节点值.value, str)
+        ):
+            self.编写('/* %s */' % 节点值.value)
+        elif python3版本号 < 8 and isinstance(节点值, Str):
+            self.编写('/* %s */' % 节点值.s)
         else:
-            self.visit(节点.value)
+            self.visit(节点值)
 
     def visit_FormattedValue(self, 节点):
         self.编写('str(')

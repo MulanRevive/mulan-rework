@@ -722,7 +722,14 @@ class 语法分析器:
         参数.append(片段[2])
         止 = 参数[1]
         if hasattr(止, 'fixed'):
-            if isinstance(片段[2], ast.Num):
+            if (
+                python3版本号 >= 8
+                and isinstance(片段[2], ast.Constant)
+                and (isinstance(片段[2].value, int) or isinstance(片段[2].value, float))
+            ):
+                if 片段[2].value < 0:
+                    止.op = ast.Sub()
+            elif python3版本号 < 8 and isinstance(片段[2], ast.Num):
                 if 片段[2].n < 0:
                     止.op = ast.Sub()
             else:
