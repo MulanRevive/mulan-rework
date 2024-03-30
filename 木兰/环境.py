@@ -1,4 +1,4 @@
-import imp
+import importlib.util
 import math
 import os
 import sys
@@ -54,6 +54,12 @@ def 分析并编译(源码文件名):
         return compile(节点, 源码文件名, 'exec')
 
 
+def 创建空模块(名称):
+    spec = importlib.util.spec_from_loader(名称, loader=None)
+    assert spec is not None
+    return importlib.util.module_from_spec(spec)
+
+
 def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
     木兰源码路径 = str(Path(*(名称.split(".")))) + '.ul'
     可执行码 = 分析并编译(木兰源码路径)
@@ -73,12 +79,12 @@ def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
         前段, 后段 = 后段[:点位], 后段[点位 + 1:]
         if 点位 == -1:
             前段 = 后段
-            模块 = imp.new_module(模块名(后段))
+            模块 = 创建空模块(模块名(后段))
             模块.__dict__.update(创建全局变量(argv=(全局['ARGV'])))
             模块.__dict__['__file__'] = os.path.abspath(木兰源码路径)
             exec(可执行码, 模块.__dict__)
         else:
-            模块 = imp.new_module(模块名(前段))
+            模块 = 创建空模块(模块名(前段))
         if 所有模块:
             所有模块[-1].__dict__[前段] = 模块
         所有模块.append(模块)
