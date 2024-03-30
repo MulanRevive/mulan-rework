@@ -148,8 +148,8 @@ class test所有(unittest.TestCase):
         elif 8 <= python3版本号 <= 10:
             self.assertEqual(报错[22], 报错内容1)
             self.assertEqual(报错[26], 报错内容2)
-        elif 11 <= python3版本号:
+        elif 11 <= python3版本号 <= 12:
             self.assertEqual(报错[23], 报错内容1)
             self.assertEqual(报错[27], 报错内容2)
         else:
-            self.fail("请使用 Python 3.7 ~ 3.11 版本运行此测试")
+            self.fail("请使用 Python 3.7 ~ 3.12 版本运行此测试")

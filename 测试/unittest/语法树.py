@@ -77,10 +77,10 @@ class test语法树(unittest.TestCase):
             self._test_整树比较(期望值_3_7)
         elif python3版本号 == 8:
             self._test_整树比较(期望值_3_8)
-        elif 9 <= python3版本号 <= 11:
+        elif 9 <= python3版本号 <= 12:
             self._test_整树比较(期望值_3_9)
         else:
-            self.fail("请使用 Python 3.7 ~ 3.11 版本运行此测试")
+            self.fail("请使用 Python 3.7 ~ 3.12 版本运行此测试")
 
     def _test_整树比较(self, 期望值):
         路径 = "测试/unittest/例程/"
