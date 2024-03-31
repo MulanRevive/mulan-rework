@@ -928,11 +928,12 @@ class 语法分析器:
             return self.形参列表()
 
         # TODO：添加测试
-        
         raise SyntaxError(
-                'expect an identifier here',
-                (self.文件名, 语法树.取行号(片段), 语法树.取列号(片段), self.源码)
-            )
+            message='expect an identifier here',
+            filename=self.文件名,
+            lineno=语法树.取行号(片段),
+            colno=语法树.取列号(片段),
+            source=self.源码)
 
     @分析器母机.语法规则(语法.lambda主体.成分(箭头, 语法.表达式))
     @分析器母机.语法规则(语法.lambda主体.成分(箭头, 语法.块))
