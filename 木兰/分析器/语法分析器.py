@@ -10,6 +10,8 @@ from 木兰.分析器.语法成分 import *
 from 木兰.功用.常用 import *
 from copy import deepcopy
 
+from 木兰.语法树节点 import 节点为数字
+
 """
 LR(1) 将木兰源码分析后生成 Python 语法树
 """
@@ -722,15 +724,8 @@ class 语法分析器:
         参数.append(片段[2])
         止 = 参数[1]
         if hasattr(止, 'fixed'):
-            if (
-                python3版本号 >= 8
-                and isinstance(片段[2], ast.Constant)
-                and (isinstance(片段[2].value, int) or isinstance(片段[2].value, float))
-            ):
-                if 片段[2].value < 0:
-                    止.op = ast.Sub()
-            elif python3版本号 < 8 and isinstance(片段[2], ast.Num):
-                if 片段[2].n < 0:
+            if 节点为数字(片段[2]):
+                if ast.literal_eval(片段[2]) < 0:
                     止.op = ast.Sub()
             else:
                 为正 = 语法树.新节点(

@@ -1,5 +1,6 @@
 from ast import *
 from 木兰.共享 import python3版本号
+from 木兰.语法树节点 import 节点为字符串, 节点为数字, 节点为真假值, 节点为空
 
 '''
 注释"研究"的待进一步揣摩
@@ -383,30 +384,19 @@ class 木兰生成器(NodeVisitor):
     # 统一被 Constant 节点代替，所以使用一个
     # visit_Constant 方法来统一处理三个情况
     def visit_Constant(self, 节点):
-        if python3版本号 >= 8:
-            节点值 = 节点.value
-            if 节点值 is None:
-                self.编写('nil')
-            elif isinstance(节点值, bool):
-                # bool 判断必须在 int 之前，因为 bool 是 int 的子类
-                if 节点值:
-                    self.编写('true')
-                else:
-                    self.编写('false')
-            elif isinstance(节点值, str) or isinstance(节点值, int) or isinstance(节点值, float):
-                self.编写(repr(节点值))
+        if 节点为空(节点):
+            self.编写('nil')
+        elif 节点为真假值(节点):
+            if literal_eval(节点):
+                self.编写('true')
+            else:
+                self.编写('false')
+        elif 节点为字符串(节点):
+            self.编写(repr(literal_eval(节点)))
+        elif 节点为数字(节点):
+            self.编写(repr(literal_eval(节点)))
         else:
-            if isinstance(节点, Num):
-                self.编写(repr(节点.n))
-            elif isinstance(节点, NameConstant):
-                if 节点.value is None:
-                    self.编写('nil')
-                elif 节点.value:
-                    self.编写('true')
-                else:
-                    self.编写('false')
-            elif isinstance(节点, Str):
-                self.编写(repr(节点.s))
+            assert False, "未知的 Constant 节点类型" + repr(节点)
 
     def visit_UnaryOp(self, 节点):
         self.编写("(")

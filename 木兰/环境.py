@@ -55,9 +55,9 @@ def 分析并编译(源码文件名):
 
 
 def 创建空模块(名称):
-    spec = importlib.util.spec_from_loader(名称, loader=None)
-    assert spec is not None
-    return importlib.util.module_from_spec(spec)
+    模块规范 = importlib.util.spec_from_loader(名称, loader=None)
+    assert 模块规范 is not None
+    return importlib.util.module_from_spec(模块规范)
 
 
 def 加载木兰模块(名称, 全局, 源自=(), 目录相对层次=0):
