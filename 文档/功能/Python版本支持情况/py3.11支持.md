@@ -1,5 +1,3 @@
-# Python 3.11 支持
-
 ## 支持情况测试
 
 测试平台： Ubuntu 20.04.3 LTS AMD64 (WSL 1)
