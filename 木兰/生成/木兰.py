@@ -313,6 +313,7 @@ class 木兰生成器(NodeVisitor):
     def visit_Num(self, 节点):
         self.编写(repr(节点.n))
 
+    @staticmethod
     def 序列(左括号, 右括号):
         def visit(self, 节点):
             self.编写(左括号)

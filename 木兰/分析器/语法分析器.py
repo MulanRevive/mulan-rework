@@ -930,12 +930,11 @@ class 语法分析器:
             return self.形参列表()
 
         # TODO：添加测试
+        
         raise SyntaxError(
-            message='expect an identifier here',
-            filename=self.文件名,
-            lineno=语法树.取行号(片段),
-            colno=语法树.取列号(片段),
-            source=self.源码)
+                'expect an identifier here',
+                (self.文件名, 语法树.取行号(片段), 语法树.取列号(片段), self.源码)
+            )
 
     @分析器母机.语法规则(语法.lambda主体.成分(箭头, 语法.表达式))
     @分析器母机.语法规则(语法.lambda主体.成分(箭头, 语法.块))
@@ -1217,7 +1216,7 @@ class 语法分析器:
 
     @分析器母机.语法规则(语法.函数.成分(名词_函数, 标识符, 前小括号, 语法.形参列表, 后小括号, 冒号, 语法.类型名称, 语法.块))
     @分析器母机.语法规则(语法.函数.成分(名词_函数, 标识符, 冒号, 语法.类型名称, 语法.块))
-    def 函数(self, 片段):
+    def 带类型函数(self, 片段):
         return 语法树.新节点(
             语法.函数,
             名称=(片段[1].getstr()),
