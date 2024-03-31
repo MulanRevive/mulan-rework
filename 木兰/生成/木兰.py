@@ -1,4 +1,5 @@
 from ast import *
+from 木兰.分析器.语法树 import 语法树
 
 '''
 注释"研究"的待进一步揣摩
@@ -311,6 +312,7 @@ class 木兰生成器(NodeVisitor):
     def visit_Num(self, 节点):
         self.编写(repr(节点.n))
 
+    @staticmethod
     def 序列(左括号, 右括号):
         def visit(self, 节点):
             self.编写(左括号)
@@ -382,17 +384,19 @@ class 木兰生成器(NodeVisitor):
     # 统一被 Constant 节点代替，所以使用一个
     # visit_Constant 方法来统一处理三个情况
     def visit_Constant(self, 节点):
-        if isinstance(节点, Num):
-            self.编写(repr(节点.n))
-        elif isinstance(节点, NameConstant):
-            if 节点.value is None:
-                self.编写('nil')
-            elif 节点.value:
+        if 语法树.节点为空(节点):
+            self.编写('nil')
+        elif 语法树.节点为真假值(节点):
+            if literal_eval(节点):
                 self.编写('true')
             else:
                 self.编写('false')
-        elif isinstance(节点, Str):
-            self.编写(repr(节点.s))
+        elif 语法树.节点为字符串(节点):
+            self.编写(repr(literal_eval(节点)))
+        elif 语法树.节点为数字(节点):
+            self.编写(repr(literal_eval(节点)))
+        else:
+            assert False, "未知的 Constant 节点类型" + repr(节点)
 
     def visit_UnaryOp(self, 节点):
         self.编写("(")
@@ -453,10 +457,11 @@ class 木兰生成器(NodeVisitor):
     def visit_Expr(self, 节点):
         self.记录("Expr: " + str(节点))
         self.另起一行()
-        if isinstance(节点.value, Str):
-            self.编写('/* %s */' % 节点.value.s)
+        节点值 = 节点.value
+        if 语法树.节点为字符串(节点值):
+            self.编写('/* %s */' % literal_eval(节点值))
         else:
-            self.visit(节点.value)
+            self.visit(节点值)
 
     def visit_FormattedValue(self, 节点):
         self.编写('str(')

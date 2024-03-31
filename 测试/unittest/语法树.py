@@ -57,7 +57,7 @@ class test语法树(unittest.TestCase):
             "指定函数类型.ul": r"Module(body=[FunctionDef(name='hello', args=arguments(posonlyargs=[], args=[arg(arg='p', annotation=Name(id='int', ctx=Load(), lineno=1, col_offset=16), lineno=1, col_offset=12)], vararg=None, kwonlyargs=[], kw_defaults=[], kwarg=None, defaults=[]), body=[Return(value=Name(id='p', ctx=Load(), lineno=2, col_offset=10), lineno=2, col_offset=3)], decorator_list=[], returns=Name(id='int', ctx=Load(), lineno=1, col_offset=23), lineno=1, col_offset=1)], type_ignores=[])",
             "顺便处理各表达式前缀.ul": r"Module(body=[With(items=[withitem(context_expr=Name(id='c', ctx=Load(), lineno=1, col_offset=9), optional_vars=Tuple(elts=[Name(id='a', ctx=Load(), lineno=1, col_offset=5), Name(id='b', ctx=Load(), lineno=1, col_offset=7)], ctx=Store(), lineno=1, col_offset=5))], body=[Pass(lineno=1, col_offset=11)], lineno=1, col_offset=1)], type_ignores=[])",
             "善后.ul": r"Module(body=[Try(body=[Pass(lineno=1, col_offset=5)], handlers=[Pass(lineno=1, col_offset=5)], orelse=[], finalbody=[Pass(lineno=1, col_offset=16)], lineno=1, col_offset=1)], type_ignores=[])",
-            "关键字参数.ul": r"Module(body=[Expr(value=Call(func=Name(id='f', ctx=Load(), lineno=1, col_offset=1), args=[], keywords=[keyword(arg='x', value=Constant(value=1, lineno=1, col_offset=5), lineno=1, col_offset=1)], lineno=1, col_offset=1), lineno=1, col_offset=1)], type_ignores=[])",
+            "关键字参数.ul": r"Module(body=[Expr(value=Call(func=Name(id='f', ctx=Load(), lineno=1, col_offset=1), args=[], keywords=[keyword(arg='x', value=Constant(value=1, lineno=1, col_offset=5))], lineno=1, col_offset=1), lineno=1, col_offset=1)], type_ignores=[])",
         }
 
         期望值_3_9 = 期望值_3_8.copy()
@@ -69,6 +69,7 @@ class test语法树(unittest.TestCase):
                 "空匿名函数.ul": r"Module(body=[Assign(targets=[Name(id='b', ctx=Store(), lineno=1, col_offset=1)], value=Lambda(args=arguments(posonlyargs=[], args=[], kwonlyargs=[], kw_defaults=[], defaults=[]), body=Constant(value=2, lineno=1, col_offset=11), lineno=0, col_offset=0), lineno=1, col_offset=1), Expr(value=Call(func=Name(id='print', ctx=Load(), lineno=2, col_offset=1), args=[Call(func=Name(id='b', ctx=Load(), lineno=2, col_offset=7), args=[], keywords=[], lineno=2, col_offset=7)], keywords=[], lineno=2, col_offset=1), lineno=2, col_offset=1)], type_ignores=[])",
                 "超类语法.ul": r"Module(body=[ClassDef(name='Person', bases=[Name(id='list', ctx=Load(), lineno=1, col_offset=15)], keywords=[], body=[FunctionDef(name='__init__', args=arguments(posonlyargs=[], args=[arg(arg='self', lineno=2, col_offset=3)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Expr(value=Call(func=Attribute(value=Call(func=Name(id='super', ctx=Load(), lineno=3, col_offset=5), args=[], keywords=[], lineno=3, col_offset=5), attr='__init__', ctx=Load(), lineno=3, col_offset=5), args=[], keywords=[], lineno=3, col_offset=5), lineno=3, col_offset=5)], decorator_list=[], lineno=2, col_offset=3)], decorator_list=[], lineno=1, col_offset=1), Assign(targets=[Name(id='p', ctx=Store(), lineno=6, col_offset=1)], value=Call(func=Name(id='Person', ctx=Load(), lineno=6, col_offset=5), args=[], keywords=[], lineno=6, col_offset=5), lineno=6, col_offset=1), Assign(targets=[Name(id='v', ctx=Store(), lineno=7, col_offset=1)], value=Call(func=Attribute(value=Name(id='p', ctx=Load(), lineno=7, col_offset=5), attr='super', ctx=Load(), lineno=7, col_offset=5), args=[], keywords=[], lineno=7, col_offset=7), lineno=7, col_offset=1), Expr(value=Call(func=Attribute(value=Name(id='Person', ctx=Load(), lineno=8, col_offset=1), attr='super', ctx=Load(), lineno=8, col_offset=1), args=[Name(id='None', ctx=Load(), lineno=8, col_offset=14)], keywords=[], lineno=8, col_offset=8), lineno=8, col_offset=8)], type_ignores=[])",
                 "指定函数类型.ul": r"Module(body=[FunctionDef(name='hello', args=arguments(posonlyargs=[], args=[arg(arg='p', annotation=Name(id='int', ctx=Load(), lineno=1, col_offset=16), lineno=1, col_offset=12)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Return(value=Name(id='p', ctx=Load(), lineno=2, col_offset=10), lineno=2, col_offset=3)], decorator_list=[], returns=Name(id='int', ctx=Load(), lineno=1, col_offset=23), lineno=1, col_offset=1)], type_ignores=[])",
+                "关键字参数.ul": r"Module(body=[Expr(value=Call(func=Name(id='f', ctx=Load(), lineno=1, col_offset=1), args=[], keywords=[keyword(arg='x', value=Constant(value=1, lineno=1, col_offset=5), lineno=1, col_offset=1)], lineno=1, col_offset=1), lineno=1, col_offset=1)], type_ignores=[])",
             }
         )
 
@@ -76,10 +77,10 @@ class test语法树(unittest.TestCase):
             self._test_整树比较(期望值_3_7)
         elif python3版本号 == 8:
             self._test_整树比较(期望值_3_8)
-        elif 9 <= python3版本号 <= 11:
+        elif 9 <= python3版本号 <= 12:
             self._test_整树比较(期望值_3_9)
         else:
-            self.fail("请使用 Python 3.7 ~ 3.11 版本运行此测试")
+            self.fail("请使用 Python 3.7 ~ 3.12 版本运行此测试")
 
     def _test_整树比较(self, 期望值):
         路径 = "测试/unittest/例程/"
