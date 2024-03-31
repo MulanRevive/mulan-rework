@@ -1,6 +1,6 @@
 from ast import *
 from 木兰.共享 import python3版本号
-from 木兰.语法树节点 import 节点为字符串, 节点为数字, 节点为真假值, 节点为空
+from 木兰.分析器.语法树 import 语法树
 
 '''
 注释"研究"的待进一步揣摩
@@ -385,16 +385,16 @@ class 木兰生成器(NodeVisitor):
     # 统一被 Constant 节点代替，所以使用一个
     # visit_Constant 方法来统一处理三个情况
     def visit_Constant(self, 节点):
-        if 节点为空(节点):
+        if 语法树.节点为空(节点):
             self.编写('nil')
-        elif 节点为真假值(节点):
+        elif 语法树.节点为真假值(节点):
             if literal_eval(节点):
                 self.编写('true')
             else:
                 self.编写('false')
-        elif 节点为字符串(节点):
+        elif 语法树.节点为字符串(节点):
             self.编写(repr(literal_eval(节点)))
-        elif 节点为数字(节点):
+        elif 语法树.节点为数字(节点):
             self.编写(repr(literal_eval(节点)))
         else:
             assert False, "未知的 Constant 节点类型" + repr(节点)

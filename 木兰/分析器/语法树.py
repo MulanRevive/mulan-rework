@@ -288,3 +288,29 @@ class 语法树:
             return 语法树.取源码位置(片段).colno
         except:
             return 0
+
+    @staticmethod
+    def 节点为字符串(节点):
+        if python3版本号 <= 7:
+            return isinstance(节点, ast.Str)
+        return isinstance(节点, ast.Constant) and isinstance(节点.value, str)
+
+    @staticmethod
+    def 节点为真假值(节点):
+        if python3版本号 <= 7:
+            return isinstance(节点, ast.NameConstant) and isinstance(节点.value, bool)
+        return isinstance(节点, ast.Constant) and isinstance(节点.value, bool)
+
+    @staticmethod
+    def 节点为空(节点):
+        if python3版本号 <= 7:
+            return isinstance(节点, ast.NameConstant) and 节点.value is None
+        return isinstance(节点, ast.Constant) and 节点.value is None
+
+    @staticmethod
+    def 节点为数字(节点):
+        if 语法树.节点为真假值(节点):
+            return False
+        if python3版本号 <= 7:
+            return isinstance(节点, ast.Num)
+        return isinstance(节点, ast.Constant) and isinstance(节点.value, (int, float))
