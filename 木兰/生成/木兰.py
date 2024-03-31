@@ -1,5 +1,4 @@
 from ast import *
-from 木兰.共享 import python3版本号
 from 木兰.分析器.语法树 import 语法树
 
 '''
@@ -459,14 +458,8 @@ class 木兰生成器(NodeVisitor):
         self.记录("Expr: " + str(节点))
         self.另起一行()
         节点值 = 节点.value
-        if (
-            python3版本号 >= 8
-            and isinstance(节点值, Constant)
-            and isinstance(节点值.value, str)
-        ):
-            self.编写('/* %s */' % 节点值.value)
-        elif python3版本号 < 8 and isinstance(节点值, Str):
-            self.编写('/* %s */' % 节点值.s)
+        if 语法树.节点为字符串(节点值):
+            self.编写('/* %s */' % literal_eval(节点值))
         else:
             self.visit(节点值)
 
