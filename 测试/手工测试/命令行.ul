@@ -1,9 +1,9 @@
-using Cmd in cmd; using 随机范围数 in 随机数
+using Cmd in cmd; using randrange in random
 
 type 猜数字 : Cmd {
   {
-    intro, prompt = "木兰想了个 100 之内的数，猜是几？", "猜猜吧: "
-    想的 = 随机范围数(1000) / 10; 历史 = []; 至今最近 = 100
+    intro, prompt = "木兰想了个 100 之内的数，猜是几？", "\n猜猜吧: "
+    想的 = randrange(1000) / 10; 历史 = []
   }
 
   func $default(行) {
@@ -13,16 +13,15 @@ type 猜数字 : Cmd {
   }
 
   func $比较(数) {
-    if 数 == $想的 { println("中了!"); 再会() }
-    else {
-      println("太" + (数 > $想的 ? "大" : "小") + "了!")
-      println("不过接近咯") if $接近了()
-    }
+    { println("中了!"); 再会() } if 数 == $想的
+
+    println("太" + (数 > $想的 ? "大" : "小") + "了!")
+    println("不过接近咯") if $接近了()
   }
 
   func $接近了 {
     最近 = min(map(数 -> { 差 = 数 - $想的; return fabs(差) }, $历史))
-    { $至今最近 = 最近; return true } if $至今最近 > 最近
+    return #$历史 > 1 and fabs($历史[-1] - $想的) == 最近
   }
 }
 猜数字().cmdloop()

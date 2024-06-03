@@ -15,7 +15,7 @@
 
 [VS Code 语法高亮插件](https://marketplace.visualstudio.com/items?itemName=CodeInChinese.ulang)：
 
-![vsc截图](https://gitee.com/MulanRevive/ide-extension-vscode/raw/master/%E6%88%AA%E5%9B%BE/2021-01-20_%E4%B8%80%E5%B2%81.png)
+![vsc截图](https://gitee.com/MulanRevive/ide-extension-vscode/raw/master/%E6%88%AA%E5%9B%BE/2024-06-03_%E7%8C%9C%E6%95%B0%E5%AD%97.png)
 
 【原型】[自带在线编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器)：
 
@@ -23,20 +23,7 @@
 
 ### 运行木兰源码文件
 
-`$ 木兰 测试/手工测试/草蟒_海龟.ul` 运行如下调用了 [草蟒](https://www.oschina.net/p/grasspy) 中文 API 的 [例程](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/手工测试/草蟒_海龟.ul)：
-
-```javascript
-using * in 海龟
-
-颜色("黄色", "红色")
-开始填充()
-for 转角 in 0..4 {
-  前进(200); 右转(144)
-}
-结束填充()
-主循环()
-/* 需安装 Python 库“草蟒”： grasspy-modules */
-```
+`$ 木兰 测试/手工测试/命令行.ul` 运行上面的 `猜数字` 游戏。
 
 ### 中文报错信息
 

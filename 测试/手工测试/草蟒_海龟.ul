@@ -1,3 +1,4 @@
+/* Python 库“草蟒”： grasspy-modules 已失效，此例程不再运行 */
 using * in 海龟
 
 颜色("黄色", "红色")
@@ -7,4 +8,3 @@ for 转角 in 0..4 {
 }
 结束填充()
 主循环()
-/* 需安装 Python 库“草蟒”： grasspy-modules */
