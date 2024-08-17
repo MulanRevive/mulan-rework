@@ -1,3 +1,9 @@
+## 0.1.6.4（2024-08-16）
+
+发布到 pypi 时，误将版本退回。
+
+[发布版与测试版报错一致化](https://gitee.com/MulanRevive/mulan-rework/issues/I68ED1)
+
 ## 0.1.7 (2024-3-30)
 
 支持 Python 3.12

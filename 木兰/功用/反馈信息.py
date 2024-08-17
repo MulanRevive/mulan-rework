@@ -27,13 +27,12 @@ def 反馈信息(例外, 源码文件=None):
         提神符 = "（>﹏<）"
     return 提神符 + "\n".join(中文化(例外, 源码文件))
 
-
+# I68ED1 加调试信息、在test.pypi发布后测试发现，`行信息` 过早过滤。
 def 中文化(例外, 源码文件=None):
     类型 = 例外.__class__.__name__
     原信息 = str(例外)
     exc_type, exc_value, 回溯信息 = sys.exc_info()
     各层 = traceback.extract_tb(回溯信息)
-    # print(repr(各层))
     各行 = []
 
     行信息 = 提取(各层)
@@ -61,9 +60,8 @@ def 提取(各层):
     for 层号 in range(len(各层) - 1, -1, -1):
         层 = 各层[层号]
         文件名 = 层.filename
-        if 文件名.find(运行时木兰路径) == -1:
-            各行.append(层信息(层.lineno, 层.line, 文件名))
-
+        # print(文件名 + ":" + str(层.lineno) + " -> " + 层.line)
+        各行.append(层信息(层.lineno, 层.line, 文件名))
     return 各行
 
 
