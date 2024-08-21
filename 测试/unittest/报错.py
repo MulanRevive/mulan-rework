@@ -14,7 +14,6 @@ class test所有(unittest.TestCase):
         对应报错 = {
             "测试/错误处理/2.ul": "没认出这个词 \"整数\"",
 
-            # TODO：如果是用错关键词，如 throw 用错为 raise（原 py 用户）则应提示
             "测试/错误处理/不识关键词.ul": "没认出这个词 \"标识符\"",
 
             "测试/错误处理/列表内容末尾逗号.ul": "没认出这个词 \"]\"",
@@ -39,7 +38,7 @@ class test所有(unittest.TestCase):
         对应报错 = {
             "测试/错误处理/下标越界.ul": 报错_列表索引,
 
-            # TODO: catch 的类型指定尚无实际作用
+            # catch 的类型指定尚无实际作用【同原始行为】
             "测试/错误处理/catch类型错误.ul": 报错_列表索引,
             "测试/错误处理/try随意.ul": "需要添加此属性：__enter__" + 参考_enter,
             "测试/错误处理/全局.ul": "请先对本地变量‘x’赋值再引用",
@@ -89,7 +88,7 @@ class test所有(unittest.TestCase):
         报错 = 运行木兰代码("测试/错误处理/误用函数.ul")
         self.assertEqual(报错[0], "类型错误：'function' object cannot be interpreted as an integer")
 
-        # TODO: 需捕获此错误
+        # TODO: 需捕获并中文化
         try:
             运行木兰代码("测试/错误处理/非法赋值.ul")
         except ValueError as e:
