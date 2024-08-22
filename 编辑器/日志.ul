@@ -1,8 +1,0 @@
-using logging
-
-日志文件 = '编辑器/事件.log'
-
-logging.basicConfig(
-  filename=日志文件,
-  format='%(asctime)s %(message)s',
-  level=logging.INFO)
