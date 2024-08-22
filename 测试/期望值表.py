@@ -123,7 +123,6 @@ import datetime
     "引用/引用本地多py.ul": b"23",
     "引用/引用本地py全部内容.ul": b"32",
 
-    # TODO: 引用 python 标准库, 第三方库
     "引用/引用标准py_math.ul": b"5",
     "引用/引用标准py_random.ul": b"true",
 

@@ -23,7 +23,7 @@ using json
 for 行 in 所有行 {
   字段 = 行.split("\t")
 
-  // TODO: 暂时只考察两部分构成的字
+  // 暂时只考察两部分构成的字
   continue if len(字段) != 3
   字 = 字段[1]
   信息 = 字段[2]
