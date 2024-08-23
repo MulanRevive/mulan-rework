@@ -43,10 +43,11 @@ class NameFixPass(ast.NodeTransformer):
         self.类.pop(-1)
         return 类
 
-    # 待补全：assert
     def visit_Call(self, 调用):
         函数 = 调用.func
         if isinstance(函数, ast.Name):
+
+            # 原始还有对 assert 的处理，不解其意
             if 函数.id == 'super' and len(调用.args) > 0:
                 函数 = ast.Call(
                     func=函数,

@@ -3,4 +3,5 @@ func {
 }
 /*
 TypeError: required field "args" missing from arguments
+"posonlyargs" after 3.8
 */
