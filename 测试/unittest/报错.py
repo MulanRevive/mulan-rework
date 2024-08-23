@@ -1,6 +1,6 @@
 import unittest
 
-from 编辑器.运行木兰 import 运行木兰代码
+from 辅助工具.运行木兰 import 运行木兰代码
 from 木兰.分析器.错误 import 语法错误
 from 木兰.功用.反馈信息 import *
 from 木兰.共享 import python3版本号

@@ -1,5 +1,5 @@
 from 测试.期望值表 import 期望值
-from 编辑器.运行木兰 import 运行木兰代码
+from 辅助工具.运行木兰 import 运行木兰代码
 
 import unittest
 import warnings
