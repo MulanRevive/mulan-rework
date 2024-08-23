@@ -17,7 +17,7 @@
 
 ![vsc截图](https://gitee.com/MulanRevive/ide-extension-vscode/raw/master/%E6%88%AA%E5%9B%BE/2024-06-03_%E7%8C%9C%E6%95%B0%E5%AD%97.png)
 
-【原型】[自带在线编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器)：
+【原型】[在线编辑器](https://gitee.com/MulanRevive/ulang-ide)：
 
 ![自带IDE截图](https://gitee.com/MulanRevive/bounty/raw/master/%E8%BF%9B%E5%B1%95%E5%B0%8F%E7%BB%93/%E6%88%AA%E5%9B%BE/2021-01-20_%E5%9C%A8%E7%BA%BF.png)
 
@@ -48,7 +48,7 @@ $ 木兰 测试/错误处理/引用模块.ul
 
 ## 参考例程[在此](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试)
 
-其中 [实用](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/实用) 为较接近实用的部分。另外 [木兰代码编辑器](https://gitee.com/MulanRevive/mulan-rework/tree/master/编辑器) 也用木兰代码编写。
+其中 [实用](https://gitee.com/MulanRevive/mulan-rework/tree/master/测试/实用) 为较接近实用的部分。另外 [木兰代码编辑器](https://gitee.com/MulanRevive/ulang-ide) 也用木兰代码编写。
 
 所有例程演示的语法可用原始的木兰可执行文件 [ulang-0.2.2.exe](https://gitee.com/MulanRevive/bounty/tree/master/%E5%8E%9F%E5%A7%8B%E8%B5%84%E6%96%99/%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6) 检验。***如发现有异烦请告知，[长期悬赏在此](https://gitee.com/MulanRevive/mulan-rework/issues/I6B8GO)。***
 

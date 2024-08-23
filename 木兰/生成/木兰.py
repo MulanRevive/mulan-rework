@@ -45,7 +45,7 @@ def 转源码(节点, 缩进量="  "):
     return "".join(生成器.结果)
 
 
-# TODO: 将各 visit_ 方法名中文化（方法赋值）
+# TODO: 将各 visit_ 方法名中的术语中文化（方法赋值）
 class 木兰生成器(NodeVisitor):
 
     def __init__(self, 缩进量, 头部=None):
@@ -126,7 +126,7 @@ class 木兰生成器(NodeVisitor):
         self.visit(节点.value)
 
     def 形参(self, 节点):
-        # TODO: 避免重复
+        # TODO: 与 visit_call 内重复，待清理
         需逗号 = []
 
         def 写逗号():

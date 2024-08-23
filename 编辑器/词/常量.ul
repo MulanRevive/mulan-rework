@@ -1,8 +1,0 @@
-using Enum in enum
-
-type 动词 : Enum {
-  {
-    格式化 = "格式化"
-    保存 = "保存"
-  }
-}

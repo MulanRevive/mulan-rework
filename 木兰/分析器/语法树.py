@@ -264,7 +264,6 @@ class 语法树:
             return 片段.getsourcepos()
         # Constant 也是 ast.expr
         if isinstance(片段, ast.stmt) or isinstance(片段, ast.expr):
-            # TODO: 之前没 import 字符位置 时, 编译/运行未报错! 需解决
             return 字符位置(0, 片段.lineno, 片段.col_offset)
         return 字符位置(0, 0, 0)
 

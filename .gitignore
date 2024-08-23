@@ -118,8 +118,6 @@ ulgen.py
 临时
 测试/实用/字/IDS-UCS-Basic.txt
 测试/实用/字/常用字拆字.json
-编辑器/事件.log
-编辑器/*.db
 ulang-0.2.2.exe
 codegen_now_result.json
 original_mulan_result.json
