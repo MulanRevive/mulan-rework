@@ -9,7 +9,7 @@
 
 ## 目标
 
-[悬赏完成之前](https://zhuanlan.zhihu.com/p/224600854)，将努力向[重现「木兰」编程语言的目标](https://gitee.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md)迈进。系列技术文章集结在[知乎专栏](https://zhuanlan.zhihu.com/ulang)并在[开源中国](https://www.oschina.net/p/mulan-rework)同步更新，部分文章将发到 [国产语言论坛木兰主题](https://zh-lang.osanswer.net/c/mulan/10)。
+[悬赏完成之前](https://zhuanlan.zhihu.com/p/224600854)，将努力向 [重现「木兰」编程语言的目标](https://gitee.com/MulanRevive/bounty/blob/master/%E5%A4%8D%E7%8E%B0%E6%96%87%E6%A1%A3/README.md) 迈进。系列技术文章集结在 [知乎专栏](https://zhuanlan.zhihu.com/ulang) 与 [开源中国](https://www.oschina.net/p/mulan-rework)（待同步），部分文章曾发在 [国产语言论坛木兰主题](https://zh-lang.osanswer.net/c/mulan/10)。
 
 ## IDE 辅助
 
@@ -17,7 +17,7 @@
 
 ![vsc截图](https://gitee.com/MulanRevive/ide-extension-vscode/raw/master/%E6%88%AA%E5%9B%BE/2024-06-03_%E7%8C%9C%E6%95%B0%E5%AD%97.png)
 
-【原型】[在线编辑器](https://gitee.com/MulanRevive/ulang-ide)：
+[在线编辑器原型](https://gitee.com/MulanRevive/ulang-ide)：
 
 ![自带IDE截图](https://gitee.com/MulanRevive/bounty/raw/master/%E8%BF%9B%E5%B1%95%E5%B0%8F%E7%BB%93/%E6%88%AA%E5%9B%BE/2021-01-20_%E5%9C%A8%E7%BA%BF.png)
 
