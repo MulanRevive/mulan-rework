@@ -1,0 +1,35 @@
+using 字典 in chinese_characters_words
+using json
+
+常用字数据 = open('测试/实用/字/常用字拆字.json', 'r', encoding="utf-8")
+拆字 = json.load(常用字数据)
+常用字数据.close()
+
+// 待做：允许不同音调
+
+func 字音(字) {
+  信息 = 字典.查单字(字)
+  return 信息 ? 信息['拼音'] : nil
+}
+
+func 取部件(字) {
+  return 字典.的结构(字)['部分']
+}
+
+func 任一(全集) { return any(全集) }
+
+func 取形声字(所有字) {
+  return list(
+    filter(
+      字 -> 任一(
+        map(
+          部件 -> 字音(部件) == 字音(字),
+          取部件(字)
+        )),
+    所有字)
+  )
+}
+
+// 1390 字，737 音, 258 形声字
+所有形声字 = 取形声字(拆字)
+println('\n'.join(所有形声字))
