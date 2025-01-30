@@ -1,11 +1,11 @@
 using sys, cmd
-using 随机范围数 in 随机数
+using randrange in random
 
 
 type 猜数字 : cmd.Cmd {
    {
     intro, prompt = tuple('我想了个 100 之内的数，猜猜是几？', '请猜吧: ')
-    想的 = 随机范围数(1000) / 10
+    想的 = randrange(1000) / 10
   }
 
   func $default(行) {

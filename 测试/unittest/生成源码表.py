@@ -2,6 +2,7 @@ from pathlib import Path
 
 源码目录 = Path("测试/unittest/源码生成/")
 
+# 待做：重现木兰的 `测试.unittest.Python到木兰` 应运行以下测试
 原始木兰未过 = {
     Path("测试/unittest/源码生成/函数/变长指名参数.py"): "TypeError: can only concatenate str (not \"arg\") to str",
     Path("测试/unittest/源码生成/类型/属性.py"): "NameError: name 'decorator_list' is not defined",

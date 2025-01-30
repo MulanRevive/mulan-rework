@@ -342,9 +342,20 @@ class 木兰生成器(NodeVisitor):
         self.编写('}')
 
     def visit_BinOp(self, 节点):
-        self.visit(节点.left)
+        
+        if isinstance(节点.left, BinOp):
+            self.编写('(')
+            self.visit(节点.left)
+            self.编写(')')
+        else:
+            self.visit(节点.left)
         self.编写(' %s ' % 二元操作符[type(节点.op)])
-        self.visit(节点.right)
+        if isinstance(节点.right, BinOp):
+            self.编写('(')
+            self.visit(节点.right)
+            self.编写(')')
+        else:
+            self.visit(节点.right)
 
     def visit_BoolOp(self, 节点):
         self.编写('(')

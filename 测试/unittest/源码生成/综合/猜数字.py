@@ -1,8 +1,8 @@
-import sys, cmd; from 随机数 import 随机范围数
+import sys, cmd; from random import randrange
 
 class 猜数字(cmd.Cmd):
     intro, prompt = "我想了个 100 之内的数，猜猜是几？", '请猜吧: '
-    想的 = 随机范围数(1000) // 10
+    想的 = randrange(1000) // 10
 
     def default(self, 行):
         try:
