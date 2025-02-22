@@ -99,7 +99,7 @@ New -> Terminal 打开命令行，同样输入“木兰”运行
 木兰语言部分依赖的第三方 Python 包：
 
 - [rply-ulang](https://pypi.org/project/rply-ulang/)
-- [codegen](https://pypi.org/project/codegen/)
+- 【已内置】[codegen](https://github.com/andreif/codegen)
 
 ### 本地运行
 

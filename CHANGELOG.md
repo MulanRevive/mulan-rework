@@ -1,3 +1,7 @@
+## 0.1.8.2（2025-2-21）
+
+因 codegen 不再发布于 pypi，将其 [内置](https://gitee.com/MulanRevive/mulan-rework/issues/IBO250)。
+
 ## 0.1.6.4（2024-08-16）
 
 发布到 pypi 时，误将版本退回。
