@@ -1,4 +1,4 @@
-import codegen
+from 木兰.生成 import codegen
 import ast
 
 木兰预置函数映射表 = {

@@ -14,7 +14,6 @@ classifiers = [
 ]
 dependencies = [
     "rply-ulang",
-    "codegen",
 ]
 dynamic = ["version"]
 
