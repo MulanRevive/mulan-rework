@@ -1,1 +1,5 @@
-throw ValueError // 待 catch 重现后添加到测试集
+try {
+  throw ValueError
+} catch e : ValueError {
+  print('c')
+}

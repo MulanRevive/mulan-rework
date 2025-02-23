@@ -47,6 +47,7 @@ import datetime
     "流程控制/catch.ul": b"vi",
     "流程控制/catch名称.ul": b"list index out of range",
     "流程控制/catch块.ul": b'v',
+    "流程控制/抛出.ul": b'c',
     "流程控制/试试顺便善后.ul": b'0f',
     "流程控制/顺便处理发生例外.ul": b"nofile",
     "流程控制/多个例外带善后.ul": b"if",
