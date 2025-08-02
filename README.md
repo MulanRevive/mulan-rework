@@ -58,7 +58,7 @@ $ 木兰 测试/错误处理/引用模块.ul
 
 ### 试用发布版
 
-***必需 Python 3.7 ~ 3.12，源码文件需 UTF-8 编码***，`pip install ulang` 安装木兰。
+***必需 Python 3.7 ~ 3.13，源码文件需 UTF-8 编码***，`pip install ulang` 安装木兰。
 
 ### 命令行交互环境
 
@@ -92,7 +92,7 @@ New -> Terminal 打开命令行，同样输入“木兰”运行
 
 新手开发者请看[开发流程与项目结构简介](文档/开发上手.md)。
 
-使用 Python 3.7 ~ 3.12 的最新小版本。Mac、[Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3)、[Windows](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP) 下全部测试通过。
+使用 Python 3.7 ~ 3.13 的最新小版本。Mac、[Linux](https://gitee.com/MulanRevive/mulan-rework/issues/I1U9O3)、[Windows](https://gitee.com/MulanRevive/mulan-rework/issues/I1U2HP) 下全部测试通过。
 
 为提高开发维护效率，本项目中尽量使用中文标识符。包括语法规则、Python 代码等等。
 

@@ -73,14 +73,27 @@ class test语法树(unittest.TestCase):
             }
         )
 
+        期望值_3_13 = 期望值_3_9.copy()
+        期望值_3_13.update(
+            {
+                "带类型参数.ul": r"Module(body=[FunctionDef(name='hello', args=arguments(posonlyargs=[], args=[arg(arg='p', annotation=Name(id='Person', ctx=Load(), lineno=1, col_offset=16), lineno=1, col_offset=12)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Return(value=Constant(value=1, lineno=2, col_offset=10), lineno=2, col_offset=3)], decorator_list=[], type_params=[], lineno=1, col_offset=1)], type_ignores=[])",
+                "类型.ul": r"Module(body=[ClassDef(name='Person', bases=[], keywords=[], body=[FunctionDef(name='__add__', args=arguments(posonlyargs=[], args=[arg(arg='self', lineno=2, col_offset=12), arg(arg='a', lineno=2, col_offset=13)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Return(value=Call(func=Name(id='Person', ctx=Load(), lineno=2, col_offset=25), args=[BinOp(left=Attribute(value=Name(id='self', ctx=Load(), lineno=2, col_offset=32), attr='name', ctx=Load(), lineno=2, col_offset=32), op=Add(), right=Attribute(value=Name(id='a', ctx=Load(), lineno=2, col_offset=44), attr='name', ctx=Load(), lineno=2, col_offset=44), lineno=2, col_offset=32)], keywords=[], lineno=2, col_offset=25), lineno=2, col_offset=18)], decorator_list=[], type_params=[], lineno=2, col_offset=1), FunctionDef(name='__init__', args=arguments(posonlyargs=[], args=[arg(arg='self', lineno=3, col_offset=1), arg(arg='name', lineno=3, col_offset=14)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Assign(targets=[Attribute(value=Name(id='self', ctx=Load(), lineno=3, col_offset=22), attr='name', ctx=Store(), lineno=3, col_offset=22)], value=Name(id='name', ctx=Load(), lineno=3, col_offset=34), lineno=3, col_offset=22)], decorator_list=[], type_params=[], lineno=3, col_offset=1)], decorator_list=[], type_params=[], lineno=1, col_offset=1)], type_ignores=[])",
+                "函数.ul": r"Module(body=[FunctionDef(name='echo', args=arguments(posonlyargs=[], args=[arg(arg='number', lineno=1, col_offset=11)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Expr(value=Call(func=Name(id='print', ctx=Load(), lineno=2, col_offset=1), args=[Name(id='number', ctx=Load(), lineno=2, col_offset=7)], keywords=[], lineno=2, col_offset=1), lineno=2, col_offset=1)], decorator_list=[], type_params=[], lineno=1, col_offset=1), Expr(value=Call(func=Name(id='echo', ctx=Load(), lineno=4, col_offset=1), args=[Constant(value=2, lineno=4, col_offset=6)], keywords=[], lineno=4, col_offset=1), lineno=4, col_offset=1)], type_ignores=[])",
+                "超类语法.ul": r"Module(body=[ClassDef(name='Person', bases=[Name(id='list', ctx=Load(), lineno=1, col_offset=15)], keywords=[], body=[FunctionDef(name='__init__', args=arguments(posonlyargs=[], args=[arg(arg='self', lineno=2, col_offset=3)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Expr(value=Call(func=Attribute(value=Call(func=Name(id='super', ctx=Load(), lineno=3, col_offset=5), args=[], keywords=[], lineno=3, col_offset=5), attr='__init__', ctx=Load(), lineno=3, col_offset=5), args=[], keywords=[], lineno=3, col_offset=5), lineno=3, col_offset=5)], decorator_list=[], type_params=[], lineno=2, col_offset=3)], decorator_list=[], type_params=[], lineno=1, col_offset=1), Assign(targets=[Name(id='p', ctx=Store(), lineno=6, col_offset=1)], value=Call(func=Name(id='Person', ctx=Load(), lineno=6, col_offset=5), args=[], keywords=[], lineno=6, col_offset=5), lineno=6, col_offset=1), Assign(targets=[Name(id='v', ctx=Store(), lineno=7, col_offset=1)], value=Call(func=Attribute(value=Name(id='p', ctx=Load(), lineno=7, col_offset=5), attr='super', ctx=Load(), lineno=7, col_offset=5), args=[], keywords=[], lineno=7, col_offset=7), lineno=7, col_offset=1), Expr(value=Call(func=Attribute(value=Name(id='Person', ctx=Load(), lineno=8, col_offset=1), attr='super', ctx=Load(), lineno=8, col_offset=1), args=[Name(id='None', ctx=Load(), lineno=8, col_offset=14)], keywords=[], lineno=8, col_offset=8), lineno=8, col_offset=8)], type_ignores=[])",
+                "指定函数类型.ul": r"Module(body=[FunctionDef(name='hello', args=arguments(posonlyargs=[], args=[arg(arg='p', annotation=Name(id='int', ctx=Load(), lineno=1, col_offset=16), lineno=1, col_offset=12)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Return(value=Name(id='p', ctx=Load(), lineno=2, col_offset=10), lineno=2, col_offset=3)], decorator_list=[], returns=Name(id='int', ctx=Load(), lineno=1, col_offset=23), type_params=[], lineno=1, col_offset=1)], type_ignores=[])",
+            }
+        )
+
         if python3版本号 == 7:
             self._test_整树比较(期望值_3_7)
         elif python3版本号 == 8:
             self._test_整树比较(期望值_3_8)
         elif 9 <= python3版本号 <= 12:
             self._test_整树比较(期望值_3_9)
+        elif python3版本号 == 13:
+            self._test_整树比较(期望值_3_13)
         else:
-            self.fail("请使用 Python 3.7 ~ 3.12 版本运行此测试")
+            self.fail("请使用 Python 3.7 ~ 3.13 版本运行此测试")
 
     def _test_整树比较(self, 期望值):
         路径 = "测试/unittest/例程/"
@@ -89,11 +102,19 @@ class test语法树(unittest.TestCase):
             节点 = 读源码生成树(源码路径)
             # 已知3.7.4版本python中ast.Pass生成的语法树多一个空格，高版本没有，下方代码清除测试用例产生的空格与木兰生成的对照中的这
             # 个多余空格，保证在高版本中也可以测试通过。
+            查看语法树参数 = {
+                "annotate_fields": True,
+                "include_attributes": True
+            }
+            if python3版本号 >= 13:
+                查看语法树参数.update({"show_empty": True})
             self.assertEqual(
-                ast.dump(节点, True, True).replace('Pass( lineno', 'Pass(lineno'),
+                ast.dump(节点, **查看语法树参数).replace('Pass( lineno', 'Pass(lineno'),
                 期望值[文件].replace('Pass( lineno', 'Pass(lineno'),
                 f"\"{文件}\"出错"
             )
+            # 可使用以下代码，将实际输出转为期望值格式：
+            # print(f'"{文件}": r"{ast.dump(节点, **查看语法树参数)}",')
 
     def 分词(self, 源码):
         return 分词器.分词(源码)

@@ -39,9 +39,7 @@ class 语法树:
             节点 = ast.Name(id=标识, ctx=上下文)
         elif 类型 == 语法.调用:
             节点 = ast.Call(
-                func=函数, args=参数, keywords=关键词,
-                starargs=None,
-                kwargs=None  # 如果不加此两项，在从语法树生成函数调用源码时报错
+                func=函数, args=参数, keywords=关键词
             )
         elif 类型 == 语法.赋值:
             节点 = ast.Assign([变量], 值)
@@ -97,8 +95,6 @@ class 语法树:
                 keywords=[],
                 body=主体,
                 decorator_list=[],
-                starargs=None,
-                kwargs=None  # 如果不加此两项，在从语法树生成class源码时报错
             )
         elif 类型 == 语法.字符串:
             if python3版本号 >= 8:
@@ -198,9 +194,7 @@ class 语法树:
     def 顺便处理项(上下文表达式, 可选变量, 片段):
         return ast.withitem(
             context_expr=上下文表达式,
-            optional_vars=可选变量,
-            lineno=语法树.取行号(片段),
-            col_offset=语法树.取列号(片段))
+            optional_vars=可选变量)
 
     @staticmethod
     def 顺便(各项, 主体, 片段):

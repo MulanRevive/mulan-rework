@@ -7,13 +7,13 @@ from 木兰.分析器.错误 import 语法错误
 from os import walk
 from os.path import join
 
-from typing import Dict
+from typing import Dict, List
 from json import dump, load as json_load
 from subprocess import Popen, PIPE
 from unittest import TestCase
 
 
-木兰原始文件执行命令 = 'ulang-0.2.2.exe --dump-python'
+木兰原始文件执行命令 = ["ulang-0.2.2.exe", "--dump-python"]
 
 原始木兰无法运行 = (
     'signature.ul'
@@ -64,7 +64,7 @@ def 生成当前木兰codegen的测试结果(source_dict: Dict[str, str], 输出
     return 结果
 
 
-def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字典: Dict[str, str]):
+def 生成原始木兰的测试结果(原始木兰执行命令: List[str], 源码字典: Dict[str, str]):
     结果 = {}
 
     计数 = 0
@@ -73,7 +73,7 @@ def 生成原始木兰的测试结果(原始木兰执行命令: str, 源码字�
     print('得到原始木兰生成结果中...')
 
     for 路径, source in 源码字典.items():
-        进程 = Popen('%s %s' % (原始木兰执行命令, 路径), stdout=PIPE, stderr=PIPE)
+        进程 = Popen(原始木兰执行命令 + [路径], stdout=PIPE, stderr=PIPE, shell=False)
         输出流, 错误输出流 = 进程.communicate()
 
         原始木兰输出结果 = 输出流.decode()
