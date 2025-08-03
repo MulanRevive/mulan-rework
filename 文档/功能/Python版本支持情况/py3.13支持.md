@@ -83,7 +83,7 @@ ExceptionTable:
   L11 to L12 -> L12 [1] lasti
 ```
 
-与 Python 3.12 相比，此处的输出字节码仅有输出格式微调、部分语句顺序改变，无重大差异。
+与 Python 3.12 相比，此处的输出字节码仅有输出格式微调、部分语句顺序改变，无重大差异。其中，输出格式改变表现为`显示跳转目标和异常处理器的逻辑标签（如 L7），而不是偏移量（如 78）`，详见[dis module - What’s New In Python 3.13](https://docs.python.org/3/whatsnew/3.13.html#dis)。
 
 ### 警告差异
 
@@ -108,6 +108,23 @@ ExceptionTable:
 对于`Call`与`ClassDef`，`starargs`与`kwargs`参数（曾用于表示`*args`与`**kwargs`）已在 Python 3.11 中被移除（分别被`keyword(identifier=NULL)`与`Starred`取代）。此前必须提供`starargs`与`kwargs`参数，是因为`木兰到Python`功能使用的`codegen`库读取了这两个参数。由于这两个参数对应的`*args`与`**kwargs`结构并非木兰语法特性，已在`codegen.py`与`语法树.py`中移除对应代码。
 
 完成上述修改后，不再显示警告，且在受支持的 Python 版本中可正常运行及通过测试。
+
+除此以外，运行`测试.unittest.木兰到Python`时会提示以下与`ast`模块相关的DeprecationWarning：
+
+```plaintext
+/Users/xuanwu/opt/anaconda3/envs/py3_13/lib/python3.13/ast.py:428: DeprecationWarning: visit_Num is deprecated; add visit_Constant
+  return visitor(node)
+/Users/xuanwu/work/ulang/mulan-rework-fork-lordy-gitee/木兰/生成/codegen.py:392: DeprecationWarning: Attribute n is deprecated and will be removed in Python 3.14; use value instead
+  self.write(repr(node.n))
+/Users/xuanwu/opt/anaconda3/envs/py3_13/lib/python3.13/ast.py:428: DeprecationWarning: visit_Str is deprecated; add visit_Constant
+  return visitor(node)
+/Users/xuanwu/work/ulang/mulan-rework-fork-lordy-gitee/木兰/生成/codegen.py:386: DeprecationWarning: Attribute s is deprecated and will be removed in Python 3.14; use value instead
+  self.write(repr(node.s))
+/Users/xuanwu/opt/anaconda3/envs/py3_13/lib/python3.13/ast.py:428: DeprecationWarning: visit_NameConstant is deprecated; add visit_Constant
+  return visitor(node)
+```
+
+此部分警告与 Python 3.12 相同，出于兼容 Python 3.7 的需求，无法消除。
 
 ### 函数行为差异
 
