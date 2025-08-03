@@ -80,7 +80,7 @@ ExceptionTable:
   96 to 102 -> 104 [1] lasti
 ```
 
-此处的输出字节码仅在内部实现上与 Python 3.10 有所不同，详见[CPython bytecode changes - What’s New In Python 3.12](https://docs.python.org/3/whatsnew/3.12.html#cpython-bytecode-changes)
+此处的输出字节码仅在内部实现上与 Python 3.11 有所不同，详见[CPython bytecode changes - What’s New In Python 3.12](https://docs.python.org/3/whatsnew/3.12.html#cpython-bytecode-changes)
 
 ### 警告差异
 

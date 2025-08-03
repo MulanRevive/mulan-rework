@@ -213,14 +213,7 @@ class SourceGenerator(NodeVisitor):
                 paren_or_comma()
                 self.write(keyword.arg + '=')
                 self.visit(keyword.value)
-            if node.starargs is not None:
-                paren_or_comma()
-                self.write('*')
-                self.visit(node.starargs)
-            if node.kwargs is not None:
-                paren_or_comma()
-                self.write('**')
-                self.visit(node.kwargs)
+            # starargs 与 kwargs (即 *args与 **kwargs) 并非木兰语法特性，且在高版本 Python 中已被其他表示方式取代，故移除。详见`py3.13支持.md`。
         self.write(have_args and '):' or ':')
         self.body(node.body)
 
@@ -383,14 +376,7 @@ class SourceGenerator(NodeVisitor):
             write_comma()
             self.write(keyword.arg + '=')
             self.visit(keyword.value)
-        if node.starargs is not None:
-            write_comma()
-            self.write('*')
-            self.visit(node.starargs)
-        if node.kwargs is not None:
-            write_comma()
-            self.write('**')
-            self.visit(node.kwargs)
+        # 移除了 starargs 与 kwargs，参见 visit_ClassDef
         self.write(')')
 
     def visit_Name(self, node):

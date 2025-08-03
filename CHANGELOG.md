@@ -1,3 +1,7 @@
+## 0.1.9 (2025-8-2)
+
+支持 Python 3.13
+
 ## 0.1.8.2（2025-2-21）
 
 因 codegen 不再发布于 pypi，将其 [内置](https://gitee.com/MulanRevive/mulan-rework/issues/IBO250)。
