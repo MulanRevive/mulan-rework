@@ -25,6 +25,7 @@ class test交互(unittest.TestCase):
         self.assertEqual(括号已配对("while\n"), False)
         self.assertEqual(括号已配对("try\n"), False)
         self.assertEqual(括号已配对("catch\n"), False)
+        self.assertEqual(括号已配对("finally\n"), False)
         self.assertEqual(括号已配对("attr\n"), False)
 
 if __name__ == '__main__':
