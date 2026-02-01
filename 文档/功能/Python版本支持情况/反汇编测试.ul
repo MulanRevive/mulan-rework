@@ -1,0 +1,13 @@
+i = 0
+
+while i <= 10 {
+    i += 1
+
+    try {
+        if i % 2 {
+           continue;
+        }   
+    } catch Exception {}
+
+    println(i)
+}

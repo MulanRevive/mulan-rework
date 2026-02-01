@@ -1,6 +1,10 @@
+## 0.1.9.1 (2026-1-31)
+
+为发布版支持 Py 3.13 而发布0.1.9时，误用了非主干分支(codegen)。用主干分支重新发布。
+
 ## 0.1.9 (2025-8-2)
 
-支持 Python 3.13
+[支持 Python 3.13](https://gitee.com/MulanRevive/mulan-rework/issues/IBF1FT)
 
 ## 0.1.8.2（2025-2-21）
 
