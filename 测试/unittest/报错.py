@@ -51,7 +51,6 @@ class test所有(unittest.TestCase):
             "测试/错误处理/未定义.ul": "请先定义‘number’再使用",
             "测试/错误处理/模块无属性.ul": "AttributeError：module 'TypeDef' has no attribute 'a'",
             "测试/错误处理/死递归.ul": 报错_递归,
-            "测试/错误处理/类型定义中使用本类型.ul": "请先定义‘Person’再使用",
             "测试/错误处理/调用非静态方法.ul": "类型错误：getAge() missing 1 required positional argument: 'self'",
             "测试/错误处理/重复引用_绝对路径1.ul": "AttributeError：module 'test' has no attribute 'TypeDef'",
             "测试/错误处理/重复引用_绝对路径2.ul": "AttributeError：module 'test' has no attribute 'Instance1'",
@@ -63,6 +62,9 @@ class test所有(unittest.TestCase):
             "测试/错误处理/无法调用.ul": "类型错误：'int' object is not callable",
             "测试/错误处理/异常十六进制数.ul": "请先定义‘xg’再使用",
         }
+        if python3版本号 < 14:
+            对应报错["测试/错误处理/类型定义中使用本类型.ul"] = "请先定义‘Person’再使用"
+
         if python3版本号 >= 10:
             对应报错["测试/错误处理/调用非静态方法.ul"] = (
                 "类型错误：Person.getAge() missing 1 required positional argument: 'self'"
