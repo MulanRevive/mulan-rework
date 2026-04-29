@@ -174,7 +174,8 @@ def 中(命令行各分段=None):
             dis(可执行码)
             return
 
-        环境变量 = 创建全局变量(文件名=源码文件)
+        命令行参数 = 参数 if 命令行执行码 else 参数[1:]
+        环境变量 = 创建全局变量(argv=命令行参数, 文件名=源码文件)
 
         if 调试:
             from pdb import run as Pdb运行, Restart as Pdb重新运行
