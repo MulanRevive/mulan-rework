@@ -73,8 +73,8 @@ class test语法树(unittest.TestCase):
             }
         )
 
-        期望值_3_13 = 期望值_3_9.copy()
-        期望值_3_13.update(
+        期望值_3_13_3_14 = 期望值_3_9.copy()
+        期望值_3_13_3_14.update(
             {
                 "带类型参数.ul": r"Module(body=[FunctionDef(name='hello', args=arguments(posonlyargs=[], args=[arg(arg='p', annotation=Name(id='Person', ctx=Load(), lineno=1, col_offset=16), lineno=1, col_offset=12)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Return(value=Constant(value=1, lineno=2, col_offset=10), lineno=2, col_offset=3)], decorator_list=[], type_params=[], lineno=1, col_offset=1)], type_ignores=[])",
                 "类型.ul": r"Module(body=[ClassDef(name='Person', bases=[], keywords=[], body=[FunctionDef(name='__add__', args=arguments(posonlyargs=[], args=[arg(arg='self', lineno=2, col_offset=12), arg(arg='a', lineno=2, col_offset=13)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Return(value=Call(func=Name(id='Person', ctx=Load(), lineno=2, col_offset=25), args=[BinOp(left=Attribute(value=Name(id='self', ctx=Load(), lineno=2, col_offset=32), attr='name', ctx=Load(), lineno=2, col_offset=32), op=Add(), right=Attribute(value=Name(id='a', ctx=Load(), lineno=2, col_offset=44), attr='name', ctx=Load(), lineno=2, col_offset=44), lineno=2, col_offset=32)], keywords=[], lineno=2, col_offset=25), lineno=2, col_offset=18)], decorator_list=[], type_params=[], lineno=2, col_offset=1), FunctionDef(name='__init__', args=arguments(posonlyargs=[], args=[arg(arg='self', lineno=3, col_offset=1), arg(arg='name', lineno=3, col_offset=14)], kwonlyargs=[], kw_defaults=[], defaults=[]), body=[Assign(targets=[Attribute(value=Name(id='self', ctx=Load(), lineno=3, col_offset=22), attr='name', ctx=Store(), lineno=3, col_offset=22)], value=Name(id='name', ctx=Load(), lineno=3, col_offset=34), lineno=3, col_offset=22)], decorator_list=[], type_params=[], lineno=3, col_offset=1)], decorator_list=[], type_params=[], lineno=1, col_offset=1)], type_ignores=[])",
@@ -90,10 +90,10 @@ class test语法树(unittest.TestCase):
             self._test_整树比较(期望值_3_8)
         elif 9 <= python3版本号 <= 12:
             self._test_整树比较(期望值_3_9)
-        elif python3版本号 == 13:
-            self._test_整树比较(期望值_3_13)
+        elif python3版本号 <= 14:
+            self._test_整树比较(期望值_3_13_3_14)
         else:
-            self.fail("请使用 Python 3.7 ~ 3.13 版本运行此测试")
+            self.fail("请使用 Python 3.7 ~ 3.14 版本运行此测试")
 
     def _test_整树比较(self, 期望值):
         路径 = "测试/unittest/例程/"

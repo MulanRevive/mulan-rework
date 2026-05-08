@@ -1,3 +1,7 @@
+## 0.1.10 (2026-2-2)
+
+[支持 Python 3.14](https://gitee.com/MulanRevive/mulan-rework/issues/ID2GUW)
+
 ## 0.1.9.1 (2026-1-31)
 
 为发布版支持 Py 3.13 而发布0.1.9时，误用了非主干分支(codegen)。用主干分支重新发布。
