@@ -16,11 +16,12 @@ from 木兰.生成 import 木兰, python
 
 
 def 用途(程序):
-    介绍 = '''使用方法: %s [-树p码兰调交反执溯版助] 源码文件
+    介绍 = '''使用方法: %s [-树pb码兰调交反执溯版助] 源码文件
     
 选项：
  --语法树　　　　　 -树　　将木兰源码转换为 Python 语法树
  --木兰变python　　 -p 　　将木兰源码转换为 Python 源码
+ --木兰变Blockly　　-b 　　将木兰源码转换为 Blockly XML
  --生成字节码　　　 -码　　将木兰源码转换为 donsok 字节码 (实验性)
  --python变木兰　　 -兰　　将 Python 源码转换为木兰源码
  --调试　　　　　　 -调　　使用 Pdb 环境调试代码
@@ -42,13 +43,14 @@ def 中(命令行各分段=None):
     try:
         所有选项, 参数 = getopt.getopt(
             命令行各分段[1:],
-            '版助反交兰p码调溯树执词',
+            '版助反交兰pb码调溯树执词',
             [
                 "语法树",
                 "python变木兰",
                 '版本',
                 '木兰变python',
                 '生成字节码',
+                '木兰变Blockly',
                 '调试',
                 '反汇编',
                 '执行代码=',
@@ -72,6 +74,7 @@ def 中(命令行各分段=None):
     语法树 = False
     生成python代码 = False
     生成字节码 = False
+    生成Blockly = False
     调试 = False
     反汇编 = False
     命令行执行码 = None
@@ -87,6 +90,8 @@ def 中(命令行各分段=None):
             语法树 = True
         elif 选项 in ('--木兰变python', '-p'):
             生成python代码 = True
+        elif 选项 in ('--木兰变Blockly', '-b'):
+            生成Blockly = True
         elif 选项 in ('--生成字节码', '-码'):
             生成字节码 = True
         elif 选项 in ('--调试', '-调'):
@@ -153,6 +158,11 @@ def 中(命令行各分段=None):
             print(python.代码生成器().得到源码(节点))
             return
 
+        if 生成Blockly:
+            from 木兰.生成 import blockly
+            print(blockly.代码生成器().生成(节点))
+            return
+
         if 语法树:
             print(ast.dump(节点, True, True))
             # print(语法树相关.格式化节点(节点, 1))
@@ -174,7 +184,7 @@ def 中(命令行各分段=None):
             dis(可执行码)
             return
 
-        命令行参数 = 参数 if 命令行执行码 else 参数[1:]
+        命令行参数 = 参数[1:]
         环境变量 = 创建全局变量(argv=命令行参数, 文件名=源码文件)
 
         if 调试:

@@ -1,4 +1,4 @@
-原始可执行文件`ulang-0.2.2.exe`中，使用`--dump-blockly`选项，可以将木兰源码转为[Blockly 的 XML 格式代码](https://developers.google.com/blockly/guides/configure/web/serialization?hl=zh-cn#xml_system)。生成 XML 并在 Blockly 编辑区加载显示的步骤如下：
+原始可执行文件`ulang-0.2.2.exe`中，使用`--dump-blockly`选项，可以将木兰源码转为[Blockly 的 XML 格式代码](https://developers.google.com/blockly/guides/configure/web/serialization?hl=zh-cn#xml_system)。重现项目可使用`--木兰变Blockly`或`-b`生成 Blockly XML。生成 XML 并在 Blockly 编辑区加载显示的步骤如下：
 
 1. 创建`和.ul`，内容如下：
 
@@ -10,7 +10,7 @@ for current in 1..10 {
 print(total)
 ```
 
-2. 使用`ulang-0.2.2.exe --dump-blockly 和.ul >和.blockly.xml`，得到`和.blockly.xml`
+2. 使用`木兰 --木兰变Blockly 和.ul >和.blockly.xml`，得到`和.blockly.xml`。如果要对比原始木兰，可使用`ulang-0.2.2.exe --dump-blockly 和.ul >和.blockly.xml`。
 
 3. 打开`https://raspberrypifoundation.github.io/blockly-samples/examples/devsite-landing-demo/index.html`，启动开发者工具，切换到控制台。
 
