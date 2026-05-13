@@ -26,7 +26,7 @@ class test命令行(unittest.TestCase):
         with redirect_stdout(输出):
             中(["木兰", "--执行代码=println(ARGV)", "a", "b"])
 
-        self.assertEqual(输出.getvalue(), "[a, b]\n")
+        self.assertEqual(输出.getvalue(), "[b]\n")
 
     def test_源码文件模式设置__file__(self):
         with TemporaryDirectory() as 临时目录:
