@@ -436,9 +436,10 @@ class 木兰生成器(NodeVisitor):
                 self.编写(', ')
             self.编写(包.name)
 
-        # TODO: 下两行何用？
-        # for 包 in node.names:
-        #    self.visit(包)
+        for 包 in node.names:
+            if 包.asname is not None:
+                self.另起一行(node)
+                self.编写(包.asname + ' = ' + 包.name)
 
     def visit_ImportFrom(self, node):
         self.另起一行(node)
@@ -453,9 +454,10 @@ class 木兰生成器(NodeVisitor):
         else:
             self.编写(' in %s' % ('.' * node.level))
 
-        # TODO: 下两行何用？
-        # for item in node.names:
-        #    self.visit(item)
+        for 包 in node.names:
+            if 包.asname is not None:
+                self.另起一行(node)
+                self.编写(包.asname + ' = ' + 包.name)
 
     def visit_IfExp(self, 节点):
         self.visit(节点.test)
