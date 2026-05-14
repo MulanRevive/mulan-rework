@@ -264,6 +264,13 @@ class 木兰生成器(NodeVisitor):
             self.编写(' ')
             self.visit(节点.value)
 
+    def visit_Raise(self, 节点):
+        self.另起一行(节点)
+        self.编写('throw')
+        if 节点.exc is not None:
+            self.编写(' ')
+            self.visit(节点.exc)
+
     def visit_Attribute(self, 节点):
         if isinstance(节点.value, Name) and 节点.value.id == 'self':
             self.编写('$%s' % 节点.attr)

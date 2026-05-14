@@ -1,0 +1,2 @@
+throw RuntimeError('bad')
+throw RuntimeError('bad')
