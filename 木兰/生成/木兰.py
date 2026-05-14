@@ -427,6 +427,9 @@ class 木兰生成器(NodeVisitor):
         self.编写(':')
         if 节点.upper is not None:
             self.visit(节点.upper)
+        if 节点.step is not None:
+            self.编写(':')
+            self.visit(节点.step)
 
     def visit_Import(self, node):
         self.另起一行(node)
