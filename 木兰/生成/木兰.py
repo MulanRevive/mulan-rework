@@ -476,6 +476,12 @@ class 木兰生成器(NodeVisitor):
         else:
             self.visit(节点值)
 
+    def visit_JoinedStr(self, 节点):
+        for 索引, 值 in enumerate(节点.values):
+            if 索引:
+                self.编写(' + ')
+            self.visit(值)
+
     def visit_FormattedValue(self, 节点):
         self.编写('str(')
         self.visit(节点.value)

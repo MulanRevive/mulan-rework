@@ -1,0 +1,4 @@
+x = 'a' + str(b) + 'c'
+y = str(a) + str(b)
+z = 'a' + str(b)
+w = str(a) + 'b'
