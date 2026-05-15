@@ -332,6 +332,7 @@ class 木兰生成器(NodeVisitor):
         return visit
 
     visit_List = 序列('[', ']')
+    visit_Set = 序列('{', '}')
 
     def visit_Dict(self, 节点):
         self.编写('{')
