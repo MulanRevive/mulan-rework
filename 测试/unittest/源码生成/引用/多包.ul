@@ -1,1 +1,3 @@
 using sys, cmd, random
+using os
+operating_system = os
