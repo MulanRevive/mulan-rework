@@ -1,6 +1,11 @@
 from pathlib import Path
+import ast
+import unittest
+
+from 木兰.生成 import 木兰
 
 源码目录 = Path("测试/unittest/源码生成/")
+头部信息 = "/* 本文件由命令 `木兰 -兰 ` 自动生成. */\n"
 
 # 待做：重现木兰的 `测试.unittest.Python到木兰` 应运行以下测试
 原始木兰未过 = {
@@ -30,3 +35,17 @@ for 完整路径 in list(源码目录.glob('**/*.py')):
 
         python源码表[python路径] = python源码
         木兰源码表[python路径] = 木兰源码
+
+
+class test所有(unittest.TestCase):
+
+    def test(self):
+        for python路径 in 木兰源码表:
+            python源码 = python源码表[python路径]
+            木兰源码 = 木兰源码表[python路径]
+
+            语法树节点 = ast.parse(python源码, python路径)
+            生成器 = 木兰.木兰生成器("  ", 头部信息)
+            生成器.visit(语法树节点)
+            生成源码 = "".join(生成器.结果)
+            self.assertEqual(生成源码, 头部信息 + "\n" + 木兰源码, python路径 + " 转换错误")
