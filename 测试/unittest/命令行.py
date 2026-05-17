@@ -28,6 +28,20 @@ class test命令行(unittest.TestCase):
 
         self.assertEqual(输出.getvalue(), "[a, b]\n")
 
+    def test_执行代码模式可读取ARGV类型(self):
+        输出 = StringIO()
+        with redirect_stdout(输出):
+            中(["木兰", "--执行代码=println(typeof(ARGV))", "a", "b"])
+
+        self.assertEqual(输出.getvalue(), "list\n")
+
+    def test_执行代码模式可调用辅助输出函数(self):
+        输出 = StringIO()
+        with redirect_stdout(输出):
+            中(["木兰", "--执行代码=__print__('ok')"])
+
+        self.assertEqual(输出.getvalue(), "ok\n")
+
     def test_源码文件模式设置__file__(self):
         with TemporaryDirectory() as 临时目录:
             源码文件 = Path(临时目录) / "打印文件名.ul"
