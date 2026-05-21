@@ -25,3 +25,10 @@ class test所有(unittest.TestCase):
             生成器.visit(语法树节点)
             生成源码 = "".join(生成器.结果)
             self.assertEqual(生成源码, 头部信息 + "\n" + 木兰源码, python路径 + " 转换错误")
+
+    def test_集合字面量保留花括号(self):
+        语法树节点 = ast.parse("x = {1, 2, 3}", "集合字面量.py")
+        生成器 = 木兰.木兰生成器("  ", 头部信息)
+        生成器.visit(语法树节点)
+        生成源码 = "".join(生成器.结果)
+        self.assertEqual(生成源码, 头部信息 + "\n" + "x = {1, 2, 3}")
