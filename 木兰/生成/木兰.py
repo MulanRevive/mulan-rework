@@ -334,6 +334,47 @@ class 木兰生成器(NodeVisitor):
     visit_List = 序列('[', ']')
     visit_Set = 序列('{', '}')
 
+    def visit_ListComp(self, 节点):
+        self.编写('func() {')
+        self.缩进 += 1
+        self.另起一行()
+        self.编写('__ = []')
+
+        已打开块 = 0
+        for 生成器 in 节点.generators:
+            self.另起一行()
+            self.编写('for ')
+            self.visit(生成器.target)
+            self.编写(' in ')
+            self.visit(生成器.iter)
+            self.编写(' {')
+            self.缩进 += 1
+            已打开块 += 1
+
+            for 条件 in 生成器.ifs:
+                self.另起一行()
+                self.编写('if ')
+                self.visit(条件)
+                self.编写(' {')
+                self.缩进 += 1
+                已打开块 += 1
+
+        self.另起一行()
+        self.编写('__.append(')
+        self.visit(节点.elt)
+        self.编写(')')
+
+        for _ in range(已打开块):
+            self.缩进 -= 1
+            self.另起一行()
+            self.编写('}')
+
+        self.另起一行()
+        self.编写('return __')
+        self.缩进 -= 1
+        self.另起一行()
+        self.编写('}()')
+
     def visit_Dict(self, 节点):
         self.编写('{')
         为空 = True
@@ -350,7 +391,6 @@ class 木兰生成器(NodeVisitor):
         self.编写('}')
 
     def visit_BinOp(self, 节点):
-        
         if isinstance(节点.left, BinOp):
             self.编写('(')
             self.visit(节点.left)
