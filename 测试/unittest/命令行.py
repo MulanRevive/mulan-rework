@@ -1,6 +1,7 @@
 import unittest
 from contextlib import redirect_stdout
 from io import StringIO
+from os import chdir, getcwd
 from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory
@@ -103,3 +104,22 @@ class test命令行(unittest.TestCase):
             sys.stdin = 原标准输入
 
         self.assertEqual(输出.getvalue(), "<标准输入流>\n[a, b]\n")
+
+    def test_被引用木兰模块继承ARGV(self):
+        with TemporaryDirectory() as 临时目录:
+            临时目录路径 = Path(临时目录)
+            源码文件 = 临时目录路径 / "主模块.ul"
+            被引用文件 = 临时目录路径 / "被引用.ul"
+            源码文件.write_text("using * in 被引用\n", encoding="utf-8")
+            被引用文件.write_text("println(ARGV)\n", encoding="utf-8")
+
+            原目录 = getcwd()
+            输出 = StringIO()
+            try:
+                chdir(临时目录)
+                with redirect_stdout(输出):
+                    中(["木兰", str(源码文件), "a", "b"])
+            finally:
+                chdir(原目录)
+
+        self.assertEqual(输出.getvalue(), "[a, b]\n")
