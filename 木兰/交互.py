@@ -7,7 +7,7 @@ from 木兰.分析器.词法分析器 import *
 from 木兰.分析器.语法分析器 import 语法分析器
 from 木兰.分析器.错误 import 词法错误
 from 木兰.功用.反馈信息 import 反馈信息
-from 木兰.环境 import 创建全局变量
+from 木兰.环境 import 创建全局变量, 编译木兰节点
 
 
 def 括号已配对(源码):
@@ -106,7 +106,7 @@ class 交互(cmd.Cmd):
                     节点 = self.分析器.分析('___=(%s);__print__(___)' % self.声明, '【标准输入】')
                 except Exception:
                     节点 = self.分析器.分析(self.声明, '【标准输入】')
-                可执行码 = compile(节点, '【标准输入】', 'exec')
+                可执行码 = 编译木兰节点(节点, '【标准输入】')
                 exec(可执行码, self.全局变量)
             except SystemExit:
                 sys.exit()

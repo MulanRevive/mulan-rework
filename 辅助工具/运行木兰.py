@@ -4,7 +4,7 @@ from pathlib import Path
 
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.语法分析器 import 语法分析器
-from 木兰.环境 import 创建全局变量
+from 木兰.环境 import 创建全局变量, 编译木兰节点
 from 木兰.功用.反馈信息 import 中文化
 
 # 木兰不支持 compile, exec, 因此不改写为木兰代码
@@ -24,7 +24,7 @@ def 运行木兰代码(源码文件):
 
     # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
     try:
-        可执行码 = compile(节点, 源码文件, 'exec')
+        可执行码 = 编译木兰节点(节点, 源码文件)
 
         环境变量 = 创建全局变量(文件名=源码文件)
 
