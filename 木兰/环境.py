@@ -1,3 +1,4 @@
+import ast
 import importlib.util
 import math
 import os
@@ -8,6 +9,51 @@ from datetime import datetime
 from pathlib import Path
 
 from 木兰.分析器.语法分析器 import 语法分析器
+
+
+def _取标注下标(节点):
+    if isinstance(节点, ast.Index):
+        return 节点.value
+    return 节点
+
+
+def _类型标注源码(节点):
+    if isinstance(节点, ast.Name):
+        return 节点.id
+    if isinstance(节点, ast.Attribute):
+        return _类型标注源码(节点.value) + '.' + 节点.attr
+    if isinstance(节点, ast.Subscript):
+        return _类型标注源码(节点.value) + '[' + _类型标注源码(_取标注下标(节点.slice)) + ']'
+    if isinstance(节点, ast.Tuple):
+        return ', '.join([_类型标注源码(元素) for 元素 in 节点.elts])
+    return ast.dump(节点)
+
+
+class _复杂类型标注转换器(ast.NodeTransformer):
+    def _转换(self, 节点):
+        if isinstance(节点, ast.Subscript):
+            return ast.copy_location(ast.Constant(value=_类型标注源码(节点)), 节点)
+        return 节点
+
+    def visit_arg(self, 节点):
+        self.generic_visit(节点)
+        节点.annotation = self._转换(节点.annotation)
+        return 节点
+
+    def visit_FunctionDef(self, 节点):
+        self.generic_visit(节点)
+        节点.returns = self._转换(节点.returns)
+        return 节点
+
+    def visit_AnnAssign(self, 节点):
+        self.generic_visit(节点)
+        节点.annotation = self._转换(节点.annotation)
+        return 节点
+
+
+def 编译木兰节点(节点, 源码文件名):
+    节点 = _复杂类型标注转换器().visit(节点)
+    return compile(节点, 源码文件名, 'exec')
 
 
 # 参考：https://docs.python.org/3.7/library/threading.html#thread-objects
@@ -51,7 +97,7 @@ def 分析并编译(源码文件名):
 
         分析器 = 语法分析器()
         节点 = 分析器.分析(源码=源码, 源码文件=源码文件名)
-        return compile(节点, 源码文件名, 'exec')
+        return 编译木兰节点(节点, 源码文件名)
 
 
 def 创建空模块(名称):

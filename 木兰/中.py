@@ -11,7 +11,7 @@ from 木兰.交互 import 开始交互
 from 木兰.分析器.词法分析器 import 分词器
 from 木兰.分析器.语法分析器 import 语法分析器
 from 木兰.功用.反馈信息 import 反馈信息
-from 木兰.环境 import 创建全局变量
+from 木兰.环境 import 创建全局变量, 编译木兰节点
 from 木兰.生成 import 木兰, python
 
 
@@ -177,7 +177,7 @@ def 中(命令行各分段=None):
             return
 
         # 参考：https://docs.python.org/3.7/library/functions.html?highlight=compile#compile
-        可执行码 = compile(节点, 源码文件, 'exec')
+        可执行码 = 编译木兰节点(节点, 源码文件)
 
         if 反汇编:
             from dis import dis
