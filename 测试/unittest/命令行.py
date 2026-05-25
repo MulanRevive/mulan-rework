@@ -105,6 +105,26 @@ class test命令行(unittest.TestCase):
 
         self.assertEqual(输出.getvalue(), "<标准输入流>\n[a, b]\n")
 
+    def test_执行代码模式支持复杂类型注解(self):
+        输出 = StringIO()
+        源码 = "a : list [ int ] = 2\nprintln(a)"
+        with redirect_stdout(输出):
+            中(["木兰", "--执行代码=" + 源码])
+
+        self.assertEqual(输出.getvalue(), "2\n")
+
+    def test_标准输入流模式支持复杂类型注解(self):
+        输出 = StringIO()
+        原标准输入 = sys.stdin
+        try:
+            sys.stdin = StringIO("a : list [ int ] = 2\nprintln(a)\n")
+            with redirect_stdout(输出):
+                中(["木兰", "-"])
+        finally:
+            sys.stdin = 原标准输入
+
+        self.assertEqual(输出.getvalue(), "2\n")
+
     def test_被引用木兰模块继承ARGV(self):
         with TemporaryDirectory() as 临时目录:
             临时目录路径 = Path(临时目录)
