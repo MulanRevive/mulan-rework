@@ -53,6 +53,26 @@ class test语法树(unittest.TestCase):
         self.assertEqual([元素.id if isinstance(元素, ast.Name) else 元素.value.id for 元素 in 返回参数.elts], ["float", "list", "dict"])
         self.assertEqual(self.取下标标注(返回参数.elts[1]).id, "str")
 
+    def test_lambda形参(self):
+        节点 = 生成语法树("""
+无参 = () -> 3
+加 = (左, 右) -> 左 + 右
+面积 = (宽:int, 高:int) -> 宽 * 高
+""")
+
+        无参 = 节点.body[0].value
+        self.assertIsInstance(无参, ast.Lambda)
+        self.assertEqual(无参.args.args, [])
+
+        加 = 节点.body[1].value
+        self.assertIsInstance(加, ast.Lambda)
+        self.assertEqual([形参.arg for 形参 in 加.args.args], ["左", "右"])
+
+        面积 = 节点.body[2].value
+        self.assertIsInstance(面积, ast.Lambda)
+        self.assertEqual([形参.arg for 形参 in 面积.args.args], ["宽", "高"])
+        self.assertEqual([形参.annotation.id for 形参 in 面积.args.args], ["int", "int"])
+
     def test_整树比较(self):
         期望值_3_7 = {
             "反斜杠.ul": r"Module(body=[Expr(value=Call(func=Name(id='print', ctx=Load(), lineno=1, col_offset=1), args=[Str(s='\\', lineno=1, col_offset=7)], keywords=[], lineno=1, col_offset=1), lineno=1, col_offset=1)])",
