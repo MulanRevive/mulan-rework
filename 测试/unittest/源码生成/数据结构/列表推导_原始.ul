@@ -1,0 +1,1 @@
+a = func() { __ = []; __.append(i ^ 2)  if (i % 2 == 0) for i in range(10); return __ }()
